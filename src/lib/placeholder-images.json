@@ -7,16 +7,40 @@
       "imageHint": "bananas vibrant"
     },
     {
-      "id": "train-bridge",
-      "description": "A steam train crossing a long stone viaduct in a green valley",
-      "imageUrl": "https://images.unsplash.com/photo-1699308460027-01d7898eee69?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx0cmFpbiUyMHZpYWR1Y3R8ZW58MHx8fHwxNzY0MjUxMDAzfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "train viaduct"
+      "id": "city-night",
+      "description": "A bustling city street at night with neon signs and traffic",
+      "imageUrl": "https://images.unsplash.com/photo-1534970028765-38ce47ef7d8d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "city night"
     },
     {
-      "id": "woman-shopping",
-      "description": "A stylish woman in sunglasses and a scarf holding shopping bags",
-      "imageUrl": "https://images.unsplash.com/photo-1483985988355-763728e1935b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx3b21hbiUyMHNob3BwaW5nfGVufDB8fHx8MTc2NDI1MTAwMnww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "woman shopping"
+      "id": "product-collage",
+      "description": "A collage of various colorful products and items",
+      "imageUrl": "https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "product collage"
+    },
+    {
+      "id": "product-watch",
+      "description": "A modern smartwatch with a black band",
+      "imageUrl": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "smart watch"
+    },
+    {
+      "id": "product-camera",
+      "description": "A vintage-style film camera",
+      "imageUrl": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "vintage camera"
+    },
+    {
+      "id": "product-shoes",
+      "description": "A pair of stylish white sneakers",
+      "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "white sneakers"
+    },
+    {
+      "id": "product-headphones",
+      "description": "Wireless over-ear headphones",
+      "imageUrl": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "wireless headphones"
     }
   ]
 }

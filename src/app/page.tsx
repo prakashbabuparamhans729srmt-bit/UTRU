@@ -13,18 +13,21 @@ import {
   Home as HomeIcon,
   BookCopy,
   PlaySquare,
-  MessageSquareText,
-  Users,
   LayoutGrid,
+  Heart,
+  Star,
 } from 'lucide-react';
 import Image from 'next/image';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 
 export default function Home() {
-  const trainImage = PlaceHolderImages.find((img) => img.id === 'train-bridge');
-  const saleImage = PlaceHolderImages.find((img) => img.id === 'woman-shopping');
+  const cityNightImage = PlaceHolderImages.find((img) => img.id === 'city-night');
+  const productCollageImage = PlaceHolderImages.find((img) => img.id === 'product-collage');
+  const products = PlaceHolderImages.filter(img => img.id.startsWith('product-'));
 
   return (
     <div className="bg-background min-h-screen flex flex-col">
@@ -65,7 +68,7 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="flex-grow pb-24">
+      <main className="flex-grow pb-32">
         <Tabs defaultValue="all" className="w-full px-4 mb-4">
           <TabsList className="grid w-full grid-cols-6 bg-transparent p-0">
             <TabsTrigger value="all" className="pb-2 rounded-none data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary">All</TabsTrigger>
@@ -77,57 +80,85 @@ export default function Home() {
           </TabsList>
         </Tabs>
 
-        <Carousel className="w-full mb-4" opts={{ loop: true }}>
+        <Carousel className="w-full mb-6" opts={{ loop: true }}>
           <CarouselContent>
             <CarouselItem>
-              {trainImage && (
+              {cityNightImage && (
                 <div className="px-4">
                   <Image
-                    src={trainImage.imageUrl}
-                    alt={trainImage.description}
+                    src={cityNightImage.imageUrl}
+                    alt={cityNightImage.description}
                     width={600}
                     height={300}
                     className="rounded-lg object-cover w-full aspect-[2/1]"
-                    data-ai-hint={trainImage.imageHint}
+                    data-ai-hint={cityNightImage.imageHint}
                   />
                 </div>
               )}
             </CarouselItem>
             <CarouselItem>
-              <div className="px-4">
-                <div className="grid grid-cols-2 rounded-lg overflow-hidden">
-                  <div className="bg-purple-300 p-6 flex flex-col justify-center">
-                    <h2 className="text-black font-bold text-lg">BLACK FRIEDAY</h2>
-                    <p className="text-black/70 text-sm">discounts are available</p>
-                  </div>
-                  {saleImage && (
+              {productCollageImage && (
+                <div className="px-4">
                     <Image
-                      src={saleImage.imageUrl}
-                      alt={saleImage.description}
-                      width={300}
+                      src={productCollageImage.imageUrl}
+                      alt={productCollageImage.description}
+                      width={600}
                       height={300}
-                      className="object-cover w-full h-full"
-                      data-ai-hint={saleImage.imageHint}
+                      className="rounded-lg object-cover w-full aspect-[2/1]"
+                      data-ai-hint={productCollageImage.imageHint}
                     />
-                  )}
                 </div>
-              </div>
+              )}
             </CarouselItem>
           </CarouselContent>
         </Carousel>
         
-        <div className="px-4">
+        <div className="px-4 mb-4">
           <div className="flex items-center gap-2 mb-2">
             <Button className="rounded-full bg-primary/20 text-primary hover:bg-primary/30">
-              <Users className="w-4 h-4 mr-2" />
-              Service
-            </Button>
-            <Button variant="ghost" className="rounded-full text-muted-foreground">
               <ShoppingCart className="w-4 h-4 mr-2" />
               Product Buy
             </Button>
+            <Button variant="ghost" className="rounded-full text-muted-foreground">
+              <LayoutGrid className="w-4 h-4 mr-2" />
+              Category
+            </Button>
           </div>
-          <h2 className="text-xl font-bold">popular servicese</h2>
+          <h2 className="text-xl font-bold">Popular Products</h2>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4 px-4">
+          {products.map((product) => (
+            <Card key={product.id} className="overflow-hidden rounded-lg">
+              <CardContent className="p-0">
+                <div className="relative">
+                  <Image
+                    src={product.imageUrl}
+                    alt={product.description}
+                    width={300}
+                    height={300}
+                    className="object-cover w-full aspect-square"
+                    data-ai-hint={product.imageHint}
+                  />
+                  <Button size="icon" variant="secondary" className="absolute top-2 right-2 h-8 w-8 rounded-full">
+                    <Heart className="w-4 h-4 text-muted-foreground" />
+                  </Button>
+                </div>
+                <div className="p-3">
+                  <h3 className="font-semibold text-sm truncate">{product.description}</h3>
+                  <p className="text-xs text-muted-foreground mb-2">Lorem ipsum</p>
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-base">$ {(Math.random() * 50 + 10).toFixed(2)}</span>
+                    <Badge variant="destructive" className="text-xs">{(Math.random() * 40 + 10).toFixed(0)}%</Badge>
+                  </div>
+                   <div className="flex items-center gap-1 text-xs text-amber-500 mt-1">
+                    <Star className="w-3 h-3 fill-current" />
+                    <span className="text-muted-foreground">{(Math.random() * 2 + 3).toFixed(1)} | {(Math.random() * 100 + 50).toFixed(0)}</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </main>
 
