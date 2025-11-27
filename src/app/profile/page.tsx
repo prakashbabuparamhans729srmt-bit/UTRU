@@ -22,11 +22,17 @@ export default function ProfilePage() {
     { icon: Star, text: 'Plus membership' },
     { icon: Star, text: 'My rating', notification: 1 },
     { icon: Settings, text: 'Setting', notification: 1 },
+    // Add more items to demonstrate scrolling
+    { icon: FileText, text: 'Another Item' },
+    { icon: Smartphone, text: 'More Devices' },
+    { icon: BookUser, text: 'Another Address' },
+    { icon: Star, text: 'Extra Membership' },
+    { icon: Settings, text: 'More Settings' },
   ];
 
   return (
-    <div className="bg-gray-900 text-white min-h-screen">
-      <div className="p-4 relative flex flex-col items-center">
+    <div className="bg-gray-900 text-white h-screen flex flex-col">
+      <div className="p-4 relative flex flex-col items-center shrink-0">
         <Link href="/" className="absolute top-4 left-4">
           <Button size="icon" variant="ghost" className="bg-gray-700 rounded-full">
             <ArrowLeft className="w-6 h-6" />
@@ -41,11 +47,11 @@ export default function ProfilePage() {
         <Button className="bg-teal-400 text-gray-900 font-bold rounded-full w-4/5 hover:bg-teal-500 mb-2">
           Continue
         </Button>
-        <p className="text-sm text-gray-400 mb-8">
+        <p className="text-sm text-gray-400 mb-2">
           Log in or sign up to view your complete profile
         </p>
 
-        <div className="flex justify-around w-full max-w-sm mb-8">
+        <div className="flex justify-around w-full max-w-sm my-4">
           <div className="flex flex-col items-center gap-2">
             <div className="p-3 bg-gray-800 rounded-full">
               <CreditCard className="w-6 h-6" />
@@ -67,10 +73,10 @@ export default function ProfilePage() {
         </div>
       </div>
 
-      <div className="bg-white text-gray-900 rounded-t-3xl p-6 flex-grow">
+      <div className="bg-white text-gray-900 rounded-t-3xl p-6 flex-grow overflow-y-auto">
         <div className="space-y-4">
           {menuItems.map((item, index) => (
-            <div key={index} className="flex items-center justify-between">
+            <div key={index} className="flex items-center justify-between py-2">
               <div className="flex items-center gap-4">
                 <item.icon className="w-6 h-6 text-gray-600" />
                 <span className="font-medium">{item.text}</span>
