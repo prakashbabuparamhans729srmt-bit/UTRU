@@ -1,3 +1,10 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-banana",
+      "description": "A bunch of ripe bananas on a vibrant, colorful background",
+      "imageUrl": "https://images.unsplash.com/photo-1590073139156-861678ba66f5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxiYW5hbmFzJTIwdmlicmFudHxlbnwwfHx8fDE3NjQyNTA3NTl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "bananas vibrant"
+    }
+  ]
 }
