@@ -1,16 +1,30 @@
 import { generateBananaFact } from '@/ai/flows/generate-banana-fact';
-import { suggestBananaRecipe } from '@/ai/flows/suggest-banana-recipe';
+import { suggestBananaRecipe, type SuggestBananaRecipeOutput } from '@/ai/flows/suggest-banana-recipe';
 import { BananaFact } from '@/components/banana-fact';
 import { BananaRecipe } from '@/components/banana-recipe';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Banana } from 'lucide-react';
+import { Banana, AlertTriangle } from 'lucide-react';
 import Image from 'next/image';
 
 export default async function Home() {
-  const [initialFact, initialRecipe] = await Promise.all([
-    generateBananaFact(),
-    suggestBananaRecipe(),
-  ]);
+  let initialFact: string;
+  let initialRecipe: SuggestBananaRecipeOutput;
+
+  const apiKey = process.env.GEMINI_API_KEY;
+  const apiKeyMissing = !apiKey || apiKey === 'YOUR_API_KEY_HERE'
+
+  if (apiKeyMissing) {
+    initialFact = "Did you know? Bananas are berries, but strawberries aren't! Add your Gemini API key to the .env file to generate more fun facts.";
+    initialRecipe = {
+      recipeName: 'Classic Banana Bread',
+      instructions: "To get a delicious AI-suggested recipe, please add your Gemini API key to the .env file. For now, here's a classic: Mash 3 ripe bananas, mix with 1/2 cup melted butter, 1 cup sugar, 1 egg, 1 tsp vanilla, 1 tsp baking soda, and 1 1/2 cups flour. Bake at 350°F (175°C) for 1 hour.",
+    };
+  } else {
+    [initialFact, initialRecipe] = await Promise.all([
+      generateBananaFact(),
+      suggestBananaRecipe(),
+    ]);
+  }
 
   const heroImage = PlaceHolderImages.find(img => img.id === 'hero-banana');
 
@@ -47,6 +61,20 @@ export default async function Home() {
             </p>
           </div>
         </section>
+
+        {apiKeyMissing && (
+          <div className="container mx-auto px-4 mt-8">
+            <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded-md" role="alert">
+              <div className="flex">
+                <div className="py-1"><AlertTriangle className="h-6 w-6 text-yellow-500 mr-4" /></div>
+                <div>
+                  <p className="font-bold">API Key Missing</p>
+                  <p className="text-sm">Please add your Gemini API key to the <code>.env</code> file to enable AI-powered features.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         <section className="py-12 md:py-16">
           <div className="container mx-auto px-4">
