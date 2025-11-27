@@ -1,94 +1,163 @@
-import { generateBananaFact } from '@/ai/flows/generate-banana-fact';
-import { suggestBananaRecipe, type SuggestBananaRecipeOutput } from '@/ai/flows/suggest-banana-recipe';
-import { BananaFact } from '@/components/banana-fact';
-import { BananaRecipe } from '@/components/banana-recipe';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from '@/components/ui/carousel';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Banana, AlertTriangle } from 'lucide-react';
+import {
+  Search,
+  X,
+  Mic,
+  ShoppingCart,
+  MapPin,
+  Home as HomeIcon,
+  BookCopy,
+  PlaySquare,
+  MessageSquareText,
+  Users,
+  LayoutGrid,
+} from 'lucide-react';
 import Image from 'next/image';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-export default async function Home() {
-  let initialFact: string;
-  let initialRecipe: SuggestBananaRecipeOutput;
-
-  const apiKey = process.env.GEMINI_API_KEY;
-  const apiKeyMissing = !apiKey || apiKey === 'YOUR_API_KEY_HERE'
-
-  if (apiKeyMissing) {
-    initialFact = "Did you know? Bananas are berries, but strawberries aren't! Add your Gemini API key to the .env file to generate more fun facts.";
-    initialRecipe = {
-      recipeName: 'Classic Banana Bread',
-      instructions: "To get a delicious AI-suggested recipe, please add your Gemini API key to the .env file. For now, here's a classic: Mash 3 ripe bananas, mix with 1/2 cup melted butter, 1 cup sugar, 1 egg, 1 tsp vanilla, 1 tsp baking soda, and 1 1/2 cups flour. Bake at 350°F (175°C) for 1 hour.",
-    };
-  } else {
-    [initialFact, initialRecipe] = await Promise.all([
-      generateBananaFact(),
-      suggestBananaRecipe(),
-    ]);
-  }
-
-  const heroImage = PlaceHolderImages.find(img => img.id === 'hero-banana');
+export default function Home() {
+  const trainImage = PlaceHolderImages.find((img) => img.id === 'train-bridge');
+  const saleImage = PlaceHolderImages.find((img) => img.id === 'woman-shopping');
 
   return (
-    <div className="flex flex-col min-h-dvh bg-background text-foreground">
-      <header className="p-4 sm:p-6 container mx-auto z-10">
-        <div className="flex items-center gap-3">
-          <Banana className="w-10 h-10 text-primary" />
-          <h1 className="text-3xl font-bold font-headline tracking-tight">
-            Banana Buddy
-          </h1>
-        </div>
-      </header>
-
-      <main className="flex-grow">
-        <section className="relative w-full h-[40vh] md:h-[50vh] flex flex-col items-center justify-center text-center overflow-hidden bg-yellow-100/50">
-          {heroImage && (
-            <Image
-              src={heroImage.imageUrl}
-              alt={heroImage.description}
-              fill
-              className="object-cover"
-              data-ai-hint={heroImage.imageHint}
-              priority
-            />
-          )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-          <div className="relative z-10 p-4 flex flex-col items-center justify-end h-full w-full pb-10">
-            <h2 className="text-4xl md:text-6xl font-extrabold text-white font-headline drop-shadow-lg">
-              Go Bananas!
-            </h2>
-            <p className="mt-2 text-lg md:text-xl text-yellow-200 max-w-2xl mx-auto drop-shadow-md">
-              Your daily dose of banana facts and fun recipes.
-            </p>
-          </div>
-        </section>
-
-        {apiKeyMissing && (
-          <div className="container mx-auto px-4 mt-8">
-            <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded-md" role="alert">
-              <div className="flex">
-                <div className="py-1"><AlertTriangle className="h-6 w-6 text-yellow-500 mr-4" /></div>
-                <div>
-                  <p className="font-bold">API Key Missing</p>
-                  <p className="text-sm">Please add your Gemini API key to the <code>.env</code> file to enable AI-powered features.</p>
-                </div>
+    <div className="bg-background min-h-screen flex flex-col">
+      <header className="p-4 bg-background/80 backdrop-blur-sm sticky top-0 z-50">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+              <div className="w-4 h-4 bg-background rounded-full" />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-xs text-muted-foreground">Text Widget</span>
+              <div className="flex items-center gap-1">
+                <MapPin className="w-4 h-4 text-primary" />
+                <span className="font-semibold text-sm">Noida 63</span>
               </div>
             </div>
           </div>
-        )}
-
-        <section className="py-12 md:py-16">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-stretch">
-              <BananaFact initialFact={initialFact} />
-              <BananaRecipe initialRecipe={initialRecipe} />
-            </div>
+          <div className="flex items-center gap-4">
+            <Avatar>
+              <AvatarImage src="https://picsum.photos/seed/avatar/40/40" />
+              <AvatarFallback>U</AvatarFallback>
+            </Avatar>
+            <ShoppingCart className="w-6 h-6" />
           </div>
-        </section>
+        </div>
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+          <input
+            type="text"
+            placeholder="Search for..."
+            className="w-full bg-input rounded-full pl-10 pr-16 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+          <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+            <X className="w-5 h-5 text-muted-foreground cursor-pointer" />
+            <div className="w-px h-5 bg-border"></div>
+            <Mic className="w-5 h-5 text-muted-foreground cursor-pointer" />
+          </div>
+        </div>
+      </header>
+
+      <main className="flex-grow pb-24">
+        <Tabs defaultValue="all" className="w-full px-4 mb-4">
+          <TabsList className="grid w-full grid-cols-6 bg-transparent p-0">
+            <TabsTrigger value="all" className="pb-2 rounded-none data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary">All</TabsTrigger>
+            <TabsTrigger value="electronics" className="pb-2 rounded-none data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary">Electronics</TabsTrigger>
+            <TabsTrigger value="beauty" className="pb-2 rounded-none data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary">Beauty</TabsTrigger>
+            <TabsTrigger value="kids" className="pb-2 rounded-none data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary">Kids</TabsTrigger>
+            <TabsTrigger value="gifting" className="pb-2 rounded-none data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary">Gifting</TabsTrigger>
+            <TabsTrigger value="premium" className="pb-2 rounded-none data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary">Premium</TabsTrigger>
+          </TabsList>
+        </Tabs>
+
+        <Carousel className="w-full mb-4" opts={{ loop: true }}>
+          <CarouselContent>
+            <CarouselItem>
+              {trainImage && (
+                <div className="px-4">
+                  <Image
+                    src={trainImage.imageUrl}
+                    alt={trainImage.description}
+                    width={600}
+                    height={300}
+                    className="rounded-lg object-cover w-full aspect-[2/1]"
+                    data-ai-hint={trainImage.imageHint}
+                  />
+                </div>
+              )}
+            </CarouselItem>
+            <CarouselItem>
+              <div className="px-4">
+                <div className="grid grid-cols-2 rounded-lg overflow-hidden">
+                  <div className="bg-purple-300 p-6 flex flex-col justify-center">
+                    <h2 className="text-black font-bold text-lg">BLACK FRIEDAY</h2>
+                    <p className="text-black/70 text-sm">discounts are available</p>
+                  </div>
+                  {saleImage && (
+                    <Image
+                      src={saleImage.imageUrl}
+                      alt={saleImage.description}
+                      width={300}
+                      height={300}
+                      className="object-cover w-full h-full"
+                      data-ai-hint={saleImage.imageHint}
+                    />
+                  )}
+                </div>
+              </div>
+            </CarouselItem>
+          </CarouselContent>
+        </Carousel>
+        
+        <div className="px-4">
+          <div className="flex items-center gap-2 mb-2">
+            <Button className="rounded-full bg-primary/20 text-primary hover:bg-primary/30">
+              <Users className="w-4 h-4 mr-2" />
+              Service
+            </Button>
+            <Button variant="ghost" className="rounded-full text-muted-foreground">
+              <ShoppingCart className="w-4 h-4 mr-2" />
+              Product Buy
+            </Button>
+          </div>
+          <h2 className="text-xl font-bold">popular servicese</h2>
+        </div>
       </main>
 
-      <footer className="py-6 px-4 sm:px-6 border-t bg-card">
-        <div className="container mx-auto text-center text-sm text-muted-foreground">
-          <p>Powered by AI & Bananas &copy; {new Date().getFullYear()} Banana Buddy.</p>
+      <div className="fixed bottom-24 right-4 z-50">
+        <Button size="icon" className="rounded-full w-14 h-14 bg-primary shadow-lg">
+          <ShoppingCart className="w-6 h-6"/>
+        </Button>
+      </div>
+
+      <footer className="fixed bottom-0 left-0 right-0 bg-card border-t border-border z-50">
+        <div className="flex justify-around items-center p-2">
+          <Button variant="ghost" className="flex flex-col items-center h-auto text-primary">
+            <HomeIcon className="w-6 h-6 mb-1" />
+            <span className="text-xs">Home</span>
+          </Button>
+          <Button variant="ghost" className="flex flex-col items-center h-auto text-muted-foreground">
+            <BookCopy className="w-6 h-6 mb-1" />
+            <span className="text-xs">Library</span>
+          </Button>
+          <Button size="icon" className="w-16 h-16 rounded-full bg-card -translate-y-4 shadow-md border-4 border-background">
+             <div className="w-6 h-6 rounded-full bg-muted-foreground" />
+          </Button>
+          <Button variant="ghost" className="flex flex-col items-center h-auto text-muted-foreground">
+            <PlaySquare className="w-6 h-6 mb-1" />
+            <span className="text-xs">Explore</span>
+          </Button>
+          <Button variant="ghost" className="flex flex-col items-center h-auto text-muted-foreground">
+            <LayoutGrid className="w-6 h-6 mb-1" />
+            <span className="text-xs">Opinion</span>
+          </Button>
         </div>
       </footer>
     </div>

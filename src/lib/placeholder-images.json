@@ -5,6 +5,18 @@
       "description": "A bunch of ripe bananas on a vibrant, colorful background",
       "imageUrl": "https://images.unsplash.com/photo-1590073139156-861678ba66f5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxiYW5hbmFzJTIwdmlicmFudHxlbnwwfHx8fDE3NjQyNTA3NTl8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "bananas vibrant"
+    },
+    {
+      "id": "train-bridge",
+      "description": "A steam train crossing a long stone viaduct in a green valley",
+      "imageUrl": "https://images.unsplash.com/photo-1699308460027-01d7898eee69?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx0cmFpbiUyMHZpYWR1Y3R8ZW58MHx8fHwxNzY0MjUxMDAzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "train viaduct"
+    },
+    {
+      "id": "woman-shopping",
+      "description": "A stylish woman in sunglasses and a scarf holding shopping bags",
+      "imageUrl": "https://images.unsplash.com/photo-1483985988355-763728e1935b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx3b21hbiUyMHNob3BwaW5nfGVufDB8fHx8MTc2NDI1MTAwMnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "woman shopping"
     }
   ]
 }
