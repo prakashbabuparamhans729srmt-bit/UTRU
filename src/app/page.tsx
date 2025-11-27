@@ -18,6 +18,7 @@ import {
   Star,
 } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -46,10 +47,12 @@ export default function Home() {
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <Avatar>
-              <AvatarImage src="https://picsum.photos/seed/avatar/40/40" />
-              <AvatarFallback>U</AvatarFallback>
-            </Avatar>
+            <Link href="/profile">
+              <Avatar>
+                <AvatarImage src="https://picsum.photos/seed/avatar/40/40" />
+                <AvatarFallback>U</AvatarFallback>
+              </Avatar>
+            </Link>
             <ShoppingCart className="w-6 h-6" />
           </div>
         </div>
