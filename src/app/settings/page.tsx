@@ -2,7 +2,7 @@
 
 'use client';
 
-import { ArrowLeft, Bell, Check, Mail, MessageSquare, Phone, Sun, Globe } from 'lucide-react';
+import { ChevronLeft, Bell, Check, Mail, MessageSquare, Phone, Sun, Globe } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
@@ -43,7 +43,7 @@ export default function SettingsPage() {
       <div className="bg-white text-black rounded-b-[2.5rem] flex-grow">
         <header className="p-4 flex items-center gap-4">
           <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
-            <ArrowLeft />
+            <ChevronLeft />
           </Button>
           <h1 className="text-lg font-semibold">{translations.settings.title}</h1>
         </header>

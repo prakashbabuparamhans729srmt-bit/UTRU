@@ -4,7 +4,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
-  ArrowLeft,
+  ChevronLeft,
   ChevronRight,
   CreditCard,
   Headset,
@@ -27,6 +27,8 @@ import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
 import { useTheme } from '@/context/ThemeContext';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
 
 export default function ProfilePage() {
   const { toast } = useToast();
@@ -88,7 +90,7 @@ export default function ProfilePage() {
           className="absolute top-4 left-4 rounded-full bg-black text-white hover:bg-gray-700"
           onClick={() => router.back()}
         >
-          <ArrowLeft className="w-6 h-6" />
+          <ChevronLeft className="w-6 h-6" />
         </Button>
         <div className="mt-8 mb-4">
           <Avatar className="w-24 h-24 border-4 border-gray-700 ring-2 ring-teal-400">
@@ -218,32 +220,27 @@ export default function ProfilePage() {
           </div>
         )}
 
-        <div className="mt-8 p-1 bg-gray-200 rounded-full flex justify-between">
-          <Button
-            variant="ghost"
-            className={`rounded-full flex-1 ${
-              theme === 'light'
-                ? 'bg-white text-black shadow'
-                : 'bg-transparent text-gray-500'
-            }`}
-            onClick={() => theme === 'dark' && toggleTheme()}
-          >
-            <Sun className="w-4 h-4 mr-2" />
-            {translations.profile.lightMode}
-          </Button>
-          <Button
-            variant="secondary"
-            className={`rounded-full flex-1 ${
-              theme === 'dark'
-                ? 'bg-white text-black shadow'
-                : 'bg-transparent text-gray-500'
-            }`}
-            onClick={() => theme === 'light' && toggleTheme()}
-          >
-            <Moon className="w-4 h-4 mr-2" />
-            {translations.profile.darkMode}
-          </Button>
+        <div className="flex items-center space-x-2 mt-8 p-1 bg-gray-200 rounded-full">
+            <Label htmlFor="theme-switch" className="flex-1 text-center">
+                <div className={`w-full p-2 rounded-full flex items-center justify-center cursor-pointer transition-colors ${theme === 'light' ? 'bg-white text-black shadow' : 'bg-transparent text-gray-500'}`}>
+                    <Sun className="w-4 h-4 mr-2" />
+                    {translations.profile.lightMode}
+                </div>
+            </Label>
+            <Switch
+                id="theme-switch"
+                checked={theme === 'dark'}
+                onCheckedChange={toggleTheme}
+                className="hidden"
+            />
+             <Label htmlFor="theme-switch" className="flex-1 text-center">
+                <div className={`w-full p-2 rounded-full flex items-center justify-center cursor-pointer transition-colors ${theme === 'dark' ? 'bg-white text-black shadow' : 'bg-transparent text-gray-500'}`}>
+                    <Moon className="w-4 h-4 mr-2" />
+                    {translations.profile.darkMode}
+                </div>
+            </Label>
         </div>
+
 
         <p className="text-center text-gray-400 text-sm mt-6">
           {translations.profile.appVersions}

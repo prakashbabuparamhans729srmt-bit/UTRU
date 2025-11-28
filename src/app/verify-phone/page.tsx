@@ -2,7 +2,7 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ArrowLeft } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 export default function VerifyPhonePage() {
@@ -18,7 +18,7 @@ export default function VerifyPhonePage() {
             className="absolute left-0 top-1/2 -translate-y-1/2 rounded-full w-12 h-12 bg-black text-white hover:bg-gray-700"
             onClick={() => router.back()}
           >
-            <ArrowLeft className="w-6 h-6" />
+            <ChevronLeft className="w-6 h-6" />
           </Button>
           <div className="flex flex-col items-center">
             <div className="w-8 h-8 border-4 border-white rounded-full mb-2"></div>

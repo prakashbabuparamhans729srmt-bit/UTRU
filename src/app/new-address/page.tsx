@@ -1,7 +1,7 @@
 
 'use client';
 
-import { ArrowLeft, Home, Building, Hotel, MoreHorizontal, X } from 'lucide-react';
+import { ChevronLeft, Home, Building, Hotel, MoreHorizontal, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -28,7 +28,7 @@ export default function NewAddressPage() {
     <div className="bg-white text-black min-h-screen">
       <header className="p-4 flex items-center gap-4 sticky top-0 bg-white z-10 border-b">
         <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
-          <ArrowLeft />
+          <ChevronLeft />
         </Button>
         <h1 className="text-lg font-semibold">{translations.newAddress.title}</h1>
       </header>

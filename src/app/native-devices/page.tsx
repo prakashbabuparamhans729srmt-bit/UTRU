@@ -1,7 +1,7 @@
 
 'use client';
 
-import { ArrowLeft } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 
@@ -12,7 +12,7 @@ export default function NativeDevicesPage() {
     <div className="bg-gray-800 min-h-screen flex flex-col">
       <header className="p-4 flex items-center gap-4 border-b bg-white rounded-b-lg sticky top-0 z-10">
         <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
-          <ArrowLeft />
+          <ChevronLeft />
         </Button>
         <h1 className="text-lg font-semibold text-black">Native</h1>
       </header>

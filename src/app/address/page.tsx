@@ -1,7 +1,7 @@
 
 'use client';
 
-import { ArrowLeft, User } from 'lucide-react';
+import { ChevronLeft, User } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
@@ -16,7 +16,7 @@ export default function AddressPage() {
     <div className="bg-background text-foreground min-h-screen flex flex-col">
       <header className="p-4 bg-card flex items-center gap-4 sticky top-0 z-10 border-b">
         <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
-          <ArrowLeft />
+          <ChevronLeft />
         </Button>
         <h1 className="text-lg font-semibold">{translations.address.title}</h1>
       </header>

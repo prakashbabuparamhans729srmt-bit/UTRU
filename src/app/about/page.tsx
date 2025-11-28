@@ -1,7 +1,7 @@
 
 'use client';
 
-import { ArrowLeft } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/context/LanguageContext';
@@ -15,7 +15,7 @@ export default function AboutUsPage() {
       <div className="bg-white rounded-b-lg text-black">
         <header className="p-4 flex items-center gap-4 border-b">
           <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
-            <ArrowLeft />
+            <ChevronLeft />
           </Button>
           <h1 className="text-lg font-semibold text-center flex-grow -ml-12">{translations.about.title}</h1>
         </header>

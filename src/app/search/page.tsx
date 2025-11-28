@@ -8,7 +8,7 @@ import {
   type ImagePlaceholder,
 } from '@/lib/placeholder-images';
 import {
-  ArrowLeft,
+  ChevronLeft,
   Heart,
   Mic,
   Search,
@@ -156,7 +156,7 @@ function SearchResults() {
       <header className="p-4 bg-background/80 backdrop-blur-sm sticky top-0 z-50 border-b">
         <div className="flex items-center gap-4">
           <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
-              <ArrowLeft />
+              <ChevronLeft />
           </Button>
           <form onSubmit={handleSearchSubmit} className="relative flex-grow">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
