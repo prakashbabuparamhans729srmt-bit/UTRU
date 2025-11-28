@@ -1,14 +1,14 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from '@/components/ui/carousel';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { PlaceHolderImages, type ImagePlaceholder } from '@/lib/placeholder-images';
 import {
   Search,
   X,
@@ -29,6 +29,86 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+
+interface ProductGridProps {
+  products: ImagePlaceholder[];
+}
+
+function ProductGrid({ products }: ProductGridProps) {
+  const [productList, setProductList] = useState<any[]>([]);
+
+  useEffect(() => {
+    setProductList(
+      products.map((product) => ({
+        ...product,
+        price: (Math.random() * 50 + 10).toFixed(2),
+        discount: (Math.random() * 40 + 10).toFixed(0),
+        rating: (Math.random() * 2 + 3).toFixed(1),
+        reviews: (Math.random() * 100 + 50).toFixed(0),
+      }))
+    );
+  }, [products]);
+
+  if (!productList.length) {
+    return (
+        <div className="grid grid-cols-2 gap-4 px-4">
+            {Array.from({ length: 4 }).map((_, i) => (
+                <Card key={i} className="overflow-hidden rounded-lg">
+                    <CardContent className="p-0">
+                        <div className="w-full aspect-square bg-muted animate-pulse" />
+                        <div className="p-3 space-y-2">
+                            <div className="h-4 bg-muted animate-pulse rounded-md" />
+                            <div className="h-3 w-1/2 bg-muted animate-pulse rounded-md" />
+                             <div className="flex items-center justify-between">
+                                <div className="h-5 w-12 bg-muted animate-pulse rounded-md" />
+                                <div className="h-5 w-8 bg-muted animate-pulse rounded-md" />
+                            </div>
+                            <div className="h-4 w-1/3 bg-muted animate-pulse rounded-md" />
+                        </div>
+                    </CardContent>
+                </Card>
+            ))}
+        </div>
+    );
+  }
+
+  return (
+    <div className="grid grid-cols-2 gap-4 px-4">
+      {productList.map((product) => (
+        <Card key={product.id} className="overflow-hidden rounded-lg">
+          <CardContent className="p-0">
+            <div className="relative">
+              <Image
+                src={product.imageUrl}
+                alt={product.description}
+                width={300}
+                height={300}
+                className="object-cover w-full aspect-square"
+                data-ai-hint={product.imageHint}
+              />
+              <Button size="icon" variant="secondary" className="absolute top-2 right-2 h-8 w-8 rounded-full">
+                <Heart className="w-4 h-4 text-muted-foreground" />
+              </Button>
+            </div>
+            <div className="p-3">
+              <h3 className="font-semibold text-sm truncate">{product.description}</h3>
+              <p className="text-xs text-muted-foreground mb-2">Lorem ipsum</p>
+              <div className="flex items-center justify-between">
+                <span className="font-bold text-base">$ {product.price}</span>
+                <Badge variant="destructive" className="text-xs">{product.discount}%</Badge>
+              </div>
+               <div className="flex items-center gap-1 text-xs text-amber-500 mt-1">
+                <Star className="w-3 h-3 fill-current" />
+                <span className="text-muted-foreground">{product.rating} | {product.reviews}</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
+  );
+}
+
 
 export default function Home() {
   const router = useRouter();
@@ -158,39 +238,7 @@ export default function Home() {
           <h2 className="text-xl font-bold">Popular Products</h2>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 px-4">
-          {products.map((product) => (
-            <Card key={product.id} className="overflow-hidden rounded-lg">
-              <CardContent className="p-0">
-                <div className="relative">
-                  <Image
-                    src={product.imageUrl}
-                    alt={product.description}
-                    width={300}
-                    height={300}
-                    className="object-cover w-full aspect-square"
-                    data-ai-hint={product.imageHint}
-                  />
-                  <Button size="icon" variant="secondary" className="absolute top-2 right-2 h-8 w-8 rounded-full">
-                    <Heart className="w-4 h-4 text-muted-foreground" />
-                  </Button>
-                </div>
-                <div className="p-3">
-                  <h3 className="font-semibold text-sm truncate">{product.description}</h3>
-                  <p className="text-xs text-muted-foreground mb-2">Lorem ipsum</p>
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-base">$ {(Math.random() * 50 + 10).toFixed(2)}</span>
-                    <Badge variant="destructive" className="text-xs">{(Math.random() * 40 + 10).toFixed(0)}%</Badge>
-                  </div>
-                   <div className="flex items-center gap-1 text-xs text-amber-500 mt-1">
-                    <Star className="w-3 h-3 fill-current" />
-                    <span className="text-muted-foreground">{(Math.random() * 2 + 3).toFixed(1)} | {(Math.random() * 100 + 50).toFixed(0)}</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        <ProductGrid products={products} />
       </main>
 
       <div className="fixed bottom-24 right-4 z-50">
