@@ -22,6 +22,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useRouter } from 'next/navigation';
+import { useLanguage } from '@/context/LanguageContext';
 
 
 interface ProductGridProps {
@@ -128,6 +129,7 @@ function SearchResults() {
   const [filteredProducts, setFilteredProducts] = useState<
     ImagePlaceholder[]
   >([]);
+  const { translations } = useLanguage();
 
   useEffect(() => {
     if (query) {
@@ -162,7 +164,7 @@ function SearchResults() {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
             <input
               type="text"
-              placeholder="Search for..."
+              placeholder={translations.search.searchPlaceholder}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-input rounded-full pl-10 pr-16 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
@@ -187,15 +189,15 @@ function SearchResults() {
         {filteredProducts.length > 0 ? (
           <>
             <h1 className="text-xl font-bold mb-4">
-              Results for &quot;{query}&quot;
+              {translations.search.resultsFor} &quot;{query}&quot;
             </h1>
             <ProductGrid products={filteredProducts} />
           </>
         ) : (
           <div className="text-center py-10">
-            <h2 className="text-2xl font-bold">No results found</h2>
+            <h2 className="text-2xl font-bold">{translations.search.noResults}</h2>
             <p className="text-muted-foreground">
-              Try searching for something else.
+              {translations.search.tryAgain}
             </p>
           </div>
         )}
@@ -211,3 +213,5 @@ export default function SearchPage() {
         </Suspense>
     )
 }
+
+    

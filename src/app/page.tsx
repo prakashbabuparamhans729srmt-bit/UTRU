@@ -29,6 +29,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface ProductGridProps {
   products: ImagePlaceholder[];
@@ -113,6 +114,7 @@ function ProductGrid({ products }: ProductGridProps) {
 export default function Home() {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
+  const { translations } = useLanguage();
 
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -134,7 +136,7 @@ export default function Home() {
               <div className="w-4 h-4 bg-background rounded-full" />
             </div>
             <Link href="/address" className="flex flex-col">
-              <span className="text-xs text-muted-foreground">Text Widget</span>
+              <span className="text-xs text-muted-foreground">{translations.home.locationLabel}</span>
               <div className="flex items-center gap-1">
                 <MapPin className="w-4 h-4 text-primary" />
                 <span className="font-semibold text-sm">Noida 63</span>
@@ -155,7 +157,7 @@ export default function Home() {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
             <input
               type="text"
-              placeholder="Search for..."
+              placeholder={translations.home.searchPlaceholder}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-input rounded-full pl-10 pr-16 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
@@ -182,12 +184,12 @@ export default function Home() {
       <main className="flex-grow pb-32">
         <Tabs defaultValue="all" className="w-full px-4 mb-4">
           <TabsList className="grid w-full grid-cols-6 bg-transparent p-0">
-            <TabsTrigger value="all" className="pb-2 rounded-none data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary">All</TabsTrigger>
-            <TabsTrigger value="electronics" className="pb-2 rounded-none data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary">Electronics</TabsTrigger>
-            <TabsTrigger value="beauty" className="pb-2 rounded-none data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary">Beauty</TabsTrigger>
-            <TabsTrigger value="kids" className="pb-2 rounded-none data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary">Kids</TabsTrigger>
-            <TabsTrigger value="gifting" className="pb-2 rounded-none data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary">Gifting</TabsTrigger>
-            <TabsTrigger value="premium" className="pb-2 rounded-none data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary">Premium</TabsTrigger>
+            <TabsTrigger value="all" className="pb-2 rounded-none data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary">{translations.home.all}</TabsTrigger>
+            <TabsTrigger value="electronics" className="pb-2 rounded-none data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary">{translations.home.electronics}</TabsTrigger>
+            <TabsTrigger value="beauty" className="pb-2 rounded-none data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary">{translations.home.beauty}</TabsTrigger>
+            <TabsTrigger value="kids" className="pb-2 rounded-none data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary">{translations.home.kids}</TabsTrigger>
+            <TabsTrigger value="gifting" className="pb-2 rounded-none data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary">{translations.home.gifting}</TabsTrigger>
+            <TabsTrigger value="premium" className="pb-2 rounded-none data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary">{translations.home.premium}</TabsTrigger>
           </TabsList>
         </Tabs>
 
@@ -228,14 +230,14 @@ export default function Home() {
           <div className="flex items-center gap-2 mb-2">
             <Button className="rounded-full bg-primary/20 text-primary hover:bg-primary/30">
               <ShoppingCart className="w-4 h-4 mr-2" />
-              Product Buy
+              {translations.home.productBuy}
             </Button>
             <Button variant="ghost" className="rounded-full text-muted-foreground">
               <LayoutGrid className="w-4 h-4 mr-2" />
-              Category
+              {translations.home.category}
             </Button>
           </div>
-          <h2 className="text-xl font-bold">Popular Products</h2>
+          <h2 className="text-xl font-bold">{translations.home.popularProducts}</h2>
         </div>
 
         <ProductGrid products={products} />
@@ -251,25 +253,27 @@ export default function Home() {
         <div className="flex justify-around items-center p-2">
           <Button variant="ghost" className="flex flex-col items-center h-auto text-primary">
             <HomeIcon className="w-6 h-6 mb-1" />
-            <span className="text-xs">Home</span>
+            <span className="text-xs">{translations.home.home}</span>
           </Button>
           <Button variant="ghost" className="flex flex-col items-center h-auto text-muted-foreground">
             <BookCopy className="w-6 h-6 mb-1" />
-            <span className="text-xs">Library</span>
+            <span className="text-xs">{translations.home.library}</span>
           </Button>
           <Link href="/location" className="w-16 h-16 rounded-full bg-card -translate-y-4 shadow-md border-4 border-background flex items-center justify-center">
              <div className="w-6 h-6 rounded-full bg-muted-foreground" />
           </Link>
           <Button variant="ghost" className="flex flex-col items-center h-auto text-muted-foreground">
             <PlaySquare className="w-6 h-6 mb-1" />
-            <span className="text-xs">Explore</span>
+            <span className="text-xs">{translations.home.explore}</span>
           </Button>
           <Button variant="ghost" className="flex flex-col items-center h-auto text-muted-foreground">
             <LayoutGrid className="w-6 h-6 mb-1" />
-            <span className="text-xs">Opinion</span>
+            <span className="text-xs">{translations.home.opinion}</span>
           </Button>
         </div>
       </footer>
     </div>
   );
 }
+
+    

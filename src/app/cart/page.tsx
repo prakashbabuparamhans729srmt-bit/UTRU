@@ -1,3 +1,5 @@
+
+'use client';
 import {
   ArrowLeft,
   Search,
@@ -15,8 +17,10 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function CartPage() {
+  const { translations } = useLanguage();
   const shoppingWomanImage = PlaceHolderImages.find(
     (img) => img.id === 'location-shopping-woman'
   );
@@ -55,7 +59,7 @@ export default function CartPage() {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
             <input
               type="text"
-              placeholder="Search for..."
+              placeholder={translations.cart.searchPlaceholder}
               className="w-full bg-input rounded-full pl-10 pr-16 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
             />
             <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
@@ -74,8 +78,8 @@ export default function CartPage() {
       <main className="p-4">
         <Card className="flex overflow-hidden rounded-lg mb-6">
           <div className="w-1/2 bg-[#E4C0E5] p-4 flex flex-col justify-center items-center text-center">
-            <h2 className="text-black font-bold text-xl">BLACK FRIEDAY</h2>
-            <p className="text-black text-sm">discounts are available</p>
+            <h2 className="text-black font-bold text-xl">{translations.cart.blackFriday}</h2>
+            <p className="text-black text-sm">{translations.cart.discountsAvailable}</p>
           </div>
           <div className="w-1/2">
             {shoppingWomanImage && (
@@ -99,8 +103,8 @@ export default function CartPage() {
 
         <div className="mb-6">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-bold">Categories</h2>
-            <Button variant="link" className="text-primary">See all</Button>
+            <h2 className="text-lg font-bold">{translations.cart.categories}</h2>
+            <Button variant="link" className="text-primary">{translations.cart.seeAll}</Button>
           </div>
           <div className="grid grid-cols-6 gap-2 text-center">
             {categories.map((category, index) => (
@@ -116,8 +120,8 @@ export default function CartPage() {
 
         <div className="mb-6">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-bold">Popular products</h2>
-             <Button variant="link" className="text-primary">See all</Button>
+            <h2 className="text-lg font-bold">{translations.cart.popularProducts}</h2>
+             <Button variant="link" className="text-primary">{translations.cart.seeAll}</Button>
           </div>
           <div className="flex overflow-x-auto gap-4 pb-4">
             {popularProducts.map((product) => (
@@ -154,3 +158,5 @@ export default function CartPage() {
     </div>
   );
 }
+
+    

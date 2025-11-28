@@ -4,9 +4,11 @@
 import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function SupportPage() {
   const router = useRouter();
+  const { translations } = useLanguage();
 
   return (
     <div className="bg-white text-black min-h-screen">
@@ -14,14 +16,16 @@ export default function SupportPage() {
         <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
           <ArrowLeft />
         </Button>
-        <h1 className="text-lg font-semibold">Support</h1>
+        <h1 className="text-lg font-semibold">{translations.support.title}</h1>
       </header>
       <main className="p-4">
         <div className="py-4">
-          <h2 className="font-semibold">Ai chatbot</h2>
-          <p className="text-sm text-gray-500">Web link</p>
+          <h2 className="font-semibold">{translations.support.aiChatbot}</h2>
+          <p className="text-sm text-gray-500">{translations.support.webLink}</p>
         </div>
       </main>
     </div>
   );
 }
+
+    

@@ -9,17 +9,19 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function NewAddressPage() {
   const router = useRouter();
+  const { translations } = useLanguage();
   const seaImage = PlaceHolderImages.find((img) => img.id === 'new-address-sea');
   const treesImage = PlaceHolderImages.find((img) => img.id === 'new-address-trees');
 
   const addressTypes = [
-    { icon: Home, label: 'Home' },
-    { icon: Building, label: 'work' },
-    { icon: Hotel, label: 'Hotel' },
-    { icon: MoreHorizontal, label: 'Other' },
+    { icon: Home, label: translations.newAddress.home },
+    { icon: Building, label: translations.newAddress.work },
+    { icon: Hotel, label: translations.newAddress.hotel },
+    { icon: MoreHorizontal, label: translations.newAddress.other },
   ];
 
   return (
@@ -28,22 +30,22 @@ export default function NewAddressPage() {
         <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
           <ArrowLeft />
         </Button>
-        <h1 className="text-lg font-semibold">newaddress</h1>
+        <h1 className="text-lg font-semibold">{translations.newAddress.title}</h1>
       </header>
 
       <main className="p-4">
-        <h2 className="text-xl font-bold mb-4">Enter complete address</h2>
+        <h2 className="text-xl font-bold mb-4">{translations.newAddress.completeAddress}</h2>
 
         <section className="mb-6">
-          <h3 className="font-semibold mb-2">Who you are ordering for ?</h3>
+          <h3 className="font-semibold mb-2">{translations.newAddress.orderingFor}</h3>
           <RadioGroup defaultValue="myself" className="flex gap-6">
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="myself" id="myself" />
-              <Label htmlFor="myself">My self</Label>
+              <Label htmlFor="myself">{translations.newAddress.myself}</Label>
             </div>
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="someone" id="someone" />
-              <Label htmlFor="someone">Someone else</Label>
+              <Label htmlFor="someone">{translations.newAddress.someoneElse}</Label>
             </div>
           </RadioGroup>
         </section>
@@ -90,42 +92,44 @@ export default function NewAddressPage() {
 
         <form className="space-y-6">
           <div className="relative">
-            <Label htmlFor="name" className="text-gray-500">Name</Label>
+            <Label htmlFor="name" className="text-gray-500">{translations.newAddress.name}</Label>
             <Input id="name" type="text" className="bg-gray-100 border-none rounded-xl h-12 pr-10" />
             <Button size="icon" variant="ghost" className="absolute right-2 top-7 text-gray-500">
                 <X className="w-4 h-4"/>
             </Button>
           </div>
           <div className="relative">
-            <Label htmlFor="mobile" className="text-gray-500">Mobile no.</Label>
+            <Label htmlFor="mobile" className="text-gray-500">{translations.newAddress.mobile}</Label>
             <Input id="mobile" type="tel" className="bg-gray-100 border-none rounded-xl h-12 pr-10" />
             <Button size="icon" variant="ghost" className="absolute right-2 top-7 text-gray-500">
                 <X className="w-4 h-4"/>
             </Button>
           </div>
           <div className="relative">
-            <Label htmlFor="address-line" className="text-gray-500">Flat / House no / Building name</Label>
+            <Label htmlFor="address-line" className="text-gray-500">{translations.newAddress.flatHouse}</Label>
             <Input id="address-line" type="text" className="bg-gray-100 border-none rounded-xl h-12 pr-10" />
             <Button size="icon" variant="ghost" className="absolute right-2 top-7 text-gray-500">
                 <X className="w-4 h-4"/>
             </Button>
           </div>
           <div className="relative">
-            <Label htmlFor="floor" className="text-gray-500">Floor (Optional)</Label>
+            <Label htmlFor="floor" className="text-gray-500">{translations.newAddress.floor}</Label>
             <Input id="floor" type="text" className="bg-gray-100 border-none rounded-xl h-12 pr-10" />
              <Button size="icon" variant="ghost" className="absolute right-2 top-7 text-gray-500">
                 <X className="w-4 h-4"/>
             </Button>
           </div>
           <div className="relative">
-            <Label htmlFor="landmark" className="text-gray-500">Near by landmark (Optional)</Label>
+            <Label htmlFor="landmark" className="text-gray-500">{translations.newAddress.landmark}</Label>
             <Input id="landmark" type="text" className="bg-gray-100 border-none rounded-xl h-12 pr-10" />
           </div>
           <Button className="w-full bg-black text-white rounded-full h-14 text-lg hover:bg-gray-800 mt-8">
-            Save
+            {translations.newAddress.save}
           </Button>
         </form>
       </main>
     </div>
   );
 }
+
+    

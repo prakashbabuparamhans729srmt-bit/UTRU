@@ -11,7 +11,7 @@ import { useLanguage } from '@/context/LanguageContext';
 
 export default function LanguagePage() {
   const router = useRouter();
-  const { language, setLanguage } = useLanguage();
+  const { language, setLanguage, translations } = useLanguage();
 
   const languages = [
     'English', 'हिंदी', 'असमिया', 'Bhojpuri', 'बंगाली', 'बोडो', 'डोगरी',
@@ -26,13 +26,13 @@ export default function LanguagePage() {
         <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full">
           <ArrowLeft />
         </Button>
-        <h1 className="text-lg font-semibold">Select Language</h1>
+        <h1 className="text-lg font-semibold">{translations.language.title}</h1>
       </header>
       
       <main className="p-4">
         <Card>
           <CardHeader>
-            <CardTitle>Choose your preferred language</CardTitle>
+            <CardTitle>{translations.language.chooseLanguage}</CardTitle>
           </CardHeader>
           <CardContent>
             <RadioGroup value={language} onValueChange={setLanguage}>
@@ -59,9 +59,11 @@ export default function LanguagePage() {
 
       <footer className="p-4 sticky bottom-0 bg-background/80 backdrop-blur-sm border-t">
         <Button className="w-full h-12 text-lg" onClick={() => router.back()}>
-          Update Language
+          {translations.language.update}
         </Button>
       </footer>
     </div>
   );
 }
+
+    

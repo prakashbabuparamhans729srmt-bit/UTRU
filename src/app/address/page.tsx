@@ -6,9 +6,11 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function AddressPage() {
   const router = useRouter();
+  const { translations } = useLanguage();
 
   return (
     <div className="bg-background text-foreground min-h-screen flex flex-col">
@@ -16,20 +18,20 @@ export default function AddressPage() {
         <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full">
           <ArrowLeft />
         </Button>
-        <h1 className="text-lg font-semibold">My addresses</h1>
+        <h1 className="text-lg font-semibold">{translations.address.title}</h1>
       </header>
 
       <main className="flex-grow flex flex-col justify-center items-center text-center px-4">
         <div className="flex-grow flex flex-col justify-center items-center">
-            <h2 className="text-2xl font-bold mb-2">Nothing here yet</h2>
+            <h2 className="text-2xl font-bold mb-2">{translations.address.nothingHere}</h2>
             <p className="text-muted-foreground mb-6">
-            Tell us where you want your orders delivered
+            {translations.address.deliveryMessage}
             </p>
             <Button 
               className="bg-primary text-primary-foreground rounded-full px-8 py-6 text-base"
               onClick={() => router.push('/new-address')}
             >
-              Add new address
+              {translations.address.addNew}
             </Button>
         </div>
       </main>
@@ -50,11 +52,11 @@ export default function AddressPage() {
                 <p className="text-xs text-muted-foreground">Sector 141 Noida</p>
               </div>
             </div>
-            <Button variant="outline" className="rounded-full border-primary text-primary">Change</Button>
+            <Button variant="outline" className="rounded-full border-primary text-primary">{translations.address.change}</Button>
           </div>
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-sm font-medium">Use current location</span>
+          <span className="text-sm font-medium">{translations.address.currentLocation}</span>
           <Button variant="default" className="rounded-full flex items-center gap-2 px-6 py-4 bg-primary text-primary-foreground">
             <User className="w-5 h-5" />
           </Button>
@@ -63,3 +65,5 @@ export default function AddressPage() {
     </div>
   );
 }
+
+    
