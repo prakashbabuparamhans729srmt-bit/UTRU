@@ -161,6 +161,12 @@
       "description": "A cute white robot with a friendly expression",
       "imageUrl": "https://images.unsplash.com/photo-1582571352032-448f7928eca3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y3V0ZSUyMHJvYm90fGVufDB8fHx8MTc2NDI2MDc1Mnww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "cute robot"
+    },
+    {
+      "id": "refer-car",
+      "description": "A white modern electric car",
+      "imageUrl": "https://images.unsplash.com/photo-1617704548622-069f5c4064c4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx3aGl0ZSUyMHRlc2xhfGVufDB8fHx8fDE3NjQzMTEwOTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "white car"
     }
   ]
 }
