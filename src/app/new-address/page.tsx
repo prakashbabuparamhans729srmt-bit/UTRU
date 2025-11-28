@@ -1,3 +1,4 @@
+
 'use client';
 
 import { ArrowLeft, Home, Building, Hotel, MoreHorizontal, X } from 'lucide-react';
@@ -120,6 +121,9 @@ export default function NewAddressPage() {
             <Label htmlFor="landmark" className="text-gray-500">Near by landmark (Optional)</Label>
             <Input id="landmark" type="text" className="bg-gray-100 border-none rounded-xl h-12 pr-10" />
           </div>
+          <Button className="w-full bg-black text-white rounded-full h-14 text-lg hover:bg-gray-800 mt-8">
+            Save
+          </Button>
         </form>
       </main>
     </div>
