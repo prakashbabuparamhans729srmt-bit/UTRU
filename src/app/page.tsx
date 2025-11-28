@@ -260,7 +260,7 @@ export default function Home() {
             <span className="text-xs">{translations.home.library}</span>
           </Button>
           <Link href="/location" className="w-16 h-16 rounded-full bg-card -translate-y-4 shadow-md border-4 border-background flex items-center justify-center">
-             <div className="w-6 h-6 rounded-full bg-black dark:bg-white" />
+             <div className="w-8 h-8 rounded-full bg-transparent border-4 border-black dark:border-white" />
           </Link>
           <Button variant="ghost" className="flex flex-col items-center h-auto text-muted-foreground">
             <PlaySquare className="w-6 h-6 mb-1" />
@@ -275,5 +275,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
