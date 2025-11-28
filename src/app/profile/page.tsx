@@ -34,7 +34,7 @@ export default function ProfilePage() {
 
   const otherInfoItems = [
       { icon: Share2, text: 'Share the app' },
-      { icon: Info, text: 'About us' }
+      { icon: Info, text: 'About us', href: '/about' }
   ]
 
   const carImage = PlaceHolderImages.find((img) => img.id === 'refer-car');
@@ -108,15 +108,19 @@ export default function ProfilePage() {
         <div className="mt-8">
           <h3 className="text-gray-400 text-sm font-bold tracking-wider mb-4">OTHER INFORMATION</h3>
            <div className="space-y-4">
-             {otherInfoItems.map((item, index) => (
-                <div key={index} className="flex items-center justify-between py-2 cursor-pointer">
-                    <div className="flex items-center gap-4">
-                        <item.icon className="w-6 h-6 text-gray-600" />
-                        <span className="font-medium">{item.text}</span>
-                    </div>
-                    <ChevronRight className="w-6 h-6 text-gray-400" />
-                </div>
-              ))}
+             {otherInfoItems.map((item, index) => {
+                const ItemWrapper = item.href ? Link : 'div';
+                const props = item.href ? { href: item.href } : {};
+                return (
+                  <ItemWrapper key={index} {...props} className="flex items-center justify-between py-2 cursor-pointer">
+                      <div className="flex items-center gap-4">
+                          <item.icon className="w-6 h-6 text-gray-600" />
+                          <span className="font-medium">{item.text}</span>
+                      </div>
+                      <ChevronRight className="w-6 h-6 text-gray-400" />
+                  </ItemWrapper>
+                );
+              })}
                 <div className="flex items-center gap-4 py-2 cursor-pointer">
                     <LogOut className="w-6 h-6 text-gray-600" />
                     <span className="font-medium">Log out</span>
