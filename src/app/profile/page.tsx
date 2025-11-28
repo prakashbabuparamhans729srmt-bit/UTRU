@@ -1,3 +1,4 @@
+
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
@@ -44,9 +45,11 @@ export default function ProfilePage() {
             <AvatarFallback>U</AvatarFallback>
           </Avatar>
         </div>
-        <Button className="bg-teal-400 text-gray-900 font-bold rounded-full w-4/5 hover:bg-teal-500 mb-2">
-          Continue
-        </Button>
+        <Link href="/login" className="w-4/5">
+            <Button className="bg-teal-400 text-gray-900 font-bold rounded-full w-full hover:bg-teal-500 mb-2">
+              Continue
+            </Button>
+        </Link>
         <p className="text-sm text-gray-400 mb-2">
           Log in or sign up to view your complete profile
         </p>

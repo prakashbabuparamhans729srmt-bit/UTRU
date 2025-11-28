@@ -77,6 +77,12 @@
       "description": "A mountain landscape with a grid icon overlay",
       "imageUrl": "https://images.unsplash.com/photo-1756327805966-18239613fc6d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtb3VudGFpbiUyMGFwcHxlbnwwfHx8fDE3NjQzMDI0Mjd8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "mountain app"
+    },
+    {
+      "id": "login-coffee",
+      "description": "Several cups of coffee with latte art on a wooden table",
+      "imageUrl": "https://images.unsplash.com/photo-1509895468733-11b816ae3a7e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjb2ZmZWUlMjBsYXR0ZXxlbnwwfHx8fDE3NjQyNjcyMzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "coffee latte"
     }
   ]
 }
