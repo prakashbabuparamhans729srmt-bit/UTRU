@@ -69,12 +69,12 @@ export default function ProfilePage() {
             </div>
             <span>Payments</span>
           </Link>
-          <div className="flex flex-col items-center gap-2">
+          <Link href="/support" className="flex flex-col items-center gap-2">
             <div className="p-3 bg-gray-800 rounded-full">
               <Headset className="w-6 h-6" />
             </div>
             <span>Support</span>
-          </div>
+          </Link>
           <Link href="/wallet" className="flex flex-col items-center gap-2">
             <div className="p-3 bg-gray-800 rounded-full">
               <Wallet className="w-6 h-6" />
