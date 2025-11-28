@@ -155,6 +155,12 @@
       "description": "Grid product",
       "imageUrl": "https://images.unsplash.com/photo-1471445421505-d3bbc35affb2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwcm9kdWN0JTIwcGFja2FnZXxlbnwwfHx8fDE3NjQyNDQ3NzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "product package"
+    },
+    {
+      "id": "plus-membership-robot",
+      "description": "A cute white robot with a friendly expression",
+      "imageUrl": "https://images.unsplash.com/photo-1582571352032-448f7928eca3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y3V0ZSUyMHJvYm90fGVufDB8fHx8MTc2NDI2MDc1Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cute robot"
     }
   ]
 }

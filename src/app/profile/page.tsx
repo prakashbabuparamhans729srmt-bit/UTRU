@@ -20,7 +20,7 @@ export default function ProfilePage() {
     { icon: FileText, text: 'My plans', href: '/my-plans' },
     { icon: Smartphone, text: 'Native devices', href: '/native-devices' },
     { icon: BookUser, text: 'Address book' },
-    { icon: Star, text: 'Plus membership' },
+    { icon: Star, text: 'Plus membership', href: '/plus-membership' },
     { icon: Star, text: 'My rating', notification: 1 },
     { icon: Settings, text: 'Setting', notification: 1 },
     // Add more items to demonstrate scrolling
