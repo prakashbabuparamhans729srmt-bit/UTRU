@@ -38,18 +38,18 @@ export default function ProfilePage() {
           url: window.location.origin,
         });
       } catch (error) {
-        console.error('Error sharing:', error);
+        // Don't use console.error, show a toast instead.
         toast({
-            variant: "destructive",
-            title: "Sharing failed",
-            description: "Could not share the app at this moment.",
+          variant: 'destructive',
+          title: 'Sharing failed',
+          description: 'Could not share the app at this moment. Please try again.',
         });
       }
     } else {
-        toast({
-            title: "Web Share not supported",
-            description: "Your browser does not support the Web Share API.",
-        });
+      toast({
+        title: 'Web Share not supported',
+        description: 'Your browser does not support the Web Share API.',
+      });
     }
   };
 
@@ -58,8 +58,8 @@ export default function ProfilePage() {
     { icon: Smartphone, text: 'Native devices', href: '/native-devices' },
     { icon: BookUser, text: 'Address book', href: 'address' },
     { icon: Star, text: 'Plus membership', href: 'plus-membership' },
-    { icon: Star, text: 'My rating', notification: 1 },
-    { icon: Settings, text: 'Setting', notification: 1, href: '/settings' },
+    { icon: Star, text: 'My rating' },
+    { icon: Settings, text: 'Setting', href: '/settings' },
   ];
 
   const carImage = PlaceHolderImages.find((img) => img.id === 'refer-car');
@@ -119,11 +119,6 @@ export default function ProfilePage() {
                 <div className="flex items-center gap-4">
                   <item.icon className="w-6 h-6 text-gray-600" />
                   <span className="font-medium">{item.text}</span>
-                  {item.notification && (
-                    <div className="w-5 h-5 bg-black text-white text-xs rounded-full flex items-center justify-center">
-                      {item.notification}
-                    </div>
-                  )}
                 </div>
                 <ChevronRight className="w-6 h-6 text-gray-400" />
               </ItemWrapper>
@@ -133,13 +128,13 @@ export default function ProfilePage() {
         <div className="mt-8">
           <h3 className="text-gray-400 text-sm font-bold tracking-wider mb-4">OTHER INFORMATION</h3>
            <div className="space-y-4">
-                <div onClick={handleShare} className="flex items-center justify-between py-2 cursor-pointer">
+                <button onClick={handleShare} className="w-full flex items-center justify-between py-2 cursor-pointer text-left">
                     <div className="flex items-center gap-4">
                         <Share2 className="w-6 h-6 text-gray-600" />
                         <span className="font-medium">Share the app</span>
                     </div>
                     <ChevronRight className="w-6 h-6 text-gray-400" />
-                </div>
+                </button>
                 <Link href='/about' className="flex items-center justify-between py-2 cursor-pointer">
                     <div className="flex items-center gap-4">
                         <Info className="w-6 h-6 text-gray-600" />
@@ -147,10 +142,10 @@ export default function ProfilePage() {
                     </div>
                     <ChevronRight className="w-6 h-6 text-gray-400" />
                 </Link>
-                <div onClick={() => alert('Log out functionality to be implemented')} className="flex items-center gap-4 py-2 cursor-pointer">
+                <button onClick={() => alert('Log out functionality to be implemented')} className="w-full flex items-center gap-4 py-2 cursor-pointer text-left">
                     <LogOut className="w-6 h-6 text-gray-600" />
                     <span className="font-medium">Log out</span>
-                </div>
+                </button>
            </div>
         </div>
 
