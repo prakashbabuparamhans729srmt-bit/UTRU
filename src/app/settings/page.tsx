@@ -5,6 +5,7 @@ import { ArrowLeft, Bell, Check, Mail, MessageSquare, Phone, Sun, Globe } from '
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
+import Link from 'next/link';
 
 const WhatsappIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg {...props} viewBox="0 0 24 24" fill="currentColor">
@@ -60,7 +61,9 @@ export default function SettingsPage() {
                 <Globe className="w-6 h-6 text-gray-700" />
                 <span className="font-medium">Language</span>
               </div>
-              <Button variant="outline" className="rounded-full">change</Button>
+              <Link href="/language">
+                <Button variant="outline" className="rounded-full">change</Button>
+              </Link>
             </div>
           </section>
 
