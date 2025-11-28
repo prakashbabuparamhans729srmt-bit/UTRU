@@ -25,8 +25,11 @@ export default function AddressPage() {
             <p className="text-muted-foreground mb-6">
             Tell us where you want your orders delivered
             </p>
-            <Button className="bg-primary text-primary-foreground rounded-full px-8 py-6 text-base">
-            Add new address
+            <Button 
+              className="bg-primary text-primary-foreground rounded-full px-8 py-6 text-base"
+              onClick={() => router.push('/new-address')}
+            >
+              Add new address
             </Button>
         </div>
       </main>
