@@ -15,7 +15,7 @@ export default function VerifyPhonePage() {
           <Button
             size="icon"
             variant="ghost"
-            className="absolute left-0 top-1/2 -translate-y-1/2 rounded-full w-12 h-12 border border-gray-700 hover:bg-gray-800"
+            className="absolute left-0 top-1/2 -translate-y-1/2 rounded-full w-12 h-12 bg-black text-white hover:bg-gray-700"
             onClick={() => router.back()}
           >
             <ArrowLeft className="w-6 h-6" />
@@ -66,3 +66,4 @@ export default function VerifyPhonePage() {
     </div>
   );
 }
+

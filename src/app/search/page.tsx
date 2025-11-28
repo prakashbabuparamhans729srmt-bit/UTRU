@@ -2,7 +2,7 @@
 'use client';
 
 import React, { Suspense, useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
   PlaceHolderImages,
   type ImagePlaceholder,
@@ -21,7 +21,6 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { useRouter } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
 
 
@@ -33,6 +32,7 @@ function ProductGrid({ products }: ProductGridProps) {
   const [productList, setProductList] = useState<any[]>([]);
 
   useEffect(() => {
+    // This now only runs on the client, avoiding the hydration error.
     setProductList(
       products.map((product) => ({
         ...product,
@@ -155,11 +155,9 @@ function SearchResults() {
     <div className="bg-background min-h-screen flex flex-col">
       <header className="p-4 bg-background/80 backdrop-blur-sm sticky top-0 z-50 border-b">
         <div className="flex items-center gap-4">
-          <Link href="/">
-            <Button size="icon" variant="ghost">
+          <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
               <ArrowLeft />
-            </Button>
-          </Link>
+          </Button>
           <form onSubmit={handleSearchSubmit} className="relative flex-grow">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
             <input
@@ -213,5 +211,3 @@ export default function SearchPage() {
         </Suspense>
     )
 }
-
-    

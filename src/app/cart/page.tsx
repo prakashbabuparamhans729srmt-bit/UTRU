@@ -18,8 +18,10 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { useLanguage } from '@/context/LanguageContext';
+import { useRouter } from 'next/navigation';
 
 export default function CartPage() {
+  const router = useRouter();
   const { translations } = useLanguage();
   const shoppingWomanImage = PlaceHolderImages.find(
     (img) => img.id === 'location-shopping-woman'
@@ -50,11 +52,9 @@ export default function CartPage() {
     <div className="bg-background text-foreground min-h-screen">
       <header className="p-4 bg-background sticky top-0 z-50 border-b border-border">
         <div className="flex items-center gap-4">
-          <Link href="/">
-            <Button size="icon" variant="ghost">
+            <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
               <ArrowLeft />
             </Button>
-          </Link>
           <div className="relative flex-grow">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
             <input

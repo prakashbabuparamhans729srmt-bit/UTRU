@@ -40,12 +40,15 @@ export default function ProfilePage() {
           text: 'I found this great e-commerce app, you should try it.',
           url: window.location.origin,
         });
-      } catch (error) {
-        toast({
-          variant: 'destructive',
-          title: 'Sharing failed',
-          description: 'Could not share the app at this moment. Please try again.',
-        });
+      } catch (error: any) {
+        // We will not show a toast on permission denied
+        if (error.name !== 'AbortError') {
+            toast({
+            variant: 'destructive',
+            title: 'Sharing failed',
+            description: 'Could not share the app at this moment. Please try again.',
+            });
+        }
       }
     } else {
       toast({
@@ -69,11 +72,9 @@ export default function ProfilePage() {
   return (
     <div className="bg-gray-900 text-white h-screen flex flex-col">
       <div className="p-4 relative flex flex-col items-center shrink-0">
-        <Link href="/" className="absolute top-4 left-4">
-          <Button size="icon" variant="ghost" className="bg-gray-700 rounded-full">
+        <Button size="icon" variant="ghost" className="absolute top-4 left-4 rounded-full bg-black text-white hover:bg-gray-700" onClick={() => router.back()}>
             <ArrowLeft className="w-6 h-6" />
-          </Button>
-        </Link>
+        </Button>
         <div className="mt-8 mb-4">
           <Avatar className="w-24 h-24 border-4 border-gray-700 ring-2 ring-teal-400">
             <AvatarImage src="https://picsum.photos/seed/user-profile/100/100" />

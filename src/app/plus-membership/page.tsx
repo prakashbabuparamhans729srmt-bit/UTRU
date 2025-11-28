@@ -14,7 +14,7 @@ export default function PlusMembershipPage() {
   return (
     <div className="bg-background text-foreground min-h-screen flex flex-col">
       <header className="p-4 bg-card flex items-center gap-4 sticky top-0 z-10 border-b">
-        <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full">
+        <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
           <ArrowLeft />
         </Button>
         <h1 className="text-lg font-semibold">Membership</h1>
@@ -36,3 +36,5 @@ export default function PlusMembershipPage() {
     </div>
   );
 }
+
+    
