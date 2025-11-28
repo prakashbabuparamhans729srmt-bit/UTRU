@@ -135,7 +135,7 @@ export default function LocationPage() {
         </div>
       </main>
 
-      <footer className="fixed bottom-0 left-0 right-0 bg-card border-t border-border z-50">
+      <footer className="fixed bottom-0 left-0 right-0 bg-background border-t border-border z-50">
         <div className="flex justify-around items-center p-2">
           <Link href="/" className="flex flex-col items-center h-auto text-muted-foreground">
             <HomeIcon className="w-6 h-6 mb-1" />
@@ -145,8 +145,8 @@ export default function LocationPage() {
             <BookCopy className="w-6 h-6 mb-1" />
             <span className="text-xs">Library</span>
           </Button>
-           <Link href="/location" className="w-16 h-16 rounded-full bg-card -translate-y-4 shadow-md border-4 border-background flex items-center justify-center ring-2 ring-primary">
-             <div className="w-8 h-8 rounded-full bg-transparent border-[6px] border-primary"></div>
+           <Link href="/location" className="w-16 h-16 rounded-full bg-card -translate-y-4 shadow-md border-4 border-background flex items-center justify-center text-foreground ring-2 ring-current">
+             <div className="w-8 h-8 rounded-full bg-muted-foreground"></div>
           </Link>
           <Button variant="ghost" className="flex flex-col items-center h-auto text-muted-foreground">
             <PlaySquare className="w-6 h-6 mb-1" />

@@ -249,18 +249,18 @@ export default function Home() {
         </Button>
       </div>
 
-      <footer className="fixed bottom-0 left-0 right-0 bg-card border-t border-border z-50">
+      <footer className="fixed bottom-0 left-0 right-0 bg-background border-t border-border z-50">
         <div className="flex justify-around items-center p-2">
-          <Button variant="ghost" className="flex flex-col items-center h-auto text-primary">
+          <Button variant="ghost" className="flex flex-col items-center h-auto text-foreground">
             <HomeIcon className="w-6 h-6 mb-1" />
-            <span className="text-xs">{translations.home.home}</span>
+            <span className="text-xs font-semibold">{translations.home.home}</span>
           </Button>
           <Button variant="ghost" className="flex flex-col items-center h-auto text-muted-foreground">
             <BookCopy className="w-6 h-6 mb-1" />
             <span className="text-xs">{translations.home.library}</span>
           </Button>
           <Link href="/location" className="w-16 h-16 rounded-full bg-card -translate-y-4 shadow-md border-4 border-background flex items-center justify-center">
-             <div className="w-8 h-8 rounded-full bg-transparent border-4 border-black dark:border-white" />
+             <div className="w-8 h-8 rounded-full bg-muted-foreground" />
           </Link>
           <Button variant="ghost" className="flex flex-col items-center h-auto text-muted-foreground">
             <PlaySquare className="w-6 h-6 mb-1" />
