@@ -55,12 +55,12 @@ export default function ProfilePage() {
         </p>
 
         <div className="flex justify-around w-full max-w-sm my-4">
-          <div className="flex flex-col items-center gap-2">
+          <Link href="/payment-settings" className="flex flex-col items-center gap-2">
             <div className="p-3 bg-gray-800 rounded-full">
               <CreditCard className="w-6 h-6" />
             </div>
             <span>Payments</span>
-          </div>
+          </Link>
           <div className="flex flex-col items-center gap-2">
             <div className="p-3 bg-gray-800 rounded-full">
               <Headset className="w-6 h-6" />
