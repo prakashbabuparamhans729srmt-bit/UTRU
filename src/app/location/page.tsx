@@ -145,7 +145,7 @@ export default function LocationPage() {
             <span className="text-xs">Library</span>
           </Button>
            <Link href="/location" className="w-16 h-16 rounded-full bg-card -translate-y-4 shadow-md border-4 border-background flex items-center justify-center ring-2 ring-primary">
-             <div className="w-6 h-6 rounded-full bg-white border-4 border-primary"></div>
+             <div className="w-6 h-6 rounded-full bg-black dark:bg-white border-4 border-primary"></div>
           </Link>
           <Button variant="ghost" className="flex flex-col items-center h-auto text-muted-foreground">
             <PlaySquare className="w-6 h-6 mb-1" />
