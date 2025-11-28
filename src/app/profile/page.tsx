@@ -19,10 +19,10 @@ export default function ProfilePage() {
   const menuItems = [
     { icon: FileText, text: 'My plans', href: '/my-plans' },
     { icon: Smartphone, text: 'Native devices', href: '/native-devices' },
-    { icon: BookUser, text: 'Address book' },
+    { icon: BookUser, text: 'Address book', href: '/address' },
     { icon: Star, text: 'Plus membership', href: '/plus-membership' },
     { icon: Star, text: 'My rating', notification: 1 },
-    { icon: Settings, text: 'Setting', notification: 1 },
+    { icon: Settings, text: 'Setting', notification: 1, href: '/settings' },
     // Add more items to demonstrate scrolling
     { icon: FileText, text: 'Another Item' },
     { icon: Smartphone, text: 'More Devices' },
