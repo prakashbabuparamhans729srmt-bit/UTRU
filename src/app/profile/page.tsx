@@ -18,7 +18,7 @@ import Link from 'next/link';
 export default function ProfilePage() {
   const menuItems = [
     { icon: FileText, text: 'My plans', href: '/my-plans' },
-    { icon: Smartphone, text: 'Native devices' },
+    { icon: Smartphone, text: 'Native devices', href: '/native-devices' },
     { icon: BookUser, text: 'Address book' },
     { icon: Star, text: 'Plus membership' },
     { icon: Star, text: 'My rating', notification: 1 },
