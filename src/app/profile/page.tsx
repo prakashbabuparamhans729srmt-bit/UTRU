@@ -23,12 +23,6 @@ export default function ProfilePage() {
     { icon: Star, text: 'Plus membership', href: '/plus-membership' },
     { icon: Star, text: 'My rating', notification: 1 },
     { icon: Settings, text: 'Setting', notification: 1, href: '/settings' },
-    // Add more items to demonstrate scrolling
-    { icon: FileText, text: 'Another Item' },
-    { icon: Smartphone, text: 'More Devices' },
-    { icon: BookUser, text: 'Another Address' },
-    { icon: Star, text: 'Extra Membership' },
-    { icon: Settings, text: 'More Settings' },
   ];
 
   return (
