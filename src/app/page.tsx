@@ -1,4 +1,8 @@
 
+'use client';
+
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   Carousel,
   CarouselContent,
@@ -27,6 +31,16 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
 export default function Home() {
+  const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+
   const cityNightImage = PlaceHolderImages.find((img) => img.id === 'city-night');
   const productCollageImage = PlaceHolderImages.find((img) => img.id === 'product-collage');
   const products = PlaceHolderImages.filter(img => img.id.startsWith('product-'));
@@ -57,19 +71,28 @@ export default function Home() {
           </div>
         </div>
         <div className="flex items-center gap-4">
-          <div className="relative flex-grow">
+          <form onSubmit={handleSearchSubmit} className="relative flex-grow">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
             <input
               type="text"
               placeholder="Search for..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-input rounded-full pl-10 pr-16 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
             />
             <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
-              <X className="w-5 h-5 text-muted-foreground cursor-pointer" />
+              {searchQuery && (
+                <X
+                  className="w-5 h-5 text-muted-foreground cursor-pointer"
+                  onClick={() => setSearchQuery('')}
+                />
+              )}
               <div className="w-px h-5 bg-border"></div>
-              <Mic className="w-5 h-5 text-muted-foreground cursor-pointer" />
+              <Mic
+                className="w-5 h-5 text-muted-foreground cursor-pointer"
+              />
             </div>
-          </div>
+          </form>
           <Link href="/cart">
             <ShoppingCart className="w-6 h-6" />
           </Link>
