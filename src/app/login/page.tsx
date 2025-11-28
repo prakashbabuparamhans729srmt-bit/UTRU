@@ -28,9 +28,9 @@ export default function LoginPage() {
           <div className="w-2 h-1 bg-gray-400 rounded-full"></div>
           <div className="w-2 h-1 bg-gray-400 rounded-full"></div>
         </div>
-        <Button 
-            className="w-full bg-black text-white rounded-full h-14 text-lg border-2 border-gray-500 hover:bg-gray-800"
-            onClick={() => router.push('/')}
+        <Button
+          className="w-full bg-black text-white rounded-full h-14 text-lg border-2 border-gray-500 hover:bg-gray-800"
+          onClick={() => router.push('/phone-login')}
         >
           <Phone className="mr-2 h-6 w-6" />
           Continue with Phone
