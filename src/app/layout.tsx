@@ -1,11 +1,9 @@
-import type {Metadata} from 'next';
+
+'use client';
+
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
-
-export const metadata: Metadata = {
-  title: 'E-commerce App',
-  description: 'A modern e-commerce application.',
-};
+import { LanguageProvider } from '@/context/LanguageContext';
 
 export default function RootLayout({
   children,
@@ -13,11 +11,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className="antialiased">
-        {children}
-        <Toaster />
-      </body>
-    </html>
+    <LanguageProvider>
+      <html lang="en" className="dark">
+        <head>
+          <title>E-commerce App</title>
+          <meta name="description" content="A modern e-commerce application." />
+        </head>
+        <body className="antialiased">
+          {children}
+          <Toaster />
+        </body>
+      </html>
+    </LanguageProvider>
   );
 }

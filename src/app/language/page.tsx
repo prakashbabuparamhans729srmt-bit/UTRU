@@ -3,15 +3,15 @@
 
 import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function LanguagePage() {
   const router = useRouter();
-  const [selectedLanguage, setSelectedLanguage] = useState('English');
+  const { language, setLanguage } = useLanguage();
 
   const languages = [
     'English', 'हिंदी', 'असमिया', 'Bhojpuri', 'बंगाली', 'बोडो', 'डोगरी',
@@ -35,14 +35,14 @@ export default function LanguagePage() {
             <CardTitle>Choose your preferred language</CardTitle>
           </CardHeader>
           <CardContent>
-            <RadioGroup value={selectedLanguage} onValueChange={setSelectedLanguage}>
+            <RadioGroup value={language} onValueChange={setLanguage}>
               <div className="grid grid-cols-2 gap-4">
                 {languages.map((lang) => (
                   <Label
                     key={lang}
                     htmlFor={`lang-${lang}`}
                     className={`flex items-center p-4 rounded-lg border cursor-pointer transition-colors ${
-                      selectedLanguage === lang
+                      language === lang
                         ? 'bg-primary/20 border-primary'
                         : 'border-border hover:bg-accent'
                     }`}

@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { ArrowLeft, Bell, Check, Mail, MessageSquare, Phone, Sun, Globe } from 'lucide-react';
@@ -6,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import Link from 'next/link';
+import { useLanguage } from '@/context/LanguageContext';
 
 const WhatsappIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg {...props} viewBox="0 0 24 24" fill="currentColor">
@@ -25,6 +27,8 @@ const SmsIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 export default function SettingsPage() {
   const router = useRouter();
+  const { translations } = useLanguage();
+
 
   const settingsItems = [
     { icon: WhatsappIcon, label: 'Whatsapp', defaultChecked: true },
@@ -41,7 +45,7 @@ export default function SettingsPage() {
           <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
             <ArrowLeft />
           </Button>
-          <h1 className="text-lg font-semibold">Setting</h1>
+          <h1 className="text-lg font-semibold">{translations.settings.title}</h1>
         </header>
 
         <main className="p-6">
