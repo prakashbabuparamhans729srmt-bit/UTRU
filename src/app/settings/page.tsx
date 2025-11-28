@@ -1,7 +1,7 @@
 
 'use client';
 
-import { ArrowLeft, Bell, Check, Mail, MessageSquare, Phone, Sun } from 'lucide-react';
+import { ArrowLeft, Bell, Check, Mail, MessageSquare, Phone, Sun, Globe } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
@@ -49,6 +49,19 @@ export default function SettingsPage() {
             <p className="text-gray-500 text-sm">
               Order related messages can't be turned off as they are important for service experience.
             </p>
+          </section>
+
+          <hr className="mb-8" />
+          
+          <section className="mb-8">
+            <h3 className="text-lg font-medium mb-6">Language</h3>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <Globe className="w-6 h-6 text-gray-700" />
+                <span className="font-medium">Language</span>
+              </div>
+              <Button variant="outline" className="rounded-full">change</Button>
+            </div>
           </section>
 
           <hr className="mb-8" />
