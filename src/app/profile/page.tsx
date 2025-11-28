@@ -17,7 +17,7 @@ import Link from 'next/link';
 
 export default function ProfilePage() {
   const menuItems = [
-    { icon: FileText, text: 'My plans' },
+    { icon: FileText, text: 'My plans', href: '/my-plans' },
     { icon: Smartphone, text: 'Native devices' },
     { icon: BookUser, text: 'Address book' },
     { icon: Star, text: 'Plus membership' },
@@ -78,20 +78,24 @@ export default function ProfilePage() {
 
       <div className="bg-white text-gray-900 rounded-t-3xl p-6 flex-grow overflow-y-auto">
         <div className="space-y-4">
-          {menuItems.map((item, index) => (
-            <div key={index} className="flex items-center justify-between py-2">
-              <div className="flex items-center gap-4">
-                <item.icon className="w-6 h-6 text-gray-600" />
-                <span className="font-medium">{item.text}</span>
-                {item.notification && (
-                  <div className="w-5 h-5 bg-black text-white text-xs rounded-full flex items-center justify-center">
-                    {item.notification}
-                  </div>
-                )}
-              </div>
-              <ChevronRight className="w-6 h-6 text-gray-400" />
-            </div>
-          ))}
+          {menuItems.map((item, index) => {
+            const ItemWrapper = item.href ? Link : 'div';
+            const props = item.href ? { href: item.href } : {};
+            return (
+              <ItemWrapper key={index} {...props} className="flex items-center justify-between py-2 cursor-pointer">
+                <div className="flex items-center gap-4">
+                  <item.icon className="w-6 h-6 text-gray-600" />
+                  <span className="font-medium">{item.text}</span>
+                  {item.notification && (
+                    <div className="w-5 h-5 bg-black text-white text-xs rounded-full flex items-center justify-center">
+                      {item.notification}
+                    </div>
+                  )}
+                </div>
+                <ChevronRight className="w-6 h-6 text-gray-400" />
+              </ItemWrapper>
+            );
+          })}
         </div>
         <div className="mt-8">
           <h3 className="text-gray-400 text-sm font-bold tracking-wider">OTHER INFORMATION</h3>
