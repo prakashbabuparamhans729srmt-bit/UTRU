@@ -183,9 +183,9 @@ export default function Home() {
             <BookCopy className="w-6 h-6 mb-1" />
             <span className="text-xs">Library</span>
           </Button>
-          <Button size="icon" className="w-16 h-16 rounded-full bg-card -translate-y-4 shadow-md border-4 border-background">
+          <Link href="/location" className="w-16 h-16 rounded-full bg-card -translate-y-4 shadow-md border-4 border-background flex items-center justify-center">
              <div className="w-6 h-6 rounded-full bg-muted-foreground" />
-          </Button>
+          </Link>
           <Button variant="ghost" className="flex flex-col items-center h-auto text-muted-foreground">
             <PlaySquare className="w-6 h-6 mb-1" />
             <span className="text-xs">Explore</span>

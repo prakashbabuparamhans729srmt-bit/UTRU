@@ -41,6 +41,42 @@
       "description": "Wireless over-ear headphones",
       "imageUrl": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "imageHint": "wireless headphones"
+    },
+    {
+      "id": "location-train-viaduct",
+      "description": "A steam train crossing a stone viaduct in a green valley",
+      "imageUrl": "https://images.unsplash.com/photo-1654811550650-42f821f9d930?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx0cmFpbiUyMHZpYWR1Y3R8ZW58MHx8fHwxNzY0MjUxMDAzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "train viaduct"
+    },
+    {
+      "id": "location-black-friday",
+      "description": "Black Friday sale text",
+      "imageUrl": "https://images.unsplash.com/photo-1746292184374-1b3d5a51816d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxzYWxlJTIwdGV4dHxlbnwwfHx8fDE3NjQzMDI0MjZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "sale text"
+    },
+    {
+      "id": "location-shopping-woman",
+      "description": "A stylish woman in sunglasses holding shopping bags",
+      "imageUrl": "https://images.unsplash.com/photo-1483985988355-763728e1935b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx3b21hbiUyMHNob3BwaW5nfGVufDB8fHx8MTc2NDI1MTAwMnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "woman shopping"
+    },
+    {
+      "id": "location-popular-1",
+      "description": "A mountain range above the clouds at sunset",
+      "imageUrl": "https://images.unsplash.com/photo-1474140214938-f0295cf3d18e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxtb3VudGFpbiUyMGNsb3Vkc3xlbnwwfHx8fDE3NjQzMDI0MjZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "mountain clouds"
+    },
+    {
+      "id": "location-popular-2",
+      "description": "A starry night sky over a mountain range",
+      "imageUrl": "https://images.unsplash.com/photo-1611959894238-b2ae3e093991?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxzdGFycnklMjBtb3VudGFpbnxlbnwwfHx8fDE3NjQzMDI0Mjd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "starry mountain"
+    },
+    {
+      "id": "location-popular-3",
+      "description": "A mountain landscape with a grid icon overlay",
+      "imageUrl": "https://images.unsplash.com/photo-1756327805966-18239613fc6d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtb3VudGFpbiUyMGFwcHxlbnwwfHx8fDE3NjQzMDI0Mjd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "mountain app"
     }
   ]
 }
