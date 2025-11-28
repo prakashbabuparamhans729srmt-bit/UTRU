@@ -52,7 +52,10 @@ export default function PhoneLoginPage() {
             </Button>
           </div>
 
-          <Button className="w-full bg-white text-black rounded-full h-14 text-lg font-semibold hover:bg-gray-200">
+          <Button 
+            className="w-full bg-white text-black rounded-full h-14 text-lg font-semibold hover:bg-gray-200"
+            onClick={() => router.push('/verify-phone')}
+          >
             Continue
           </Button>
         </div>
