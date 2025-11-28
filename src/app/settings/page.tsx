@@ -31,11 +31,11 @@ export default function SettingsPage() {
 
 
   const settingsItems = [
-    { icon: WhatsappIcon, label: 'Whatsapp', defaultChecked: true },
-    { icon: SmsIcon, label: 'SMS' },
-    { icon: Mail, label: 'Email' },
-    { icon: Bell, label: 'Push Notification' },
-    { icon: Phone, label: 'Voice calls', hasSun: true },
+    { icon: WhatsappIcon, label: translations.settings.whatsapp, defaultChecked: true },
+    { icon: SmsIcon, label: translations.settings.sms },
+    { icon: Mail, label: translations.settings.email },
+    { icon: Bell, label: translations.settings.pushNotification },
+    { icon: Phone, label: translations.settings.voiceCalls, hasSun: true },
   ];
 
   return (
@@ -50,23 +50,23 @@ export default function SettingsPage() {
 
         <main className="p-6">
           <section className="mb-8">
-            <h2 className="text-xl font-bold mb-1">Order related messages</h2>
+            <h2 className="text-xl font-bold mb-1">{translations.settings.orderMessages}</h2>
             <p className="text-gray-500 text-sm">
-              Order related messages can't be turned off as they are important for service experience.
+              {translations.settings.orderMessagesDescription}
             </p>
           </section>
 
           <hr className="mb-8" />
           
           <section className="mb-8">
-            <h3 className="text-lg font-medium mb-6">Language</h3>
+            <h3 className="text-lg font-medium mb-6">{translations.settings.language}</h3>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <Globe className="w-6 h-6 text-gray-700" />
-                <span className="font-medium">Language</span>
+                <span className="font-medium">{translations.settings.language}</span>
               </div>
               <Link href="/language">
-                <Button variant="outline" className="rounded-full">change</Button>
+                <Button variant="outline" className="rounded-full">{translations.settings.change}</Button>
               </Link>
             </div>
           </section>
@@ -74,7 +74,7 @@ export default function SettingsPage() {
           <hr className="mb-8" />
 
           <section>
-            <h3 className="text-lg font-medium mb-6">Notifications & reminders</h3>
+            <h3 className="text-lg font-medium mb-6">{translations.settings.notificationsAndReminders}</h3>
             <div className="space-y-6">
               {settingsItems.map((item, index) => (
                 <div key={index} className="flex items-center justify-between">
@@ -93,7 +93,7 @@ export default function SettingsPage() {
 
           <section className="mt-12 flex items-center gap-2 text-teal-500">
             <Check className="w-5 h-5"/>
-            <span className="font-medium text-sm">Privacy & Data</span>
+            <span className="font-medium text-sm">{translations.settings.privacyAndData}</span>
           </section>
 
         </main>
