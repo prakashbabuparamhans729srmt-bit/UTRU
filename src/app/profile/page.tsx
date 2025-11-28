@@ -166,12 +166,12 @@ export default function ProfilePage() {
             </div>
         )}
 
-        <div className="mt-6 flex justify-center gap-2">
-            <Button variant="outline" className="rounded-full flex-1" onClick={() => alert('Light mode selected. Theme switching to be implemented.')}>
+        <div className="mt-8 p-1 bg-gray-200 rounded-full flex justify-between">
+            <Button variant="ghost" className="rounded-full flex-1 bg-transparent text-gray-500" onClick={() => alert('Light mode selected. Theme switching to be implemented.')}>
                 <Sun className="w-4 h-4 mr-2" />
                 {translations.profile.lightMode}
             </Button>
-            <Button variant="secondary" className="rounded-full flex-1 bg-gray-200 text-black" onClick={() => alert('Dark mode selected. Theme switching to be implemented.')}>
+            <Button variant="secondary" className="rounded-full flex-1 bg-white text-black shadow" onClick={() => alert('Dark mode selected. Theme switching to be implemented.')}>
                 <Moon className="w-4 h-4 mr-2" />
                 {translations.profile.darkMode}
             </Button>
@@ -184,5 +184,3 @@ export default function ProfilePage() {
     </div>
   );
 }
-
-    
