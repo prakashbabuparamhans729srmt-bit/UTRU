@@ -1,3 +1,4 @@
+'use client';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -21,21 +22,45 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { useToast } from '@/hooks/use-toast';
+import { useRouter } from 'next/navigation';
 
 export default function ProfilePage() {
+  const { toast } = useToast();
+  const router = useRouter();
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Check out this amazing app!',
+          text: 'I found this great e-commerce app, you should try it.',
+          url: window.location.origin,
+        });
+      } catch (error) {
+        console.error('Error sharing:', error);
+        toast({
+            variant: "destructive",
+            title: "Sharing failed",
+            description: "Could not share the app at this moment.",
+        });
+      }
+    } else {
+        toast({
+            title: "Web Share not supported",
+            description: "Your browser does not support the Web Share API.",
+        });
+    }
+  };
+
   const menuItems = [
     { icon: FileText, text: 'My plans', href: '/my-plans' },
     { icon: Smartphone, text: 'Native devices', href: '/native-devices' },
-    { icon: BookUser, text: 'Address book', href: '/address' },
-    { icon: Star, text: 'Plus membership', href: '/plus-membership' },
+    { icon: BookUser, text: 'Address book', href: 'address' },
+    { icon: Star, text: 'Plus membership', href: 'plus-membership' },
     { icon: Star, text: 'My rating', notification: 1 },
     { icon: Settings, text: 'Setting', notification: 1, href: '/settings' },
   ];
-
-  const otherInfoItems = [
-      { icon: Share2, text: 'Share the app' },
-      { icon: Info, text: 'About us', href: '/about' }
-  ]
 
   const carImage = PlaceHolderImages.find((img) => img.id === 'refer-car');
 
@@ -108,20 +133,21 @@ export default function ProfilePage() {
         <div className="mt-8">
           <h3 className="text-gray-400 text-sm font-bold tracking-wider mb-4">OTHER INFORMATION</h3>
            <div className="space-y-4">
-             {otherInfoItems.map((item, index) => {
-                const ItemWrapper = item.href ? Link : 'div';
-                const props = item.href ? { href: item.href } : {};
-                return (
-                  <ItemWrapper key={index} {...props} className="flex items-center justify-between py-2 cursor-pointer">
-                      <div className="flex items-center gap-4">
-                          <item.icon className="w-6 h-6 text-gray-600" />
-                          <span className="font-medium">{item.text}</span>
-                      </div>
-                      <ChevronRight className="w-6 h-6 text-gray-400" />
-                  </ItemWrapper>
-                );
-              })}
-                <div className="flex items-center gap-4 py-2 cursor-pointer">
+                <div onClick={handleShare} className="flex items-center justify-between py-2 cursor-pointer">
+                    <div className="flex items-center gap-4">
+                        <Share2 className="w-6 h-6 text-gray-600" />
+                        <span className="font-medium">Share the app</span>
+                    </div>
+                    <ChevronRight className="w-6 h-6 text-gray-400" />
+                </div>
+                <Link href='/about' className="flex items-center justify-between py-2 cursor-pointer">
+                    <div className="flex items-center gap-4">
+                        <Info className="w-6 h-6 text-gray-600" />
+                        <span className="font-medium">About us</span>
+                    </div>
+                    <ChevronRight className="w-6 h-6 text-gray-400" />
+                </Link>
+                <div onClick={() => alert('Log out functionality to be implemented')} className="flex items-center gap-4 py-2 cursor-pointer">
                     <LogOut className="w-6 h-6 text-gray-600" />
                     <span className="font-medium">Log out</span>
                 </div>
@@ -143,11 +169,11 @@ export default function ProfilePage() {
         )}
 
         <div className="mt-6 flex justify-center gap-2">
-            <Button variant="outline" className="rounded-full flex-1">
+            <Button variant="outline" className="rounded-full flex-1" onClick={() => alert('Light mode selected. Theme switching to be implemented.')}>
                 <Sun className="w-4 h-4 mr-2" />
                 Light Mode
             </Button>
-            <Button variant="secondary" className="rounded-full flex-1 bg-gray-200 text-black">
+            <Button variant="secondary" className="rounded-full flex-1 bg-gray-200 text-black" onClick={() => alert('Dark mode selected. Theme switching to be implemented.')}>
                 <Moon className="w-4 h-4 mr-2" />
                 Dark Mode
             </Button>
