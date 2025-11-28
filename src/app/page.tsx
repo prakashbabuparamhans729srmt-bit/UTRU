@@ -1,3 +1,4 @@
+
 import {
   Carousel,
   CarouselContent,
@@ -38,13 +39,13 @@ export default function Home() {
             <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
               <div className="w-4 h-4 bg-background rounded-full" />
             </div>
-            <div className="flex flex-col">
+            <Link href="/address" className="flex flex-col">
               <span className="text-xs text-muted-foreground">Text Widget</span>
               <div className="flex items-center gap-1">
                 <MapPin className="w-4 h-4 text-primary" />
                 <span className="font-semibold text-sm">Noida 63</span>
               </div>
-            </div>
+            </Link>
           </div>
           <div className="flex items-center gap-4">
             <Link href="/profile">
