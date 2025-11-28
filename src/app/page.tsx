@@ -69,7 +69,9 @@ export default function Home() {
               <Mic className="w-5 h-5 text-muted-foreground cursor-pointer" />
             </div>
           </div>
-          <ShoppingCart className="w-6 h-6" />
+          <Link href="/cart">
+            <ShoppingCart className="w-6 h-6" />
+          </Link>
         </div>
       </header>
 

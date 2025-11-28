@@ -57,7 +57,7 @@
     {
       "id": "location-shopping-woman",
       "description": "A stylish woman in sunglasses holding shopping bags",
-      "imageUrl": "https://images.unsplash.com/photo-1483985988355-763728e1935b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx3b21hbiUyMHNob3BwaW5nfGVufDB8fHx8MTc2NDI1MTAwMnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1483985988355-763728e1935b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx3b21hbiUyMHNob3BwaW5nfGVufDB8fHx8fDE3NjQyNTEwMDJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "woman shopping"
     },
     {
@@ -83,6 +83,78 @@
       "description": "Several cups of coffee with latte art on a wooden table",
       "imageUrl": "https://images.unsplash.com/photo-1509895468733-11b816ae3a7e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjb2ZmZWUlMjBsYXR0ZXxlbnwwfHx8fDE3NjQyNjcyMzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "coffee latte"
+    },
+    {
+      "id": "cart-popular-1",
+      "description": "Man",
+      "imageUrl": "https://images.unsplash.com/photo-1709101242274-138d777ea70d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwcm9kdWN0JTIwcGFja2FnZXxlbnwwfHx8fDE3NjQyNDQ3NzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "product package"
+    },
+    {
+      "id": "cart-popular-2",
+      "description": "Man",
+      "imageUrl": "https://images.unsplash.com/photo-1664787020182-7c17ea808ae0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxwcm9kdWN0JTIwcGFja2FnZXxlbnwwfHx8fDE3NjQyNDQ3NzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "product package"
+    },
+    {
+      "id": "cart-popular-3",
+      "description": "Shirts",
+      "imageUrl": "https://images.unsplash.com/photo-1535990379313-5cd271a2da2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxjb2NhJTIwY29sYXxlbnwwfHx8fDE3NjQyMjcwMzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "coca cola"
+    },
+    {
+      "id": "cart-popular-4",
+      "description": "Children",
+      "imageUrl": "https://images.unsplash.com/photo-1690988109041-458628590a9e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzcHJpdGUlMjBib3R0bGV8ZW58MHx8fHwxNzY0MzAzOTA1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "sprite bottle"
+    },
+    {
+      "id": "cart-popular-5",
+      "description": "women",
+      "imageUrl": "https://images.unsplash.com/photo-1632330159773-b9f943473269?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8anVpY2UlMjBib3R0bGV8ZW58MHx8fHwxNzY0MjgzNTE4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "juice bottle"
+    },
+    {
+      "id": "cart-popular-6",
+      "description": "Man",
+      "imageUrl": "https://images.unsplash.com/photo-1525904220310-64ef12c1429b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxqdWljZSUyMGJvdHRsZXxlbnwwfHx8fDE3NjQyODM1MTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "juice bottle"
+    },
+    {
+      "id": "cart-grid-1",
+      "description": "Grid product",
+      "imageUrl": "https://images.unsplash.com/photo-1664786908163-85ca46f85138?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cHJvZHVjdCUyMHBhY2thZ2V8ZW58MHx8fHwxNzY0MjQ0NzcyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "product package"
+    },
+    {
+      "id": "cart-grid-2",
+      "description": "Grid product",
+      "imageUrl": "https://images.unsplash.com/photo-1633265484557-e298493cb162?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcm9kdWN0JTIwcGFja2FnZXxlbnwwfHx8fDE3NjQyNDQ3NzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "product package"
+    },
+    {
+      "id": "cart-grid-3",
+      "description": "Grid product",
+      "imageUrl": "https://images.unsplash.com/photo-1664216294580-079bc527ae49?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwcm9kdWN0JTIwcGFja2FnZXxlbnwwfHx8fDE3NjQyNDQ3NzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "product package"
+    },
+    {
+      "id": "cart-grid-4",
+      "description": "Grid product",
+      "imageUrl": "https://images.unsplash.com/photo-1601568656750-bf1a9c205613?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwcm9kdWN0JTIwcGFja2FnZXxlbnwwfHx8fDE3NjQyNDQ3NzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "product package"
+    },
+    {
+      "id": "cart-grid-5",
+      "description": "Grid product",
+      "imageUrl": "https://images.unsplash.com/photo-1633265484557-e298493cb162?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcm9kdWN0JTIwcGFja2FnZXxlbnwwfHx8fDE3NjQyNDQ3NzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "product package"
+    },
+    {
+      "id": "cart-grid-6",
+      "description": "Grid product",
+      "imageUrl": "https://images.unsplash.com/photo-1471445421505-d3bbc35affb2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwcm9kdWN0JTIwcGFja2FnZXxlbnwwfHx8fDE3NjQyNDQ3NzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "product package"
     }
   ]
 }
