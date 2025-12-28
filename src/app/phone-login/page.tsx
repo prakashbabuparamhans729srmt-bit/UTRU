@@ -4,10 +4,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { X, Play } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function PhoneLoginPage() {
   const router = useRouter();
+  const { translations } = useLanguage();
 
   return (
     <div className="bg-white min-h-screen flex items-center justify-center">
@@ -32,15 +33,15 @@ export default function PhoneLoginPage() {
         </div>
 
         <div className="flex-grow flex flex-col justify-center text-left mt-8">
-          <h1 className="text-4xl font-bold mb-2">Login with Phone</h1>
+          <h1 className="text-4xl font-bold mb-2">{translations.phoneLogin.title}</h1>
           <p className="text-gray-400 mb-8">
-            Input your number below in order to login.
+            {translations.phoneLogin.subtitle}
           </p>
 
           <div className="relative mb-6">
             <Input
               type="tel"
-              placeholder="Your phone number..."
+              placeholder={translations.phoneLogin.placeholder}
               className="bg-white text-black rounded-full h-14 pl-6 pr-12 text-base"
             />
             <Button
@@ -56,7 +57,7 @@ export default function PhoneLoginPage() {
             className="w-full bg-white text-black rounded-full h-14 text-lg font-semibold hover:bg-gray-200"
             onClick={() => router.push('/verify-phone')}
           >
-            Continue
+            {translations.phoneLogin.continue}
           </Button>
         </div>
       </div>
