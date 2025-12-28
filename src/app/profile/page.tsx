@@ -69,13 +69,13 @@ export default function ProfilePage() {
       text: translations.profile.nativeDevices,
       href: '/native-devices',
     },
-    { icon: BookUser, text: translations.profile.addressBook, href: 'address' },
+    { icon: BookUser, text: translations.profile.addressBook, href: '/address' },
     {
       icon: Star,
       text: translations.profile.plusMembership,
-      href: 'plus-membership',
+      href: '/plus-membership',
     },
-    { icon: Star, text: translations.profile.myRating },
+    { icon: Star, text: translations.profile.myRating, href: '#' },
     { icon: Settings, text: translations.profile.setting, href: '/settings' },
   ];
 
@@ -250,3 +250,5 @@ export default function ProfilePage() {
     </div>
   );
 }
+
+    

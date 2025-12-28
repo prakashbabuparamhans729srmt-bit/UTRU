@@ -353,8 +353,8 @@ const translations: Record<string, Translations> = {
         },
         support: {
             title: 'Support',
-            aiChatbot: 'Ai chatbot',
-            webLink: 'Web link',
+aiChatbot: 'AI Chatbot',
+webLink: 'Web Link',
         },
         verifyPhone: {
             title: 'Verification Code',
@@ -912,8 +912,6 @@ const translations: Record<string, Translations> = {
             refund: 'परतावा',
         },
     }
-    // Add other languages here, I have added a few as an example.
-    // You can add all the languages you provided in the same way.
 };
 
 interface LanguageContextType {

@@ -1,4 +1,5 @@
 
+
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import {
   Search,
@@ -135,29 +136,31 @@ export default function LocationPage() {
         </div>
       </main>
 
-      <footer className="fixed bottom-0 left-0 right-0 bg-background border-t border-border z-50">
+      <footer className="fixed bottom-0 left-0 right-0 bg-card border-t z-50">
         <div className="flex justify-around items-center p-2">
-          <Link href="/" className="flex flex-col items-center h-auto text-muted-foreground">
+          <Link href="/" className="flex flex-col items-center h-auto text-primary">
             <HomeIcon className="w-6 h-6 mb-1" />
-            <span className="text-xs">Home</span>
+            <span className="text-xs font-semibold">Home</span>
           </Link>
-          <Button variant="ghost" className="flex flex-col items-center h-auto text-muted-foreground">
+          <Link href="/cart" className="flex flex-col items-center h-auto text-muted-foreground">
             <BookCopy className="w-6 h-6 mb-1" />
             <span className="text-xs">Library</span>
-          </Button>
-           <Link href="/location" className="w-16 h-16 rounded-full bg-card -translate-y-4 shadow-md border-4 border-background flex items-center justify-center text-foreground ring-2 ring-current">
-             <div className="w-8 h-8 rounded-full bg-muted-foreground"></div>
           </Link>
-          <Button variant="ghost" className="flex flex-col items-center h-auto text-muted-foreground">
+          <Link href="/location" className="w-16 h-16 rounded-full bg-primary -translate-y-4 shadow-md border-4 border-background flex items-center justify-center">
+             <LayoutGrid className="w-8 h-8 text-primary-foreground" />
+          </Link>
+          <Link href="/search" className="flex flex-col items-center h-auto text-muted-foreground">
             <PlaySquare className="w-6 h-6 mb-1" />
             <span className="text-xs">Explore</span>
-          </Button>
-          <Button variant="ghost" className="flex flex-col items-center h-auto text-muted-foreground">
+          </Link>
+          <Link href="/profile" className="flex flex-col items-center h-auto text-muted-foreground">
             <LayoutGrid className="w-6 h-6 mb-1" />
             <span className="text-xs">Opinion</span>
-          </Button>
+          </Link>
         </div>
       </footer>
     </div>
   );
 }
+
+    
