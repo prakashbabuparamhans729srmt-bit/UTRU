@@ -164,15 +164,15 @@ export default function AdminDashboard() {
             <div className="p-2 border border-gray-600 rounded-md hidden md:block">
                 <LayoutDashboard className="w-6 h-6" />
             </div>
-            <h1 className="text-xl md:text-2xl font-bold">Dashboard</h1>
+            <h1 className="text-xl md:text-2xl font-bold hidden sm:block">Dashboard</h1>
           </div>
-          <div className="flex items-center gap-4">
-            <div className="relative hidden sm:block">
+          <div className="flex items-center gap-2 sm:gap-4">
+            <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
               <Input
                 type="search"
                 placeholder="Search..."
-                className="bg-gray-700 border-gray-600 rounded-lg pl-10 w-48 md:w-64"
+                className="bg-gray-700 border-gray-600 rounded-lg pl-10 w-36 sm:w-48 md:w-64"
               />
             </div>
             <Bell className="w-6 h-6 text-gray-400 cursor-pointer" />
