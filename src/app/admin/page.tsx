@@ -22,10 +22,14 @@ import {
   Wrench,
   User,
   MapPin,
-  ClipboardList
+  ClipboardList,
+  Menu,
+  X
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { useState } from 'react';
 
 const SidebarMenuItem = ({ icon: Icon, children, isSelected, hasSubmenu }) => (
   <div
@@ -79,7 +83,56 @@ const StatCard = ({
   </div>
 );
 
+
+const SidebarContent = () => (
+    <>
+        <div className="text-2xl font-bold mb-8">UCLAP</div>
+        <nav className="flex flex-col gap-2">
+            <SidebarMenuItem icon={LayoutDashboard} isSelected>
+                Dashboard
+            </SidebarMenuItem>
+            <SidebarMenuItem icon={Box}>Orders</SidebarMenuItem>
+
+            <div className="mt-4 mb-2 text-gray-400 text-sm font-semibold">
+                MANAGEMENT
+            </div>
+            <SidebarMenuItem icon={Building}>City</SidebarMenuItem>
+
+            <div className="mt-4 mb-2 text-gray-400 text-sm font-semibold">
+                CATEGORIES
+            </div>
+            <SidebarMenuItem icon={List} hasSubmenu>
+                Main Category
+            </SidebarMenuItem>
+
+            <div className="mt-4 mb-2 text-gray-400 text-sm font-semibold">
+                BUSINESS
+            </div>
+            <SidebarMenuItem icon={Calendar}>TimeSlot & Date</SidebarMenuItem>
+            <SidebarMenuItem icon={Ticket}>Banner</SidebarMenuItem>
+            <SidebarMenuItem icon={Users}>Partner</SidebarMenuItem>
+
+            <div className="mt-4 mb-2 text-gray-400 text-sm font-semibold">
+                FINANCE
+            </div>
+            <SidebarMenuItem icon={CreditCard}>Credit Packages</SidebarMenuItem>
+            <SidebarMenuItem icon={Wallet}>Payment Gateway</SidebarMenuItem>
+
+            <div className="mt-4 mb-2 text-gray-400 text-sm font-semibold">
+                CONTENT
+            </div>
+            <SidebarMenuItem icon={MessageSquare}>Testimonials</SidebarMenuItem>
+
+            <div className="mt-auto">
+                <SidebarMenuItem icon={Settings}>Settings</SidebarMenuItem>
+            </div>
+        </nav>
+    </>
+)
+
 export default function AdminDashboard() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   const stats = [
     { title: 'Pending', value: '1413', valueClass: 'text-cyan-400' },
     { title: 'Process', value: '2' },
@@ -113,67 +166,36 @@ export default function AdminDashboard() {
 
   return (
     <div className="flex h-screen bg-gray-900 text-white">
-      {/* Sidebar */}
-      <aside className="w-64 bg-gray-800 p-4 flex flex-col">
-        <div className="text-2xl font-bold mb-8">UCLAP</div>
-        <nav className="flex flex-col gap-2">
-          <SidebarMenuItem icon={LayoutDashboard} isSelected>
-            Dashboard
-          </SidebarMenuItem>
-          <SidebarMenuItem icon={Box}>Orders</SidebarMenuItem>
-
-          <div className="mt-4 mb-2 text-gray-400 text-sm font-semibold">
-            MANAGEMENT
-          </div>
-          <SidebarMenuItem icon={Building}>City</SidebarMenuItem>
-
-          <div className="mt-4 mb-2 text-gray-400 text-sm font-semibold">
-            CATEGORIES
-          </div>
-          <SidebarMenuItem icon={List} hasSubmenu>
-            Main Category
-          </SidebarMenuItem>
-
-          <div className="mt-4 mb-2 text-gray-400 text-sm font-semibold">
-            BUSINESS
-          </div>
-          <SidebarMenuItem icon={Calendar}>TimeSlot & Date</SidebarMenuItem>
-          <SidebarMenuItem icon={Ticket}>Banner</SidebarMenuItem>
-          <SidebarMenuItem icon={Users}>Partner</SidebarMenuItem>
-
-          <div className="mt-4 mb-2 text-gray-400 text-sm font-semibold">
-            FINANCE
-          </div>
-          <SidebarMenuItem icon={CreditCard}>Credit Packages</SidebarMenuItem>
-          <SidebarMenuItem icon={Wallet}>Payment Gateway</SidebarMenuItem>
-
-          <div className="mt-4 mb-2 text-gray-400 text-sm font-semibold">
-            CONTENT
-          </div>
-          <SidebarMenuItem icon={MessageSquare}>Testimonials</SidebarMenuItem>
-
-          <div className="mt-auto">
-            <SidebarMenuItem icon={Settings}>Settings</SidebarMenuItem>
-          </div>
-        </nav>
+      {/* Sidebar for Desktop */}
+      <aside className="w-64 bg-gray-800 p-4 flex-col hidden md:flex">
+        <SidebarContent />
       </aside>
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col">
         <header className="flex items-center justify-between p-4 border-b border-gray-700">
           <div className="flex items-center gap-4">
-            <div className="p-2 border border-gray-600 rounded-md">
+             <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              <span className="sr-only">Toggle menu</span>
+            </Button>
+            <div className="p-2 border border-gray-600 rounded-md hidden md:block">
                 <LayoutDashboard className="w-6 h-6" />
             </div>
-            <h1 className="text-2xl font-bold">Dashboard</h1>
+            <h1 className="text-xl md:text-2xl font-bold">Dashboard</h1>
           </div>
           <div className="flex items-center gap-4">
-            <div className="relative">
+            <div className="relative hidden sm:block">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
               <Input
                 type="search"
                 placeholder="Search..."
-                className="bg-gray-800 border-gray-700 rounded-lg pl-10 w-64"
+                className="bg-gray-800 border-gray-700 rounded-lg pl-10 w-48 md:w-64"
               />
             </div>
             <Bell className="w-6 h-6 text-gray-400 cursor-pointer" />
@@ -184,19 +206,26 @@ export default function AdminDashboard() {
           </div>
         </header>
 
-        <div className="flex-1 p-6 overflow-y-auto">
-          <div className="grid grid-cols-4 gap-6 mb-6">
+        {/* Mobile Dropdown Menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden bg-gray-800 p-4 absolute top-16 left-0 right-0 z-20">
+            <SidebarContent />
+          </div>
+        )}
+
+        <div className="flex-1 p-4 md:p-6 overflow-y-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6 mb-6">
             {stats.map((stat) => (
               <div key={stat.title} className="bg-gray-800 p-4 rounded-lg">
                 <p className="text-gray-400 text-sm">{stat.title}</p>
-                <p className={`text-3xl font-bold ${stat.valueClass || 'text-white'}`}>
+                <p className={`text-2xl md:text-3xl font-bold ${stat.valueClass || 'text-white'}`}>
                   {stat.value}
                 </p>
               </div>
             ))}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {dashboardCards.map((card, index) => (
               <StatCard
                 key={index}
