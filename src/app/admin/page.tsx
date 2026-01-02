@@ -101,6 +101,7 @@ const SidebarContent = ({ isExpanded }) => (
 export default function AdminDashboard() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
 
   const stats = [
@@ -172,8 +173,16 @@ export default function AdminDashboard() {
               <Input
                 type="search"
                 placeholder="Search..."
-                className="bg-gray-700 border-gray-600 rounded-lg pl-10 w-36 sm:w-48 md:w-64"
+                className="bg-gray-700 border-gray-600 rounded-lg pl-10 pr-10 w-36 sm:w-48 md:w-64"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
+              {searchQuery && (
+                <X 
+                  className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 cursor-pointer"
+                  onClick={() => setSearchQuery('')}
+                />
+              )}
             </div>
             <Bell className="w-6 h-6 text-gray-400 cursor-pointer" />
             <Avatar>
@@ -228,3 +237,4 @@ export default function AdminDashboard() {
     </div>
   );
 }
+
