@@ -110,17 +110,17 @@ const SalesOverviewChart = () => {
     ];
 
     return (
-        <div className="bg-gray-800 p-4 rounded-lg">
-            <h3 className="text-lg font-bold mb-1 text-white">Sales Overview</h3>
+        <div className="bg-gray-800 p-4 rounded-lg text-white">
+            <h3 className="text-lg font-bold mb-1">Sales Overview</h3>
             <p className="text-gray-400 text-sm mb-4">Total sales over the last 7 months.</p>
             <div style={{ width: '100%', height: 300 }}>
                 <ResponsiveContainer>
                     <LineChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
-                        <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} />
-                        <XAxis dataKey="name" stroke="#888888" />
-                        <YAxis tickFormatter={(value) => `$${value/1000}k`} stroke="#888888" />
-                        <Tooltip contentStyle={{ backgroundColor: '#333', border: 'none' }} />
-                        <Line type="monotone" dataKey="sales" stroke="#00FFFF" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 8 }} />
+                        <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} stroke="#4A5568" />
+                        <XAxis dataKey="name" stroke="#A0AEC0" />
+                        <YAxis tickFormatter={(value) => `$${value/1000}k`} stroke="#A0AEC0" />
+                        <Tooltip contentStyle={{ backgroundColor: '#2D3748', border: 'none', color: '#E2E8F0' }} />
+                        <Line type="monotone" dataKey="sales" stroke="#00FFFF" strokeWidth={2} dot={{ r: 4, fill: '#00FFFF' }} activeDot={{ r: 8, fill: '#00FFFF' }} />
                     </LineChart>
                 </ResponsiveContainer>
             </div>
@@ -137,15 +137,15 @@ const OrderStatisticsChart = () => {
     ];
 
     return (
-        <div className="bg-gray-800 p-4 rounded-lg">
-            <h3 className="text-lg font-bold mb-4 text-white">Order Statistics</h3>
+        <div className="bg-gray-800 p-4 rounded-lg text-white">
+            <h3 className="text-lg font-bold mb-4">Order Statistics</h3>
             <div style={{ width: '100%', height: 300 }}>
                 <ResponsiveContainer>
                     <BarChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
-                         <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} />
-                        <XAxis dataKey="name" stroke="#888888" />
-                        <YAxis stroke="#888888" />
-                        <Tooltip contentStyle={{ backgroundColor: '#333', border: 'none' }} />
+                         <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} stroke="#4A5568" />
+                        <XAxis dataKey="name" stroke="#A0AEC0" />
+                        <YAxis stroke="#A0AEC0" />
+                        <Tooltip contentStyle={{ backgroundColor: '#2D3748', border: 'none', color: '#E2E8F0' }} />
                         <Bar dataKey="orders" fill="#00FFFF" radius={[4, 4, 0, 0]} />
                     </BarChart>
                 </ResponsiveContainer>
@@ -205,7 +205,7 @@ export default function AdminDashboard() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col">
+      <main className="flex-1 flex flex-col bg-gray-900">
         <header className="flex items-center justify-between p-4 border-b border-gray-700 bg-gray-800">
           <div className="flex items-center gap-4">
              <Button
@@ -262,7 +262,7 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        <div className="flex-1 p-4 md:p-6 overflow-y-auto bg-gray-900">
+        <div className="flex-1 p-4 md:p-6 overflow-y-auto">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6 mb-6">
             {stats.map((stat) => (
               <div key={stat.title} className="bg-gray-800 p-4 rounded-lg">
@@ -303,6 +303,3 @@ export default function AdminDashboard() {
     </div>
   );
 }
-
-    
-    
