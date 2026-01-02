@@ -19,6 +19,7 @@ import {
   LogOut,
   Sun,
   Moon,
+  Shield,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -77,6 +78,7 @@ export default function ProfilePage() {
     },
     { icon: Star, text: translations.profile.myRating, href: '#' },
     { icon: Settings, text: translations.profile.setting, href: '/settings' },
+    { icon: Shield, text: 'Master Admin Panel', href: '/settings' },
   ];
 
   const carImage = PlaceHolderImages.find((img) => img.id === 'refer-car');
@@ -250,5 +252,3 @@ export default function ProfilePage() {
     </div>
   );
 }
-
-    
