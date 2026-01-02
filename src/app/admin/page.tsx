@@ -30,108 +30,78 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
+import { cn } from '@/lib/utils';
 
-const SidebarMenuItem = ({ icon: Icon, children, isSelected, hasSubmenu }) => (
+
+const SidebarMenuItem = ({ icon: Icon, children, isSelected, hasSubmenu, isExpanded }) => (
   <div
-    className={`flex items-center p-2 rounded-lg cursor-pointer ${
+    className={cn(
+      'flex items-center p-2 rounded-lg cursor-pointer text-white',
       isSelected ? 'bg-gray-700' : 'hover:bg-gray-700'
-    }`}
+    )}
   >
-    <Icon className="w-5 h-5 mr-3" />
-    <span className="flex-grow">{children}</span>
-    {hasSubmenu && <ChevronRight className="w-5 h-5" />}
-  </div>
-);
-
-const StatCard = ({
-  icon: Icon,
-  title,
-  value,
-  isHighlighted,
-  iconBg,
-  iconClass,
-  valueClass,
-}) => (
-  <div
-    className={`p-4 rounded-lg flex flex-col justify-between ${
-      isHighlighted ? 'bg-cyan-400 text-black' : 'bg-gray-800'
-    }`}
-  >
-    <div className="flex justify-between items-start">
-      <div className="flex-col">
-        <p
-          className={`text-sm ${
-            isHighlighted ? 'text-black' : 'text-gray-400'
-          }`}
-        >
-          {title}
-        </p>
-        <p
-          className={`text-2xl font-bold ${
-            isHighlighted ? 'text-black' : 'text-white'
-          } ${valueClass}`}
-        >
-          {value}
-        </p>
-      </div>
-      {Icon && (
-        <div className={`p-2 rounded ${iconBg}`}>
-          <Icon className={`w-6 h-6 ${iconClass}`} />
-        </div>
-      )}
-    </div>
+    <Icon className="w-5 h-5 shrink-0" />
+    <span className={cn('ml-3 flex-grow transition-opacity duration-200', !isExpanded && 'opacity-0')}>
+      {children}
+    </span>
+    {hasSubmenu && <ChevronRight className={cn('w-5 h-5 shrink-0 transition-opacity duration-200', !isExpanded && 'opacity-0')} />}
   </div>
 );
 
 
-const SidebarContent = () => (
+const SidebarContent = ({ isExpanded }) => (
     <>
-        <div className="text-2xl font-bold mb-8">UCLAP</div>
+        <div className="text-2xl font-bold mb-8 text-center">
+            {isExpanded ? 'UCLAP' : 'U'}
+        </div>
         <nav className="flex flex-col gap-2">
-            <SidebarMenuItem icon={LayoutDashboard} isSelected>
+            <SidebarMenuItem icon={LayoutDashboard} isSelected isExpanded={isExpanded}>
                 Dashboard
             </SidebarMenuItem>
-            <SidebarMenuItem icon={Box}>Orders</SidebarMenuItem>
+            <SidebarMenuItem icon={Box} isExpanded={isExpanded}>Orders</SidebarMenuItem>
 
-            <div className="mt-4 mb-2 text-gray-400 text-sm font-semibold">
-                MANAGEMENT
+            <div className={cn("mt-4 mb-2 text-gray-400 text-sm font-semibold transition-opacity duration-200", !isExpanded && 'opacity-0 text-center text-xs')}>
+                {isExpanded ? 'MANAGEMENT' : '...'}
             </div>
-            <SidebarMenuItem icon={Building}>City</SidebarMenuItem>
+            <SidebarMenuItem icon={Building} isExpanded={isExpanded}>City</SidebarMenuItem>
 
-            <div className="mt-4 mb-2 text-gray-400 text-sm font-semibold">
-                CATEGORIES
+            <div className={cn("mt-4 mb-2 text-gray-400 text-sm font-semibold transition-opacity duration-200", !isExpanded && 'opacity-0 text-center text-xs')}>
+                {isExpanded ? 'CATEGORIES' : '...'}
             </div>
-            <SidebarMenuItem icon={List} hasSubmenu>
+            <SidebarMenuItem icon={List} hasSubmenu isExpanded={isExpanded}>
                 Main Category
             </SidebarMenuItem>
 
-            <div className="mt-4 mb-2 text-gray-400 text-sm font-semibold">
-                BUSINESS
+            <div className={cn("mt-4 mb-2 text-gray-400 text-sm font-semibold transition-opacity duration-200", !isExpanded && 'opacity-0 text-center text-xs')}>
+                {isExpanded ? 'BUSINESS' : '...'}
             </div>
-            <SidebarMenuItem icon={Calendar}>TimeSlot & Date</SidebarMenuItem>
-            <SidebarMenuItem icon={Ticket}>Banner</SidebarMenuItem>
-            <SidebarMenuItem icon={Users}>Partner</SidebarMenuItem>
+            <SidebarMenuItem icon={Calendar} isExpanded={isExpanded}>TimeSlot & Date</SidebarMenuItem>
+            <SidebarMenuItem icon={Ticket} isExpanded={isExpanded}>Banner</SidebarMenuItem>
+            <SidebarMenuItem icon={Users} isExpanded={isExpanded}>Partner</SidebarMenuItem>
 
-            <div className="mt-4 mb-2 text-gray-400 text-sm font-semibold">
-                FINANCE
+            <div className={cn("mt-4 mb-2 text-gray-400 text-sm font-semibold transition-opacity duration-200", !isExpanded && 'opacity-0 text-center text-xs')}>
+                {isExpanded ? 'FINANCE' : '...'}
             </div>
-            <SidebarMenuItem icon={CreditCard}>Credit Packages</SidebarMenuItem>
-            <SidebarMenuItem icon={Wallet}>Payment Gateway</SidebarMenuItem>
+            <SidebarMenuItem icon={CreditCard} isExpanded={isExpanded}>Credit Packages</SidebarMenuItem>
+            <SidebarMenuItem icon={Wallet} isExpanded={isExpanded}>Payment Gateway</SidebarMenuItem>
 
-            <div className="mt-4 mb-2 text-gray-400 text-sm font-semibold">
-                CONTENT
+            <div className={cn("mt-4 mb-2 text-gray-400 text-sm font-semibold transition-opacity duration-200", !isExpanded && 'opacity-0 text-center text-xs')}>
+                {isExpanded ? 'CONTENT' : '...'}
             </div>
-            <SidebarMenuItem icon={MessageSquare}>Testimonials</SidebarMenuItem>
+            <SidebarMenuItem icon={MessageSquare} isExpanded={isExpanded}>Testimonials</SidebarMenuItem>
 
             <div className="mt-auto">
-                <SidebarMenuItem icon={Settings}>Settings</SidebarMenuItem>
+                <SidebarMenuItem icon={Settings} isExpanded={isExpanded}>Settings</SidebarMenuItem>
             </div>
         </nav>
     </>
 )
 
+
 export default function AdminDashboard() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+
 
   const stats = [
     { title: 'Pending', value: '1413', valueClass: 'text-cyan-400' },
@@ -167,8 +137,15 @@ export default function AdminDashboard() {
   return (
     <div className="flex h-screen bg-gray-900 text-white">
       {/* Sidebar for Desktop */}
-      <aside className="w-64 bg-gray-800 p-4 flex-col hidden md:flex">
-        <SidebarContent />
+       <aside 
+        className={cn(
+          "bg-gray-800 p-4 flex-col hidden md:flex transition-all duration-300 ease-in-out",
+          isSidebarExpanded ? 'w-64' : 'w-20'
+        )}
+        onMouseEnter={() => setIsSidebarExpanded(true)}
+        onMouseLeave={() => setIsSidebarExpanded(false)}
+      >
+        <SidebarContent isExpanded={isSidebarExpanded} />
       </aside>
 
       {/* Main Content */}
@@ -208,8 +185,10 @@ export default function AdminDashboard() {
 
         {/* Mobile Dropdown Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden bg-gray-800 p-4 absolute top-16 left-0 right-0 z-20">
-            <SidebarContent />
+          <div 
+            className="md:hidden bg-gray-800 p-4 absolute top-16 left-0 right-0 z-20"
+          >
+            <SidebarContent isExpanded={true} />
           </div>
         )}
 
@@ -227,13 +206,21 @@ export default function AdminDashboard() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {dashboardCards.map((card, index) => (
-              <StatCard
+              <div
                 key={index}
-                icon={card.icon}
-                title={card.title}
-                value={card.value}
-                isHighlighted={card.isHighlighted}
-              />
+                className={cn(
+                  'p-4 rounded-lg flex flex-col justify-between',
+                  card.isHighlighted ? 'bg-cyan-400 text-black' : 'bg-gray-800'
+                )}
+              >
+                <div className="flex justify-between items-start">
+                    <div className="flex-col">
+                        <p className={cn('text-sm', card.isHighlighted ? 'text-black' : 'text-gray-400')}>{card.title}</p>
+                        <p className={cn('text-2xl font-bold', card.isHighlighted ? 'text-black' : 'text-white')}>{card.value}</p>
+                    </div>
+                    {card.icon && <card.icon className="w-6 h-6" />}
+                </div>
+              </div>
             ))}
           </div>
         </div>
