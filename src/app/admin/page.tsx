@@ -143,8 +143,6 @@ export default function AdminDashboard() {
           "bg-gray-800 p-4 flex-col hidden md:flex transition-all duration-300 ease-in-out",
           isSidebarExpanded ? 'w-64' : 'w-20'
         )}
-        onMouseEnter={() => setIsSidebarExpanded(true)}
-        onMouseLeave={() => setIsSidebarExpanded(false)}
       >
         <SidebarContent isExpanded={isSidebarExpanded} />
       </aside>
@@ -162,10 +160,16 @@ export default function AdminDashboard() {
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               <span className="sr-only">Toggle menu</span>
             </Button>
-            <div className="p-2 border border-gray-600 rounded-md hidden md:block">
+            <Button
+                variant="ghost"
+                size="icon"
+                className="p-2 border border-gray-600 rounded-md hidden md:block"
+                onClick={() => setIsSidebarExpanded(!isSidebarExpanded)}
+            >
                 <LayoutDashboard className="w-6 h-6" />
-            </div>
-            <h1 className="text-xl md:text-2xl font-bold hidden sm:block">Dashboard</h1>
+                <span className="sr-only">Toggle Sidebar</span>
+            </Button>
+            <h1 className="text-xl md:text-2xl font-bold">Dashboard</h1>
           </div>
           <div className="flex items-center gap-2 sm:gap-4">
             <div className="relative">
@@ -173,7 +177,7 @@ export default function AdminDashboard() {
               <Input
                 type="search"
                 placeholder="Search..."
-                className="bg-gray-700 border-gray-600 rounded-lg pl-10 pr-10 w-36 sm:w-48 md:w-64"
+                className="bg-gray-700 border-gray-600 rounded-lg pl-10 pr-10 w-full sm:w-48 md:w-64"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
