@@ -31,6 +31,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import { Bar, BarChart, CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 
 const SidebarMenuItem = ({ icon: Icon, children, isSelected, hasSubmenu, isExpanded }) => (
@@ -96,6 +97,62 @@ const SidebarContent = ({ isExpanded }) => (
         </nav>
     </>
 )
+
+const SalesOverviewChart = () => {
+    const data = [
+        { name: 'Jan', sales: 4000 },
+        { name: 'Feb', sales: 3000 },
+        { name: 'Mar', sales: 5000 },
+        { name: 'Apr', sales: 4500 },
+        { name: 'May', sales: 6000 },
+        { name: 'Jun', sales: 7500 },
+        { name: 'Jul', sales: 6500 },
+    ];
+
+    return (
+        <div className="bg-gray-800 p-4 rounded-lg">
+            <h3 className="text-lg font-bold mb-1 text-white">Sales Overview</h3>
+            <p className="text-gray-400 text-sm mb-4">Total sales over the last 7 months.</p>
+            <div style={{ width: '100%', height: 300 }}>
+                <ResponsiveContainer>
+                    <LineChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+                        <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} />
+                        <XAxis dataKey="name" stroke="#888888" />
+                        <YAxis tickFormatter={(value) => `$${value/1000}k`} stroke="#888888" />
+                        <Tooltip contentStyle={{ backgroundColor: '#333', border: 'none' }} />
+                        <Line type="monotone" dataKey="sales" stroke="#00FFFF" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 8 }} />
+                    </LineChart>
+                </ResponsiveContainer>
+            </div>
+        </div>
+    );
+};
+
+const OrderStatisticsChart = () => {
+    const data = [
+        { name: 'Pending', orders: 150 },
+        { name: 'Processing', orders: 80 },
+        { name: 'Completed', orders: 450 },
+        { name: 'Cancelled', orders: 50 },
+    ];
+
+    return (
+        <div className="bg-gray-800 p-4 rounded-lg">
+            <h3 className="text-lg font-bold mb-4 text-white">Order Statistics</h3>
+            <div style={{ width: '100%', height: 300 }}>
+                <ResponsiveContainer>
+                    <BarChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+                         <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} />
+                        <XAxis dataKey="name" stroke="#888888" />
+                        <YAxis stroke="#888888" />
+                        <Tooltip contentStyle={{ backgroundColor: '#333', border: 'none' }} />
+                        <Bar dataKey="orders" fill="#00FFFF" radius={[4, 4, 0, 0]} />
+                    </BarChart>
+                </ResponsiveContainer>
+            </div>
+        </div>
+    );
+};
 
 
 export default function AdminDashboard() {
@@ -217,6 +274,11 @@ export default function AdminDashboard() {
             ))}
           </div>
 
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <SalesOverviewChart />
+            <OrderStatisticsChart />
+          </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {dashboardCards.map((card, index) => (
               <div
@@ -242,4 +304,5 @@ export default function AdminDashboard() {
   );
 }
 
+    
     
