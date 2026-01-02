@@ -148,7 +148,7 @@ export default function AdminDashboard() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col bg-gray-900">
+      <main className="flex-1 flex flex-col">
         <header className="flex items-center justify-between p-4 border-b border-gray-700 bg-gray-800">
           <div className="flex items-center gap-4">
              <Button
@@ -205,7 +205,7 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        <div className="flex-1 p-4 md:p-6 overflow-y-auto">
+        <div className="flex-1 p-4 md:p-6 overflow-y-auto bg-gray-900">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6 mb-6">
             {stats.map((stat) => (
               <div key={stat.title} className="bg-gray-800 p-4 rounded-lg">
@@ -242,3 +242,4 @@ export default function AdminDashboard() {
   );
 }
 
+    
