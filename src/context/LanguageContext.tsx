@@ -18,6 +18,9 @@ interface Translations {
         pushNotification: string;
         voiceCalls: string;
         privacyAndData: string;
+        admin: string;
+        masterAdminPanel: string;
+        open: string;
     };
     about: {
         title: string;
@@ -202,6 +205,9 @@ const translations: Record<string, Translations> = {
             pushNotification: 'Push Notification',
             voiceCalls: 'Voice calls',
             privacyAndData: 'Privacy & Data',
+            admin: 'Admin',
+            masterAdminPanel: 'Master Admin Panel',
+            open: 'Open',
         },
         about: {
             title: 'About Us',
@@ -383,6 +389,9 @@ webLink: 'Web Link',
             pushNotification: 'पुश अधिसूचना',
             voiceCalls: 'वॉयस कॉल',
             privacyAndData: 'गोपनीयता और डेटा',
+            admin: 'एडमिन',
+            masterAdminPanel: 'मास्टर एडमिन पैनल',
+            open: 'खोलें',
         },
         about: {
             title: 'हमारे बारे में',
@@ -493,7 +502,7 @@ webLink: 'Web Link',
         },
         phoneLogin: {
             title: 'फ़ोन से लॉगिन करें',
-            subtitle: 'लॉगिन करने के लिए नीचे अपना नंबर डालें।',
+            subtitle: 'लॉगिन करने के لیے नीचे अपना नंबर डालें।',
             placeholder: 'आपका फ़ोन नंबर...',
             continue: 'जारी रखें',
         },
@@ -564,6 +573,9 @@ webLink: 'Web Link',
             pushNotification: 'पुश सूचना',
             voiceCalls: 'आवाज कॉल',
             privacyAndData: 'गोपनीयता अवुरी डेटा',
+            admin: 'एडमिन',
+            masterAdminPanel: 'मास्टर एडमिन पैनल',
+            open: 'खोलीं',
         },
         about: {
             title: 'हमनी के बारे में',
@@ -745,6 +757,9 @@ webLink: 'Web Link',
             pushNotification: 'पुश सूचना',
             voiceCalls: 'व्हॉइस कॉल',
             privacyAndData: 'गोपनीयता आणि डेटा',
+            admin: 'ऍडमिन',
+            masterAdminPanel: 'मास्टर ऍडमिन पॅनेल',
+            open: 'उघडा',
         },
         about: {
             title: 'आमच्याबद्दल',
@@ -959,5 +974,3 @@ export const useLanguage = () => {
     }
     return context;
 };
-
-    

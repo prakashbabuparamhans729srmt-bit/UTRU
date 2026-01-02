@@ -2,7 +2,7 @@
 
 'use client';
 
-import { ChevronLeft, Bell, Check, Mail, MessageSquare, Phone, Sun, Globe } from 'lucide-react';
+import { ChevronLeft, Bell, Check, Mail, MessageSquare, Phone, Sun, Globe, Shield } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
@@ -88,6 +88,21 @@ export default function SettingsPage() {
                   </div>
                 </div>
               ))}
+            </div>
+          </section>
+
+          <hr className="my-8" />
+
+          <section>
+            <h3 className="text-lg font-medium mb-6">{translations.settings.admin}</h3>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <Shield className="w-6 h-6 text-gray-700" />
+                <span className="font-medium">{translations.settings.masterAdminPanel}</span>
+              </div>
+              <Link href="/admin">
+                <Button variant="outline" className="rounded-full">{translations.settings.open}</Button>
+              </Link>
             </div>
           </section>
 
