@@ -37,8 +37,8 @@ import { Bar, BarChart, CartesianGrid, Line, LineChart, ResponsiveContainer, Too
 const SidebarMenuItem = ({ icon: Icon, children, isSelected, hasSubmenu, isExpanded }) => (
   <div
     className={cn(
-      'flex items-center p-2 rounded-lg cursor-pointer text-white',
-      isSelected ? 'bg-gray-700' : 'hover:bg-gray-700'
+      'flex items-center p-2 rounded-lg cursor-pointer text-[#FFFFFF]',
+      isSelected ? 'bg-[#14181B]' : 'hover:bg-[#14181B]'
     )}
   >
     <Icon className="w-5 h-5 shrink-0" />
@@ -52,7 +52,7 @@ const SidebarMenuItem = ({ icon: Icon, children, isSelected, hasSubmenu, isExpan
 
 const SidebarContent = ({ isExpanded }) => (
     <>
-        <div className="text-2xl font-bold mb-8 text-center text-white">
+        <div className="text-2xl font-bold mb-8 text-center text-[#FFFFFF]">
             {isExpanded ? 'UCLAP' : 'U'}
         </div>
         <nav className="flex flex-col gap-2">
@@ -110,17 +110,17 @@ const SalesOverviewChart = () => {
     ];
 
     return (
-        <div className="bg-gray-800 p-4 rounded-lg text-white">
+        <div className="bg-[#161C21] p-4 rounded-lg text-[#FFFFFF]">
             <h3 className="text-lg font-bold mb-1">Sales Overview</h3>
             <p className="text-gray-400 text-sm mb-4">Total sales over the last 7 months.</p>
             <div style={{ width: '100%', height: 300 }}>
                 <ResponsiveContainer>
                     <LineChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
-                        <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} stroke="#4A5568" />
+                        <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} stroke="#FFFFFF" />
                         <XAxis dataKey="name" stroke="#A0AEC0" />
                         <YAxis tickFormatter={(value) => `$${value/1000}k`} stroke="#A0AEC0" />
-                        <Tooltip contentStyle={{ backgroundColor: '#2D3748', border: 'none', color: '#E2E8F0' }} />
-                        <Line type="monotone" dataKey="sales" stroke="#00FFFF" strokeWidth={2} dot={{ r: 4, fill: '#00FFFF' }} activeDot={{ r: 8, fill: '#00FFFF' }} />
+                        <Tooltip contentStyle={{ backgroundColor: '#14181B', border: 'none', color: '#FFFFFF' }} />
+                        <Line type="monotone" dataKey="sales" stroke="#07F1D6" strokeWidth={2} dot={{ r: 4, fill: '#07F1D6' }} activeDot={{ r: 8, fill: '#07F1D6' }} />
                     </LineChart>
                 </ResponsiveContainer>
             </div>
@@ -137,16 +137,16 @@ const OrderStatisticsChart = () => {
     ];
 
     return (
-        <div className="bg-gray-800 p-4 rounded-lg text-white">
+        <div className="bg-[#161C21] p-4 rounded-lg text-[#FFFFFF]">
             <h3 className="text-lg font-bold mb-4">Order Statistics</h3>
             <div style={{ width: '100%', height: 300 }}>
                 <ResponsiveContainer>
                     <BarChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
-                         <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} stroke="#4A5568" />
+                         <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} stroke="#FFFFFF" />
                         <XAxis dataKey="name" stroke="#A0AEC0" />
                         <YAxis stroke="#A0AEC0" />
-                        <Tooltip contentStyle={{ backgroundColor: '#2D3748', border: 'none', color: '#E2E8F0' }} />
-                        <Bar dataKey="orders" fill="#00FFFF" radius={[4, 4, 0, 0]} />
+                        <Tooltip contentStyle={{ backgroundColor: '#14181B', border: 'none', color: '#FFFFFF' }} />
+                        <Bar dataKey="orders" fill="#07F1D6" radius={[4, 4, 0, 0]} />
                     </BarChart>
                 </ResponsiveContainer>
             </div>
@@ -162,7 +162,7 @@ export default function AdminDashboard() {
 
 
   const stats = [
-    { title: 'Pending', value: '1413', valueClass: 'text-cyan-400' },
+    { title: 'Pending', value: '1413', valueClass: 'text-[#07F1D6]' },
     { title: 'Process', value: '2' },
     { title: 'Cancel', value: '90' },
     { title: 'Completed', value: '1' },
@@ -193,11 +193,11 @@ export default function AdminDashboard() {
   ];
 
   return (
-    <div className="flex h-screen bg-gray-900 text-white">
+    <div className="flex h-screen bg-[#070707] text-[#FFFFFF]">
       {/* Sidebar for Desktop */}
        <aside 
         className={cn(
-          "bg-gray-800 p-4 flex-col hidden md:flex transition-all duration-300 ease-in-out",
+          "bg-[#161C21] p-4 flex-col hidden md:flex transition-all duration-300 ease-in-out",
           isSidebarExpanded ? 'w-64' : 'w-20'
         )}
       >
@@ -206,7 +206,7 @@ export default function AdminDashboard() {
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col">
-        <header className="flex items-center justify-between p-4 border-b border-gray-700 bg-gray-800">
+        <header className="flex items-center justify-between p-4 border-b border-[#14181B] bg-[#161C21]">
           <div className="flex items-center gap-4">
              <Button
               variant="ghost"
@@ -234,7 +234,7 @@ export default function AdminDashboard() {
               <Input
                 type="search"
                 placeholder="Search..."
-                className="bg-gray-700 border-gray-600 rounded-lg pl-10 pr-10 w-full sm:w-48 md:w-64"
+                className="bg-[#14181B] border-[#14181B] rounded-lg pl-10 pr-10 w-full sm:w-48 md:w-64 text-white"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -256,18 +256,18 @@ export default function AdminDashboard() {
         {/* Mobile Dropdown Menu */}
         {isMobileMenuOpen && (
           <div 
-            className="md:hidden bg-gray-800 p-4 absolute top-16 left-0 right-0 z-20"
+            className="md:hidden bg-[#161C21] p-4 absolute top-16 left-0 right-0 z-20"
           >
             <SidebarContent isExpanded={true} />
           </div>
         )}
 
-        <div className="flex-1 p-4 md:p-6 overflow-y-auto bg-gray-900">
+        <div className="flex-1 p-4 md:p-6 overflow-y-auto bg-[#070707]">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6 mb-6">
             {stats.map((stat) => (
-              <div key={stat.title} className="bg-gray-800 p-4 rounded-lg">
+              <div key={stat.title} className="bg-[#161C21] p-4 rounded-lg">
                 <p className="text-gray-400 text-sm">{stat.title}</p>
-                <p className={`text-2xl md:text-3xl font-bold ${stat.valueClass || 'text-white'}`}>
+                <p className={`text-2xl md:text-3xl font-bold ${stat.valueClass || 'text-[#FFFFFF]'}`}>
                   {stat.value}
                 </p>
               </div>
@@ -285,13 +285,13 @@ export default function AdminDashboard() {
                 key={index}
                 className={cn(
                   'p-4 rounded-lg flex flex-col justify-between',
-                  card.isHighlighted ? 'bg-cyan-400 text-black' : 'bg-gray-800'
+                  card.isHighlighted ? 'bg-[#07F1D6] text-black' : 'bg-[#161C21]'
                 )}
               >
                 <div className="flex justify-between items-start">
                     <div className="flex-col">
                         <p className={cn('text-sm', card.isHighlighted ? 'text-black' : 'text-gray-400')}>{card.title}</p>
-                        <p className={cn('text-2xl font-bold', card.isHighlighted ? 'text-black' : 'text-white')}>{card.value}</p>
+                        <p className={cn('text-2xl font-bold', card.isHighlighted ? 'text-black' : 'text-[#FFFFFF]')}>{card.value}</p>
                     </div>
                     {card.icon && <card.icon className="w-6 h-6" />}
                 </div>
