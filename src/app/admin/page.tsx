@@ -51,7 +51,7 @@ const SidebarMenuItem = ({ icon: Icon, children, isSelected, hasSubmenu, isExpan
 
 const SidebarContent = ({ isExpanded }) => (
     <>
-        <div className="text-2xl font-bold mb-8 text-center">
+        <div className="text-2xl font-bold mb-8 text-center text-white">
             {isExpanded ? 'UCLAP' : 'U'}
         </div>
         <nav className="flex flex-col gap-2">
@@ -149,8 +149,8 @@ export default function AdminDashboard() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col">
-        <header className="flex items-center justify-between p-4 border-b border-gray-700">
+      <main className="flex-1 flex flex-col bg-gray-900">
+        <header className="flex items-center justify-between p-4 border-b border-gray-700 bg-gray-800">
           <div className="flex items-center gap-4">
              <Button
               variant="ghost"
@@ -172,7 +172,7 @@ export default function AdminDashboard() {
               <Input
                 type="search"
                 placeholder="Search..."
-                className="bg-gray-800 border-gray-700 rounded-lg pl-10 w-48 md:w-64"
+                className="bg-gray-700 border-gray-600 rounded-lg pl-10 w-48 md:w-64"
               />
             </div>
             <Bell className="w-6 h-6 text-gray-400 cursor-pointer" />
