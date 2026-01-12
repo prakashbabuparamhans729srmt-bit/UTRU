@@ -13,22 +13,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ThemeProvider>
-      <LanguageProvider>
-        <FirebaseClientProvider>
-          <html lang="en">
-            <head>
-              <title>E-commerce App</title>
-              <meta name="description" content="A modern e-commerce application." />
-              <link rel="manifest" href="/manifest.webmanifest" />
-            </head>
-            <body className="antialiased">
+    <html lang="en">
+      <body>
+        <ThemeProvider>
+          <LanguageProvider>
+            <FirebaseClientProvider>
               {children}
               <Toaster />
-            </body>
-          </html>
-        </FirebaseClientProvider>
-      </LanguageProvider>
-    </ThemeProvider>
+            </FirebaseClientProvider>
+          </LanguageProvider>
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }
