@@ -58,7 +58,12 @@ export default function SettingsPage() {
       return;
     }
     installPrompt.prompt();
-    installPrompt.userChoice.then(() => {
+    installPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('User accepted the install prompt');
+      } else {
+        console.log('User dismissed the install prompt');
+      }
       setInstallPrompt(null);
     });
   };
