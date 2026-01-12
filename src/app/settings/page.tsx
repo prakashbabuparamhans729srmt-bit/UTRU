@@ -79,7 +79,7 @@ export default function SettingsPage() {
 
   return (
     <div className="bg-gray-900 min-h-screen">
-      <div className="bg-white text-black rounded-b-[2.5rem] flex-grow">
+      <div className="bg-white text-black rounded-b-[2.5rem] flex-grow pb-8">
         <header className="p-4 flex items-center gap-4">
           <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
             <ChevronLeft />
@@ -147,20 +147,26 @@ export default function SettingsPage() {
 
           <hr className="my-8" />
           
-          <section className="flex items-center justify-between mt-8">
+          <section>
             <div className="flex items-center gap-2 text-teal-500">
                 <Check className="w-5 h-5"/>
                 <span className="font-medium text-sm">{translations.settings.privacyAndData}</span>
             </div>
-            {installPrompt && (
-                <div className="flex items-center gap-4">
-                    <Button variant="outline" className="rounded-full flex items-center gap-2" onClick={handleInstallClick}>
-                        <Download className="w-4 h-4" />
-                        Install App
+          </section>
+
+           {installPrompt && (
+            <section className="mt-4">
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                        <Download className="w-6 h-6 text-gray-700" />
+                        <span className="font-medium">Install App</span>
+                    </div>
+                    <Button variant="outline" className="rounded-full" onClick={handleInstallClick}>
+                        Install
                     </Button>
                 </div>
-            )}
-          </section>
+            </section>
+           )}
         </main>
       </div>
     </div>
