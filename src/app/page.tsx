@@ -245,6 +245,7 @@ export default function Home() {
                     height={300}
                     className="rounded-lg object-cover w-full aspect-[2/1]"
                     data-ai-hint={cityNightImage.imageHint}
+                    priority
                   />
                 </div>
               )}
