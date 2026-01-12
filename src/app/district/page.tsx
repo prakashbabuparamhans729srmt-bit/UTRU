@@ -24,13 +24,10 @@ import {
 import { useLanguage } from '@/context/LanguageContext';
 import { cn } from '@/lib/utils';
 
-export default function LocationPage() {
+export default function DistrictPage() {
   const { translations } = useLanguage();
   const trainImage = PlaceHolderImages.find((img) => img.id === 'location-train-viaduct');
-  const blackFridayImage = PlaceHolderImages.find((img) => img.id === 'location-black-friday');
-  const shoppingWomanImage = PlaceHolderImages.find((img) => img.id === 'location-shopping-woman');
-  const popularItems = PlaceHolderImages.filter(img => img.id.startsWith('location-popular-'));
-
+  
   const navLinks = [
     { href: '/location', label: translations.location.my },
     { href: '/district', label: translations.location.district },
@@ -72,7 +69,7 @@ export default function LocationPage() {
                 <Link key={link.href} href={link.href} passHref>
                     <Button variant="ghost" className={cn(
                         "pb-2 rounded-none w-full",
-                        link.href === '/location' ? 'border-b-2 border-primary text-primary shadow-none' : 'text-muted-foreground'
+                        link.href === '/district' ? 'border-b-2 border-primary text-primary shadow-none' : 'text-muted-foreground'
                     )}>
                         {link.label}
                     </Button>
@@ -81,75 +78,11 @@ export default function LocationPage() {
           </div>
         </div>
 
-        <Carousel className="w-full mb-4" opts={{ loop: true }}>
-          <CarouselContent>
-            {trainImage && (
-              <CarouselItem>
-                <div className="px-4">
-                  <Image
-                    src={trainImage.imageUrl}
-                    alt={trainImage.description}
-                    width={600}
-                    height={300}
-                    className="rounded-lg object-cover w-full aspect-[16/9]"
-                    data-ai-hint={trainImage.imageHint}
-                  />
-                </div>
-              </CarouselItem>
-            )}
-          </CarouselContent>
-        </Carousel>
-
-        <div className="px-4 mb-6">
-            <div className="grid grid-cols-2 gap-4">
-                {blackFridayImage && (
-                    <div className="relative rounded-lg overflow-hidden bg-[#E4C0E5] flex flex-col justify-center items-center p-4 aspect-square">
-                        <h2 className="text-black font-bold text-xl">{translations.location.blackFriday}</h2>
-                        <p className="text-black text-sm">{translations.location.discountsAvailable}</p>
-                    </div>
-                )}
-                {shoppingWomanImage && (
-                    <Image
-                      src={shoppingWomanImage.imageUrl}
-                      alt={shoppingWomanImage.description}
-                      width={300}
-                      height={300}
-                      className="rounded-lg object-cover w-full aspect-square"
-                      data-ai-hint={shoppingWomanImage.imageHint}
-                    />
-                )}
-            </div>
-            <div className="flex justify-center gap-2 mt-2">
-                <div className="w-5 h-1 bg-primary rounded-full"></div>
-                <div className="w-2 h-1 bg-gray-400 rounded-full"></div>
-                <div className="w-2 h-1 bg-gray-400 rounded-full"></div>
-                <div className="w-2 h-1 bg-gray-400 rounded-full"></div>
-            </div>
+        <div className="p-4 text-center">
+            <h1 className="text-2xl font-bold">District Page</h1>
+            <p className="text-muted-foreground">Content for the district will be displayed here.</p>
         </div>
 
-        <div className="px-4 mb-4">
-          <div className="flex justify-between items-center mb-2">
-            <h2 className="text-xl font-bold">{translations.location.whatElsePopular}</h2>
-            <Button variant="outline" className="rounded-full">{translations.location.seeAll}</Button>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-3 gap-4 px-4">
-          {popularItems.map((item) => (
-            <Card key={item.id} className="overflow-hidden rounded-lg border-0">
-              <CardContent className="p-0">
-                <Image
-                  src={item.imageUrl}
-                  alt={item.description}
-                  width={200}
-                  height={200}
-                  className="object-cover w-full aspect-square rounded-lg"
-                  data-ai-hint={item.imageHint}
-                />
-              </CardContent>
-            </Card>
-          ))}
-        </div>
       </main>
 
       <footer className="fixed bottom-0 left-0 right-0 bg-card border-t z-50">
