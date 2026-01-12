@@ -21,6 +21,8 @@ import {
   LayoutGrid,
   Heart,
   Star,
+  MessageCircle,
+  Plus,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -30,6 +32,44 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useLanguage } from '@/context/LanguageContext';
+
+function FloatingActionButton() {
+  const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+
+  return (
+    <div className="fixed bottom-24 right-4 z-50">
+      <div className="relative flex flex-col items-center gap-2">
+        {isOpen && (
+          <div className="flex flex-col items-center gap-3">
+            <Button
+              size="icon"
+              className="rounded-full w-14 h-14 bg-secondary text-secondary-foreground shadow-lg"
+              onClick={() => router.push('/chatbot')}
+            >
+              <MessageCircle className="w-6 h-6" />
+            </Button>
+            <Button
+              size="icon"
+              className="rounded-full w-14 h-14 bg-secondary text-secondary-foreground shadow-lg"
+              onClick={() => router.push('/cart')}
+            >
+              <ShoppingCart className="w-6 h-6" />
+            </Button>
+          </div>
+        )}
+        <Button
+          size="icon"
+          className="rounded-full w-16 h-16 bg-primary shadow-lg"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {isOpen ? <X className="w-8 h-8" /> : <Plus className="w-8 h-8" />}
+        </Button>
+      </div>
+    </div>
+  );
+}
+
 
 interface ProductGridProps {
   products: ImagePlaceholder[];
@@ -243,11 +283,7 @@ export default function Home() {
         <ProductGrid products={products} />
       </main>
 
-      <div className="fixed bottom-24 right-4 z-50">
-        <Button size="icon" className="rounded-full w-14 h-14 bg-primary shadow-lg">
-          <ShoppingCart className="w-6 h-6"/>
-        </Button>
-      </div>
+      <FloatingActionButton />
 
       <footer className="fixed bottom-0 left-0 right-0 bg-card border-t z-50">
         <div className="flex justify-around items-center p-2">
