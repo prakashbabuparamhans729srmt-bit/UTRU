@@ -43,6 +43,12 @@ export default function ChatbotPage() {
 
   useEffect(() => {
     const checkMicPermission = async () => {
+      // Check if SpeechRecognition is supported
+      if (!('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) {
+        setIsMicAllowed(false);
+        return;
+      }
+
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         // Permission granted
@@ -66,56 +72,59 @@ export default function ChatbotPage() {
 
 
   useEffect(() => {
-    if (!isMicAllowed) return;
+    if (!isMicAllowed || !('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) return;
 
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (SpeechRecognition) {
-      const recognition = new SpeechRecognition();
-      recognition.continuous = true;
-      recognition.interimResults = true;
-      recognition.lang = languageCodeMap[language] || 'en-US'; 
+    const recognition = new SpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognition.lang = languageCodeMap[language] || 'en-US'; 
 
-      recognition.onresult = (event) => {
-        let finalTranscript = '';
-        for (let i = event.resultIndex; i < event.results.length; ++i) {
-          if (event.results[i].isFinal) {
-            finalTranscript += event.results[i][0].transcript;
-          }
+    recognition.onresult = (event) => {
+      let finalTranscript = '';
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        if (event.results[i].isFinal) {
+          finalTranscript += event.results[i][0].transcript;
         }
-        if (finalTranscript) {
-          setInput(prev => prev + finalTranscript);
-        }
-      };
+      }
+      if (finalTranscript) {
+        setInput(prev => prev + finalTranscript);
+      }
+    };
 
-      recognition.onerror = (event) => {
-        console.error('Speech recognition error:', event.error);
-        if (event.error === 'not-allowed') {
-            toast({
-              variant: 'destructive',
-              title: 'Microphone Access Denied',
-              description: 'Please enable microphone permissions in your browser settings.',
-            });
-            setIsMicAllowed(false);
-        }
+    recognition.onerror = (event) => {
+      console.error('Speech recognition error:', event.error);
+      if (event.error === 'not-allowed') {
+          toast({
+            variant: 'destructive',
+            title: 'Microphone Access Denied',
+            description: 'Please enable microphone permissions in your browser settings.',
+          });
+          setIsMicAllowed(false);
+      }
+      setIsListening(false);
+    };
+    
+    recognition.onend = () => {
+       if (isStoppingRef.current) {
         setIsListening(false);
-      };
-      
-      recognition.onend = () => {
-        if (!isStoppingRef.current && isListening) {
-          // If it stops unexpectedly, restart it
-           try {
-            recognition.start();
-          } catch(e) {
-            console.error("Recognition restart failed", e);
-            setIsListening(false);
-          }
-        } else {
-           setIsListening(false);
+      } else if (isListening) {
+        // If it stops unexpectedly, restart it
+         try {
+          recognition.start();
+        } catch(e) {
+          console.error("Recognition restart failed", e);
+          setIsListening(false);
         }
-      };
+      }
+    };
 
-      recognitionRef.current = recognition;
+    recognitionRef.current = recognition;
+
+    return () => {
+        recognitionRef.current?.stop();
     }
+
   }, [language, isMicAllowed, toast, isListening]);
 
 
@@ -140,6 +149,7 @@ export default function ChatbotPage() {
         setIsListening(true);
       } catch (error) {
          console.error('Could not start recognition:', error);
+         setIsListening(false);
       }
     }
   };
@@ -183,7 +193,7 @@ export default function ChatbotPage() {
         setMessages((prev) => [...prev, botMessage]);
     } catch (error) {
         console.error('Chatbot error:', error);
-        const errorMessage: Message = { text: 'Sorry, something went wrong. Please try again.', sender: 'bot' };
+        const errorMessage: Message = { text: 'Sorry, I encountered an error. This could be due to a missing API key or a network issue. Please try again later.', sender: 'bot' };
         setMessages((prev) => [...prev, errorMessage]);
     } finally {
         setIsLoading(false);
@@ -276,7 +286,7 @@ export default function ChatbotPage() {
             disabled={isLoading}
           />
           <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
-             { (window.SpeechRecognition || window.webkitSpeechRecognition) && (
+             { (typeof window !== 'undefined' && ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) && (
                 <Button
                     size="icon"
                     variant="ghost"
