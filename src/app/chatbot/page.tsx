@@ -55,16 +55,9 @@ export default function ChatbotPage() {
         if (result.state === 'granted') {
           setIsMicAllowed(true);
         } else if (result.state === 'prompt') {
-          // We can try to request it, or just wait for the user to click the mic button.
-          // For a better UX, let's just enable the button and request on click.
-          setIsMicAllowed(true); // Allow the user to click the button
+          setIsMicAllowed(true); 
         } else {
           setIsMicAllowed(false);
-          toast({
-            variant: 'destructive',
-            title: 'Microphone Access Denied',
-            description: 'To use voice input, please allow microphone access in your browser settings.',
-          });
         }
       } catch (error) {
         console.error('Error checking microphone permission:', error);
@@ -73,11 +66,16 @@ export default function ChatbotPage() {
     };
 
     checkMicPermission();
-  }, [toast]);
+  }, []);
 
 
   useEffect(() => {
-    if (!isClient || !('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) return;
+    if (!isClient) return;
+
+    if (!('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) {
+      console.warn('Speech recognition not supported');
+      return;
+    }
 
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
@@ -113,9 +111,9 @@ export default function ChatbotPage() {
     recognition.onend = () => {
        if (isStoppingRef.current) {
         setIsListening(false);
-      } else if (recognitionRef.current && isListening) { // Check if recognitionRef is set
+      } else if (recognitionRef.current && isListening) { 
          try {
-          recognition.start();
+          recognitionRef.current.start();
         } catch(e) {
           console.error("Recognition restart failed", e);
           setIsListening(false);
@@ -136,7 +134,7 @@ export default function ChatbotPage() {
 
 
   const toggleListening = async () => {
-    if (!('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) {
+    if (!isClient || !recognitionRef.current) {
        toast({
           variant: 'destructive',
           title: 'Feature Not Supported',
@@ -145,12 +143,20 @@ export default function ChatbotPage() {
       return;
     }
     
+    if (isListening) {
+      isStoppingRef.current = true;
+      recognitionRef.current.stop();
+      setIsListening(false);
+      return;
+    }
+
     try {
-        // Request permission if not granted
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        // We can stop the track immediately as we only needed to ask for permission
         stream.getTracks().forEach(track => track.stop());
         setIsMicAllowed(true);
+        isStoppingRef.current = false;
+        recognitionRef.current.start();
+        setIsListening(true);
     } catch (error) {
         console.error('Microphone access denied:', error);
         toast({
@@ -159,27 +165,7 @@ export default function ChatbotPage() {
           description: 'To use voice input, please allow microphone access in your browser settings.',
         });
         setIsMicAllowed(false);
-        return;
-    }
-
-
-    if (isListening) {
-      isStoppingRef.current = true;
-      if (recognitionRef.current) {
-        recognitionRef.current.stop();
-      }
-      setIsListening(false);
-    } else {
-      isStoppingRef.current = false;
-      try {
-        if (recognitionRef.current) {
-          recognitionRef.current.start();
-          setIsListening(true);
-        }
-      } catch (error) {
-         console.error('Could not start recognition:', error);
-         setIsListening(false);
-      }
+        setIsListening(false);
     }
   };
 
@@ -319,7 +305,7 @@ export default function ChatbotPage() {
             disabled={isLoading}
           />
           <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
-             { isClient && ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) && (
+             { isClient && (
                 <Button
                     size="icon"
                     variant="ghost"
@@ -328,7 +314,7 @@ export default function ChatbotPage() {
                         isListening ? "bg-red-500/80 text-white hover:bg-red-600" : "hover:bg-gray-600"
                     )}
                     onClick={toggleListening}
-                    disabled={isLoading}
+                    disabled={isLoading || !isMicAllowed}
                 >
                     <Mic className="w-5 h-5" />
                 </Button>
