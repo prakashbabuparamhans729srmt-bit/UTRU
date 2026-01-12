@@ -16,9 +16,25 @@ type Message = {
   sender: 'user' | 'bot';
 };
 
+// A simple map for language codes
+const languageCodeMap: { [key: string]: string } = {
+  'English': 'en-US',
+  'हिंदी': 'hi-IN',
+  'मराठी': 'mr-IN',
+  'गुजराती': 'gu-IN',
+  'தமிழ்': 'ta-IN',
+  'తెలుగు': 'te-IN',
+  'ಕನ್ನಡ': 'kn-IN',
+  'മലയാളം': 'ml-IN',
+  'Bhojpuri': 'bho-IN',
+  'बंगाली': 'bn-IN',
+  // Add other languages as needed
+};
+
+
 export default function ChatbotPage() {
   const router = useRouter();
-  const { language, translations } = useLanguage();
+  const { language } = useLanguage();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -27,6 +43,7 @@ export default function ChatbotPage() {
   const [isListening, setIsListening] = useState(false);
   const recognitionRef = useRef<any>(null);
   const [isSpeechRecognitionSupported, setIsSpeechRecognitionSupported] = useState(false);
+  const isStoppingRef = useRef(false);
 
   useEffect(() => {
     // Check for browser support on component mount
@@ -36,7 +53,7 @@ export default function ChatbotPage() {
       const recognition = new SpeechRecognition();
       recognition.continuous = true;
       recognition.interimResults = true;
-      recognition.lang = 'en-US'; 
+      recognition.lang = languageCodeMap[language] || 'en-US'; 
 
       recognition.onresult = (event) => {
         let interimTranscript = '';
@@ -48,7 +65,7 @@ export default function ChatbotPage() {
             interimTranscript += event.results[i][0].transcript;
           }
         }
-        setInput(finalTranscript + interimTranscript);
+        setInput(input + finalTranscript + interimTranscript);
       };
 
       recognition.onerror = (event) => {
@@ -57,24 +74,26 @@ export default function ChatbotPage() {
       };
       
       recognition.onend = () => {
-        if(isListening){
-          // If it ends unexpectedly, restart it
+        if (!isStoppingRef.current) {
           recognition.start();
+        } else {
+          setIsListening(false);
         }
       };
 
       recognitionRef.current = recognition;
     }
-  }, [isListening]);
+  }, [language, input]);
 
 
   const toggleListening = () => {
     if (!isSpeechRecognitionSupported) return;
 
     if (isListening) {
+      isStoppingRef.current = true;
       recognitionRef.current?.stop();
-      setIsListening(false);
     } else {
+      isStoppingRef.current = false;
       recognitionRef.current?.start();
       setIsListening(true);
     }
