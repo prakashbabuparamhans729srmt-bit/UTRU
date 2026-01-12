@@ -5,6 +5,7 @@ import { ChevronLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/context/LanguageContext';
+import FloatingActionButton from '@/components/FloatingActionButton';
 
 export default function SupportPage() {
   const router = useRouter();
@@ -24,8 +25,7 @@ export default function SupportPage() {
           <p className="text-sm text-gray-500">{translations.support.webLink}</p>
         </div>
       </main>
+      <FloatingActionButton />
     </div>
   );
 }
-
-    
