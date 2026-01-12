@@ -4,11 +4,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ChevronLeft, Send, User, Bot } from 'lucide-react';
+import { ChevronLeft, Send, User, Bot, Mic } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { appChat, type AppChatInput, type AppChatOutput } from '@/ai/flows/app-chatbot';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useLanguage } from '@/context/LanguageContext';
+import { cn } from '@/lib/utils';
 
 type Message = {
   text: string;
@@ -22,6 +23,63 @@ export default function ChatbotPage() {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const [isListening, setIsListening] = useState(false);
+  const recognitionRef = useRef<any>(null);
+  const [isSpeechRecognitionSupported, setIsSpeechRecognitionSupported] = useState(false);
+
+  useEffect(() => {
+    // Check for browser support on component mount
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      setIsSpeechRecognitionSupported(true);
+      const recognition = new SpeechRecognition();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = 'en-US'; 
+
+      recognition.onresult = (event) => {
+        let interimTranscript = '';
+        let finalTranscript = '';
+        for (let i = event.resultIndex; i < event.results.length; ++i) {
+          if (event.results[i].isFinal) {
+            finalTranscript += event.results[i][0].transcript;
+          } else {
+            interimTranscript += event.results[i][0].transcript;
+          }
+        }
+        setInput(finalTranscript + interimTranscript);
+      };
+
+      recognition.onerror = (event) => {
+        console.error('Speech recognition error:', event.error);
+        setIsListening(false);
+      };
+      
+      recognition.onend = () => {
+        if(isListening){
+          // If it ends unexpectedly, restart it
+          recognition.start();
+        }
+      };
+
+      recognitionRef.current = recognition;
+    }
+  }, [isListening]);
+
+
+  const toggleListening = () => {
+    if (!isSpeechRecognitionSupported) return;
+
+    if (isListening) {
+      recognitionRef.current?.stop();
+      setIsListening(false);
+    } else {
+      recognitionRef.current?.start();
+      setIsListening(true);
+    }
+  };
+
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -41,6 +99,9 @@ export default function ChatbotPage() {
 
   const handleSend = async () => {
     if (input.trim() === '') return;
+    if (isListening) {
+        toggleListening();
+    }
 
     const userMessage: Message = { text: input, sender: 'user' };
     setMessages((prev) => [...prev, userMessage]);
@@ -140,24 +201,40 @@ export default function ChatbotPage() {
       </main>
 
       <footer className="p-4 bg-gray-800 border-t border-gray-700">
-        <div className="relative">
+        <div className="relative flex items-center">
           <Input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="Type your message..."
-            className="w-full bg-gray-700 border-gray-600 rounded-full pl-4 pr-12 h-12 text-white placeholder:text-gray-400 focus:ring-primary"
+            placeholder={isListening ? "Listening..." : "Type your message..."}
+            className="w-full bg-gray-700 border-gray-600 rounded-full pl-4 pr-24 h-12 text-white placeholder:text-gray-400 focus:ring-primary"
             disabled={isLoading}
           />
-          <Button
-            size="icon"
-            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-primary hover:bg-primary/90 w-9 h-9"
-            onClick={handleSend}
-            disabled={isLoading || !input.trim()}
-          >
-            <Send className="w-5 h-5" />
-          </Button>
+          <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
+             {isSpeechRecognitionSupported && (
+                <Button
+                    size="icon"
+                    variant="ghost"
+                    className={cn(
+                        "rounded-full w-9 h-9",
+                        isListening ? "bg-red-500/80 text-white hover:bg-red-600" : "hover:bg-gray-600"
+                    )}
+                    onClick={toggleListening}
+                    disabled={isLoading}
+                >
+                    <Mic className="w-5 h-5" />
+                </Button>
+             )}
+            <Button
+              size="icon"
+              className="rounded-full bg-primary hover:bg-primary/90 w-9 h-9"
+              onClick={handleSend}
+              disabled={isLoading || !input.trim()}
+            >
+              <Send className="w-5 h-5" />
+            </Button>
+          </div>
         </div>
       </footer>
     </div>
