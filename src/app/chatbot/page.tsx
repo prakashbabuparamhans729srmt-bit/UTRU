@@ -35,6 +35,7 @@ export default function ChatbotPage() {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [isClient, setIsClient] = useState(false);
 
   const [isListening, setIsListening] = useState(false);
   const recognitionRef = useRef<any>(null);
@@ -42,6 +43,7 @@ export default function ChatbotPage() {
   const isStoppingRef = useRef(false);
 
   useEffect(() => {
+    setIsClient(true);
     const checkMicPermission = async () => {
       // Check if SpeechRecognition is supported
       if (!('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) {
@@ -286,7 +288,7 @@ export default function ChatbotPage() {
             disabled={isLoading}
           />
           <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
-             { (typeof window !== 'undefined' && ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) && (
+             { isClient && ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) && (
                 <Button
                     size="icon"
                     variant="ghost"
