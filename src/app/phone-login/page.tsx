@@ -2,16 +2,46 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { X, Play } from 'lucide-react';
+import { X, Play, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
+import { useState } from 'react';
+import { useAuthUI } from '@/firebase/auth/use-auth-ui';
+import { useToast } from '@/hooks/use-toast';
 
 export default function PhoneLoginPage() {
   const router = useRouter();
   const { translations } = useLanguage();
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const { signInWithPhoneNumber, isPending, error } = useAuthUI();
+  const { toast } = useToast();
+
+  const handleContinue = async () => {
+    // Basic validation for Indian phone numbers
+    if (!/^\+?91[6-9]\d{9}$/.test(phoneNumber)) {
+        toast({
+            variant: 'destructive',
+            title: 'Invalid Phone Number',
+            description: 'Please enter a valid 10-digit Indian mobile number (e.g., +919876543210).',
+        });
+        return;
+    }
+
+    const success = await signInWithPhoneNumber(phoneNumber);
+    if (success) {
+      router.push('/verify-phone');
+    } else {
+        toast({
+            variant: 'destructive',
+            title: 'Failed to send OTP',
+            description: error || 'An unexpected error occurred. Please try again.',
+        });
+    }
+  };
 
   return (
     <div className="bg-white min-h-screen flex items-center justify-center">
+      <div id="recaptcha-container"></div>
       <div className="bg-black text-white w-full max-w-md mx-4 rounded-[40px] p-8 shadow-2xl flex flex-col h-[70vh] my-auto">
         <div className="flex items-start justify-between">
           <Button
@@ -41,23 +71,31 @@ export default function PhoneLoginPage() {
           <div className="relative mb-6">
             <Input
               type="tel"
-              placeholder={translations.phoneLogin.placeholder}
+              placeholder="+919876543210"
               className="bg-white text-black rounded-full h-14 pl-6 pr-12 text-base"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              disabled={isPending}
             />
-            <Button
-              size="icon"
-              variant="ghost"
-              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full w-10 h-10 text-gray-500 hover:text-black"
-            >
-              <X className="w-5 h-5" />
-            </Button>
+            {phoneNumber && (
+              <Button
+                size="icon"
+                variant="ghost"
+                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full w-10 h-10 text-gray-500 hover:text-black"
+                onClick={() => setPhoneNumber('')}
+                disabled={isPending}
+              >
+                <X className="w-5 h-5" />
+              </Button>
+            )}
           </div>
 
           <Button 
             className="w-full bg-white text-black rounded-full h-14 text-lg font-semibold hover:bg-gray-200"
-            onClick={() => router.push('/verify-phone')}
+            onClick={handleContinue}
+            disabled={isPending || !phoneNumber}
           >
-            {translations.phoneLogin.continue}
+            {isPending ? <Loader2 className="animate-spin" /> : translations.phoneLogin.continue}
           </Button>
         </div>
       </div>

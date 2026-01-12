@@ -2,11 +2,77 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useState, useRef, useEffect } from 'react';
+import { useAuthUI } from '@/firebase/auth/use-auth-ui';
+import { useToast } from '@/hooks/use-toast';
 
 export default function VerifyPhonePage() {
   const router = useRouter();
+  const { toast } = useToast();
+  const { verifyOtp, isPending, error, confirmationResult, phoneNumber } = useAuthUI();
+  const [otp, setOtp] = useState(new Array(6).fill(''));
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  useEffect(() => {
+    // If there's no confirmationResult, the user shouldn't be on this page.
+    if (!confirmationResult && !isPending) {
+      toast({
+        variant: 'destructive',
+        title: 'Verification Error',
+        description: 'Please start the login process again.',
+      });
+      router.replace('/phone-login');
+    }
+  }, [confirmationResult, router, toast, isPending]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+    const { value } = e.target;
+    if (/[^0-9]/.test(value)) return; // Only allow numbers
+
+    const newOtp = [...otp];
+    newOtp[index] = value;
+    setOtp(newOtp);
+
+    // Move to next input if a digit is entered
+    if (value && index < otp.length - 1) {
+      inputRefs.current[index + 1]?.focus();
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
+    if (e.key === 'Backspace' && !otp[index] && index > 0) {
+      inputRefs.current[index - 1]?.focus();
+    }
+  };
+  
+  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const paste = e.clipboardData.getData('text');
+    if (/[^0-9]/.test(paste) || paste.length !== 6) return;
+
+    const newOtp = paste.split('');
+    setOtp(newOtp);
+    inputRefs.current[5]?.focus();
+  };
+
+  const handleVerify = async () => {
+    const otpCode = otp.join('');
+    if (otpCode.length !== 6) {
+        toast({ variant: 'destructive', title: 'Invalid OTP', description: 'Please enter all 6 digits.'});
+        return;
+    }
+    const success = await verifyOtp(otpCode);
+    if (success) {
+      toast({ title: 'Success!', description: 'You have been logged in successfully.' });
+      router.replace('/');
+    } else {
+      toast({ variant: 'destructive', title: 'Verification Failed', description: error || 'The OTP is incorrect. Please try again.' });
+      setOtp(new Array(6).fill(''));
+      inputRefs.current[0]?.focus();
+    }
+  };
 
   return (
     <div className="bg-white min-h-screen flex items-center justify-center">
@@ -31,39 +97,36 @@ export default function VerifyPhonePage() {
         <div className="flex-grow flex flex-col justify-center text-left">
           <h1 className="text-4xl font-bold mb-2">Verification Code</h1>
           <p className="text-gray-400 mb-8">
-            Enter the 4 digit code that you received at: <br />
-            <span className="text-white font-semibold">Phone number</span> <a href="#" className="text-white underline">change number?</a>
+            Enter the 6 digit code that you received at: <br />
+            <span className="text-white font-semibold">{phoneNumber || 'your phone number'}</span> 
+            <button onClick={() => router.push('/phone-login')} className="text-white underline ml-2">change number?</button>
           </p>
 
-          <div className="flex justify-center gap-4 mb-8">
-            <Input
-              type="text"
-              maxLength={1}
-              className="w-14 h-14 text-center text-2xl font-bold bg-white text-black rounded-full border-2 border-gray-500"
-            />
-            <Input
-              type="text"
-              maxLength={1}
-              className="w-14 h-14 text-center text-2xl font-bold bg-white text-black rounded-full border-2 border-gray-500"
-            />
-            <Input
-              type="text"
-              maxLength={1}
-              className="w-14 h-14 text-center text-2xl font-bold bg-white text-black rounded-full border-2 border-gray-500"
-            />
-            <Input
-              type="text"
-              maxLength={1}
-              className="w-14 h-14 text-center text-2xl font-bold bg-white text-black rounded-full border-2 border-gray-500"
-            />
+          <div className="flex justify-center gap-2 mb-8" onPaste={handlePaste}>
+            {otp.map((digit, index) => (
+              <Input
+                key={index}
+                ref={(el) => (inputRefs.current[index] = el)}
+                type="tel"
+                maxLength={1}
+                value={digit}
+                onChange={(e) => handleChange(e, index)}
+                onKeyDown={(e) => handleKeyDown(e, index)}
+                className="w-12 h-12 text-center text-xl font-bold bg-white text-black rounded-full border-2 border-gray-500 aspect-square"
+                disabled={isPending}
+              />
+            ))}
           </div>
 
-          <Button className="w-full bg-white text-black rounded-full h-14 text-lg font-semibold hover:bg-gray-200">
-            Verify Code
+          <Button 
+            className="w-full bg-white text-black rounded-full h-14 text-lg font-semibold hover:bg-gray-200"
+            onClick={handleVerify}
+            disabled={isPending}
+          >
+            {isPending ? <Loader2 className="animate-spin"/> : 'Verify Code'}
           </Button>
         </div>
       </div>
     </div>
   );
 }
-

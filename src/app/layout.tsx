@@ -6,6 +6,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { LanguageProvider } from '@/context/LanguageContext';
 import { ThemeProvider } from '@/context/ThemeContext';
 import { FirebaseClientProvider } from '@/firebase';
+import { AuthUIProvider } from '@/firebase/auth/auth-ui-provider';
 
 export default function RootLayout({
   children,
@@ -13,13 +14,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
         <ThemeProvider>
           <LanguageProvider>
             <FirebaseClientProvider>
-              {children}
-              <Toaster />
+              <AuthUIProvider>
+                {children}
+                <Toaster />
+              </AuthUIProvider>
             </FirebaseClientProvider>
           </LanguageProvider>
         </ThemeProvider>

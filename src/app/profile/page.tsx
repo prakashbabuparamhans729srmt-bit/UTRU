@@ -19,6 +19,8 @@ import {
   LogOut,
   Sun,
   Moon,
+  User as UserIcon,
+  Loader2,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -29,12 +31,16 @@ import { useLanguage } from '@/context/LanguageContext';
 import { useTheme } from '@/context/ThemeContext';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
+import { useUser } from '@/firebase';
+import { useAuthUI } from '@/firebase/auth/use-auth-ui';
 
 export default function ProfilePage() {
   const { toast } = useToast();
   const router = useRouter();
   const { translations } = useLanguage();
   const { theme, toggleTheme } = useTheme();
+  const { user, loading: userLoading } = useUser();
+  const { signOut, isPending: signOutPending } = useAuthUI();
 
   const handleShare = async () => {
     if (navigator.share) {
@@ -60,6 +66,15 @@ export default function ProfilePage() {
         description: 'Your browser does not support the Web Share API.',
       });
     }
+  };
+
+  const handleSignOut = async () => {
+    await signOut();
+    toast({
+      title: 'Logged Out',
+      description: 'You have been successfully logged out.',
+    });
+    router.push('/');
   };
 
   const menuItems = [
@@ -94,18 +109,39 @@ export default function ProfilePage() {
         </Button>
         <div className="mt-8 mb-4">
           <Avatar className="w-24 h-24 border-4 border-gray-700 ring-2 ring-teal-400">
-            <AvatarImage src="https://picsum.photos/seed/user-profile/100/100" />
-            <AvatarFallback>U</AvatarFallback>
+            {user?.photoURL ? (
+                <AvatarImage src={user.photoURL} alt={user.displayName || 'User'} />
+            ) : (
+                <AvatarImage src="https://picsum.photos/seed/user-profile/100/100" />
+            )}
+            <AvatarFallback>
+                {userLoading ? <Loader2 className="animate-spin" /> : <UserIcon />}
+            </AvatarFallback>
           </Avatar>
         </div>
-        <Link href="/login" className="w-4/5">
-          <Button className="bg-teal-400 text-gray-900 font-bold rounded-full w-full hover:bg-teal-500 mb-2">
-            {translations.profile.continue}
-          </Button>
-        </Link>
-        <p className="text-sm text-gray-400 mb-2">
-          {translations.profile.loginMessage}
-        </p>
+
+        {userLoading ? (
+            <Loader2 className="animate-spin my-4" />
+        ) : user ? (
+            <div className='text-center'>
+                <h2 className="text-xl font-bold">{user.displayName || 'Welcome User'}</h2>
+                <p className="text-sm text-gray-400 mb-2">
+                  {user.phoneNumber || user.email}
+                </p>
+            </div>
+        ) : (
+          <>
+            <Link href="/login" className="w-4/5">
+              <Button className="bg-teal-400 text-gray-900 font-bold rounded-full w-full hover:bg-teal-500 mb-2">
+                {translations.profile.continue}
+              </Button>
+            </Link>
+            <p className="text-sm text-gray-400 mb-2">
+              {translations.profile.loginMessage}
+            </p>
+          </>
+        )}
+
 
         <div className="flex justify-around w-full max-w-sm my-4">
           <Link
@@ -181,13 +217,16 @@ export default function ProfilePage() {
               </div>
               <ChevronRight className="w-6 h-6 text-gray-400" />
             </Link>
-            <button
-              onClick={() => alert('Log out functionality to be implemented')}
-              className="w-full flex items-center gap-4 py-2 cursor-pointer text-left"
-            >
-              <LogOut className="w-6 h-6 text-gray-600" />
-              <span className="font-medium">{translations.profile.logOut}</span>
-            </button>
+            {user && (
+                 <button
+                    onClick={handleSignOut}
+                    disabled={signOutPending}
+                    className="w-full flex items-center gap-4 py-2 cursor-pointer text-left disabled:opacity-50"
+                  >
+                    {signOutPending ? <Loader2 className="w-6 h-6 text-gray-600 animate-spin" /> : <LogOut className="w-6 h-6 text-gray-600" />}
+                    <span className="font-medium">{translations.profile.logOut}</span>
+                  </button>
+            )}
           </div>
         </div>
 
