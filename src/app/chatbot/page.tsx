@@ -8,6 +8,7 @@ import { ChevronLeft, Send, User, Bot } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { appChat, type AppChatInput, type AppChatOutput } from '@/ai/flows/app-chatbot';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useLanguage } from '@/context/LanguageContext';
 
 type Message = {
   text: string;
@@ -16,6 +17,7 @@ type Message = {
 
 export default function ChatbotPage() {
   const router = useRouter();
+  const { language, translations } = useLanguage();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -46,7 +48,11 @@ export default function ChatbotPage() {
     setIsLoading(true);
 
     try {
-        const chatInput: AppChatInput = { userQuery: input, history: messages.map(m => `${m.sender}: ${m.text}`) };
+        const chatInput: AppChatInput = { 
+            userQuery: input, 
+            history: messages.map(m => `${m.sender}: ${m.text}`),
+            language: language
+        };
         const result: AppChatOutput = await appChat(chatInput);
         const botMessage: Message = { text: result.response, sender: 'bot' };
         setMessages((prev) => [...prev, botMessage]);
@@ -157,5 +163,3 @@ export default function ChatbotPage() {
     </div>
   );
 }
-
-    

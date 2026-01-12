@@ -15,6 +15,12 @@ import { z } from 'genkit';
 const AppChatInputSchema = z.object({
   userQuery: z.string().describe('The question asked by the user.'),
   history: z.array(z.string()).optional().describe('The chat history.'),
+  language: z
+    .string()
+    .optional()
+    .describe(
+      'The current language of the application. The response should be in this language.'
+    ),
 });
 export type AppChatInput = z.infer<typeof AppChatInputSchema>;
 
@@ -33,11 +39,12 @@ const appInfoPrompt = ai.definePrompt({
   output: { schema: AppChatOutputSchema },
   system: `You are a helpful AI assistant for an e-commerce web application.
 Your goal is to answer questions from users about the application itself.
+You MUST respond in the language specified in the 'language' input field. If no language is specified, respond in the language of the user's query or default to English.
 
 Here is some context about the application's tech stack and features:
 - It is a modern web application built with Next.js and React.
 - The user interface is built using ShadCN UI components and styled with Tailwind CSS.
-- The application supports multiple languages and has a theme switcher for light and dark modes.
+- The application supports multiple languages (like English, Hindi, Marathi, etc.) and has a theme switcher for light and dark modes.
 - It has features like product search, shopping cart, user profiles, and an admin dashboard.
 - AI features are powered by Google's models through Genkit.
 
@@ -64,5 +71,3 @@ const appChatFlow = ai.defineFlow(
     return output!;
   }
 );
-
-    
