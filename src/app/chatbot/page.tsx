@@ -10,6 +10,7 @@ import { appChat, type AppChatInput, type AppChatOutput } from '@/ai/flows/app-c
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useLanguage } from '@/context/LanguageContext';
 import { cn } from '@/lib/utils';
+import { useToast } from '@/hooks/use-toast';
 
 type Message = {
   text: string;
@@ -21,20 +22,15 @@ const languageCodeMap: { [key: string]: string } = {
   'English': 'en-US',
   'हिंदी': 'hi-IN',
   'मराठी': 'mr-IN',
-  'गुजराती': 'gu-IN',
-  'தமிழ்': 'ta-IN',
-  'తెలుగు': 'te-IN',
-  'ಕನ್ನಡ': 'kn-IN',
-  'മലയാളം': 'ml-IN',
   'Bhojpuri': 'bho-IN',
-  'बंगाली': 'bn-IN',
-  // Add other languages as needed
+  // Add other supported languages here
 };
 
 
 export default function ChatbotPage() {
   const router = useRouter();
   const { language } = useLanguage();
+  const { toast } = useToast();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -42,60 +38,109 @@ export default function ChatbotPage() {
 
   const [isListening, setIsListening] = useState(false);
   const recognitionRef = useRef<any>(null);
-  const [isSpeechRecognitionSupported, setIsSpeechRecognitionSupported] = useState(false);
+  const [isMicAllowed, setIsMicAllowed] = useState(false);
   const isStoppingRef = useRef(false);
 
   useEffect(() => {
-    // Check for browser support on component mount
+    const checkMicPermission = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        // Permission granted
+        setIsMicAllowed(true);
+        // We can stop the track immediately as we only needed to ask for permission
+        stream.getTracks().forEach(track => track.stop());
+      } catch (error) {
+        // Permission denied
+        setIsMicAllowed(false);
+        console.error('Microphone access denied:', error);
+        toast({
+          variant: 'destructive',
+          title: 'Microphone Access Denied',
+          description: 'To use voice input, please allow microphone access in your browser settings.',
+        });
+      }
+    };
+
+    checkMicPermission();
+  }, [toast]);
+
+
+  useEffect(() => {
+    if (!isMicAllowed) return;
+
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (SpeechRecognition) {
-      setIsSpeechRecognitionSupported(true);
       const recognition = new SpeechRecognition();
       recognition.continuous = true;
       recognition.interimResults = true;
       recognition.lang = languageCodeMap[language] || 'en-US'; 
 
       recognition.onresult = (event) => {
-        let interimTranscript = '';
         let finalTranscript = '';
         for (let i = event.resultIndex; i < event.results.length; ++i) {
           if (event.results[i].isFinal) {
             finalTranscript += event.results[i][0].transcript;
-          } else {
-            interimTranscript += event.results[i][0].transcript;
           }
         }
-        setInput(input + finalTranscript + interimTranscript);
+        if (finalTranscript) {
+          setInput(prev => prev + finalTranscript);
+        }
       };
 
       recognition.onerror = (event) => {
         console.error('Speech recognition error:', event.error);
+        if (event.error === 'not-allowed') {
+            toast({
+              variant: 'destructive',
+              title: 'Microphone Access Denied',
+              description: 'Please enable microphone permissions in your browser settings.',
+            });
+            setIsMicAllowed(false);
+        }
         setIsListening(false);
       };
       
       recognition.onend = () => {
-        if (!isStoppingRef.current) {
-          recognition.start();
+        if (!isStoppingRef.current && isListening) {
+          // If it stops unexpectedly, restart it
+           try {
+            recognition.start();
+          } catch(e) {
+            console.error("Recognition restart failed", e);
+            setIsListening(false);
+          }
         } else {
-          setIsListening(false);
+           setIsListening(false);
         }
       };
 
       recognitionRef.current = recognition;
     }
-  }, [language, input]);
+  }, [language, isMicAllowed, toast, isListening]);
 
 
   const toggleListening = () => {
-    if (!isSpeechRecognitionSupported) return;
+    if (!isMicAllowed) {
+       toast({
+          variant: 'destructive',
+          title: 'Microphone Not Available',
+          description: 'Please allow microphone access to use this feature.',
+        });
+      return;
+    }
 
     if (isListening) {
       isStoppingRef.current = true;
       recognitionRef.current?.stop();
+      setIsListening(false);
     } else {
       isStoppingRef.current = false;
-      recognitionRef.current?.start();
-      setIsListening(true);
+      try {
+        recognitionRef.current?.start();
+        setIsListening(true);
+      } catch (error) {
+         console.error('Could not start recognition:', error);
+      }
     }
   };
 
@@ -231,16 +276,17 @@ export default function ChatbotPage() {
             disabled={isLoading}
           />
           <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
-             {isSpeechRecognitionSupported && (
+             { (window.SpeechRecognition || window.webkitSpeechRecognition) && (
                 <Button
                     size="icon"
                     variant="ghost"
                     className={cn(
                         "rounded-full w-9 h-9",
-                        isListening ? "bg-red-500/80 text-white hover:bg-red-600" : "hover:bg-gray-600"
+                        isListening ? "bg-red-500/80 text-white hover:bg-red-600" : "hover:bg-gray-600",
+                        !isMicAllowed && "cursor-not-allowed opacity-50"
                     )}
                     onClick={toggleListening}
-                    disabled={isLoading}
+                    disabled={isLoading || !isMicAllowed}
                 >
                     <Mic className="w-5 h-5" />
                 </Button>
