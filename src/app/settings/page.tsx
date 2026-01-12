@@ -112,22 +112,6 @@ export default function SettingsPage() {
 
           <hr className="mb-8" />
           
-          {installPrompt && (
-            <>
-                <section className="mb-8">
-                    <h3 className="text-lg font-medium mb-6">Install App</h3>
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
-                            <Download className="w-6 h-6 text-gray-700" />
-                            <span className="font-medium">Install App</span>
-                        </div>
-                        <Button variant="outline" className="rounded-full" onClick={handleInstallClick}>Install</Button>
-                    </div>
-                </section>
-                <hr className="mb-8" />
-            </>
-          )}
-
           <section>
             <h3 className="text-lg font-medium mb-6">{translations.settings.notificationsAndReminders}</h3>
             <div className="space-y-6">
@@ -160,6 +144,22 @@ export default function SettingsPage() {
               </Link>
             </div>
           </section>
+
+          {installPrompt && (
+            <>
+              <hr className="my-8" />
+              <section>
+                <h3 className="text-lg font-medium mb-6">Install App</h3>
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                        <Download className="w-6 h-6 text-gray-700" />
+                        <span className="font-medium">Install App</span>
+                    </div>
+                    <Button variant="outline" className="rounded-full" onClick={handleInstallClick}>Install</Button>
+                </div>
+              </section>
+            </>
+          )}
 
           <section className="mt-12 flex items-center gap-2 text-teal-500">
             <Check className="w-5 h-5"/>
