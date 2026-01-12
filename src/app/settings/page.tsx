@@ -145,27 +145,22 @@ export default function SettingsPage() {
             </div>
           </section>
 
-          {installPrompt && (
-            <>
-              <hr className="my-8" />
-              <section>
-                <h3 className="text-lg font-medium mb-6">Install App</h3>
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                        <Download className="w-6 h-6 text-gray-700" />
-                        <span className="font-medium">Install App</span>
-                    </div>
-                    <Button variant="outline" className="rounded-full" onClick={handleInstallClick}>Install</Button>
+          <hr className="my-8" />
+          
+          <section className="flex items-center justify-between mt-8">
+            <div className="flex items-center gap-2 text-teal-500">
+                <Check className="w-5 h-5"/>
+                <span className="font-medium text-sm">{translations.settings.privacyAndData}</span>
+            </div>
+            {installPrompt && (
+                <div className="flex items-center gap-4">
+                    <Button variant="outline" className="rounded-full flex items-center gap-2" onClick={handleInstallClick}>
+                        <Download className="w-4 h-4" />
+                        Install App
+                    </Button>
                 </div>
-              </section>
-            </>
-          )}
-
-          <section className="mt-12 flex items-center gap-2 text-teal-500">
-            <Check className="w-5 h-5"/>
-            <span className="font-medium text-sm">{translations.settings.privacyAndData}</span>
+            )}
           </section>
-
         </main>
       </div>
     </div>
