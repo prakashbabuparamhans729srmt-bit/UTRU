@@ -1,13 +1,13 @@
 
-
 'use client';
 
-import { ChevronLeft, Bell, Check, Mail, MessageSquare, Phone, Sun, Globe, Shield } from 'lucide-react';
+import { ChevronLeft, Bell, Check, Mail, MessageSquare, Phone, Sun, Globe, Shield, Download } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
+import { useEffect, useState } from 'react';
 
 const WhatsappIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg {...props} viewBox="0 0 24 24" fill="currentColor">
@@ -25,9 +25,43 @@ const SmsIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 
+interface BeforeInstallPromptEvent extends Event {
+    readonly platforms: Array<string>;
+    readonly userChoice: Promise<{
+        outcome: 'accepted' | 'dismissed',
+        platform: string
+    }>;
+    prompt(): Promise<void>;
+}
+
+
 export default function SettingsPage() {
   const router = useRouter();
   const { translations } = useLanguage();
+  const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+
+  useEffect(() => {
+    const handleBeforeInstallPrompt = (e: Event) => {
+      e.preventDefault();
+      setInstallPrompt(e as BeforeInstallPromptEvent);
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    };
+  }, []);
+
+  const handleInstallClick = () => {
+    if (!installPrompt) {
+      return;
+    }
+    installPrompt.prompt();
+    installPrompt.userChoice.then(() => {
+      setInstallPrompt(null);
+    });
+  };
 
 
   const settingsItems = [
@@ -72,6 +106,22 @@ export default function SettingsPage() {
           </section>
 
           <hr className="mb-8" />
+          
+          {installPrompt && (
+            <>
+                <section className="mb-8">
+                    <h3 className="text-lg font-medium mb-6">Install App</h3>
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                            <Download className="w-6 h-6 text-gray-700" />
+                            <span className="font-medium">Install App</span>
+                        </div>
+                        <Button variant="outline" className="rounded-full" onClick={handleInstallClick}>Install</Button>
+                    </div>
+                </section>
+                <hr className="mb-8" />
+            </>
+          )}
 
           <section>
             <h3 className="text-lg font-medium mb-6">{translations.settings.notificationsAndReminders}</h3>
