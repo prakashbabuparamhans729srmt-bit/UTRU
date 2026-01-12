@@ -18,7 +18,6 @@ export default function RootLayout({
           <head>
             <title>E-commerce App</title>
             <meta name="description" content="A modern e-commerce application." />
-            <link rel="manifest" href="/manifest.webmanifest" />
           </head>
           <body className="antialiased">
             {children}
