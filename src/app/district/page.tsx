@@ -14,10 +14,12 @@ import { useLanguage } from '@/context/LanguageContext';
 import { cn } from '@/lib/utils';
 import { locationNavLinks, mainFooterNavLinks } from '@/lib/navigation';
 import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 
 export default function DistrictPage() {
   const { translations } = useLanguage();
   const pathname = usePathname();
+  const [searchQuery, setSearchQuery] = useState('');
 
   return (
     <div className="bg-background text-foreground min-h-screen flex flex-col">
@@ -35,10 +37,17 @@ export default function DistrictPage() {
             <input
               type="text"
               placeholder={translations.location.searchPlaceholder}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-input rounded-full pl-10 pr-20 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
             />
              <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
-                <X className="w-5 h-5 text-muted-foreground cursor-pointer" />
+                {searchQuery && (
+                    <X 
+                        className="w-5 h-5 text-muted-foreground cursor-pointer"
+                        onClick={() => setSearchQuery('')} 
+                    />
+                )}
                 <div className="w-px h-5 bg-border"></div>
                 <Mic className="w-5 h-5 text-muted-foreground cursor-pointer" />
             </div>
