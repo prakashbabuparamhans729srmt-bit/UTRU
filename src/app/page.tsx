@@ -27,6 +27,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import FloatingActionButton from '@/components/FloatingActionButton';
 import ProductGrid from '@/components/ProductGrid';
 import { homeCategoryLinks, mainFooterNavLinks } from '@/lib/navigation.tsx';
+import Autoplay from 'embla-carousel-autoplay';
 
 
 export default function Home() {
@@ -42,10 +43,14 @@ export default function Home() {
     }
   };
 
-  const cityNightImage = PlaceHolderImages.find((img) => img.id === 'city-night');
-  const productCollageImage = PlaceHolderImages.find((img) => img.id === 'product-collage');
+  const carouselImages = PlaceHolderImages.filter(img => 
+    img.id === 'city-night' || img.id === 'product-collage'
+  );
   const products = PlaceHolderImages.filter(img => img.id.startsWith('product-'));
   
+  const plugin = React.useRef(
+    Autoplay({ delay: 4000, stopOnInteraction: true })
+  );
 
   return (
     <div className="bg-background min-h-screen flex flex-col">
@@ -122,37 +127,29 @@ export default function Home() {
           </ScrollArea>
         </div>
 
-        <Carousel className="w-full mb-6" opts={{ loop: true }}>
+        <Carousel 
+          className="w-full mb-6" 
+          opts={{ loop: true }}
+          plugins={[plugin.current]}
+          onMouseEnter={plugin.current.stop}
+          onMouseLeave={plugin.current.reset}
+        >
           <CarouselContent>
-            <CarouselItem>
-              {cityNightImage && (
+            {carouselImages.map((image, index) => (
+              <CarouselItem key={image.id}>
                 <div className="px-4">
                   <Image
-                    src={cityNightImage.imageUrl}
-                    alt={cityNightImage.description}
+                    src={image.imageUrl}
+                    alt={image.description}
                     width={600}
                     height={300}
                     className="rounded-lg object-cover w-full aspect-[2/1]"
-                    data-ai-hint={cityNightImage.imageHint}
-                    priority
+                    data-ai-hint={image.imageHint}
+                    priority={index === 0}
                   />
                 </div>
-              )}
-            </CarouselItem>
-            <CarouselItem>
-              {productCollageImage && (
-                <div className="px-4">
-                    <Image
-                      src={productCollageImage.imageUrl}
-                      alt={productCollageImage.description}
-                      width={600}
-                      height={300}
-                      className="rounded-lg object-cover w-full aspect-[2/1]"
-                      data-ai-hint={productCollageImage.imageHint}
-                    />
-                </div>
-              )}
-            </CarouselItem>
+              </CarouselItem>
+            ))}
           </CarouselContent>
         </Carousel>
         

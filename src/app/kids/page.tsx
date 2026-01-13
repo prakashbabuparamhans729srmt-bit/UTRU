@@ -12,6 +12,8 @@ import {
 } from '@/components/ui/carousel';
 import ServiceGrid from '@/components/ServiceGrid';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import Autoplay from 'embla-carousel-autoplay';
+import React from 'react';
 
 const kidsServices = [
     { id: 'kids-activities', name: 'Fun Activities' },
@@ -22,7 +24,11 @@ const kidsServices = [
 
 export default function KidsPage() {
   const router = useRouter();
-  const heroImage = PlaceHolderImages.find((img) => img.id === 'kids-hero');
+  const heroImages = PlaceHolderImages.filter((img) => img.id.startsWith('kids-hero'));
+  
+  const plugin = React.useRef(
+    Autoplay({ delay: 4000, stopOnInteraction: true })
+  );
 
   return (
     <div className="bg-background text-foreground min-h-screen">
@@ -33,23 +39,29 @@ export default function KidsPage() {
         <h1 className="text-lg font-semibold">Kids</h1>
       </header>
       <main className="pb-8">
-        <Carousel className="w-full mb-6" opts={{ loop: true }}>
+        <Carousel 
+            className="w-full mb-6" 
+            opts={{ loop: true }}
+            plugins={[plugin.current]}
+            onMouseEnter={plugin.current.stop}
+            onMouseLeave={plugin.current.reset}
+        >
             <CarouselContent>
-                {heroImage && (
-                <CarouselItem>
-                    <div className="px-4">
-                    <Image
-                        src={heroImage.imageUrl}
-                        alt={heroImage.description}
-                        width={600}
-                        height={300}
-                        className="rounded-lg object-cover w-full aspect-[2/1]"
-                        data-ai-hint={heroImage.imageHint}
-                        priority
-                    />
-                    </div>
-                </CarouselItem>
-                )}
+                {heroImages.map((image, index) => (
+                    <CarouselItem key={image.id}>
+                        <div className="px-4">
+                        <Image
+                            src={image.imageUrl}
+                            alt={image.description}
+                            width={600}
+                            height={300}
+                            className="rounded-lg object-cover w-full aspect-[2/1]"
+                            data-ai-hint={image.imageHint}
+                            priority={index === 0}
+                        />
+                        </div>
+                    </CarouselItem>
+                ))}
             </CarouselContent>
         </Carousel>
         <div className="px-4">

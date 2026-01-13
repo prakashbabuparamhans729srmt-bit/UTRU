@@ -12,6 +12,8 @@ import {
 } from '@/components/ui/carousel';
 import ServiceGrid from '@/components/ServiceGrid';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import Autoplay from 'embla-carousel-autoplay';
+import React from 'react';
 
 const electronicsServices = [
   { id: 'electronics-tv-repair', name: 'TV Repair' },
@@ -22,7 +24,13 @@ const electronicsServices = [
 
 export default function ElectronicsPage() {
   const router = useRouter();
-  const heroImage = PlaceHolderImages.find((img) => img.id === 'electronics-hero');
+  const heroImages = PlaceHolderImages.filter(
+    (img) => img.id.startsWith('electronics-hero')
+  );
+  
+  const plugin = React.useRef(
+    Autoplay({ delay: 4000, stopOnInteraction: true })
+  );
 
   return (
     <div className="bg-background text-foreground min-h-screen">
@@ -33,23 +41,29 @@ export default function ElectronicsPage() {
         <h1 className="text-lg font-semibold">Electronics</h1>
       </header>
       <main className="pb-8">
-        <Carousel className="w-full mb-6" opts={{ loop: true }}>
+        <Carousel 
+            className="w-full mb-6" 
+            opts={{ loop: true }}
+            plugins={[plugin.current]}
+            onMouseEnter={plugin.current.stop}
+            onMouseLeave={plugin.current.reset}
+        >
           <CarouselContent>
-            {heroImage && (
-              <CarouselItem>
+            {heroImages.map((image) => (
+              <CarouselItem key={image.id}>
                 <div className="px-4">
                   <Image
-                    src={heroImage.imageUrl}
-                    alt={heroImage.description}
+                    src={image.imageUrl}
+                    alt={image.description}
                     width={600}
                     height={300}
                     className="rounded-lg object-cover w-full aspect-[2/1]"
-                    data-ai-hint={heroImage.imageHint}
-                    priority
+                    data-ai-hint={image.imageHint}
+                    priority={heroImages.indexOf(image) === 0}
                   />
                 </div>
               </CarouselItem>
-            )}
+            ))}
           </CarouselContent>
         </Carousel>
         <div className="px-4">

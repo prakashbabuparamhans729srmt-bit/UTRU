@@ -301,34 +301,124 @@
       "imageHint": "car washing"
     },
     {
-      "id": "electronics-hero",
+      "id": "electronics-hero-1",
       "description": "A collection of modern electronic gadgets on a desk",
       "imageUrl": "https://images.unsplash.com/photo-1550009158-94ae76252426?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "imageHint": "electronic gadgets"
     },
     {
-      "id": "beauty-hero",
+      "id": "electronics-hero-2",
+      "description": "A person's hands typing on a modern laptop keyboard in a coffee shop setting.",
+      "imageUrl": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "laptop coffee"
+    },
+    {
+      "id": "electronics-hero-3",
+      "description": "A close-up of a circuit board with intricate electronic components and pathways.",
+      "imageUrl": "https://images.unsplash.com/photo-1593344484962-796b36d4134c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "circuit board"
+    },
+    {
+      "id": "electronics-hero-4",
+      "description": "A modern home entertainment system with a large TV, soundbar, and gaming console.",
+      "imageUrl": "https://images.unsplash.com/photo-1601944179066-297c6cbbe4e2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "home entertainment"
+    },
+    {
+      "id": "beauty-hero-1",
       "description": "A serene spa setting with rolled towels and candles",
       "imageUrl": "https://images.unsplash.com/photo-1512290923902-8a9f31dc236c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "imageHint": "serene spa"
     },
     {
-      "id": "kids-hero",
+      "id": "beauty-hero-2",
+      "description": "A flat lay of various makeup products like lipstick, eyeshadow, and brushes on a marble background.",
+      "imageUrl": "https://images.unsplash.com/photo-1515688594390-b649fe58715a?q=80&w=1908&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "makeup flatlay"
+    },
+    {
+      "id": "beauty-hero-3",
+      "description": "A woman with a face mask relaxing with cucumber slices on her eyes.",
+      "imageUrl": "https://images.unsplash.com/photo-1552693673-1bf95829b54f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "spa relaxation"
+    },
+    {
+      "id": "beauty-hero-4",
+      "description": "An assortment of skincare products like serums and creams beautifully arranged.",
+      "imageUrl": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "skincare products"
+    },
+    {
+      "id": "kids-hero-1",
       "description": "Children laughing and playing together outdoors in a field",
       "imageUrl": "https://images.unsplash.com/photo-1503919545889-aef636e10ad4?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "imageHint": "children playing"
     },
     {
-      "id": "gifting-hero",
+      "id": "kids-hero-2",
+      "description": "A child's room filled with colorful toys, books, and drawings.",
+      "imageUrl": "https://images.unsplash.com/photo-1559825481-1b4927ac041a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "kids room"
+    },
+    {
+      "id": "kids-hero-3",
+      "description": "A group of diverse children sitting in a circle and learning together.",
+      "imageUrl": "https://images.unsplash.com/photo-1576765974102-b531d6a7a280?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "kids learning"
+    },
+    {
+      "id": "kids-hero-4",
+      "description": "Close-up of a baby's feet in soft booties.",
+      "imageUrl": "https://images.unsplash.com/photo-1604313881515-996593a8089c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "baby feet"
+    },
+    {
+      "id": "gifting-hero-1",
       "description": "A beautifully wrapped present with a red bow on a festive background",
       "imageUrl": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "imageHint": "wrapped gift"
     },
     {
-      "id": "premium-hero",
+      "id": "gifting-hero-2",
+      "description": "A table full of presents of various shapes and sizes wrapped in colorful paper.",
+      "imageUrl": "https://images.unsplash.com/photo-1513297887119-d4209598f8d1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "multiple gifts"
+    },
+    {
+      "id": "gifting-hero-3",
+      "description": "Hands exchanging a wrapped gift, symbolizing the act of giving.",
+      "imageUrl": "https://images.unsplash.com/photo-1600213923085-c5b369c0a2a1?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "exchanging gift"
+    },
+    {
+      "id": "gifting-hero-4",
+      "description": "A hot air balloon festival with many colorful balloons in the sky.",
+      "imageUrl": "https://images.unsplash.com/photo-1533423996376-63e2715112c2?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "balloon festival"
+    },
+    {
+      "id": "premium-hero-1",
       "description": "A sparkling clean and modern living room with large windows",
       "imageUrl": "https://images.unsplash.com/photo-1618220179428-22790b461013?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "imageHint": "clean livingroom"
+    },
+    {
+      "id": "premium-hero-2",
+      "description": "A luxurious modern kitchen with marble countertops and high-end appliances.",
+      "imageUrl": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "luxury kitchen"
+    },
+    {
+      "id": "premium-hero-3",
+      "description": "A person receiving a premium, white-glove delivery service.",
+      "imageUrl": "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "premium service"
+    },
+    {
+      "id": "premium-hero-4",
+      "description": "A high-end sports car detailed to perfection.",
+      "imageUrl": "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "luxury car"
     }
   ]
 }
