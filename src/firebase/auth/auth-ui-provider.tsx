@@ -61,7 +61,7 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
       setPhoneNumber(phone);
 
       try {
-        // Only create a new verifier if one doesn't exist
+        // Only create a new verifier if one doesn't exist or if it has expired
         if (!recaptchaVerifierRef.current) {
             recaptchaVerifierRef.current = new RecaptchaVerifier(auth, container, {
               size: 'invisible',

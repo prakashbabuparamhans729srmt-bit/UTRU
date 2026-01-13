@@ -115,8 +115,8 @@ export default function ProfilePage() {
             </div>
         ) : (
           <div className="text-center w-full">
-            <Link href="/phone-login" className="w-4/5 inline-block">
-              <Button className="bg-primary text-primary-foreground font-bold rounded-full w-full hover:bg-primary/90 mb-2">
+            <Link href="/phone-login" passHref>
+              <Button className="bg-primary text-primary-foreground font-bold rounded-full w-4/5 hover:bg-primary/90 mb-2">
                 {translations.profile.continue}
               </Button>
             </Link>
