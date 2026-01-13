@@ -3,7 +3,6 @@
 
 import React, { useState, useEffect } from 'react';
 import {
-  PlaceHolderImages,
   type ImagePlaceholder,
 } from '@/lib/placeholder-images';
 import {

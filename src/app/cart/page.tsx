@@ -13,7 +13,6 @@ import {
   User2,
 } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -108,11 +107,11 @@ export default function CartPage() {
           </div>
           <div className="grid grid-cols-6 gap-2 text-center">
             {categories.map((category, index) => (
-              <div key={index} className="flex flex-col items-center">
-                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mb-1">
+              <div key={index} className="flex flex-col items-center gap-1">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
                   <category.icon className="w-6 h-6 text-primary" />
                 </div>
-                <span className="text-xs">{category.label}</span>
+                <span className="text-xs text-muted-foreground">{category.label}</span>
               </div>
             ))}
           </div>
@@ -125,7 +124,7 @@ export default function CartPage() {
           </div>
           <div className="flex overflow-x-auto gap-4 pb-4">
             {popularProducts.map((product) => (
-              <div key={product.id} className="flex flex-col items-center shrink-0">
+              <div key={product.id} className="flex flex-col items-center shrink-0 w-24">
                 <Image
                   src={product.imageUrl}
                   alt={product.description}
@@ -134,7 +133,7 @@ export default function CartPage() {
                   className="object-contain w-24 h-24 rounded-lg mb-2"
                   data-ai-hint={product.imageHint}
                 />
-                <span className="text-sm">{product.description}</span>
+                <span className="text-sm text-center truncate w-full">{product.description}</span>
               </div>
             ))}
           </div>
@@ -158,5 +157,3 @@ export default function CartPage() {
     </div>
   );
 }
-
-    
