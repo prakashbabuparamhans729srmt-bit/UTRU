@@ -15,6 +15,7 @@ import { cn } from '@/lib/utils';
 import { locationNavLinks, mainFooterNavLinks } from '@/lib/navigation';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
+import { Card } from '@/components/ui/card';
 
 export default function BharatPage() {
   const { translations } = useLanguage();
@@ -84,15 +85,31 @@ export default function BharatPage() {
 
       <footer className="fixed bottom-0 left-0 right-0 bg-card border-t z-50">
         <div className="flex justify-around items-center p-2">
-          {mainFooterNavLinks.map((link, index) => (
-              <Link key={index} href={link.href} className={cn(
-                  "flex flex-col items-center justify-center gap-1 h-auto p-2 rounded-md transition-colors w-16", 
-                  pathname === link.href ? 'text-primary' : 'text-muted-foreground hover:bg-accent/50'
-                )}>
-                <link.icon className="w-6 h-6" />
-                <span className="text-xs font-semibold">{translations.home[link.labelKey as keyof typeof translations.home]}</span>
-              </Link>
-          ))}
+          {mainFooterNavLinks.map((link, index) => {
+              const isActive = pathname === link.href;
+              if (link.isCentral) {
+                return (
+                  <div key={index} className="-mt-8">
+                    <Link href={link.href}>
+                        <Card className={cn(
+                            "flex items-center justify-center w-16 h-16 rounded-full bg-primary text-primary-foreground shadow-lg border-4 border-background",
+                        )}>
+                            <link.icon className="w-8 h-8" />
+                        </Card>
+                    </Link>
+                  </div>
+                );
+              }
+              return (
+                <Link key={index} href={link.href} className={cn(
+                    "flex flex-col items-center justify-center gap-1 h-auto p-2 rounded-md transition-colors w-16", 
+                    isActive ? 'text-primary' : 'text-muted-foreground hover:bg-accent/50'
+                  )}>
+                  <link.icon className="w-6 h-6" />
+                  <span className="text-xs font-semibold">{translations.home[link.labelKey as keyof typeof translations.home]}</span>
+                </Link>
+              )
+          })}
         </div>
       </footer>
     </div>

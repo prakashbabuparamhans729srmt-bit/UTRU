@@ -146,8 +146,9 @@ import {
   // For src/app/page.tsx, src/app/location/* pages
   export const mainFooterNavLinks = [
     { href: '/', icon: HomeIcon, labelKey: 'home' },
-    { href: '/my-plans', icon: ClipboardList, labelKey: 'bookings' },
-    { href: '/chatbot', icon: MessageSquare, labelKey: 'chat'},
+    { href: '#', icon: BookCopy, labelKey: 'library' },
+    { href: '/location', icon: LayoutGrid, labelKey: 'explore', isCentral: true },
+    { href: '#', icon: PlaySquare, labelKey: 'opinion' },
     { href: '/profile', icon: User, labelKey: 'profile' },
   ];
   
@@ -158,7 +159,7 @@ import {
       { name: 'beauty', href: '/beauty' },
       { name: 'kids', href: '/kids' },
       { name: 'gifting', href: '/gifting' },
-      { name: 'cleaning', href: '/cleaning' },
+      { name: 'premium', href: '/cleaning' },
   ];
 
   export const mainCategoryGrid = [
