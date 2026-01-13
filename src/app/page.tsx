@@ -42,6 +42,7 @@ function ProductGrid({ products }: ProductGridProps) {
   const [productList, setProductList] = useState<any[]>([]);
 
   useEffect(() => {
+    // This now only runs on the client, avoiding the hydration error.
     setProductList(
       products.map((product) => ({
         ...product,
@@ -53,10 +54,12 @@ function ProductGrid({ products }: ProductGridProps) {
     );
   }, [products]);
 
+  if (!products.length) return null;
+
   if (!productList.length) {
     return (
         <div className="grid grid-cols-2 gap-4 px-4">
-            {Array.from({ length: 4 }).map((_, i) => (
+            {Array.from({ length: products.length || 4 }).map((_, i) => (
                 <Card key={i} className="overflow-hidden rounded-lg">
                     <CardContent className="p-0">
                         <Skeleton className="w-full aspect-square" />

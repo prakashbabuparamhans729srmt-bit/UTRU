@@ -22,6 +22,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useLanguage } from '@/context/LanguageContext';
+import { Skeleton } from '@/components/ui/skeleton';
 
 
 interface ProductGridProps {
@@ -52,15 +53,15 @@ function ProductGrid({ products }: ProductGridProps) {
             {Array.from({ length: products.length }).map((_, i) => (
                 <Card key={i} className="overflow-hidden rounded-lg">
                     <CardContent className="p-0">
-                        <div className="w-full aspect-square bg-muted animate-pulse" />
+                        <Skeleton className="w-full aspect-square" />
                         <div className="p-3 space-y-2">
-                            <div className="h-4 bg-muted animate-pulse rounded-md" />
-                            <div className="h-3 w-1/2 bg-muted animate-pulse rounded-md" />
+                            <Skeleton className="h-4 w-3/4" />
+                            <Skeleton className="h-3 w-1/2" />
                              <div className="flex items-center justify-between">
-                                <div className="h-5 w-12 bg-muted animate-pulse rounded-md" />
-                                <div className="h-5 w-8 bg-muted animate-pulse rounded-md" />
+                                <Skeleton className="h-5 w-12" />
+                                <Skeleton className="h-5 w-8" />
                             </div>
-                            <div className="h-4 w-1/3 bg-muted animate-pulse rounded-md" />
+                            <Skeleton className="h-4 w-1/3" />
                         </div>
                     </CardContent>
                 </Card>
