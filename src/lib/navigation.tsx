@@ -144,7 +144,7 @@ import {
       { href: '/cart', icon: BookCopy, labelKey: 'library' },
       { href: '/location', icon: LayoutGrid, isCentral: true, labelKey: '' },
       { href: '/search', icon: PlaySquare, labelKey: 'explore' },
-      { href: '/profile', icon: LayoutGrid, labelKey: 'opinion' },
+      { href: '/profile', icon: User, labelKey: 'opinion' },
   ];
   
   // For src/app/page.tsx
@@ -158,22 +158,20 @@ import {
   ];
   
   // For src/app/profile/page.tsx
-  export const profileQuickAccessLinks = [
-      { icon: CreditCard, text: 'Payments', href: '/payment-settings', labelKey: 'payments' },
-      { icon: Headset, text: 'Support', href: '/support', labelKey: 'support' },
-      { icon: Wallet, text: 'Wallet', href: '/wallet', labelKey: 'wallet' },
-  ];
   
   export const profileMenuItems = [
-      { icon: FileText, text: 'My plans', href: '/my-plans', labelKey: 'myPlans' },
-      { icon: Smartphone, text: 'Native devices', href: '/native-devices', labelKey: 'nativeDevices' },
       { icon: BookUser, text: 'Address book', href: '/address', labelKey: 'addressBook' },
+      { icon: CreditCard, text: 'Payments', href: '/payment-settings', labelKey: 'payments' },
+      { icon: Wallet, text: 'Wallet', href: '/wallet', labelKey: 'wallet' },
+      { icon: FileText, text: 'My plans', href: '/my-plans', labelKey: 'myPlans' },
       { icon: Star, text: 'Plus membership', href: '/plus-membership', labelKey: 'plusMembership' },
       { icon: Star, text: 'My rating', href: '#', labelKey: 'myRating' },
-      { icon: Settings, text: 'Setting', href: '/settings', labelKey: 'setting' },
+      
   ];
   
   export const profileOtherInfoLinks = [
+      { icon: Settings, text: 'Setting', href: '/settings', labelKey: 'setting' },
+      { icon: Headset, text: 'Support', href: '/support', labelKey: 'support' },
       { icon: Share2, text: 'Share the app', href: '#', labelKey: 'shareApp' },
       { icon: Info, text: 'About us', href: '/about', labelKey: 'aboutUs' },
       { icon: LogOut, text: 'Log out', href: '#', labelKey: 'logOut' },

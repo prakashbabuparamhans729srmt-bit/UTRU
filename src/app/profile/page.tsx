@@ -4,7 +4,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
-  ChevronLeft,
   ChevronRight,
   Loader2,
   Moon,
@@ -22,7 +21,7 @@ import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { useUser } from '@/firebase';
 import { useAuthUI } from '@/firebase/auth/use-auth-ui';
-import { profileMenuItems, profileOtherInfoLinks, profileQuickAccessLinks } from '@/lib/navigation.tsx';
+import { profileMenuItems, profileOtherInfoLinks } from '@/lib/navigation.tsx';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export default function ProfilePage() {
@@ -72,18 +71,14 @@ export default function ProfilePage() {
   const carImage = PlaceHolderImages.find((img) => img.id === 'refer-car');
 
   return (
-    <div className="bg-gray-900 text-white min-h-screen flex flex-col">
-      <div className="p-4 relative flex flex-col items-center shrink-0">
-        <Button
-          size="icon"
-          variant="ghost"
-          className="absolute top-4 left-4 rounded-full bg-black text-white hover:bg-gray-700"
-          onClick={() => router.back()}
-        >
-          <ChevronLeft className="w-6 h-6" />
-        </Button>
-        <div className="mt-8 mb-4">
-            <Avatar className="w-24 h-24 border-4 border-gray-700 ring-2 ring-primary">
+    <div className="bg-background text-foreground min-h-screen flex flex-col">
+       <header className="p-4 flex items-center gap-4">
+         <h1 className="text-xl font-bold">{user?.displayName ? `Hey, ${user.displayName.split(' ')[0]}`: translations.profile.title}</h1>
+      </header>
+
+      <main className="flex-grow p-4">
+        <div className="flex items-center gap-4 mb-8">
+            <Avatar className="w-20 h-20 border-2 border-primary">
                 {userLoading ? (
                     <Skeleton className="w-full h-full rounded-full" />
                 ) : (
@@ -93,90 +88,76 @@ export default function ProfilePage() {
                         ) : (
                             <AvatarImage src="https://picsum.photos/seed/user-profile/100/100" />
                         )}
-                        <AvatarFallback>
+                        <AvatarFallback className='text-3xl'>
                             <UserIcon />
                         </AvatarFallback>
                     </>
                 )}
             </Avatar>
-        </div>
-
-        {userLoading ? (
-            <div className="text-center w-full max-w-xs space-y-2 mx-auto">
-                <Skeleton className="h-6 w-3/4 mx-auto" />
-                <Skeleton className="h-4 w-1/2 mx-auto" />
-            </div>
-        ) : user ? (
-            <div className='text-center'>
-                <h2 className="text-xl font-bold">{user.displayName || 'Welcome User'}</h2>
-                <p className="text-sm text-gray-400 mb-2">
-                  {user.phoneNumber || user.email}
+             {userLoading ? (
+                <div className="w-full max-w-xs space-y-2">
+                    <Skeleton className="h-6 w-3/4" />
+                    <Skeleton className="h-4 w-1/2" />
+                </div>
+            ) : user ? (
+                <div>
+                    <h2 className="text-xl font-bold">{user.displayName || 'Welcome User'}</h2>
+                    <p className="text-sm text-muted-foreground">
+                      {user.phoneNumber || user.email}
+                    </p>
+                </div>
+            ) : (
+              <div className="w-full">
+                <Link href="/phone-login" passHref>
+                  <Button className="bg-primary text-primary-foreground font-bold rounded-md w-full sm:w-auto hover:bg-primary/90 mb-2">
+                    {translations.profile.continue}
+                  </Button>
+                </Link>
+                <p className="text-sm text-muted-foreground">
+                  {translations.profile.loginMessage}
                 </p>
+              </div>
+            )}
+        </div>
+
+
+        <div className="bg-card rounded-lg border">
+            <div className="p-4 space-y-1">
+            {profileMenuItems.map((item, index) => (
+                <Link
+                    key={index}
+                    href={item.href}
+                    className="flex items-center justify-between py-3 cursor-pointer group"
+                >
+                    <div className="flex items-center gap-4">
+                    <item.icon className="w-6 h-6 text-muted-foreground transition-colors group-hover:text-primary" />
+                    <span className="font-medium transition-colors group-hover:text-primary">{translations.profile[item.labelKey]}</span>
+                    </div>
+                    <ChevronRight className="w-6 h-6 text-gray-400 dark:text-gray-500" />
+                </Link>
+            ))}
             </div>
-        ) : (
-          <div className="text-center w-full">
-            <Link href="/phone-login" passHref>
-              <Button className="bg-primary text-primary-foreground font-bold rounded-full w-4/5 hover:bg-primary/90 mb-2">
-                {translations.profile.continue}
-              </Button>
-            </Link>
-            <p className="text-sm text-gray-400 mb-2">
-              {translations.profile.loginMessage}
-            </p>
-          </div>
-        )}
-
-
-        <div className="flex justify-around w-full max-w-sm my-4">
-          {profileQuickAccessLinks.map((item, index) => (
-            <Link
-                key={index}
-                href={item.href}
-                className="flex flex-col items-center gap-2 text-white"
-            >
-                <div className="p-3 bg-gray-800 rounded-full">
-                <item.icon className="w-6 h-6" />
-                </div>
-                <span className="text-sm">{translations.profile[item.labelKey]}</span>
-            </Link>
-          ))}
         </div>
-      </div>
 
-      <div className="bg-card text-card-foreground rounded-t-3xl p-6 flex-grow overflow-y-auto">
-        <div className="space-y-4">
-          {profileMenuItems.map((item, index) => (
-            <Link
-                key={index}
-                href={item.href}
-                className="flex items-center justify-between py-2 cursor-pointer"
-              >
-                <div className="flex items-center gap-4">
-                  <item.icon className="w-6 h-6 text-muted-foreground" />
-                  <span className="font-medium">{translations.profile[item.labelKey]}</span>
-                </div>
-                <ChevronRight className="w-6 h-6 text-gray-400 dark:text-gray-500" />
-              </Link>
-          ))}
-        </div>
-        <div className="mt-8">
-          <h3 className="text-muted-foreground text-sm font-bold tracking-wider mb-4">
-            {translations.profile.otherInfo}
-          </h3>
-          <div className="space-y-4">
+        <div className="bg-card rounded-lg border mt-6">
+          <div className="p-4 space-y-1">
+            <h3 className="text-muted-foreground text-sm font-bold tracking-wider mb-2 px-3">
+                {translations.profile.otherInfo}
+            </h3>
             {profileOtherInfoLinks.map((item, index) => {
-              // Conditionally render based on the link's purpose
               if (item.labelKey === 'logOut') {
-                 if (!user) return null; // Don't show log out if not logged in
+                 if (!user) return null;
                  return (
                     <button
                       key={index}
                       onClick={handleSignOut}
                       disabled={signOutPending}
-                      className="w-full flex items-center gap-4 py-2 cursor-pointer text-left disabled:opacity-50"
+                      className="w-full flex items-center justify-between py-3 cursor-pointer group disabled:opacity-50"
                     >
-                      {signOutPending ? <Loader2 className="w-6 h-6 text-muted-foreground animate-spin" /> : <item.icon className="w-6 h-6 text-muted-foreground" />}
-                      <span className="font-medium">{translations.profile.logOut}</span>
+                        <div className='flex items-center gap-4'>
+                            {signOutPending ? <Loader2 className="w-6 h-6 text-muted-foreground animate-spin" /> : <item.icon className="w-6 h-6 text-muted-foreground transition-colors group-hover:text-destructive" />}
+                            <span className="font-medium transition-colors group-hover:text-destructive">{translations.profile.logOut}</span>
+                        </div>
                     </button>
                  );
               }
@@ -185,11 +166,11 @@ export default function ProfilePage() {
                     <button
                         key={index}
                         onClick={handleShare}
-                        className="w-full flex items-center justify-between py-2 cursor-pointer text-left"
+                        className="w-full flex items-center justify-between py-3 cursor-pointer group text-left"
                     >
                         <div className="flex items-center gap-4">
-                            <item.icon className="w-6 h-6 text-muted-foreground" />
-                            <span className="font-medium">
+                            <item.icon className="w-6 h-6 text-muted-foreground transition-colors group-hover:text-primary" />
+                            <span className="font-medium transition-colors group-hover:text-primary">
                                 {translations.profile[item.labelKey]}
                             </span>
                         </div>
@@ -201,11 +182,11 @@ export default function ProfilePage() {
                  <Link
                     key={index}
                     href={item.href}
-                    className="flex items-center justify-between py-2 cursor-pointer"
+                    className="flex items-center justify-between py-3 cursor-pointer group"
                 >
                     <div className="flex items-center gap-4">
-                        <item.icon className="w-6 h-6 text-muted-foreground" />
-                        <span className="font-medium">
+                        <item.icon className="w-6 h-6 text-muted-foreground transition-colors group-hover:text-primary" />
+                        <span className="font-medium transition-colors group-hover:text-primary">
                         {translations.profile[item.labelKey]}
                         </span>
                     </div>
@@ -214,35 +195,6 @@ export default function ProfilePage() {
             )})}
           </div>
         </div>
-
-        {carImage && (
-          <div className="bg-card-foreground/5 dark:bg-gray-800 text-card-foreground rounded-2xl p-4 mt-6 flex items-center gap-4 shadow-sm border">
-            <div className="flex-1">
-              <h4 className="font-bold text-lg">
-                {translations.profile.referEarn}
-              </h4>
-              <p className="text-sm text-muted-foreground">
-                {translations.profile.referEarnDescription}
-              </p>
-              <p className="text-sm font-semibold mt-2">
-                {translations.profile.hurryUp}
-              </p>
-            </div>
-            <div className="relative w-2/5">
-              <Image
-                src={carImage.imageUrl}
-                alt={carImage.description}
-                width={150}
-                height={75}
-                className="object-contain"
-                data-ai-hint={carImage.imageHint}
-              />
-              <Button className="absolute -bottom-2 right-0 bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg px-4 py-1 h-auto text-sm">
-                {translations.profile.referNow}
-              </Button>
-            </div>
-          </div>
-        )}
 
         <div className="flex items-center space-x-2 mt-8 p-1 bg-muted rounded-full">
             <Label htmlFor="theme-switch" className="flex-1 text-center">
@@ -270,7 +222,7 @@ export default function ProfilePage() {
           {translations.profile.appVersions}
         </p>
         <p className="text-center text-gray-500 font-bold">0.2</p>
-      </div>
+      </main>
     </div>
   );
 }

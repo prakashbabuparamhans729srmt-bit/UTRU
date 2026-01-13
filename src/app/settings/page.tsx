@@ -1,7 +1,7 @@
 
 'use client';
 
-import { ChevronLeft, Check } from 'lucide-react';
+import { ChevronLeft, Check, ChevronRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
@@ -55,43 +55,19 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="bg-gray-900 min-h-screen">
-      <div className="bg-card text-card-foreground rounded-b-[2.5rem] flex-grow pb-8">
-        <header className="p-4 flex items-center gap-4">
-          <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
-            <ChevronLeft />
-          </Button>
-          <h1 className="text-lg font-semibold">{translations.settings.title}</h1>
-        </header>
+    <div className="bg-background min-h-screen">
+      <header className="p-4 flex items-center gap-4 border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
+        <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
+          <ChevronLeft />
+        </Button>
+        <h1 className="text-lg font-semibold">{translations.settings.title}</h1>
+      </header>
 
-        <main className="p-6">
-          <section className="mb-8">
-            <h2 className="text-xl font-bold mb-1">{translations.settings.orderMessages}</h2>
-            <p className="text-muted-foreground text-sm">
-              {translations.settings.orderMessagesDescription}
-            </p>
-          </section>
-
-          <hr className="mb-8" />
-          
-          <section className="mb-8">
-            <h3 className="text-lg font-medium mb-6">{translations.settings.language}</h3>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <settingsLanguageLink.icon className="w-6 h-6 text-muted-foreground" />
-                <span className="font-medium">{translations.settings.language}</span>
-              </div>
-              <Link href={settingsLanguageLink.href}>
-                <Button variant="outline" className="rounded-full">{translations.settings.change}</Button>
-              </Link>
-            </div>
-          </section>
-
-          <hr className="mb-8" />
-          
-          <section>
-            <h3 className="text-lg font-medium mb-6">{translations.settings.notificationsAndReminders}</h3>
-            <div className="space-y-6">
+      <main className="p-4">
+        <section className="mb-6">
+          <h2 className="text-muted-foreground font-semibold mb-2 text-sm uppercase">{translations.settings.notificationsAndReminders}</h2>
+          <div className="bg-card rounded-lg border p-4">
+            <div className="space-y-4">
               {settingsItems.map((item, index) => (
                 <div key={index} className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
@@ -104,49 +80,64 @@ export default function SettingsPage() {
                 </div>
               ))}
             </div>
-          </section>
+          </div>
+        </section>
 
-          <hr className="my-8" />
-
-          <section>
-            <h3 className="text-lg font-medium mb-6">{translations.settings.admin}</h3>
-             {settingsAdminLinks.map((item, index) => (
-                <div key={index} className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                    <item.icon className="w-6 h-6 text-muted-foreground" />
-                    <span className="font-medium">{translations.settings[item.labelKey]}</span>
-                </div>
-                <Link href={item.href}>
-                    <Button variant="outline" className="rounded-full">{translations.settings.open}</Button>
+        <section className="mb-6">
+            <h3 className="text-muted-foreground font-semibold mb-2 text-sm uppercase">{translations.settings.language}</h3>
+             <div className="bg-card rounded-lg border p-4">
+                <Link href={settingsLanguageLink.href} className="flex items-center justify-between group">
+                  <div className="flex items-center gap-4">
+                    <settingsLanguageLink.icon className="w-6 h-6 text-muted-foreground" />
+                    <span className="font-medium">{translations.settings.language}</span>
+                  </div>
+                    <div className='flex items-center gap-2 text-muted-foreground group-hover:text-primary'>
+                        <span>{useLanguage().language}</span>
+                        <ChevronRight className="w-5 h-5" />
+                    </div>
                 </Link>
-                </div>
-             ))}
-          </section>
+             </div>
+        </section>
 
-          <hr className="my-8" />
-          
-          <section>
-            <div className="flex items-center gap-2 text-teal-500">
+        <section className="mb-6">
+            <h3 className="text-muted-foreground font-semibold mb-2 text-sm uppercase">{translations.settings.admin}</h3>
+            <div className="bg-card rounded-lg border p-4">
+             {settingsAdminLinks.map((item, index) => (
+                <Link href={item.href} key={index} className="flex items-center justify-between group">
+                    <div className="flex items-center gap-4">
+                        <item.icon className="w-6 h-6 text-muted-foreground" />
+                        <span className="font-medium">{translations.settings[item.labelKey]}</span>
+                    </div>
+                     <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-primary" />
+                </Link>
+             ))}
+             </div>
+        </section>
+        
+        {installPrompt && (
+          <section className="mb-6">
+            <div className="bg-card rounded-lg border p-4">
+              <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                      <settingsAppInstall.icon className="w-6 h-6 text-muted-foreground" />
+                      <span className="font-medium">{settingsAppInstall.label}</span>
+                  </div>
+                  <Button variant="outline" className="rounded-full" onClick={handleInstallClick}>
+                      Install
+                  </Button>
+              </div>
+            </div>
+          </section>
+        )}
+
+        <div className="text-center mt-8">
+            <div className="flex items-center justify-center gap-2 text-green-600 dark:text-green-400">
                 <Check className="w-5 h-5"/>
                 <span className="font-medium text-sm">{translations.settings.privacyAndData}</span>
             </div>
-          </section>
+        </div>
 
-           {installPrompt && (
-            <section className="mt-4">
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                        <settingsAppInstall.icon className="w-6 h-6 text-muted-foreground" />
-                        <span className="font-medium">{settingsAppInstall.label}</span>
-                    </div>
-                    <Button variant="outline" className="rounded-full" onClick={handleInstallClick}>
-                        Install
-                    </Button>
-                </div>
-            </section>
-           )}
-        </main>
-      </div>
+      </main>
     </div>
   );
 }
