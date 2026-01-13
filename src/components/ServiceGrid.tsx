@@ -20,7 +20,7 @@ export default function ServiceGrid({ services }: ServiceGridProps) {
       {services.map((service) => {
         const image = PlaceHolderImages.find((img) => img.id === service.id);
         return (
-          <Card key={service.id} className="overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+          <Card key={service.id} className="overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
             <CardContent className="p-0 relative">
               {image ? (
                 <Image
