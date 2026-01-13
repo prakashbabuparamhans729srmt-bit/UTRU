@@ -38,6 +38,11 @@ import {
     Download,
     Hotel,
     MoreHorizontal,
+    Brush,
+    Car,
+    Gift,
+    Sparkles,
+    Baby,
   } from 'lucide-react';
   
   // From settings/page.tsx
@@ -140,11 +145,10 @@ import {
   
   // For src/app/page.tsx, src/app/location/* pages
   export const mainFooterNavLinks = [
-      { href: '/', icon: HomeIcon, labelKey: 'home' },
-      { href: '/cart', icon: BookCopy, labelKey: 'library' },
-      { href: '/location', icon: LayoutGrid, isCentral: true, labelKey: '' },
-      { href: '/search', icon: PlaySquare, labelKey: 'explore' },
-      { href: '/profile', icon: User, labelKey: 'opinion' },
+    { href: '/', icon: HomeIcon, labelKey: 'home' },
+    { href: '/my-plans', icon: ClipboardList, labelKey: 'bookings' },
+    { href: '/chatbot', icon: MessageSquare, labelKey: 'chat' },
+    { href: '/profile', icon: User, labelKey: 'profile' },
   ];
   
   // For src/app/page.tsx
@@ -155,6 +159,17 @@ import {
       { name: 'kids', href: '/kids' },
       { name: 'gifting', href: '/gifting' },
       { name: 'premium', href: '/premium' },
+  ];
+
+  export const mainCategoryGrid = [
+    { href: '/premium', icon: Sparkles, labelKey: 'premium' },
+    { href: '/beauty', icon: Brush, labelKey: 'beauty' },
+    { href: '/electronics', icon: Wrench, labelKey: 'electronics' },
+    { href: '/kids', icon: Baby, labelKey: 'kids' },
+    { href: '/gifting', icon: Gift, labelKey: 'gifting' },
+    { href: '/car', icon: Car, labelKey: 'car' },
+    { href: '/painting', icon: Brush, labelKey: 'painting' },
+    { href: '/more', icon: MoreHorizontal, labelKey: 'more' },
   ];
   
   // For src/app/profile/page.tsx

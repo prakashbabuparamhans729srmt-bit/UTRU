@@ -71,7 +71,7 @@ export default function ProfilePage() {
   const carImage = PlaceHolderImages.find((img) => img.id === 'refer-car');
 
   return (
-    <div className="bg-background text-foreground min-h-screen flex flex-col">
+    <div className="bg-background text-foreground min-h-screen flex flex-col pb-20">
        <header className="p-4 flex items-center gap-4">
          <h1 className="text-xl font-bold">{user?.displayName ? `Hey, ${user.displayName.split(' ')[0]}`: translations.profile.title}</h1>
       </header>
@@ -131,7 +131,7 @@ export default function ProfilePage() {
                 >
                     <div className="flex items-center gap-4">
                     <item.icon className="w-6 h-6 text-muted-foreground transition-colors group-hover:text-primary" />
-                    <span className="font-medium transition-colors group-hover:text-primary">{translations.profile[item.labelKey]}</span>
+                    <span className="font-medium transition-colors group-hover:text-primary">{translations.profile[item.labelKey as keyof typeof translations.profile]}</span>
                     </div>
                     <ChevronRight className="w-6 h-6 text-gray-400 dark:text-gray-500" />
                 </Link>
@@ -171,7 +171,7 @@ export default function ProfilePage() {
                         <div className="flex items-center gap-4">
                             <item.icon className="w-6 h-6 text-muted-foreground transition-colors group-hover:text-primary" />
                             <span className="font-medium transition-colors group-hover:text-primary">
-                                {translations.profile[item.labelKey]}
+                                {translations.profile[item.labelKey as keyof typeof translations.profile]}
                             </span>
                         </div>
                         <ChevronRight className="w-6 h-6 text-gray-400 dark:text-gray-500" />
@@ -187,7 +187,7 @@ export default function ProfilePage() {
                     <div className="flex items-center gap-4">
                         <item.icon className="w-6 h-6 text-muted-foreground transition-colors group-hover:text-primary" />
                         <span className="font-medium transition-colors group-hover:text-primary">
-                        {translations.profile[item.labelKey]}
+                        {translations.profile[item.labelKey as keyof typeof translations.profile]}
                         </span>
                     </div>
                     <ChevronRight className="w-6 h-6 text-gray-400 dark:text-gray-500" />

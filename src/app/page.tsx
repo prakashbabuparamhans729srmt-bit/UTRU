@@ -26,8 +26,9 @@ import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { useLanguage } from '@/context/LanguageContext';
 import FloatingActionButton from '@/components/FloatingActionButton';
 import ProductGrid from '@/components/ProductGrid';
-import { homeCategoryLinks, mainFooterNavLinks } from '@/lib/navigation.tsx';
+import { homeCategoryLinks, mainFooterNavLinks, mainCategoryGrid } from '@/lib/navigation.tsx';
 import Autoplay from 'embla-carousel-autoplay';
+import { Card } from '@/components/ui/card';
 
 
 export default function Home() {
@@ -107,28 +108,8 @@ export default function Home() {
       </header>
 
       <main className="flex-grow pb-32">
-        <div className="px-4 my-4">
-          <ScrollArea className="w-full whitespace-nowrap">
-            <div className="flex space-x-4 border-b">
-              {homeCategoryLinks.map((category) => (
-                <Link key={category.name} href={category.href} passHref>
-                   <Button variant="ghost" className={cn(
-                      "pb-3 rounded-none",
-                      pathname === category.href 
-                        ? 'border-b-2 border-primary text-primary shadow-none' 
-                        : 'text-muted-foreground'
-                    )}>
-                      {translations.home[category.name]}
-                  </Button>
-                </Link>
-              ))}
-            </div>
-            <ScrollBar orientation="horizontal" />
-          </ScrollArea>
-        </div>
-
         <Carousel 
-          className="w-full mb-6" 
+          className="w-full my-4" 
           opts={{ loop: true }}
           plugins={[plugin.current]}
           onMouseEnter={plugin.current.stop}
@@ -153,17 +134,20 @@ export default function Home() {
           </CarouselContent>
         </Carousel>
         
+        <div className="px-4 mb-6">
+            <div className="grid grid-cols-4 gap-4">
+                {mainCategoryGrid.map((category) => (
+                    <Link href={category.href} key={category.labelKey} className="flex flex-col items-center text-center gap-2 group">
+                        <Card className="w-full aspect-square flex items-center justify-center rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                           <category.icon className="w-8 h-8 text-primary" />
+                        </Card>
+                        <span className="text-xs font-medium text-muted-foreground group-hover:text-primary transition-colors">{translations.home[category.labelKey as keyof typeof translations.home]}</span>
+                    </Link>
+                ))}
+            </div>
+        </div>
+
         <div className="px-4 mb-4">
-          <div className="flex items-center gap-2 mb-2">
-            <Button className="rounded-full bg-primary/20 text-primary hover:bg-primary/30">
-              <ShoppingCart className="w-4 h-4 mr-2" />
-              {translations.home.productBuy}
-            </Button>
-            <Button variant="ghost" className="rounded-full text-muted-foreground">
-              <LayoutGrid className="w-4 h-4 mr-2" />
-              {translations.home.category}
-            </Button>
-          </div>
           <h2 className="text-xl font-bold">{translations.home.popularProducts}</h2>
         </div>
 
@@ -174,21 +158,15 @@ export default function Home() {
 
       <footer className="fixed bottom-0 left-0 right-0 bg-card border-t z-50">
         <div className="flex justify-around items-center p-2">
-          {mainFooterNavLinks.map((link, index) => {
-            if (link.isCentral) {
-              return (
-                <Link key={index} href={link.href} className="w-16 h-16 rounded-full bg-primary -translate-y-4 shadow-md border-4 border-background flex items-center justify-center">
-                   <link.icon className="w-8 h-8 text-primary-foreground" />
-                </Link>
-              )
-            }
-            return (
-              <Link key={index} href={link.href} className={cn("flex flex-col items-center h-auto", pathname === link.href ? 'text-primary' : 'text-muted-foreground')}>
-                <link.icon className="w-6 h-6 mb-1" />
-                <span className="text-xs font-semibold">{translations.home[link.labelKey]}</span>
+          {mainFooterNavLinks.map((link, index) => (
+              <Link key={index} href={link.href} className={cn(
+                  "flex flex-col items-center justify-center gap-1 h-auto p-2 rounded-md transition-colors w-16", 
+                  pathname === link.href ? 'text-primary' : 'text-muted-foreground hover:bg-accent/50'
+                )}>
+                <link.icon className="w-6 h-6" />
+                <span className="text-xs font-semibold">{translations.home[link.labelKey as keyof typeof translations.home]}</span>
               </Link>
-            )
-          })}
+          ))}
         </div>
       </footer>
     </div>
