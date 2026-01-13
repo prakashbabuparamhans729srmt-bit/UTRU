@@ -43,24 +43,12 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [phoneNumber, setPhoneNumber] = useState<string | null>(null);
-  const [recaptchaVerifier, setRecaptchaVerifier] =
-    useState<RecaptchaVerifier | null>(null);
-
-  // Initialize RecaptchaVerifier
-  useEffect(() => {
-    if (auth && !recaptchaVerifier) {
-      const verifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-        size: 'invisible',
-      });
-      setRecaptchaVerifier(verifier);
-    }
-  }, [auth, recaptchaVerifier]);
 
   // Phone Sign-In Initiator
   const handleSignInWithPhoneNumber = useCallback(
     async (phone: string) => {
-      if (!recaptchaVerifier) {
-        setError('Recaptcha not initialized.');
+      if (!auth) {
+        setError('Firebase Auth not available');
         return false;
       }
 
@@ -69,26 +57,27 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
       setPhoneNumber(phone);
 
       try {
+        // Initialize RecaptchaVerifier on demand
+        const verifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+          size: 'invisible',
+        });
         const result = await signInWithPhoneNumber(
           auth,
           phone,
-          recaptchaVerifier
+          verifier
         );
         setConfirmationResult(result);
         return true;
       } catch (err: any) {
         setError(err.message);
-        // Reset recaptcha on error
-        const newVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-            size: 'invisible',
-        });
-        setRecaptchaVerifier(newVerifier);
+        // In case of error, the verifier might need to be reset,
+        // but re-creating it on the next attempt is a simple strategy.
         return false;
       } finally {
         setIsPending(false);
       }
     },
-    [auth, recaptchaVerifier]
+    [auth]
   );
 
   // OTP Verifier
@@ -120,6 +109,7 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
 
   // Sign Out
   const handleSignOut = useCallback(async () => {
+    if (!auth) return;
     setIsPending(true);
     try {
       await auth.signOut();
