@@ -23,7 +23,7 @@ interface BeforeInstallPromptEvent extends Event {
 
 export default function SettingsPage() {
   const router = useRouter();
-  const { translations } = useLanguage();
+  const { translations, language } = useLanguage();
   const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
 
   useEffect(() => {
@@ -72,7 +72,7 @@ export default function SettingsPage() {
                 <div key={index} className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
                     <item.icon className="w-6 h-6 text-muted-foreground" />
-                    <span className="font-medium">{translations.settings[item.labelKey]}</span>
+                    <span className="font-medium">{translations.settings[item.labelKey as keyof typeof translations.settings]}</span>
                   </div>
                    <div className="relative">
                     <Switch defaultChecked={item.defaultChecked} className="data-[state=checked]:bg-primary"/>
@@ -92,7 +92,7 @@ export default function SettingsPage() {
                     <span className="font-medium">{translations.settings.language}</span>
                   </div>
                     <div className='flex items-center gap-2 text-muted-foreground group-hover:text-primary'>
-                        <span>{useLanguage().language}</span>
+                        <span>{language}</span>
                         <ChevronRight className="w-5 h-5" />
                     </div>
                 </Link>
@@ -106,7 +106,7 @@ export default function SettingsPage() {
                 <Link href={item.href} key={index} className="flex items-center justify-between group">
                     <div className="flex items-center gap-4">
                         <item.icon className="w-6 h-6 text-muted-foreground" />
-                        <span className="font-medium">{translations.settings[item.labelKey]}</span>
+                        <span className="font-medium">{translations.settings[item.labelKey as keyof typeof translations.settings]}</span>
                     </div>
                      <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-primary" />
                 </Link>
