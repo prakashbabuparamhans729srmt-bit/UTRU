@@ -52,7 +52,7 @@ export default function DistrictPage() {
                 <Mic className="w-5 h-5 text-muted-foreground cursor-pointer" />
             </div>
           </div>
-          <Button className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-2xl flex flex-col h-auto px-3 py-1.5 items-center">
+          <Button className="bg-destructive hover:bg-destructive/90 text-destructive-foreground rounded-2xl flex flex-col h-auto px-3 py-1.5 items-center">
             <Phone className="w-5 h-5" />
             <span className="text-xs font-semibold">{translations.location.emergency}</span>
           </Button>

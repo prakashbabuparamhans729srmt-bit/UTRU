@@ -22,10 +22,12 @@ import { useLanguage } from '@/context/LanguageContext';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
 import { locationNavLinks, mainFooterNavLinks } from '@/lib/navigation';
+import { useState } from 'react';
 
 export default function LocationPage() {
   const { translations } = useLanguage();
   const pathname = usePathname();
+  const [searchQuery, setSearchQuery] = useState('');
   const trainImage = PlaceHolderImages.find((img) => img.id === 'location-train-viaduct');
   const blackFridayImage = PlaceHolderImages.find((img) => img.id === 'location-black-friday');
   const shoppingWomanImage = PlaceHolderImages.find((img) => img.id === 'location-shopping-woman');
@@ -48,15 +50,22 @@ export default function LocationPage() {
             <input
               type="text"
               placeholder={translations.location.searchPlaceholder}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-input rounded-full pl-10 pr-20 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
             />
             <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
-                <X className="w-5 h-5 text-muted-foreground cursor-pointer" />
+                {searchQuery && (
+                  <X
+                    className="w-5 h-5 text-muted-foreground cursor-pointer"
+                    onClick={() => setSearchQuery('')}
+                  />
+                )}
                 <div className="w-px h-5 bg-border"></div>
                 <Mic className="w-5 h-5 text-muted-foreground cursor-pointer" />
             </div>
           </div>
-          <Button className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-2xl flex flex-col h-auto px-3 py-1.5 items-center">
+          <Button className="bg-destructive hover:bg-destructive/90 text-destructive-foreground rounded-2xl flex flex-col h-auto px-3 py-1.5 items-center">
             <Phone className="w-5 h-5" />
             <span className="text-xs font-semibold">{translations.location.emergency}</span>
           </Button>
