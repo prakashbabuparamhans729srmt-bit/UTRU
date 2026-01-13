@@ -38,7 +38,7 @@ export default function BharatPage() {
             />
             <X className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground cursor-pointer" />
           </div>
-          <Button className="bg-red-600 hover:bg-red-700 text-white rounded-2xl flex flex-col h-auto px-3 py-1.5 items-center">
+          <Button className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-2xl flex flex-col h-auto px-3 py-1.5 items-center">
             <Phone className="w-5 h-5" />
             <span className="text-xs font-semibold">{translations.location.emergency}</span>
           </Button>

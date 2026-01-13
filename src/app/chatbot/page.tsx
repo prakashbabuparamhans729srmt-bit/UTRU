@@ -102,25 +102,28 @@ export default function ChatbotPage() {
     };
     
     recognition.onend = () => {
-      // The onend event can fire unexpectedly, so we only update state if it was a deliberate stop.
-      if (!isListening) {
+      if (recognitionRef.current.isManuallyStopped) {
         return;
       }
       
       // If still listening, restart recognition. This handles cases where it times out.
-      try {
-        recognition.start();
-      } catch (e) {
-        console.error("Recognition restart failed", e);
-        setIsListening(false); // Stop if restart fails
+      if(isListening) {
+        try {
+          recognition.start();
+        } catch (e) {
+          console.error("Recognition restart failed", e);
+          setIsListening(false); // Stop if restart fails
+        }
       }
     };
 
     recognitionRef.current = recognition;
+    recognitionRef.current.isManuallyStopped = false;
 
     // Cleanup: ensure recognition is stopped when component unmounts or listening is toggled off
     return () => {
         if (recognitionRef.current) {
+            recognitionRef.current.isManuallyStopped = true;
             recognitionRef.current.stop();
         }
     }
@@ -131,7 +134,11 @@ export default function ChatbotPage() {
     if (isLoading) return;
 
     if (isListening) {
-        setIsListening(false); // This will trigger the cleanup in the useEffect
+        if (recognitionRef.current) {
+            recognitionRef.current.isManuallyStopped = true;
+            recognitionRef.current.stop();
+        }
+        setIsListening(false);
         return;
     }
 
@@ -163,6 +170,7 @@ export default function ChatbotPage() {
     
     if (recognitionRef.current) {
         try {
+            recognitionRef.current.isManuallyStopped = false;
             recognitionRef.current.start();
             setIsListening(true);
         } catch (e) {
@@ -181,16 +189,25 @@ export default function ChatbotPage() {
   }, [messages, isLoading]);
   
   useEffect(() => {
-    setMessages([{
-        text: 'Hello! I am your personal assistant. How can I help you learn about this application?',
-        sender: 'bot'
-    }]);
+    // Only set the initial message if there are no messages yet.
+    if (messages.length === 0) {
+        setMessages([{
+            text: 'Hello! I am your personal assistant. How can I help you learn about this application?',
+            sender: 'bot'
+        }]);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSend = async () => {
     if (input.trim() === '' || isLoading) return;
+    
     if (isListening) {
-      setIsListening(false); // Stop listening when sending a message
+      if (recognitionRef.current) {
+          recognitionRef.current.isManuallyStopped = true;
+          recognitionRef.current.stop();
+      }
+      setIsListening(false);
     }
 
     const userMessage: Message = { text: input, sender: 'user' };
@@ -312,7 +329,7 @@ export default function ChatbotPage() {
                         isListening ? "bg-red-500/80 text-white hover:bg-red-600" : "hover:bg-gray-600"
                     )}
                     onClick={toggleListening}
-                    disabled={isLoading || !isMicAllowed}
+                    disabled={isLoading || isMicAllowed === false}
                     title={isMicAllowed ? (isListening ? 'Stop listening' : 'Use microphone') : 'Microphone not available'}
                 >
                     <Mic className="w-5 h-5" />
