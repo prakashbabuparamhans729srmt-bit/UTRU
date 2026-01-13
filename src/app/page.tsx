@@ -199,10 +199,7 @@ export default function Home() {
             <div className="flex space-x-4 border-b">
               {categories.map((category) => (
                 <Link key={category.name} href={category.href} passHref>
-                  <Button variant="ghost" className={cn(
-                      "pb-2 rounded-none",
-                      router.pathname === category.href ? 'border-b-2 border-primary text-primary shadow-none' : 'text-muted-foreground'
-                  )}>
+                  <Button variant="ghost" className="pb-2 rounded-none text-muted-foreground">
                       {category.name}
                   </Button>
                 </Link>
