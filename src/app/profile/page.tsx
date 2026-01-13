@@ -82,7 +82,7 @@ export default function ProfilePage() {
           <ChevronLeft className="w-6 h-6" />
         </Button>
         <div className="mt-8 mb-4">
-          <Avatar className="w-24 h-24 border-4 border-gray-700 ring-2 ring-teal-400">
+          <Avatar className="w-24 h-24 border-4 border-gray-700 ring-2 ring-primary">
             {user?.photoURL ? (
                 <AvatarImage src={user.photoURL} alt={user.displayName || 'User'} />
             ) : (
@@ -105,8 +105,8 @@ export default function ProfilePage() {
             </div>
         ) : (
           <div className="text-center w-full">
-            <Link href="/login" className="w-4/5 inline-block">
-              <Button className="bg-teal-400 text-gray-900 font-bold rounded-full w-full hover:bg-teal-500 mb-2">
+            <Link href="/phone-login" className="w-4/5 inline-block">
+              <Button className="bg-primary text-primary-foreground font-bold rounded-full w-full hover:bg-primary/90 mb-2">
                 {translations.profile.continue}
               </Button>
             </Link>
@@ -227,7 +227,7 @@ export default function ProfilePage() {
                 className="object-contain"
                 data-ai-hint={carImage.imageHint}
               />
-              <Button className="absolute -bottom-2 right-0 bg-teal-400 hover:bg-teal-500 text-white rounded-lg px-4 py-1 h-auto text-sm">
+              <Button className="absolute -bottom-2 right-0 bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg px-4 py-1 h-auto text-sm">
                 {translations.profile.referNow}
               </Button>
             </div>

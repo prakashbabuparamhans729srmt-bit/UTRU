@@ -15,13 +15,13 @@ const CreditCardIcon = () => (
 );
 
 const SliceUPIIcon = () => (
-    <div className="w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center">
-        <div className="w-4 h-4 bg-white transform -skew-x-12"></div>
+    <div className="w-6 h-6 rounded-full bg-purple-600 flex items-center justify-center">
+        <div className="w-3 h-3 bg-white transform -skew-x-12"></div>
     </div>
 );
 
 const PluxeeIcon = () => (
-  <div className="w-8 h-8 rounded-full flex items-center justify-center border border-gray-400">
+  <div className="w-6 h-6 rounded-full flex items-center justify-center border border-gray-400">
     <span className="text-xs font-bold text-blue-600">pluxee</span>
   </div>
 );
@@ -39,13 +39,13 @@ const NetbankingIcon = () => (
 );
 
 const CashOnDeliveryIcon = () => (
-    <div className="w-8 h-8 rounded-full flex items-center justify-center bg-blue-200 border-2 border-blue-500">
+    <div className="w-6 h-6 rounded-full flex items-center justify-center bg-blue-200 border-2 border-blue-500">
         <span className="font-bold text-blue-600 text-sm">₹</span>
     </div>
 );
 
 const GooglePayIcon = () => (
-  <div className="w-8 h-8 rounded-full flex items-center justify-center border border-gray-400">
+  <div className="w-6 h-6 rounded-full flex items-center justify-center border border-gray-400 text-xs">
     <span className="font-bold text-blue-600">G</span>
     <span className="font-bold text-red-500">P</span>
     <span className="font-bold text-yellow-500">a</span>
@@ -54,8 +54,8 @@ const GooglePayIcon = () => (
 );
 
 const AmazonPayIcon = () => (
-    <div className="w-8 h-8 rounded-full flex items-center justify-center border-2 border-gray-800">
-        <span className="font-bold text-gray-800">pay</span>
+    <div className="w-6 h-6 rounded-full flex items-center justify-center border-2 border-gray-800 dark:border-gray-300">
+        <span className="font-bold text-gray-800 dark:text-gray-300 text-xs">pay</span>
     </div>
 );
 
@@ -65,62 +65,67 @@ export default function PaymentSettingsPage() {
   const { translations } = useLanguage();
 
   const renderPaymentItem = (icon: React.ReactNode, text: string, action?: 'button' | 'chevron', buttonText?: string) => (
-    <div className="flex items-center justify-between py-3">
+    <div className="flex items-center justify-between py-4">
       <div className="flex items-center gap-4">
-        <div className="w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
+        <div className="w-10 h-10 bg-muted rounded-full flex items-center justify-center">
             {icon}
         </div>
         <span className="font-medium">{text}</span>
       </div>
-      {action === 'chevron' && <ChevronRight className="w-6 h-6 text-gray-400" />}
-      {action === 'button' && <Button className="bg-black text-white rounded-full px-4 py-1 h-auto text-sm dark:bg-primary dark:text-primary-foreground">{buttonText}</Button>}
+      {action === 'chevron' && <ChevronRight className="w-6 h-6 text-muted-foreground" />}
+      {action === 'button' && <Button className="bg-primary text-primary-foreground rounded-full px-4 py-1 h-auto text-sm">{buttonText}</Button>}
     </div>
   );
 
   return (
-    <div className="bg-gray-100 dark:bg-gray-900 min-h-screen">
-      <div className="bg-white dark:bg-card">
-        <header className="p-4 flex items-center gap-4 border-b dark:border-gray-700">
-          <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700">
-            <ChevronLeft />
-          </Button>
-          <h1 className="text-lg font-semibold">{translations.paymentSettings.title}</h1>
-        </header>
-      </div>
-      <div className="bg-white dark:bg-card mt-4">
-        <div className="px-4">
-            <h2 className="text-gray-500 dark:text-gray-400 pt-4">{translations.paymentSettings.cards}</h2>
-            {renderPaymentItem(<CreditCardIcon />, translations.paymentSettings.creditDebit)}
-            <div className="border-t border-gray-200 dark:border-gray-700"></div>
-            {renderPaymentItem(<SliceUPIIcon />, translations.paymentSettings.sliceUpi, 'chevron')}
+    <div className="bg-background text-foreground min-h-screen">
+      <header className="p-4 flex items-center gap-4 border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
+        <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
+          <ChevronLeft />
+        </Button>
+        <h1 className="text-lg font-semibold">{translations.paymentSettings.title}</h1>
+      </header>
+      
+      <main className="p-4 space-y-4">
+        <div className="bg-card rounded-lg border">
+            <div className="px-4">
+                <h2 className="text-muted-foreground pt-4 text-sm font-semibold">{translations.paymentSettings.cards}</h2>
+                {renderPaymentItem(<CreditCardIcon />, translations.paymentSettings.creditDebit)}
+                <div className="border-t"></div>
+                {renderPaymentItem(<SliceUPIIcon />, translations.paymentSettings.sliceUpi, 'chevron')}
+            </div>
         </div>
-      </div>
-       <div className="bg-white dark:bg-card mt-4">
-        <div className="px-4">
-            <h2 className="text-gray-500 dark:text-gray-400 pt-4">Food Wallets</h2>
-            {renderPaymentItem(<PluxeeIcon />, translations.paymentSettings.pluxee, 'chevron')}
+        
+        <div className="bg-card rounded-lg border">
+            <div className="px-4">
+                <h2 className="text-muted-foreground pt-4 text-sm font-semibold">Food Wallets</h2>
+                {renderPaymentItem(<PluxeeIcon />, translations.paymentSettings.pluxee, 'chevron')}
+            </div>
         </div>
-      </div>
-      <div className="bg-white dark:bg-card mt-4">
-        <div className="px-4">
-            <h2 className="text-gray-500 dark:text-gray-400 pt-4">{translations.paymentSettings.netbanking}</h2>
-            {renderPaymentItem(<NetbankingIcon />, translations.paymentSettings.netbanking, 'button', translations.paymentSettings.add)}
+
+        <div className="bg-card rounded-lg border">
+            <div className="px-4">
+                <h2 className="text-muted-foreground pt-4 text-sm font-semibold">{translations.paymentSettings.netbanking}</h2>
+                {renderPaymentItem(<NetbankingIcon />, translations.paymentSettings.netbanking, 'button', translations.paymentSettings.add)}
+            </div>
         </div>
-      </div>
-       <div className="bg-white dark:bg-card mt-4">
-        <div className="px-4">
-            <h2 className="text-gray-500 dark:text-gray-400 pt-4">{translations.paymentSettings.payOnDelivery}</h2>
-            {renderPaymentItem(<CashOnDeliveryIcon />, translations.paymentSettings.payOnDelivery, 'button', translations.paymentSettings.add)}
+        
+        <div className="bg-card rounded-lg border">
+            <div className="px-4">
+                <h2 className="text-muted-foreground pt-4 text-sm font-semibold">{translations.paymentSettings.payOnDelivery}</h2>
+                {renderPaymentItem(<CashOnDeliveryIcon />, translations.paymentSettings.payOnDelivery, 'button', translations.paymentSettings.add)}
+            </div>
         </div>
-      </div>
-      <div className="bg-white dark:bg-card my-4">
-        <div className="px-4">
-            <h2 className="text-gray-500 dark:text-gray-400 pt-4">{translations.paymentSettings.wallets}</h2>
-            {renderPaymentItem(<GooglePayIcon />, translations.paymentSettings.googlePay, 'button', translations.paymentSettings.link)}
-            <div className="border-t border-gray-200 dark:border-gray-700"></div>
-            {renderPaymentItem(<AmazonPayIcon />, translations.paymentSettings.amazonPay, 'button', translations.paymentSettings.link)}
+
+        <div className="bg-card rounded-lg border">
+            <div className="px-4">
+                <h2 className="text-muted-foreground pt-4 text-sm font-semibold">{translations.paymentSettings.wallets}</h2>
+                {renderPaymentItem(<GooglePayIcon />, translations.paymentSettings.googlePay, 'button', translations.paymentSettings.link)}
+                <div className="border-t"></div>
+                {renderPaymentItem(<AmazonPayIcon />, translations.paymentSettings.amazonPay, 'button', translations.paymentSettings.link)}
+            </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

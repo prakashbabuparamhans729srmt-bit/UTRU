@@ -1,14 +1,16 @@
 
 'use client';
 
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, Star } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function PlusMembershipPage() {
   const router = useRouter();
+  const { translations } = useLanguage();
   const robotImage = PlaceHolderImages.find((img) => img.id === 'plus-membership-robot');
 
   return (
@@ -17,11 +19,14 @@ export default function PlusMembershipPage() {
         <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
           <ChevronLeft />
         </Button>
-        <h1 className="text-lg font-semibold">Membership</h1>
+        <h1 className="text-lg font-semibold">{translations.plusMembership.title}</h1>
       </header>
       <main className="flex-grow flex flex-col justify-center items-center text-center px-4">
-        <h2 className="text-2xl font-bold mb-2">Oops, you haven't placed an order yet</h2>
-        <p className="text-muted-foreground mb-6">[Text Widget]</p>
+        <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+            <Star className="w-12 h-12 text-primary" />
+        </div>
+        <h2 className="text-2xl font-bold mb-2">{translations.plusMembership.oops}</h2>
+        <p className="text-muted-foreground mb-6">{translations.plusMembership.textWidget}</p>
         {robotImage && (
             <Image
                 src={robotImage.imageUrl}
@@ -36,5 +41,3 @@ export default function PlusMembershipPage() {
     </div>
   );
 }
-
-    
