@@ -27,7 +27,7 @@ export default function AddressPage() {
             {translations.address.deliveryMessage}
             </p>
             <Button 
-              className="bg-primary text-primary-foreground rounded-full px-8 py-6 text-base"
+              className="bg-primary text-primary-foreground rounded-md px-8 py-3 text-base"
               onClick={() => router.push('/new-address')}
             >
               {translations.address.addNew}
