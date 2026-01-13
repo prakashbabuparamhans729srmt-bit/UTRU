@@ -15,17 +15,16 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import Autoplay from 'embla-carousel-autoplay';
 import React from 'react';
 
-const premiumServices = [
-    { id: 'premium-deep-cleaning', name: 'Deep Home Cleaning' },
-    { id: 'premium-pest-control', name: 'Pest Control' },
-    { id: 'premium-sofa-cleaning', name: 'Sofa & Carpet Cleaning' },
-    { id: 'premium-car-cleaning', name: 'Car Cleaning' },
+const paintingServices = [
+    { id: 'painting-interior', name: 'Interior Painting' },
+    { id: 'painting-exterior', name: 'Exterior Painting' },
+    { id: 'painting-wood', name: 'Wood Polishing' },
+    { id: 'painting-metal', name: 'Metal Painting' },
 ];
 
-
-export default function PremiumPage() {
+export default function PaintingPage() {
   const router = useRouter();
-  const heroImages = PlaceHolderImages.filter((img) => img.id.startsWith('premium-hero'));
+  const heroImages = PlaceHolderImages.filter((img) => img.id.startsWith('painting-hero'));
 
   const plugin = React.useRef(
     Autoplay({ delay: 4000, stopOnInteraction: true })
@@ -37,7 +36,7 @@ export default function PremiumPage() {
         <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
           <ChevronLeft />
         </Button>
-        <h1 className="text-lg font-semibold">Premium</h1>
+        <h1 className="text-lg font-semibold">Painting Services</h1>
       </header>
       <main className="pb-8">
         <Carousel 
@@ -66,7 +65,7 @@ export default function PremiumPage() {
             </CarouselContent>
         </Carousel>
         <div className="px-4">
-            <ServiceGrid services={premiumServices} />
+            <ServiceGrid services={paintingServices} />
         </div>
       </main>
     </div>

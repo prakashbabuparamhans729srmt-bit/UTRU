@@ -158,11 +158,11 @@ import {
       { name: 'beauty', href: '/beauty' },
       { name: 'kids', href: '/kids' },
       { name: 'gifting', href: '/gifting' },
-      { name: 'premium', href: '/premium' },
+      { name: 'cleaning', href: '/cleaning' },
   ];
 
   export const mainCategoryGrid = [
-    { href: '/premium', icon: Sparkles, labelKey: 'premium' },
+    { href: '/cleaning', icon: Sparkles, labelKey: 'premium' },
     { href: '/beauty', icon: Brush, labelKey: 'beauty' },
     { href: '/electronics', icon: Wrench, labelKey: 'electronics' },
     { href: '/kids', icon: Baby, labelKey: 'kids' },

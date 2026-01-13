@@ -9,416 +9,500 @@
     {
       "id": "city-night",
       "description": "A bustling city street at night with neon signs and traffic",
-      "imageUrl": "https://images.unsplash.com/photo-1534970028765-38ce47ef7d8d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "https://images.unsplash.com/photo-1605702012553-e954fbde66eb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxjaXR5JTIwbmlnaHR8ZW58MHx8fHwxNzY4MjUzODI5fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "city night"
     },
     {
       "id": "product-collage",
       "description": "A collage of various colorful products and items",
-      "imageUrl": "https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "https://images.unsplash.com/photo-1689509973848-b258e42f394d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cHJvZHVjdCUyMGNvbGxhZ2V8ZW58MHx8fHwxNzY4Mjc0MzY0fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "product collage"
     },
     {
       "id": "product-watch",
       "description": "A modern smartwatch with a black band",
-      "imageUrl": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "https://images.unsplash.com/photo-1546868871-7041f2a55e12?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxzbWFydCUyMHdhdGNofGVufDB8fHx8MTc2ODI2OTQyNHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "smart watch"
     },
     {
       "id": "product-camera",
       "description": "A vintage-style film camera",
-      "imageUrl": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "https://images.unsplash.com/photo-1512390225428-a9d51c817f94?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHx2aW50YWdlJTIwY2FtZXJhfGVufDB8fHx8MTc2ODE4NTUxN3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "vintage camera"
     },
     {
       "id": "product-shoes",
       "description": "A pair of stylish white sneakers",
-      "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "https://images.unsplash.com/photo-1544441892-794166f1e3be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx3aGl0ZSUyMHNuZWFrZXJzfGVufDB8fHx8MTc2ODI0NzYxMHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "white sneakers"
     },
     {
       "id": "product-headphones",
       "description": "Wireless over-ear headphones",
-      "imageUrl": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "https://images.unsplash.com/photo-1612465289702-7c84b5258fde?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx3aXJlbGVzcyUyMGhlYWRwaG9uZXN8ZW58MHx8fHwxNzY4MjczMjQ0fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "wireless headphones"
     },
     {
       "id": "location-train-viaduct",
       "description": "A steam train crossing a stone viaduct in a green valley",
-      "imageUrl": "https://images.unsplash.com/photo-1654811550650-42f821f9d930?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx0cmFpbiUyMHZpYWR1Y3R8ZW58MHx8fHwxNzY0MjUxMDAzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1631491655951-4877405d6c0d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx0cmFpbiUyMHZpYWR1Y3R8ZW58MHx8fHwxNzY4Mjc0MzY0fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "train viaduct"
     },
     {
       "id": "location-black-friday",
       "description": "Black Friday sale text",
-      "imageUrl": "https://images.unsplash.com/photo-1746292184374-1b3d5a51816d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxzYWxlJTIwdGV4dHxlbnwwfHx8fDE3NjQzMDI0MjZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1561439741-8123c0f8ddc1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxzYWxlJTIwdGV4dHxlbnwwfHx8fDE3NjgyNzQzNjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "sale text"
     },
     {
       "id": "location-shopping-woman",
       "description": "A stylish woman in sunglasses holding shopping bags",
-      "imageUrl": "https://images.unsplash.com/photo-1483985988355-763728e1935b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx3b21hbiUyMHNob3BwaW5nfGVufDB8fHx8fDE3NjQyNTEwMDJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1520006403909-838d6b92c22e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx3b21hbiUyMHNob3BwaW5nfGVufDB8fHx8MTc2ODI3NDM2NHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "woman shopping"
     },
     {
       "id": "location-popular-1",
       "description": "A mountain range above the clouds at sunset",
-      "imageUrl": "https://images.unsplash.com/photo-1474140214938-f0295cf3d18e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxtb3VudGFpbiUyMGNsb3Vkc3xlbnwwfHx8fDE3NjQzMDI0MjZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1513023840371-dd774fcaee5b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxtb3VudGFpbiUyMGNsb3Vkc3xlbnwwfHx8fDE3NjgyNzQzNjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "mountain clouds"
     },
     {
       "id": "location-popular-2",
       "description": "A starry night sky over a mountain range",
-      "imageUrl": "https://images.unsplash.com/photo-1611959894238-b2ae3e093991?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxzdGFycnklMjBtb3VudGFpbnxlbnwwfHx8fDE3NjQzMDI0Mjd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1624896569273-8dc3477079de?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxzdGFycnklMjBtb3VudGFpbnxlbnwwfHx8fDE3NjgyNzQzNjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "starry mountain"
     },
     {
       "id": "location-popular-3",
       "description": "A mountain landscape with a grid icon overlay",
-      "imageUrl": "https://images.unsplash.com/photo-1756327805966-18239613fc6d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtb3VudGFpbiUyMGFwcHxlbnwwfHx8fDE3NjQzMDI0Mjd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1756327806368-71884a521a87?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxtb3VudGFpbiUyMGFwcHxlbnwwfHx8fDE3NjgyNzQzNjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "mountain app"
     },
     {
       "id": "login-coffee",
       "description": "Several cups of coffee with latte art on a wooden table",
-      "imageUrl": "https://images.unsplash.com/photo-1509895468733-11b816ae3a7e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjb2ZmZWUlMjBsYXR0ZXxlbnwwfHx8fDE3NjQyNjcyMzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1687619485715-305c76d06836?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjb2ZmZWUlMjBsYXR0ZXxlbnwwfHx8fDE3NjgyNDc3Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "coffee latte"
     },
     {
       "id": "cart-popular-1",
       "description": "Man",
-      "imageUrl": "https://images.unsplash.com/photo-1709101242274-138d777ea70d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwcm9kdWN0JTIwcGFja2FnZXxlbnwwfHx8fDE3NjQyNDQ3NzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1664786908163-85ca46f85138?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cHJvZHVjdCUyMHBhY2thZ2V8ZW58MHx8fHwxNzY4MjQxNzA0fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "product package"
     },
     {
       "id": "cart-popular-2",
       "description": "Man",
-      "imageUrl": "https://images.unsplash.com/photo-1664787020182-7c17ea808ae0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxwcm9kdWN0JTIwcGFja2FnZXxlbnwwfHx8fDE3NjQyNDQ3NzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1709101242274-138d777ea70d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwcm9kdWN0JTIwcGFja2FnZXxlbnwwfHx8fDE3NjgyNDE3MDR8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "product package"
     },
     {
       "id": "cart-popular-3",
       "description": "Shirts",
-      "imageUrl": "https://images.unsplash.com/photo-1535990379313-5cd271a2da2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxjb2NhJTIwY29sYXxlbnwwfHx8fDE3NjQyMjcwMzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb2NhJTIwY29sYXxlbnwwfHx8fDE3NjgxOTI0MDJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "coca cola"
     },
     {
       "id": "cart-popular-4",
       "description": "Children",
-      "imageUrl": "https://images.unsplash.com/photo-1690988109041-458628590a9e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzcHJpdGUlMjBib3R0bGV8ZW58MHx8fHwxNzY0MzAzOTA1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1694904828416-d0a350008338?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxzcHJpdGUlMjBib3R0bGV8ZW58MHx8fHwxNzY4Mjc0MzY1fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "sprite bottle"
     },
     {
       "id": "cart-popular-5",
       "description": "women",
-      "imageUrl": "https://images.unsplash.com/photo-1632330159773-b9f943473269?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8anVpY2UlMjBib3R0bGV8ZW58MHx8fHwxNzY0MjgzNTE4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1640213505284-21352ee0d76b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxqdWljZSUyMGJvdHRsZXxlbnwwfHx8fDE3NjgyNzQzNjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "juice bottle"
     },
     {
       "id": "cart-popular-6",
       "description": "Man",
-      "imageUrl": "https://images.unsplash.com/photo-1525904220310-64ef12c1429b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxqdWljZSUyMGJvdHRsZXxlbnwwfHx8fDE3NjQyODM1MTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1632330159773-b9f943473269?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxqdWljZSUyMGJvdHRsZXxlbnwwfHx8fDE3NjgyNzQzNjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "juice bottle"
     },
     {
       "id": "cart-grid-1",
       "description": "Grid product",
-      "imageUrl": "https://images.unsplash.com/photo-1664786908163-85ca46f85138?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cHJvZHVjdCUyMHBhY2thZ2V8ZW58MHx8fHwxNzY0MjQ0NzcyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1471445421505-d3bbc35affb2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxwcm9kdWN0JTIwcGFja2FnZXxlbnwwfHx8fDE3NjgyNDE3MDR8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "product package"
     },
     {
       "id": "cart-grid-2",
       "description": "Grid product",
-      "imageUrl": "https://images.unsplash.com/photo-1633265484557-e298493cb162?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcm9kdWN0JTIwcGFja2FnZXxlbnwwfHx8fDE3NjQyNDQ3NzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1664216294580-079bc527ae49?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwcm9kdWN0JTIwcGFja2FnZXxlbnwwfHx8fDE3NjgyNDE3MDR8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "product package"
     },
     {
       "id": "cart-grid-3",
       "description": "Grid product",
-      "imageUrl": "https://images.unsplash.com/photo-1664216294580-079bc527ae49?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwcm9kdWN0JTIwcGFja2FnZXxlbnwwfHx8fDE3NjQyNDQ3NzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1664787020149-ebb836adcf3c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwcm9kdWN0JTIwcGFja2FnZXxlbnwwfHx8fDE3NjgyNDE3MDR8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "product package"
     },
     {
       "id": "cart-grid-4",
       "description": "Grid product",
-      "imageUrl": "https://images.unsplash.com/photo-1601568656750-bf1a9c205613?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwcm9kdWN0JTIwcGFja2FnZXxlbnwwfHx8fDE3NjQyNDQ3NzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1709101242274-138d777ea70d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwcm9kdWN0JTIwcGFja2FnZXxlbnwwfHx8fDE3NjgyNDE3MDR8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "product package"
     },
     {
       "id": "cart-grid-5",
       "description": "Grid product",
-      "imageUrl": "https://images.unsplash.com/photo-1633265484557-e298493cb162?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcm9kdWN0JTIwcGFja2FnZXxlbnwwfHx8fDE3NjQyNDQ3NzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1664786908163-85ca46f85138?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cHJvZHVjdCUyMHBhY2thZ2V8ZW58MHx8fHwxNzY4MjQxNzA0fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "product package"
     },
     {
       "id": "cart-grid-6",
       "description": "Grid product",
-      "imageUrl": "https://images.unsplash.com/photo-1471445421505-d3bbc35affb2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwcm9kdWN0JTIwcGFja2FnZXxlbnwwfHx8fDE3NjQyNDQ3NzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1471445421505-d3bbc35affb2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxwcm9kdWN0JTIwcGFja2FnZXxlbnwwfHx8fDE3NjgyNDE3MDR8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "product package"
     },
     {
       "id": "plus-membership-robot",
       "description": "A cute white robot with a friendly expression",
-      "imageUrl": "https://images.unsplash.com/photo-1582571352032-448f7928eca3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y3V0ZSUyMHJvYm90fGVufDB8fHx8fDE3NjQyNjA3NTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1661839808736-948aa33666ff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjdXRlJTIwcm9ib3R8ZW58MHx8fHwxNzY4Mjc0MzY0fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "cute robot"
     },
     {
       "id": "refer-car",
       "description": "A white modern electric car",
-      "imageUrl": "https://images.unsplash.com/photo-1617704548622-069f5c4064c4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx3aGl0ZSUyMHRlc2xhfGVufDB8fHx8fDE3NjQzMTEwOTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1612610683796-3b7d3a65df3d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx3aGl0ZSUyMGNhcnxlbnwwfHx8fDE3NjgyMTIwMjZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "white car"
     },
     {
       "id": "new-address-sea",
       "description": "Calm sea under a cloudy sky",
-      "imageUrl": "https://images.unsplash.com/photo-1579892959954-bf07693350df?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYWxtJTIwc2VhfGVufDB8fHx8fDE3NjQzMzg3OTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1652447385283-817463bd31af?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjYWxtJTIwc2VhfGVufDB8fHx8MTc2ODI3NDM2NHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "calm sea"
     },
     {
       "id": "new-address-trees",
       "description": "A dense forest of green pine trees",
-      "imageUrl": "https://images.unsplash.com/photo-1448375240586-882707db888b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmb3Jlc3R8ZW58MHx8fHwxNzY0MzM4ODMwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1655473479605-e599fe7fcb8c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Z3JlZW4lMjBmb3Jlc3R8ZW58MHx8fHwxNzY4MTg0Nzk0fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "green forest"
     },
     {
       "id": "electronics-tv-repair",
       "description": "Technician repairing a flat-screen TV",
-      "imageUrl": "https://images.unsplash.com/photo-1620756246243-2d93a8c51a8a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNzEyODR8MHwxfHNlYXJjaHwxfHx0diUyMHJlcGFpcnxlbnwwfHx8fDE2ODg1ODQyMjV8MA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1646821804389-9778ce2a4fd7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx0diUyMHJlcGFpcnxlbnwwfHx8fDE3NjgyNzQzNjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "tv repair"
     },
     {
       "id": "electronics-ac-repair",
       "description": "An air conditioner unit with repair tools",
-      "imageUrl": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNzEyODR8MHwxfHNlYXJjaHwxfHxhYyUyMHJlcGFpcnxlbnwwfHx8fDE2ODg1ODQyMjV8MA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1647221734104-b6ee4509454d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxhYyUyMHJlcGFpcnxlbnwwfHx8fDE3NjgyNDEyNTN8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "ac repair"
     },
     {
       "id": "electronics-washing-machine",
       "description": "A modern washing machine",
-      "imageUrl": "https://images.unsplash.com/photo-1626806819282-2c1dc01a5e0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNzEyODR8MHwxfHNlYXJjaHwxfHx3YXNoaW5nJTIwbWFjaGluZXxlbnwwfHx8fDE2ODg1ODQyMjV8MA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1604335399105-a0c585fd81a1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx3YXNoaW5nJTIwbWFjaGluZXxlbnwwfHx8fDE3NjgyMTI0OTV8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "washing machine"
     },
     {
       "id": "electronics-geyser",
       "description": "A water heater (geyser) installed on a wall",
-      "imageUrl": "https://images.unsplash.com/photo-1601121141499-17ae80afc73a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNzEyODR8MHwxfHNlYXJjaHwxfHx3YXRlciUyMGhlYXRlcnxlbnwwfHx8fDE2ODg1ODQyMjV8MA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1612367662740-5cb9170a0768?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx3YXRlciUyMGhlYXRlcnxlbnwwfHx8fDE3NjgxNzQ4MTN8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "water heater"
     },
     {
       "id": "beauty-salon",
       "description": "A woman getting her hair styled at a salon",
-      "imageUrl": "https://images.unsplash.com/photo-1560066984-118c38a64a9a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx3b21hbiUyMGhhaXIlMjBzYWxvbnxlbnwwfHx8fDE3NjQzNDE4ODV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1637777292536-27a13272dbea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzYWxvbiUyMGhhaXJ8ZW58MHx8fHwxNzY4Mjc0MzY0fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "salon hair"
     },
     {
       "id": "beauty-spa",
       "description": "Spa setting with candles, towels, and flowers",
-      "imageUrl": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzcGElMjByZWxheHxlbnwwfHx8fDE3NjQzNDE4ODV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1611920629515-3f76f8c36b37?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzcGElMjByZWxheHxlbnwwfHx8fDE3NjgyNzQzNjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "spa relax"
     },
     {
       "id": "beauty-makeup",
       "description": "A collection of makeup brushes and cosmetics",
-      "imageUrl": "https://images.unsplash.com/photo-1599849503467-f7527a1d13c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtYWtldXAlMjBhcnRpc3R8ZW58MHx8fHwxNzY0MzQxODg2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1571332283201-99c82a8b3046?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxtYWtldXAlMjBhcnRpc3R8ZW58MHx8fHwxNzY4MjI1MDgwfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "makeup artist"
     },
     {
       "id": "beauty-manicure",
       "description": "A person getting a manicure",
-      "imageUrl": "https://images.unsplash.com/photo-1632345031435-8727f6897d53?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtYW5pY3VyZXxlbnwwfHx8fDE3NjQzNDE4ODZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1737214475337-325780f81a27?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtYW5pY3VyZSUyMG5haWxzfGVufDB8fHx8MTc2ODE4NzYyMHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "manicure nails"
     },
     {
       "id": "kids-activities",
       "description": "Children playing with colorful building blocks",
-      "imageUrl": "https://images.unsplash.com/photo-1516627145497-ae6968895b74?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxraWRzJTIwcGxheWluZ3xlbnwwfHx8fDE3NjQzNDE4ODZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1613794713137-a78aba4be84a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxraWRzJTIwcGxheWluZ3xlbnwwfHx8fDE3NjgyMTY4NjZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "kids playing"
     },
     {
       "id": "kids-party",
       "description": "A colorful birthday party setup for kids",
-      "imageUrl": "https://images.unsplash.com/photo-1527393438965-349c25227e7d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxraWRzJTIwYmlydGhkYXklMjBwYXJ0eXxlbnwwfHx8fDE3NjQzNDE4ODd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1504196606672-aef5c9cefc92?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxraWRzJTIwcGFydHl8ZW58MHx8fHwxNzY4Mjc0MzY0fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "kids party"
     },
     {
       "id": "kids-tutoring",
       "description": "A child studying at a desk with books",
-      "imageUrl": "https://images.unsplash.com/photo-1495462911434-be4714555288?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjaGlsZCUyMHN0dWR5aW5nfGVufDB8fHx8fDE3NjQzNDE4ODd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1669663723170-bde6e7891176?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjaGlsZCUyMHN0dWR5aW5nfGVufDB8fHx8MTc2ODIyMzQwNnww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "child studying"
     },
     {
       "id": "kids-haircut",
       "description": "A young boy getting a haircut",
-      "imageUrl": "https://images.unsplash.com/photo-1618012626943-e84c01f4b017?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxraWRzJTIwaGFpcmN1dHxlbnwwfHx8fDE3NjQzNDE4ODd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1761370571919-0c99c0011d27?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxraWRzJTIwaGFpcmN1dHxlbnwwfHx8fDE3NjgyNzI5NzV8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "kids haircut"
     },
     {
       "id": "gifting-hamper",
       "description": "A beautifully arranged gift hamper with various items",
-      "imageUrl": "https://images.unsplash.com/photo-1594156934483-3db4a656a81c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNzEyODR8MHwxfHNlYXJjaHwxfHxnaWZ0JTIwaGFtcGVyfGVufDB8fHx8MTY4ODU4NDIyN3ww&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1668127573831-8928daa6aefa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxnaWZ0JTIwaGFtcGVyfGVufDB8fHx8MTc2ODI3NDM2NHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "gift hamper"
     },
     {
       "id": "gifting-flowers",
       "description": "A vibrant bouquet of flowers",
-      "imageUrl": "https://images.unsplash.com/photo-1533616688419-b9a58556456c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNzEyODR8MHwxfHNlYXJjaHwxfHxmbG93ZXIlMjBib3VxdWV0fGVufDB8fHx8MTY4ODU4NDIyN3ww&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1572454591674-2739f30d8c40?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmbG93ZXIlMjBib3VxdWV0fGVufDB8fHx8MTc2ODIwODMwM3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "flower bouquet"
     },
     {
       "id": "gifting-cake",
       "description": "A delicious chocolate cake with candles",
-      "imageUrl": "https://images.unsplash.com/photo-1606983340126-99ab4feaa642?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNzEyODR8MHwxfHNlYXJjaHwxfHxiaXJ0aGRheSUyMGNha2V8ZW58MHx8fHwxNjg4NTg0MjI3fDA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1607482369189-a53b6e71fa48?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxiaXJ0aGRheSUyMGNha2V8ZW58MHx8fHwxNzY4MjY5OTU5fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "birthday cake"
     },
     {
       "id": "gifting-personalized",
       "description": "A personalized mug with a name on it",
-      "imageUrl": "https://images.unsplash.com/photo-1587522960558-86ae72b225c6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNzEyODR8MHwxfHNlYXJjaHwxfHxwZXJzb25hbGl6ZWQlMjBtdWd8ZW58MHx8fHwxNjg4NTg0MjI3fDA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1636127171118-f33d34e5e77b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxwZXJzb25hbGl6ZWQlMjBtdWd8ZW58MHx8fHwxNzY4Mjc0MzY0fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "personalized mug"
     },
     {
-      "id": "premium-deep-cleaning",
+      "id": "cleaning-deep-cleaning",
       "description": "A person in uniform deep cleaning a home",
-      "imageUrl": "https://images.unsplash.com/photo-1600642856422-243b6b1f2427?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxob21lJTIwY2xlYW5pbmd8ZW58MHx8fHwxNzY0MzQxODg5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1691057185806-ea8b5b9a4506?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxob21lJTIwY2xlYW5pbmd8ZW58MHx8fHwxNzY4Mjc0MzY0fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "home cleaning"
     },
     {
-      "id": "premium-pest-control",
+      "id": "cleaning-pest-control",
       "description": "A pest control worker spraying insecticide",
-      "imageUrl": "https://images.unsplash.com/photo-1569494393431-72a392818c3b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwZXN0JTIwY29udHJvbHxlbnwwfHx8fDE3NjQzNDE4ODl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1628352081506-83c43123ed6d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxwZXN0JTIwY29udHJvbHxlbnwwfHx8fDE3NjgyMTkyNjJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "pest control"
     },
     {
-      "id": "premium-sofa-cleaning",
+      "id": "cleaning-sofa-cleaning",
       "description": "A professional cleaning a sofa with a machine",
-      "imageUrl": "https://images.unsplash.com/photo-1621644799018-4b77f4c5a75b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzb2ZhJTIwY2xlYW5pbmd8ZW58MHx8fHwxNzY0MzQxODkwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1686178827149-6d55c72d81df?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzb2ZhJTIwY2xlYW5pbmd8ZW58MHx8fHwxNzY4Mjc0MzY0fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "sofa cleaning"
     },
     {
-      "id": "premium-car-cleaning",
+      "id": "cleaning-car-cleaning",
       "description": "A person washing a luxury car",
-      "imageUrl": "https://images.unsplash.com/photo-1607281313725-c6de7a50355a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXIlMjB3YXNoaW5nfGVufDB8fHx8fDE3NjQzNDE4OTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1607860108855-64acf2078ed9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjYXIlMjB3YXNoaW5nfGVufDB8fHx8MTc2ODI3NDM2NHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "car washing"
     },
     {
       "id": "electronics-hero-1",
       "description": "A collection of modern electronic gadgets on a desk",
-      "imageUrl": "https://images.unsplash.com/photo-1550009158-94ae76252426?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wzNzEyODR8MHwxfHNlYXJjaHwxfHxlbGVjdHJvbmljJTIwZ2FkZ2V0c3xlbnwwfHx8fDE2ODg1ODQyMjh8MA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1595303526913-c7037797ebe7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxlbGVjdHJvbmljJTIwZ2FkZ2V0c3xlbnwwfHx8fDE3NjgyNDE2NTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "electronic gadgets"
     },
     {
       "id": "electronics-hero-2",
       "description": "A person's hands typing on a modern laptop keyboard in a coffee shop setting.",
-      "imageUrl": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "https://images.unsplash.com/photo-1534432295314-d934309ea09d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxsYXB0b3AlMjBjb2ZmZWV8ZW58MHx8fHwxNzY4Mjc0MzY0fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "laptop coffee"
     },
     {
       "id": "electronics-hero-3",
       "description": "A close-up of a circuit board with intricate electronic components and pathways.",
-      "imageUrl": "https://images.unsplash.com/photo-1593344484962-796b36d4134c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "https://images.unsplash.com/photo-1667670778881-537035257bd8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y2lyY3VpdCUyMGJvYXJkfGVufDB8fHx8MTc2ODE5NjI5Nnww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "circuit board"
     },
     {
       "id": "electronics-hero-4",
       "description": "A modern home entertainment system with a large TV, soundbar, and gaming console.",
-      "imageUrl": "https://images.unsplash.com/photo-1601944179066-297c6cbbe4e2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "https://images.unsplash.com/photo-1596793503406-d90c450ba1b1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxob21lJTIwZW50ZXJ0YWlubWVudHxlbnwwfHx8fDE3NjgyNzQzNjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "home entertainment"
     },
     {
       "id": "beauty-hero-1",
       "description": "A serene spa setting with rolled towels and candles",
-      "imageUrl": "https://images.unsplash.com/photo-1512290923902-8a9f31dc236c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "https://images.unsplash.com/photo-1758912174188-30df2d8eb250?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8c2VyZW5lJTIwc3BhfGVufDB8fHx8MTc2ODE4ODUzNHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "serene spa"
     },
     {
       "id": "beauty-hero-2",
       "description": "A flat lay of various makeup products like lipstick, eyeshadow, and brushes on a marble background.",
-      "imageUrl": "https://images.unsplash.com/photo-1515688594390-b649fe58715a?q=80&w=1908&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "https://images.unsplash.com/photo-1598528738936-c50861cc75a9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtYWtldXAlMjBmbGF0bGF5fGVufDB8fHx8MTc2ODI3NDM2NHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "makeup flatlay"
     },
     {
       "id": "beauty-hero-3",
       "description": "A woman with a face mask relaxing with cucumber slices on her eyes.",
-      "imageUrl": "https://images.unsplash.com/photo-1552693673-1bf95829b54f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "https://images.unsplash.com/photo-1610289982320-3891f7c9fd6d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzcGElMjByZWxheGF0aW9ufGVufDB8fHx8MTc2ODI3NDM2NXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "spa relaxation"
     },
     {
       "id": "beauty-hero-4",
       "description": "An assortment of skincare products like serums and creams beautifully arranged.",
-      "imageUrl": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "https://images.unsplash.com/photo-1580870069867-74c57ee1bb07?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxza2luY2FyZSUyMHByb2R1Y3RzfGVufDB8fHx8MTc2ODI3MTE4NXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "skincare products"
     },
     {
       "id": "kids-hero-1",
       "description": "Children laughing and playing together outdoors in a field",
-      "imageUrl": "https://images.unsplash.com/photo-1503919545889-aef636e10ad4?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjaGlsZHJlbiUyMHBsYXlpbmd8ZW58MHx8fHwxNzY4Mjc0MzY0fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "children playing"
     },
     {
       "id": "kids-hero-2",
       "description": "A child's room filled with colorful toys, books, and drawings.",
-      "imageUrl": "https://images.unsplash.com/photo-1559825481-1b4927ac041a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "https://images.unsplash.com/photo-1613685301918-59b1039422cc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxraWRzJTIwcm9vbXxlbnwwfHx8fDE3NjgxODQxOTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "kids room"
     },
     {
       "id": "kids-hero-3",
       "description": "A group of diverse children sitting in a circle and learning together.",
-      "imageUrl": "https://images.unsplash.com/photo-1576765974102-b531d6a7a280?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "https://images.unsplash.com/flagged/photo-1551887373-6edba6dacbb1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxraWRzJTIwbGVhcm5pbmd8ZW58MHx8fHwxNzY4Mjc0MzY0fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "kids learning"
     },
     {
       "id": "kids-hero-4",
       "description": "Close-up of a baby's feet in soft booties.",
-      "imageUrl": "https://images.unsplash.com/photo-1604313881515-996593a8089c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "https://images.unsplash.com/photo-1504151671506-6312eceb0f18?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8YmFieSUyMGZlZXR8ZW58MHx8fHwxNzY4Mjc0MzY0fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "baby feet"
     },
     {
       "id": "gifting-hero-1",
       "description": "A beautifully wrapped present with a red bow on a festive background",
-      "imageUrl": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "https://images.unsplash.com/photo-1638224966976-ae2e4257c09e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHx3cmFwcGVkJTIwZ2lmdHxlbnwwfHx8fDE3NjgyNzQzNjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "wrapped gift"
     },
     {
       "id": "gifting-hero-2",
       "description": "A table full of presents of various shapes and sizes wrapped in colorful paper.",
-      "imageUrl": "https://images.unsplash.com/photo-1513297887119-d4209598f8d1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "https://images.unsplash.com/photo-1645886702021-43a8849dedea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxtdWx0aXBsZSUyMGdpZnRzfGVufDB8fHx8MTc2ODI3NDM2NHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "multiple gifts"
     },
     {
       "id": "gifting-hero-3",
       "description": "Hands exchanging a wrapped gift, symbolizing the act of giving.",
-      "imageUrl": "https://images.unsplash.com/photo-1600213923085-c5b369c0a2a1?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "https://images.unsplash.com/photo-1730389658758-e61f3293b94d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxleGNoYW5naW5nJTIwZ2lmdHxlbnwwfHx8fDE3NjgyNzQzNjV8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "exchanging gift"
     },
     {
       "id": "gifting-hero-4",
       "description": "A hot air balloon festival with many colorful balloons in the sky.",
-      "imageUrl": "https://images.unsplash.com/photo-1533423996376-63e2715112c2?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "https://images.unsplash.com/photo-1635959580147-7e36b5d6ecea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxiYWxsb29uJTIwZmVzdGl2YWx8ZW58MHx8fHwxNzY4Mjc0MzY0fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "balloon festival"
     },
     {
-      "id": "premium-hero-1",
+      "id": "cleaning-hero-1",
       "description": "A sparkling clean and modern living room with large windows",
-      "imageUrl": "https://images.unsplash.com/photo-1618220179428-22790b461013?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "https://images.unsplash.com/photo-1576697133123-675aa93f3e28?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjbGVhbiUyMGxpdmluZ3Jvb218ZW58MHx8fHwxNzY4MjY2NTUyfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "clean livingroom"
     },
     {
-      "id": "premium-hero-2",
+      "id": "cleaning-hero-2",
       "description": "A luxurious modern kitchen with marble countertops and high-end appliances.",
-      "imageUrl": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "https://images.unsplash.com/photo-1622372738946-62e02505feb3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxsdXh1cnklMjBraXRjaGVufGVufDB8fHx8MTc2ODI3NDM2NXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "luxury kitchen"
     },
     {
-      "id": "premium-hero-3",
+      "id": "cleaning-hero-3",
       "description": "A person receiving a premium, white-glove delivery service.",
-      "imageUrl": "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "https://images.unsplash.com/photo-1575405369708-44948c7d9fcc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwcmVtaXVtJTIwc2VydmljZXxlbnwwfHx8fDE3NjgyNzQzNjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "premium service"
     },
     {
-      "id": "premium-hero-4",
+      "id": "cleaning-hero-4",
       "description": "A high-end sports car detailed to perfection.",
-      "imageUrl": "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "https://images.unsplash.com/photo-1580679568899-be51739ba2df?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxsdXh1cnklMjBjYXJ8ZW58MHx8fHwxNzY4MTkxNDg4fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "luxury car"
+    },
+    {
+      "id": "car-hero-1",
+      "description": "A person washing a black car with a pressure washer.",
+      "imageUrl": "https://images.unsplash.com/photo-1608506375591-b90e1f955e4b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjYXIlMjB3YXNofGVufDB8fHx8MTc2ODI3NDM2NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "car wash"
+    },
+    {
+      "id": "car-hero-2",
+      "description": "A mechanic working under a car in a garage.",
+      "imageUrl": "https://images.unsplash.com/photo-1596986952526-3be237187071?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjYXIlMjByZXBhaXJ8ZW58MHx8fHwxNzY4MTk4ODMzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "car repair"
+    },
+    {
+      "id": "car-hero-3",
+      "description": "A detailed shot of a car's interior being cleaned.",
+      "imageUrl": "https://images.unsplash.com/photo-1533630217389-3a5e4dff5683?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjYXIlMjBpbnRlcmlvcnxlbnwwfHx8fDE3NjgyMzk5NjV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "car interior"
+    },
+    {
+      "id": "car-interior-detailing",
+      "description": "Car interior detailing service.",
+      "imageUrl": "https://images.unsplash.com/photo-1652453822986-aba9e3677515?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8aW50ZXJpb3IlMjBkZXRhaWxpbmd8ZW58MHx8fHwxNzY4Mjc0MzY0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "interior detailing"
+    },
+    {
+      "id": "car-exterior-wash",
+      "description": "Car exterior wash service.",
+      "imageUrl": "https://images.unsplash.com/photo-1716986463126-ee23c1b07890?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxleHRlcmlvciUyMHdhc2h8ZW58MHx8fHwxNzY4Mjc0MzY0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "exterior wash"
+    },
+    {
+      "id": "car-full-service",
+      "description": "Full car servicing.",
+      "imageUrl": "https://images.unsplash.com/photo-1606577924006-27d39b132ae2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjYXIlMjBzZXJ2aWNlfGVufDB8fHx8MTc2ODI3NDM2NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "car service"
+    },
+    {
+      "id": "car-tyre-care",
+      "description": "Tyre and wheel care.",
+      "imageUrl": "https://images.unsplash.com/photo-1652211185707-dc7bd88eaee9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8dHlyZSUyMGNhcmV8ZW58MHx8fHwxNzY4Mjc0MzY1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "tyre care"
+    },
+    {
+      "id": "painting-hero-1",
+      "description": "A painter on a ladder painting a wall white.",
+      "imageUrl": "https://images.unsplash.com/photo-1511822148790-e7b58ba14c72?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx3YWxsJTIwcGFpbnRpbmd8ZW58MHx8fHwxNzY4MjU2NTI0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "wall painting"
+    },
+    {
+      "id": "painting-hero-2",
+      "description": "A close-up of a paint roller on a colorful wall.",
+      "imageUrl": "https://images.unsplash.com/photo-1562259949-e8e7689d7828?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwYWludCUyMHJvbGxlcnxlbnwwfHx8fDE3NjgyNzQzNjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "paint roller"
+    },
+    {
+      "id": "painting-hero-3",
+      "description": "A variety of paint color swatches.",
+      "imageUrl": "https://images.unsplash.com/photo-1560121361-3968dbf2b749?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjb2xvciUyMHN3YXRjaGVzfGVufDB8fHx8MTc2ODIzMjk3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "color swatches"
+    },
+    {
+      "id": "painting-interior",
+      "description": "Interior wall painting service.",
+      "imageUrl": "https://images.unsplash.com/photo-1600054648630-e10e710825f6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxpbnRlcmlvciUyMHBhaW50aW5nfGVufDB8fHx8MTc2ODI3NDM2NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "interior painting"
+    },
+    {
+      "id": "painting-exterior",
+      "description": "Exterior wall painting service.",
+      "imageUrl": "https://images.unsplash.com/photo-1705589385090-d958e833a73c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8ZXh0ZXJpb3IlMjBwYWludGluZ3xlbnwwfHx8fDE3NjgyNzQzNjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "exterior painting"
+    },
+    {
+      "id": "painting-wood",
+      "description": "Wood polishing and painting.",
+      "imageUrl": "https://images.unsplash.com/photo-1595552301308-ef89473be220?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHx3b29kJTIwcGFpbnRpbmd8ZW58MHx8fHwxNzY4Mjc0MzY1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "wood painting"
+    },
+    {
+      "id": "painting-metal",
+      "description": "Metal gate or grill painting.",
+      "imageUrl": "https://images.unsplash.com/photo-1606525271282-676a88f90ebf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8bWV0YWwlMjBwYWludGluZ3xlbnwwfHx8fDE3NjgyNzQzNjV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "metal painting"
     }
   ]
 }
