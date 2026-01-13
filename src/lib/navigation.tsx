@@ -224,3 +224,5 @@ import {
       { icon: Hotel, labelKey: 'hotel' },
       { icon: MoreHorizontal, labelKey: 'other' },
     ];
+
+    
