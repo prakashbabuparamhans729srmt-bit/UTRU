@@ -42,7 +42,6 @@ import {
     Car,
     Gift,
     Sparkles,
-    Baby,
   } from 'lucide-react';
   
   // From settings/page.tsx
@@ -146,9 +145,8 @@ import {
   // For src/app/page.tsx, src/app/location/* pages
   export const mainFooterNavLinks = [
     { href: '/', icon: HomeIcon, labelKey: 'home' },
-    { href: '#', icon: BookCopy, labelKey: 'library' },
-    { href: '/location', icon: LayoutGrid, labelKey: 'explore', isCentral: true },
-    { href: '#', icon: PlaySquare, labelKey: 'opinion' },
+    { href: '/my-plans', icon: ClipboardList, labelKey: 'bookings' },
+    { href: '/chatbot', icon: MessageSquare, labelKey: 'chat' },
     { href: '/profile', icon: User, labelKey: 'profile' },
   ];
   
@@ -175,19 +173,22 @@ import {
   
   // For src/app/profile/page.tsx
   
+  export const profileHeaderLinks = [
+    { icon: CreditCard, text: 'Payments', href: '/payment-settings', labelKey: 'payments' },
+    { icon: Headset, text: 'Support', href: '/support', labelKey: 'support' },
+    { icon: Wallet, text: 'Wallet', href: '/wallet', labelKey: 'wallet' },
+  ];
+
   export const profileMenuItems = [
-      { icon: BookUser, text: 'Address book', href: '/address', labelKey: 'addressBook' },
-      { icon: CreditCard, text: 'Payments', href: '/payment-settings', labelKey: 'payments' },
-      { icon: Wallet, text: 'Wallet', href: '/wallet', labelKey: 'wallet' },
       { icon: FileText, text: 'My plans', href: '/my-plans', labelKey: 'myPlans' },
+      { icon: Smartphone, text: 'Native devices', href: '/native-devices', labelKey: 'nativeDevices' },
+      { icon: BookUser, text: 'Address book', href: '/address', labelKey: 'addressBook' },
       { icon: Star, text: 'Plus membership', href: '/plus-membership', labelKey: 'plusMembership' },
       { icon: Star, text: 'My rating', href: '#', labelKey: 'myRating' },
-      
+      { icon: Settings, text: 'Setting', href: '/settings', labelKey: 'setting' },
   ];
   
   export const profileOtherInfoLinks = [
-      { icon: Settings, text: 'Setting', href: '/settings', labelKey: 'setting' },
-      { icon: Headset, text: 'Support', href: '/support', labelKey: 'support' },
       { icon: Share2, text: 'Share the app', href: '#', labelKey: 'shareApp' },
       { icon: Info, text: 'About us', href: '/about', labelKey: 'aboutUs' },
       { icon: LogOut, text: 'Log out', href: '#', labelKey: 'logOut' },
