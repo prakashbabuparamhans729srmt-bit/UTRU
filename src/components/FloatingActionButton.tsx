@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { MessageCircle, ShoppingCart, X, Plus } from 'lucide-react';
+import { MessageCircle, ShoppingCart, ClipboardList, Plus } from 'lucide-react';
 
 export default function FloatingActionButton() {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,6 +18,14 @@ export default function FloatingActionButton() {
       <div className="relative flex flex-col items-center gap-3">
         {isOpen && (
           <div className="flex flex-col items-center gap-3 transition-all duration-300 ease-in-out">
+            <Button
+              size="icon"
+              className={subButtonClasses}
+              onClick={() => { router.push('/my-plans'); setIsOpen(false); }}
+              aria-label="Bookings"
+            >
+              <ClipboardList className="w-6 h-6" />
+            </Button>
             <Button
               size="icon"
               className={subButtonClasses}
