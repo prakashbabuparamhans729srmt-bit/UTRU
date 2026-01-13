@@ -4,6 +4,14 @@
 import { ChevronLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import ServiceGrid from '@/components/ServiceGrid';
+
+const beautyServices = [
+    { id: 'beauty-salon', name: 'Salon for Women' },
+    { id: 'beauty-spa', name: 'Spa at Home' },
+    { id: 'beauty-makeup', name: 'Makeup & Hair' },
+    { id: 'beauty-manicure', name: 'Manicure & Pedicure' },
+];
 
 export default function BeautyPage() {
   const router = useRouter();
@@ -16,9 +24,8 @@ export default function BeautyPage() {
         </Button>
         <h1 className="text-lg font-semibold">Beauty</h1>
       </header>
-      <main className="p-4 text-center">
-        <h2 className="text-2xl font-bold">Beauty Page</h2>
-        <p className="text-muted-foreground">Content for beauty products will be displayed here.</p>
+       <main className="p-4">
+        <ServiceGrid services={beautyServices} />
       </main>
     </div>
   );

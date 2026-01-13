@@ -4,6 +4,14 @@
 import { ChevronLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import ServiceGrid from '@/components/ServiceGrid';
+
+const giftingServices = [
+    { id: 'gifting-hamper', name: 'Gift Hampers' },
+    { id: 'gifting-flowers', name: 'Flower Delivery' },
+    { id: 'gifting-cake', name: 'Cake Delivery' },
+    { id: 'gifting-personalized', name: 'Personalized Gifts' },
+];
 
 export default function GiftingPage() {
   const router = useRouter();
@@ -16,9 +24,8 @@ export default function GiftingPage() {
         </Button>
         <h1 className="text-lg font-semibold">Gifting</h1>
       </header>
-      <main className="p-4 text-center">
-        <h2 className="text-2xl font-bold">Gifting Page</h2>
-        <p className="text-muted-foreground">Content for gifting will be displayed here.</p>
+      <main className="p-4">
+        <ServiceGrid services={giftingServices} />
       </main>
     </div>
   );

@@ -179,6 +179,126 @@
       "description": "A dense forest of green pine trees",
       "imageUrl": "https://images.unsplash.com/photo-1448375240586-882707db888b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmb3Jlc3R8ZW58MHx8fHwxNzY0MzM4ODMwfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "green forest"
+    },
+    {
+      "id": "electronics-tv-repair",
+      "description": "Technician repairing a flat-screen TV",
+      "imageUrl": "https://images.unsplash.com/photo-1620756246243-2d93a8c51a8a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx0diUyMHJlcGFpcnxlbnwwfHx8fDE3NjQzNDE4ODR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "tv repair"
+    },
+    {
+      "id": "electronics-ac-repair",
+      "description": "An air conditioner unit with repair tools",
+      "imageUrl": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhYyUyMHJlcGFpcnxlbnwwfHx8fDE3NjQzNDE4ODR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "ac repair"
+    },
+    {
+      "id": "electronics-washing-machine",
+      "description": "A modern washing machine",
+      "imageUrl": "https://images.unsplash.com/photo-1626806819282-2c1dc01a5e0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx3YXNoaW5nJTIwbWFjaGluZXxlbnwwfHx8fDE3NjQzNDE4ODR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "washing machine"
+    },
+    {
+      "id": "electronics-geyser",
+      "description": "A water heater (geyser) installed on a wall",
+      "imageUrl": "https://images.unsplash.com/photo-1601121141499-17ae80afc73a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx3YXRlciUyMGhlYXRlcnxlbnwwfHx8fDE3NjQzNDE4ODV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "water heater"
+    },
+    {
+      "id": "beauty-salon",
+      "description": "A woman getting her hair styled at a salon",
+      "imageUrl": "https://images.unsplash.com/photo-1560066984-118c38a64a9a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx3b21hbiUyMGhhaXIlMjBzYWxvbnxlbnwwfHx8fDE3NjQzNDE4ODV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "salon hair"
+    },
+    {
+      "id": "beauty-spa",
+      "description": "Spa setting with candles, towels, and flowers",
+      "imageUrl": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzcGElMjByZWxheHxlbnwwfHx8fDE3NjQzNDE4ODV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "spa relax"
+    },
+    {
+      "id": "beauty-makeup",
+      "description": "A collection of makeup brushes and cosmetics",
+      "imageUrl": "https://images.unsplash.com/photo-1599849503467-f7527a1d13c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtYWtldXAlMjBhcnRpc3R8ZW58MHx8fHwxNzY0MzQxODg2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "makeup artist"
+    },
+    {
+      "id": "beauty-manicure",
+      "description": "A person getting a manicure",
+      "imageUrl": "https://images.unsplash.com/photo-1632345031435-8727f6897d53?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtYW5pY3VyZXxlbnwwfHx8fDE3NjQzNDE4ODZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "manicure nails"
+    },
+    {
+      "id": "kids-activities",
+      "description": "Children playing with colorful building blocks",
+      "imageUrl": "https://images.unsplash.com/photo-1516627145497-ae6968895b74?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxraWRzJTIwcGxheWluZ3xlbnwwfHx8fDE3NjQzNDE4ODZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "kids playing"
+    },
+    {
+      "id": "kids-party",
+      "description": "A colorful birthday party setup for kids",
+      "imageUrl": "https://images.unsplash.com/photo-1527393438965-349c25227e7d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxraWRzJTIwYmlydGhkYXklMjBwYXJ0eXxlbnwwfHx8fDE3NjQzNDE4ODd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "kids party"
+    },
+    {
+      "id": "kids-tutoring",
+      "description": "A child studying at a desk with books",
+      "imageUrl": "https://images.unsplash.com/photo-1495462911434-be4714555288?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjaGlsZCUyMHN0dWR5aW5nfGVufDB8fHx8fDE3NjQzNDE4ODd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "child studying"
+    },
+    {
+      "id": "kids-haircut",
+      "description": "A young boy getting a haircut",
+      "imageUrl": "https://images.unsplash.com/photo-1618012626943-e84c01f4b017?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxraWRzJTIwaGFpcmN1dHxlbnwwfHx8fDE3NjQzNDE4ODd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "kids haircut"
+    },
+    {
+      "id": "gifting-hamper",
+      "description": "A beautifully arranged gift hamper with various items",
+      "imageUrl": "https://images.unsplash.com/photo-1594156934483-3db4a656a81c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxnaWZ0JTIwaGFtcGVyfGVufDB8fHx8fDE3NjQzNDE4ODh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "gift hamper"
+    },
+    {
+      "id": "gifting-flowers",
+      "description": "A vibrant bouquet of flowers",
+      "imageUrl": "https://images.unsplash.com/photo-1533616688419-b9a58556456c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmbG93ZXIlMjBib3VxdWV0fGVufDB8fHx8fDE3NjQzNDE4ODh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "flower bouquet"
+    },
+    {
+      "id": "gifting-cake",
+      "description": "A delicious chocolate cake with candles",
+      "imageUrl": "https://images.unsplash.com/photo-1606983340126-99ab4feaa642?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxiaXJ0aGRheSUyMGNha2V8ZW58MHx8fHwxNzY0MzQxODg4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "birthday cake"
+    },
+    {
+      "id": "gifting-personalized",
+      "description": "A personalized mug with a name on it",
+      "imageUrl": "https://images.unsplash.com/photo-1587522960558-86ae72b225c6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwZXJzb25hbGl6ZWQlMjBtdWd8ZW58MHx8fHwxNzY0MzQxODg5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "personalized mug"
+    },
+    {
+      "id": "premium-deep-cleaning",
+      "description": "A person in uniform deep cleaning a home",
+      "imageUrl": "https://images.unsplash.com/photo-1600642856422-243b6b1f2427?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxob21lJTIwY2xlYW5pbmd8ZW58MHx8fHwxNzY0MzQxODg5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "home cleaning"
+    },
+    {
+      "id": "premium-pest-control",
+      "description": "A pest control worker spraying insecticide",
+      "imageUrl": "https://images.unsplash.com/photo-1569494393431-72a392818c3b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwZXN0JTIwY29udHJvbHxlbnwwfHx8fDE3NjQzNDE4ODl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "pest control"
+    },
+    {
+      "id": "premium-sofa-cleaning",
+      "description": "A professional cleaning a sofa with a machine",
+      "imageUrl": "https://images.unsplash.com/photo-1621644799018-4b77f4c5a75b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzb2ZhJTIwY2xlYW5pbmd8ZW58MHx8fHwxNzY0MzQxODkwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "sofa cleaning"
+    },
+    {
+      "id": "premium-car-cleaning",
+      "description": "A person washing a luxury car",
+      "imageUrl": "https://images.unsplash.com/photo-1607281313725-c6de7a50355a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXIlMjB3YXNoaW5nfGVufDB8fHx8fDE3NjQzNDE4OTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "car washing"
     }
   ]
 }

@@ -4,6 +4,14 @@
 import { ChevronLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import ServiceGrid from '@/components/ServiceGrid';
+
+const kidsServices = [
+    { id: 'kids-activities', name: 'Fun Activities' },
+    { id: 'kids-party', name: 'Birthday Parties' },
+    { id: 'kids-tutoring', name: 'Home Tutors' },
+    { id: 'kids-haircut', name: 'Kids Haircut' },
+];
 
 export default function KidsPage() {
   const router = useRouter();
@@ -16,9 +24,8 @@ export default function KidsPage() {
         </Button>
         <h1 className="text-lg font-semibold">Kids</h1>
       </header>
-      <main className="p-4 text-center">
-        <h2 className="text-2xl font-bold">Kids Page</h2>
-        <p className="text-muted-foreground">Content for kids' products will be displayed here.</p>
+      <main className="p-4">
+        <ServiceGrid services={kidsServices} />
       </main>
     </div>
   );
