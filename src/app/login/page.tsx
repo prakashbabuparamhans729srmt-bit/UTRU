@@ -5,9 +5,11 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Phone } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function LoginPage() {
   const router = useRouter();
+  const { translations } = useLanguage();
   const coffeeImage = PlaceHolderImages.find((img) => img.id === 'login-coffee');
 
   return (
@@ -33,7 +35,7 @@ export default function LoginPage() {
           onClick={() => router.push('/phone-login')}
         >
           <Phone className="mr-2 h-6 w-6" />
-          Continue with Phone
+          {translations.login.continueWithPhone}
         </Button>
       </div>
     </div>

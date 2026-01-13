@@ -7,10 +7,12 @@ import { useRouter } from 'next/navigation';
 import { useState, useRef, useEffect } from 'react';
 import { useAuthUI } from '@/firebase/auth/use-auth-ui';
 import { useToast } from '@/hooks/use-toast';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function VerifyPhonePage() {
   const router = useRouter();
   const { toast } = useToast();
+  const { translations } = useLanguage();
   const { verifyOtp, isPending, error, confirmationResult, phoneNumber } = useAuthUI();
   const [otp, setOtp] = useState(new Array(6).fill(''));
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
@@ -95,11 +97,11 @@ export default function VerifyPhonePage() {
         </div>
 
         <div className="flex-grow flex flex-col justify-center text-left">
-          <h1 className="text-4xl font-bold mb-2">Verification Code</h1>
+          <h1 className="text-4xl font-bold mb-2">{translations.verifyPhone.title}</h1>
           <p className="text-gray-400 mb-8">
-            Enter the 6 digit code that you received at: <br />
+            {translations.verifyPhone.subtitle} <br />
             <span className="text-white font-semibold">{phoneNumber || 'your phone number'}</span> 
-            <button onClick={() => router.push('/phone-login')} className="text-white underline ml-2">change number?</button>
+            <button onClick={() => router.push('/phone-login')} className="text-white underline ml-2">{translations.verifyPhone.changeNumber}</button>
           </p>
 
           <div className="flex justify-center gap-2 mb-8" onPaste={handlePaste}>
@@ -123,7 +125,7 @@ export default function VerifyPhonePage() {
             onClick={handleVerify}
             disabled={isPending}
           >
-            {isPending ? <Loader2 className="animate-spin"/> : 'Verify Code'}
+            {isPending ? <Loader2 className="animate-spin"/> : translations.verifyPhone.verifyCode}
           </Button>
         </div>
       </div>
