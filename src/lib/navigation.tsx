@@ -42,6 +42,7 @@ import {
     Car,
     Gift,
     Sparkles,
+    Baby,
   } from 'lucide-react';
   
   // From settings/page.tsx
@@ -146,7 +147,7 @@ import {
   export const mainFooterNavLinks = [
     { href: '/', icon: HomeIcon, labelKey: 'home' },
     { href: '/my-plans', icon: ClipboardList, labelKey: 'bookings' },
-    { href: '/chatbot', icon: MessageSquare, labelKey: 'chat' },
+    { href: '/chatbot', icon: MessageSquare, labelKey: 'chat', isCentral: true },
     { href: '/profile', icon: User, labelKey: 'profile' },
   ];
   
