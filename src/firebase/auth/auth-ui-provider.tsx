@@ -25,7 +25,7 @@ interface AuthUIContextType {
   phoneNumber: string | null;
 
   // Actions
-  signInWithPhoneNumber: (phoneNumber: string) => Promise<boolean>;
+  signInWithPhoneNumber: (phoneNumber: string, container: HTMLElement | null) => Promise<boolean>;
   verifyOtp: (otp: string) => Promise<boolean>;
   signOut: () => Promise<void>;
 }
@@ -50,9 +50,9 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
 
   // Phone Sign-In Initiator
   const handleSignInWithPhoneNumber = useCallback(
-    async (phone: string) => {
-      if (!auth) {
-        setError('Firebase Auth not available');
+    async (phone: string, container: HTMLElement | null) => {
+      if (!auth || !container) {
+        setError('Firebase Auth not available or container not found');
         return false;
       }
 
@@ -61,8 +61,9 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
       setPhoneNumber(phone);
 
       try {
+        // Only create a new verifier if one doesn't exist
         if (!recaptchaVerifierRef.current) {
-            recaptchaVerifierRef.current = new RecaptchaVerifier(auth, 'recaptcha-container', {
+            recaptchaVerifierRef.current = new RecaptchaVerifier(auth, container, {
               size: 'invisible',
             });
         }
@@ -77,7 +78,7 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
         return true;
       } catch (err: any) {
         setError(err.message);
-        // Reset verifier on error
+        // Reset verifier on error. It will be recreated on next attempt.
         if (recaptchaVerifierRef.current) {
             recaptchaVerifierRef.current.clear();
             recaptchaVerifierRef.current = null;

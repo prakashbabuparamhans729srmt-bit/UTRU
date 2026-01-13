@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { X, Play, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useAuthUI } from '@/firebase/auth/use-auth-ui';
 import { useToast } from '@/hooks/use-toast';
 
@@ -15,6 +15,8 @@ export default function PhoneLoginPage() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const { signInWithPhoneNumber, isPending, error } = useAuthUI();
   const { toast } = useToast();
+  const recaptchaContainerRef = useRef<HTMLButtonElement>(null);
+
 
   const handleContinue = async () => {
     // Ensure the number starts with +91
@@ -40,8 +42,10 @@ export default function PhoneLoginPage() {
         });
         return;
     }
+    
+    if (!recaptchaContainerRef.current) return;
 
-    const success = await signInWithPhoneNumber(formattedPhoneNumber);
+    const success = await signInWithPhoneNumber(formattedPhoneNumber, recaptchaContainerRef.current);
     if (success) {
       router.push('/verify-phone');
     } else {
@@ -55,7 +59,6 @@ export default function PhoneLoginPage() {
 
   return (
     <div className="bg-white min-h-screen flex items-center justify-center">
-      <div id="recaptcha-container"></div>
       <div className="bg-black text-white w-full max-w-md mx-4 rounded-[40px] p-8 shadow-2xl flex flex-col h-[70vh] my-auto">
         <div className="flex items-start justify-between">
           <Button
@@ -105,6 +108,7 @@ export default function PhoneLoginPage() {
           </div>
 
           <Button 
+            ref={recaptchaContainerRef}
             className="w-full bg-white text-black rounded-full h-14 text-lg font-semibold hover:bg-gray-200"
             onClick={handleContinue}
             disabled={isPending || !phoneNumber}
