@@ -4,7 +4,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ChevronLeft, Send, User, Bot, Mic } from 'lucide-react';
+import { ChevronLeft, Send, User, Bot, Mic, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { appChat, type AppChatInput, type AppChatOutput } from '@/ai/flows/app-chatbot';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -29,7 +29,7 @@ const languageCodeMap: { [key: string]: string } = {
 
 export default function ChatbotPage() {
   const router = useRouter();
-  const { language } = useLanguage();
+  const { language, translations } = useLanguage();
   const { toast } = useToast();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
@@ -39,128 +39,135 @@ export default function ChatbotPage() {
 
   const [isListening, setIsListening] = useState(false);
   const recognitionRef = useRef<any>(null);
-  const [isMicAllowed, setIsMicAllowed] = useState(false);
-  const isStoppingRef = useRef(false);
+  const [isMicAllowed, setIsMicAllowed] = useState<boolean | undefined>(undefined);
 
+  // Check for SpeechRecognition support and permissions
   useEffect(() => {
     setIsClient(true);
-    const checkMicPermission = async () => {
-      if (!('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) {
-        setIsMicAllowed(false);
-        return;
-      }
-
-      try {
-        const permissionStatus = await navigator.permissions.query({ name: 'microphone' as PermissionName });
-        setIsMicAllowed(permissionStatus.state !== 'denied');
-        permissionStatus.onchange = () => {
-             setIsMicAllowed(permissionStatus.state !== 'denied');
+    const checkSupportAndPermission = async () => {
+        if (!('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) {
+            console.warn('Speech recognition not supported by this browser.');
+            setIsMicAllowed(false);
+            return;
         }
-      } catch (error) {
-        console.error('Error checking microphone permission:', error);
-        setIsMicAllowed(false);
-      }
-    };
 
-    checkMicPermission();
+        try {
+            const permissionStatus = await navigator.permissions.query({ name: 'microphone' as PermissionName });
+            setIsMicAllowed(permissionStatus.state !== 'denied');
+            permissionStatus.onchange = () => {
+                setIsMicAllowed(permissionStatus.state !== 'denied');
+            }
+        } catch (error) {
+            console.error('Error checking microphone permission:', error);
+            setIsMicAllowed(false);
+        }
+    };
+    checkSupportAndPermission();
   }, []);
 
-
-  useEffect(() => {
-    if (!isClient) return;
-
-    if (!('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) {
-      console.warn('Speech recognition not supported');
-      return;
-    }
+  // Initialize SpeechRecognition
+   useEffect(() => {
+    if (!isClient || isMicAllowed === false) return;
 
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) return;
+
     const recognition = new SpeechRecognition();
     recognition.continuous = true;
     recognition.interimResults = true;
-    recognition.lang = languageCodeMap[language] || 'en-US'; 
+    recognition.lang = languageCodeMap[language] || 'en-US';
 
     recognition.onresult = (event) => {
-      let finalTranscript = '';
-      for (let i = event.resultIndex; i < event.results.length; ++i) {
-        if (event.results[i].isFinal) {
-          finalTranscript += event.results[i][0].transcript;
+        let interimTranscript = '';
+        for (let i = event.resultIndex; i < event.results.length; ++i) {
+            if (event.results[i].isFinal) {
+                setInput(prev => prev + event.results[i][0].transcript);
+            } else {
+                interimTranscript += event.results[i][0].transcript;
+            }
         }
-      }
-      if (finalTranscript) {
-        setInput(prev => prev + finalTranscript);
-      }
     };
 
     recognition.onerror = (event) => {
-      console.error('Speech recognition error:', event.error);
-      if (event.error === 'not-allowed') {
+        console.error('Speech recognition error:', event.error);
+        if (event.error === 'not-allowed') {
           toast({
             variant: 'destructive',
             title: 'Microphone Access Denied',
-            description: 'Please enable microphone permissions in your browser settings.',
+            description: 'Please enable microphone permissions in your browser settings to use voice input.',
           });
           setIsMicAllowed(false);
-      }
-      setIsListening(false);
+        }
+        setIsListening(false);
     };
     
     recognition.onend = () => {
-       if (isStoppingRef.current) {
-        setIsListening(false);
-      } else if (recognitionRef.current && isListening) { 
-         try {
-          recognitionRef.current.start();
-        } catch(e) {
-          console.error("Recognition restart failed", e);
-          setIsListening(false);
-        }
+      // The onend event can fire unexpectedly, so we only update state if it was a deliberate stop.
+      if (!isListening) {
+        return;
+      }
+      
+      // If still listening, restart recognition. This handles cases where it times out.
+      try {
+        recognition.start();
+      } catch (e) {
+        console.error("Recognition restart failed", e);
+        setIsListening(false); // Stop if restart fails
       }
     };
 
     recognitionRef.current = recognition;
 
+    // Cleanup: ensure recognition is stopped when component unmounts or listening is toggled off
     return () => {
-        isStoppingRef.current = true;
         if (recognitionRef.current) {
             recognitionRef.current.stop();
         }
     }
-
-  }, [language, isClient, toast, isListening]);
+  }, [isClient, isMicAllowed, language, toast, isListening]);
 
 
   const toggleListening = async () => {
-    if (!isClient || !recognitionRef.current) {
-       toast({
-          variant: 'destructive',
-          title: 'Feature Not Supported',
-          description: 'Your browser does not support speech recognition.',
-        });
-      return;
-    }
-    
+    if (isLoading) return;
+
     if (isListening) {
-      isStoppingRef.current = true;
-      recognitionRef.current.stop();
-      return;
+        setIsListening(false); // This will trigger the cleanup in the useEffect
+        return;
     }
 
-    try {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        stream.getTracks().forEach(track => track.stop());
-        setIsMicAllowed(true);
-        isStoppingRef.current = false;
-        recognitionRef.current.start();
-        setIsListening(true);
-    } catch (error) {
-        console.error('Microphone access denied:', error);
+    if (isMicAllowed === false) {
         toast({
-          variant: 'destructive',
-          title: 'Microphone Access Denied',
-          description: 'To use voice input, please allow microphone access in your browser settings.',
+            variant: 'destructive',
+            title: 'Microphone Not Available',
+            description: 'Please grant microphone access in your browser settings.',
         });
-        setIsMicAllowed(false);
+        return;
+    }
+
+    // Request permission if not yet determined
+    if (isMicAllowed === undefined) {
+        try {
+            await navigator.mediaDevices.getUserMedia({ audio: true });
+            setIsMicAllowed(true);
+        } catch (error) {
+            console.error('Microphone access denied:', error);
+            setIsMicAllowed(false);
+            toast({
+              variant: 'destructive',
+              title: 'Microphone Access Denied',
+              description: 'To use voice input, please allow microphone access.',
+            });
+            return;
+        }
+    }
+    
+    if (recognitionRef.current) {
+        try {
+            recognitionRef.current.start();
+            setIsListening(true);
+        } catch (e) {
+            console.error("Could not start recognition", e);
+        }
     }
   };
 
@@ -171,7 +178,7 @@ export default function ChatbotPage() {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messages, isLoading]);
   
   useEffect(() => {
     setMessages([{
@@ -183,20 +190,18 @@ export default function ChatbotPage() {
   const handleSend = async () => {
     if (input.trim() === '' || isLoading) return;
     if (isListening) {
-      isStoppingRef.current = true;
-      if(recognitionRef.current) {
-          recognitionRef.current.stop();
-      }
+      setIsListening(false); // Stop listening when sending a message
     }
 
     const userMessage: Message = { text: input, sender: 'user' };
     setMessages((prev) => [...prev, userMessage]);
+    const currentInput = input;
     setInput('');
     setIsLoading(true);
 
     try {
         const chatInput: AppChatInput = { 
-            userQuery: input, 
+            userQuery: currentInput, 
             history: messages.map(m => `${m.sender}: ${m.text}`),
             language: language
         };
@@ -298,7 +303,7 @@ export default function ChatbotPage() {
             disabled={isLoading}
           />
           <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
-             { isClient && (
+             { isClient && isMicAllowed !== undefined && (
                 <Button
                     size="icon"
                     variant="ghost"
@@ -308,7 +313,7 @@ export default function ChatbotPage() {
                     )}
                     onClick={toggleListening}
                     disabled={isLoading || !isMicAllowed}
-                    title={isMicAllowed ? (isListening ? 'Stop listening' : 'Use microphone') : 'Microphone not allowed'}
+                    title={isMicAllowed ? (isListening ? 'Stop listening' : 'Use microphone') : 'Microphone not available'}
                 >
                     <Mic className="w-5 h-5" />
                 </Button>
@@ -319,7 +324,7 @@ export default function ChatbotPage() {
               onClick={handleSend}
               disabled={isLoading || !input.trim()}
             >
-              <Send className="w-5 h-5" />
+              {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
             </Button>
           </div>
         </div>

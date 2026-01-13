@@ -1,7 +1,7 @@
 
 'use client';
 
-import { ChevronLeft, Home, Building, Hotel, MoreHorizontal, X } from 'lucide-react';
+import { ChevronLeft, Home, Building, MoreHorizontal, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -10,6 +10,9 @@ import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { useLanguage } from '@/context/LanguageContext';
+import { addressTypes } from '@/lib/navigation';
+import { Hotel } from 'lucide-react';
+
 
 export default function NewAddressPage() {
   const router = useRouter();
@@ -17,11 +20,11 @@ export default function NewAddressPage() {
   const seaImage = PlaceHolderImages.find((img) => img.id === 'new-address-sea');
   const treesImage = PlaceHolderImages.find((img) => img.id === 'new-address-trees');
 
-  const addressTypes = [
-    { icon: Home, label: translations.newAddress.home },
-    { icon: Building, label: translations.newAddress.work },
-    { icon: Hotel, label: translations.newAddress.hotel },
-    { icon: MoreHorizontal, label: translations.newAddress.other },
+  const addressTypeComponents = [
+    { icon: Home, labelKey: 'home' },
+    { icon: Building, labelKey: 'work' },
+    { icon: Hotel, labelKey: 'hotel' },
+    { icon: MoreHorizontal, labelKey: 'other' },
   ];
 
   return (
@@ -79,12 +82,12 @@ export default function NewAddressPage() {
 
         <section className="mb-8">
           <div className="flex justify-around">
-            {addressTypes.map(({ icon: Icon, label }) => (
-              <div key={label} className="flex flex-col items-center gap-2">
+            {addressTypeComponents.map(({ icon: Icon, labelKey }) => (
+              <div key={labelKey} className="flex flex-col items-center gap-2">
                 <Button size="icon" variant="outline" className="w-14 h-14 rounded-full bg-black text-white border-gray-700">
                   <Icon className="w-6 h-6" />
                 </Button>
-                <span className="text-sm">{label}</span>
+                <span className="text-sm">{translations.newAddress[labelKey as keyof typeof translations.newAddress]}</span>
               </div>
             ))}
           </div>

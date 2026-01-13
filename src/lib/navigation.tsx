@@ -36,7 +36,8 @@ import {
     Phone,
     Shield,
     Download,
-    Hotel
+    Hotel,
+    MoreHorizontal
   } from 'lucide-react';
   
   // From settings/page.tsx
@@ -208,5 +209,5 @@ import {
       { icon: HomeIcon, label: 'home' },
       { icon: Building, label: 'work' },
       { icon: Hotel, label: 'hotel' },
-      { icon: List, label: 'other' },
+      { icon: MoreHorizontal, label: 'other' },
     ];
