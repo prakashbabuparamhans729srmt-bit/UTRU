@@ -72,7 +72,7 @@ export default function LocationPage() {
                         "pb-2 rounded-none w-full",
                         pathname === link.href ? 'border-b-2 border-primary text-primary shadow-none' : 'text-muted-foreground'
                     )}>
-                        {translations.location[link.labelKey]}
+                        {translations.location[link.labelKey as keyof typeof translations.location]}
                     </Button>
                 </Link>
             ))}
@@ -158,7 +158,7 @@ export default function LocationPage() {
                   pathname === link.href ? 'text-primary' : 'text-muted-foreground hover:bg-accent/50'
                 )}>
                 <link.icon className="w-6 h-6" />
-                <span className="text-xs font-semibold">{translations.home[link.labelKey as keyof typeof translations.home]}</span>
+                <span className="text-xs font-semibold">{translations.location[link.labelKey as keyof typeof translations.location]}</span>
               </Link>
           ))}
         </div>
