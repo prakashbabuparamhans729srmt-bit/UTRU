@@ -183,25 +183,25 @@
     {
       "id": "electronics-tv-repair",
       "description": "Technician repairing a flat-screen TV",
-      "imageUrl": "https://images.unsplash.com/photo-1620756246243-2d93a8c51a8a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx0diUyMHJlcGFpcnxlbnwwfHx8fDE3NjQzNDE4ODR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1620756246243-2d93a8c51a8a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNzEyODR8MHwxfHNlYXJjaHwxfHx0diUyMHJlcGFpcnxlbnwwfHx8fDE2ODg1ODQyMjV8MA&ixlib=rb-4.0.3&q=80&w=1080",
       "imageHint": "tv repair"
     },
     {
       "id": "electronics-ac-repair",
       "description": "An air conditioner unit with repair tools",
-      "imageUrl": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhYyUyMHJlcGFpcnxlbnwwfHx8fDE3NjQzNDE4ODR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNzEyODR8MHwxfHNlYXJjaHwxfHxhYyUyMHJlcGFpcnxlbnwwfHx8fDE2ODg1ODQyMjV8MA&ixlib=rb-4.0.3&q=80&w=1080",
       "imageHint": "ac repair"
     },
     {
       "id": "electronics-washing-machine",
       "description": "A modern washing machine",
-      "imageUrl": "https://images.unsplash.com/photo-1626806819282-2c1dc01a5e0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx3YXNoaW5nJTIwbWFjaGluZXxlbnwwfHx8fDE3NjQzNDE4ODR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1626806819282-2c1dc01a5e0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNzEyODR8MHwxfHNlYXJjaHwxfHx3YXNoaW5nJTIwbWFjaGluZXxlbnwwfHx8fDE2ODg1ODQyMjV8MA&ixlib=rb-4.0.3&q=80&w=1080",
       "imageHint": "washing machine"
     },
     {
       "id": "electronics-geyser",
       "description": "A water heater (geyser) installed on a wall",
-      "imageUrl": "https://images.unsplash.com/photo-1601121141499-17ae80afc73a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx3YXRlciUyMGhlYXRlcnxlbnwwfHx8fDE3NjQzNDE4ODV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1601121141499-17ae80afc73a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNzEyODR8MHwxfHNlYXJjaHwxfHx3YXRlciUyMGhlYXRlcnxlbnwwfHx8fDE2ODg1ODQyMjV8MA&ixlib=rb-4.0.3&q=80&w=1080",
       "imageHint": "water heater"
     },
     {
@@ -255,25 +255,25 @@
     {
       "id": "gifting-hamper",
       "description": "A beautifully arranged gift hamper with various items",
-      "imageUrl": "https://images.unsplash.com/photo-1594156934483-3db4a656a81c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxnaWZ0JTIwaGFtcGVyfGVufDB8fHx8fDE3NjQzNDE4ODh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1594156934483-3db4a656a81c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNzEyODR8MHwxfHNlYXJjaHwxfHxnaWZ0JTIwaGFtcGVyfGVufDB8fHx8MTY4ODU4NDIyN3ww&ixlib=rb-4.0.3&q=80&w=1080",
       "imageHint": "gift hamper"
     },
     {
       "id": "gifting-flowers",
       "description": "A vibrant bouquet of flowers",
-      "imageUrl": "https://images.unsplash.com/photo-1533616688419-b9a58556456c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmbG93ZXIlMjBib3VxdWV0fGVufDB8fHx8fDE3NjQzNDE4ODh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1533616688419-b9a58556456c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNzEyODR8MHwxfHNlYXJjaHwxfHxmbG93ZXIlMjBib3VxdWV0fGVufDB8fHx8MTY4ODU4NDIyN3ww&ixlib=rb-4.0.3&q=80&w=1080",
       "imageHint": "flower bouquet"
     },
     {
       "id": "gifting-cake",
       "description": "A delicious chocolate cake with candles",
-      "imageUrl": "https://images.unsplash.com/photo-1606983340126-99ab4feaa642?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxiaXJ0aGRheSUyMGNha2V8ZW58MHx8fHwxNzY0MzQxODg4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1606983340126-99ab4feaa642?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNzEyODR8MHwxfHNlYXJjaHwxfHxiaXJ0aGRheSUyMGNha2V8ZW58MHx8fHwxNjg4NTg0MjI3fDA&ixlib=rb-4.0.3&q=80&w=1080",
       "imageHint": "birthday cake"
     },
     {
       "id": "gifting-personalized",
       "description": "A personalized mug with a name on it",
-      "imageUrl": "https://images.unsplash.com/photo-1587522960558-86ae72b225c6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwZXJzb25hbGl6ZWQlMjBtdWd8ZW58MHx8fHwxNzY0MzQxODg5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1587522960558-86ae72b225c6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNzEyODR8MHwxfHNlYXJjaHwxfHxwZXJzb25hbGl6ZWQlMjBtdWd8ZW58MHx8fHwxNjg4NTg0MjI3fDA&ixlib=rb-4.0.3&q=80&w=1080",
       "imageHint": "personalized mug"
     },
     {
@@ -303,7 +303,7 @@
     {
       "id": "electronics-hero-1",
       "description": "A collection of modern electronic gadgets on a desk",
-      "imageUrl": "https://images.unsplash.com/photo-1550009158-94ae76252426?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageUrl": "https://images.unsplash.com/photo-1550009158-94ae76252426?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wzNzEyODR8MHwxfHNlYXJjaHwxfHxlbGVjdHJvbmljJTIwZ2FkZ2V0c3xlbnwwfHx8fDE2ODg1ODQyMjh8MA&ixlib=rb-4.0.3&q=80&w=1080",
       "imageHint": "electronic gadgets"
     },
     {
