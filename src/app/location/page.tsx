@@ -7,6 +7,7 @@ import {
   X,
   MapPin,
   Phone,
+  Mic,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -20,7 +21,7 @@ import {
 import { useLanguage } from '@/context/LanguageContext';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
-import { locationNavLinks, mainFooterNavLinks } from '@/lib/navigation.tsx';
+import { locationNavLinks, mainFooterNavLinks } from '@/lib/navigation';
 
 export default function LocationPage() {
   const { translations } = useLanguage();
@@ -47,9 +48,13 @@ export default function LocationPage() {
             <input
               type="text"
               placeholder={translations.location.searchPlaceholder}
-              className="w-full bg-card border border-border rounded-full pl-10 pr-10 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full bg-input rounded-full pl-10 pr-20 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
             />
-            <X className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground cursor-pointer" />
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+                <X className="w-5 h-5 text-muted-foreground cursor-pointer" />
+                <div className="w-px h-5 bg-border"></div>
+                <Mic className="w-5 h-5 text-muted-foreground cursor-pointer" />
+            </div>
           </div>
           <Button className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-2xl flex flex-col h-auto px-3 py-1.5 items-center">
             <Phone className="w-5 h-5" />
@@ -147,21 +152,15 @@ export default function LocationPage() {
 
       <footer className="fixed bottom-0 left-0 right-0 bg-card border-t z-50">
         <div className="flex justify-around items-center p-2">
-          {mainFooterNavLinks.map((link, index) => {
-            if (link.isCentral) {
-              return (
-                <Link key={index} href={link.href} className="w-16 h-16 rounded-full bg-primary -translate-y-4 shadow-md border-4 border-background flex items-center justify-center">
-                   <link.icon className="w-8 h-8 text-primary-foreground" />
-                </Link>
-              )
-            }
-            return (
-              <Link key={index} href={link.href} className={cn("flex flex-col items-center h-auto", pathname === link.href ? 'text-primary' : 'text-muted-foreground')}>
-                <link.icon className="w-6 h-6 mb-1" />
-                <span className="text-xs font-semibold">{translations.home[link.labelKey]}</span>
+          {mainFooterNavLinks.map((link, index) => (
+              <Link key={index} href={link.href} className={cn(
+                  "flex flex-col items-center justify-center gap-1 h-auto p-2 rounded-md transition-colors w-16", 
+                  pathname === link.href ? 'text-primary' : 'text-muted-foreground hover:bg-accent/50'
+                )}>
+                <link.icon className="w-6 h-6" />
+                <span className="text-xs font-semibold">{translations.home[link.labelKey as keyof typeof translations.home]}</span>
               </Link>
-            )
-          })}
+          ))}
         </div>
       </footer>
     </div>

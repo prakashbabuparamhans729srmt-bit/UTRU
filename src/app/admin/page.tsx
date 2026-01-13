@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Bar, BarChart, CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { adminSidebarNav, dashboardCards, dashboardStats } from '@/lib/navigation.tsx';
+import { adminSidebarNav, dashboardCards, dashboardStats } from '@/lib/navigation';
 
 
 const SidebarMenuItem = ({ icon: Icon, children, isSelected, hasSubmenu, isExpanded }) => (
@@ -110,7 +110,7 @@ const OrderStatisticsChart = () => {
 
 export default function AdminDashboard() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
 
   return (
@@ -166,9 +166,6 @@ export default function AdminDashboard() {
                 />
               )}
             </div>
-            <Button variant="ghost" size="icon" className='rounded-full'>
-              <Search className="w-6 h-6 text-muted-foreground" />
-            </Button>
             <Avatar>
               <AvatarImage src="https://picsum.photos/seed/admin-avatar/40/40" />
               <AvatarFallback>A</AvatarFallback>
