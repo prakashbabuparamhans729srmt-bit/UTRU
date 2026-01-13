@@ -26,11 +26,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useLanguage } from '@/context/LanguageContext';
 import FloatingActionButton from '@/components/FloatingActionButton';
+import { cn } from '@/lib/utils';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 
 interface ProductGridProps {
   products: ImagePlaceholder[];
@@ -127,6 +128,15 @@ export default function Home() {
   const cityNightImage = PlaceHolderImages.find((img) => img.id === 'city-night');
   const productCollageImage = PlaceHolderImages.find((img) => img.id === 'product-collage');
   const products = PlaceHolderImages.filter(img => img.id.startsWith('product-'));
+  
+  const categories = [
+    { name: translations.home.all, href: '/' },
+    { name: translations.home.electronics, href: '/electronics' },
+    { name: translations.home.beauty, href: '/beauty' },
+    { name: translations.home.kids, href: '/kids' },
+    { name: translations.home.gifting, href: '/gifting' },
+    { name: translations.home.premium, href: '/premium' },
+  ];
 
   return (
     <div className="bg-background min-h-screen flex flex-col">
@@ -183,16 +193,23 @@ export default function Home() {
       </header>
 
       <main className="flex-grow pb-32">
-        <Tabs defaultValue="all" className="w-full px-4 mb-4">
-          <TabsList className="grid w-full grid-cols-6 bg-transparent p-0">
-            <TabsTrigger value="all" className="pb-2 rounded-none data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary">{translations.home.all}</TabsTrigger>
-            <TabsTrigger value="electronics" className="pb-2 rounded-none data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary">{translations.home.electronics}</TabsTrigger>
-            <TabsTrigger value="beauty" className="pb-2 rounded-none data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary">{translations.home.beauty}</TabsTrigger>
-            <TabsTrigger value="kids" className="pb-2 rounded-none data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary">{translations.home.kids}</TabsTrigger>
-            <TabsTrigger value="gifting" className="pb-2 rounded-none data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary">{translations.home.gifting}</TabsTrigger>
-            <TabsTrigger value="premium" className="pb-2 rounded-none data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary">{translations.home.premium}</TabsTrigger>
-          </TabsList>
-        </Tabs>
+        <div className="px-4 my-4">
+          <ScrollArea className="w-full whitespace-nowrap">
+            <div className="flex space-x-4 border-b">
+              {categories.map((category) => (
+                <Link key={category.name} href={category.href} passHref>
+                  <Button variant="ghost" className={cn(
+                      "pb-2 rounded-none",
+                      router.pathname === category.href ? 'border-b-2 border-primary text-primary shadow-none' : 'text-muted-foreground'
+                  )}>
+                      {category.name}
+                  </Button>
+                </Link>
+              ))}
+            </div>
+            <ScrollBar orientation="horizontal" />
+          </ScrollArea>
+        </div>
 
         <Carousel className="w-full mb-6" opts={{ loop: true }}>
           <CarouselContent>
@@ -273,3 +290,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
