@@ -80,8 +80,8 @@ export default function PaymentSettingsPage() {
   return (
     <div className="bg-gray-100 dark:bg-gray-900 min-h-screen">
       <div className="bg-white dark:bg-card">
-        <header className="p-4 flex items-center gap-4 border-b">
-          <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700 dark:bg-gray-800">
+        <header className="p-4 flex items-center gap-4 border-b dark:border-gray-700">
+          <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700">
             <ChevronLeft />
           </Button>
           <h1 className="text-lg font-semibold">{translations.paymentSettings.title}</h1>

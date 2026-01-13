@@ -51,13 +51,12 @@ export default function ChatbotPage() {
       }
 
       try {
-        const result = await navigator.permissions.query({ name: 'microphone' as PermissionName });
-        if (result.state === 'granted') {
-          setIsMicAllowed(true);
-        } else if (result.state === 'prompt') {
-          setIsMicAllowed(true); 
-        } else {
-          setIsMicAllowed(false);
+        // Use a permission that doesn't automatically trigger a prompt.
+        // 'microphone' as PermissionName is a safe cast here.
+        const permissionStatus = await navigator.permissions.query({ name: 'microphone' as PermissionName });
+        setIsMicAllowed(permissionStatus.state !== 'denied');
+        permissionStatus.onchange = () => {
+             setIsMicAllowed(permissionStatus.state !== 'denied');
         }
       } catch (error) {
         console.error('Error checking microphone permission:', error);
@@ -146,12 +145,13 @@ export default function ChatbotPage() {
     if (isListening) {
       isStoppingRef.current = true;
       recognitionRef.current.stop();
-      setIsListening(false);
       return;
     }
 
     try {
+        // Request permission only when the user clicks the button
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        // Stop the tracks immediately since we only need the permission, not the stream.
         stream.getTracks().forEach(track => track.stop());
         setIsMicAllowed(true);
         isStoppingRef.current = false;
@@ -165,7 +165,6 @@ export default function ChatbotPage() {
           description: 'To use voice input, please allow microphone access in your browser settings.',
         });
         setIsMicAllowed(false);
-        setIsListening(false);
     }
   };
 
@@ -193,7 +192,6 @@ export default function ChatbotPage() {
       if(recognitionRef.current) {
           recognitionRef.current.stop();
       }
-      setIsListening(false);
     }
 
     const userMessage: Message = { text: input, sender: 'user' };
@@ -315,6 +313,7 @@ export default function ChatbotPage() {
                     )}
                     onClick={toggleListening}
                     disabled={isLoading || !isMicAllowed}
+                    title={isMicAllowed ? (isListening ? 'Stop listening' : 'Use microphone') : 'Microphone not allowed'}
                 >
                     <Mic className="w-5 h-5" />
                 </Button>

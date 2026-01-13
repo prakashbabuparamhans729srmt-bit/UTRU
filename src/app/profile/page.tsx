@@ -97,12 +97,12 @@ export default function ProfilePage() {
   const carImage = PlaceHolderImages.find((img) => img.id === 'refer-car');
 
   return (
-    <div className="bg-gray-900 text-white h-screen flex flex-col">
+    <div className="bg-gray-900 text-white min-h-screen flex flex-col">
       <div className="p-4 relative flex flex-col items-center shrink-0">
         <Button
           size="icon"
           variant="ghost"
-          className="absolute top-4 left-4 rounded-full bg-black text-white hover:bg-gray-700"
+          className="absolute top-4 left-4 rounded-full bg-black text-white hover:bg-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
           onClick={() => router.back()}
         >
           <ChevronLeft className="w-6 h-6" />
@@ -151,24 +151,24 @@ export default function ProfilePage() {
             <div className="p-3 bg-gray-800 rounded-full">
               <CreditCard className="w-6 h-6" />
             </div>
-            <span>{translations.profile.payments}</span>
+            <span className="text-sm">{translations.profile.payments}</span>
           </Link>
           <Link href="/support" className="flex flex-col items-center gap-2">
             <div className="p-3 bg-gray-800 rounded-full">
               <Headset className="w-6 h-6" />
             </div>
-            <span>{translations.profile.support}</span>
+            <span className="text-sm">{translations.profile.support}</span>
           </Link>
           <Link href="/wallet" className="flex flex-col items-center gap-2">
             <div className="p-3 bg-gray-800 rounded-full">
               <Wallet className="w-6 h-6" />
             </div>
-            <span>{translations.profile.wallet}</span>
+            <span className="text-sm">{translations.profile.wallet}</span>
           </Link>
         </div>
       </div>
 
-      <div className="bg-white text-gray-900 rounded-t-3xl p-6 flex-grow overflow-y-auto">
+      <div className="bg-white dark:bg-card text-gray-900 dark:text-gray-100 rounded-t-3xl p-6 flex-grow overflow-y-auto">
         <div className="space-y-4">
           {menuItems.map((item, index) => {
             const ItemWrapper = item.href ? Link : 'div';
@@ -180,16 +180,16 @@ export default function ProfilePage() {
                 className="flex items-center justify-between py-2 cursor-pointer"
               >
                 <div className="flex items-center gap-4">
-                  <item.icon className="w-6 h-6 text-gray-600" />
+                  <item.icon className="w-6 h-6 text-gray-600 dark:text-gray-400" />
                   <span className="font-medium">{item.text}</span>
                 </div>
-                <ChevronRight className="w-6 h-6 text-gray-400" />
+                <ChevronRight className="w-6 h-6 text-gray-400 dark:text-gray-500" />
               </ItemWrapper>
             );
           })}
         </div>
         <div className="mt-8">
-          <h3 className="text-gray-400 text-sm font-bold tracking-wider mb-4">
+          <h3 className="text-gray-400 dark:text-gray-500 text-sm font-bold tracking-wider mb-4">
             {translations.profile.otherInfo}
           </h3>
           <div className="space-y-4">
@@ -198,24 +198,24 @@ export default function ProfilePage() {
               className="w-full flex items-center justify-between py-2 cursor-pointer text-left"
             >
               <div className="flex items-center gap-4">
-                <Share2 className="w-6 h-6 text-gray-600" />
+                <Share2 className="w-6 h-6 text-gray-600 dark:text-gray-400" />
                 <span className="font-medium">
                   {translations.profile.shareApp}
                 </span>
               </div>
-              <ChevronRight className="w-6 h-6 text-gray-400" />
+              <ChevronRight className="w-6 h-6 text-gray-400 dark:text-gray-500" />
             </button>
             <Link
               href="/about"
               className="flex items-center justify-between py-2 cursor-pointer"
             >
               <div className="flex items-center gap-4">
-                <Info className="w-6 h-6 text-gray-600" />
+                <Info className="w-6 h-6 text-gray-600 dark:text-gray-400" />
                 <span className="font-medium">
                   {translations.profile.aboutUs}
                 </span>
               </div>
-              <ChevronRight className="w-6 h-6 text-gray-400" />
+              <ChevronRight className="w-6 h-6 text-gray-400 dark:text-gray-500" />
             </Link>
             {user && (
                  <button
@@ -223,7 +223,7 @@ export default function ProfilePage() {
                     disabled={signOutPending}
                     className="w-full flex items-center gap-4 py-2 cursor-pointer text-left disabled:opacity-50"
                   >
-                    {signOutPending ? <Loader2 className="w-6 h-6 text-gray-600 animate-spin" /> : <LogOut className="w-6 h-6 text-gray-600" />}
+                    {signOutPending ? <Loader2 className="w-6 h-6 text-gray-600 dark:text-gray-400 animate-spin" /> : <LogOut className="w-6 h-6 text-gray-600 dark:text-gray-400" />}
                     <span className="font-medium">{translations.profile.logOut}</span>
                   </button>
             )}
@@ -231,7 +231,7 @@ export default function ProfilePage() {
         </div>
 
         {carImage && (
-          <div className="bg-card text-card-foreground rounded-2xl p-4 mt-6 flex items-center gap-4 shadow-sm border">
+          <div className="bg-card dark:bg-gray-800 text-card-foreground rounded-2xl p-4 mt-6 flex items-center gap-4 shadow-sm border dark:border-gray-700">
             <div className="flex-1">
               <h4 className="font-bold text-lg">
                 {translations.profile.referEarn}
@@ -259,7 +259,7 @@ export default function ProfilePage() {
           </div>
         )}
 
-        <div className="flex items-center space-x-2 mt-8 p-1 bg-gray-200 rounded-full">
+        <div className="flex items-center space-x-2 mt-8 p-1 bg-gray-200 dark:bg-gray-800 rounded-full">
             <Label htmlFor="theme-switch" className="flex-1 text-center">
                 <div className={`w-full p-2 rounded-full flex items-center justify-center cursor-pointer transition-colors ${theme === 'light' ? 'bg-white text-black shadow' : 'bg-transparent text-gray-500'}`}>
                     <Sun className="w-4 h-4 mr-2" />
@@ -273,7 +273,7 @@ export default function ProfilePage() {
                 className="hidden"
             />
              <Label htmlFor="theme-switch" className="flex-1 text-center">
-                <div className={`w-full p-2 rounded-full flex items-center justify-center cursor-pointer transition-colors ${theme === 'dark' ? 'bg-white text-black shadow' : 'bg-transparent text-gray-500'}`}>
+                <div className={`w-full p-2 rounded-full flex items-center justify-center cursor-pointer transition-colors ${theme === 'dark' ? 'bg-gray-900 text-white shadow' : 'bg-transparent text-gray-500'}`}>
                     <Moon className="w-4 h-4 mr-2" />
                     {translations.profile.darkMode}
                 </div>

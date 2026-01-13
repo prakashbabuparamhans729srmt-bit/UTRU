@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import {
   Carousel,
   CarouselContent,
@@ -119,6 +119,7 @@ function ProductGrid({ products }: ProductGridProps) {
 
 export default function Home() {
   const router = useRouter();
+  const pathname = usePathname();
   const [searchQuery, setSearchQuery] = useState('');
   const { translations } = useLanguage();
 
@@ -202,7 +203,12 @@ export default function Home() {
             <div className="flex space-x-4 border-b">
               {categories.map((category) => (
                 <Link key={category.name} href={category.href} passHref>
-                  <Button variant="ghost" className="pb-2 rounded-none text-muted-foreground">
+                   <Button variant="ghost" className={cn(
+                      "pb-3 rounded-none",
+                      pathname === category.href 
+                        ? 'border-b-2 border-primary text-primary shadow-none' 
+                        : 'text-muted-foreground'
+                    )}>
                       {category.name}
                   </Button>
                 </Link>
