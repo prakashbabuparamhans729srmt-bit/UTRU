@@ -6,21 +6,10 @@ import { Button } from '@/components/ui/button';
 import {
   ChevronLeft,
   ChevronRight,
-  CreditCard,
-  Headset,
-  Wallet,
-  FileText,
-  Smartphone,
-  BookUser,
-  Star,
-  Settings,
-  Share2,
-  Info,
-  LogOut,
-  Sun,
-  Moon,
-  User as UserIcon,
   Loader2,
+  Moon,
+  Sun,
+  User as UserIcon,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -33,6 +22,7 @@ import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { useUser } from '@/firebase';
 import { useAuthUI } from '@/firebase/auth/use-auth-ui';
+import { profileMenuItems, profileOtherInfoLinks, profileQuickAccessLinks } from '@/lib/navigation';
 
 export default function ProfilePage() {
   const { toast } = useToast();
@@ -77,22 +67,6 @@ export default function ProfilePage() {
     router.push('/');
   };
 
-  const menuItems = [
-    { icon: FileText, text: translations.profile.myPlans, href: '/my-plans' },
-    {
-      icon: Smartphone,
-      text: translations.profile.nativeDevices,
-      href: '/native-devices',
-    },
-    { icon: BookUser, text: translations.profile.addressBook, href: '/address' },
-    {
-      icon: Star,
-      text: translations.profile.plusMembership,
-      href: '/plus-membership',
-    },
-    { icon: Star, text: translations.profile.myRating, href: '#' },
-    { icon: Settings, text: translations.profile.setting, href: '/settings' },
-  ];
 
   const carImage = PlaceHolderImages.find((img) => img.id === 'refer-car');
 
@@ -130,8 +104,8 @@ export default function ProfilePage() {
                 </p>
             </div>
         ) : (
-          <>
-            <Link href="/login" className="w-4/5">
+          <div className="text-center w-full">
+            <Link href="/login" className="w-4/5 inline-block">
               <Button className="bg-teal-400 text-gray-900 font-bold rounded-full w-full hover:bg-teal-500 mb-2">
                 {translations.profile.continue}
               </Button>
@@ -139,91 +113,81 @@ export default function ProfilePage() {
             <p className="text-sm text-gray-400 mb-2">
               {translations.profile.loginMessage}
             </p>
-          </>
+          </div>
         )}
 
 
         <div className="flex justify-around w-full max-w-sm my-4">
-          <Link
-            href="/payment-settings"
-            className="flex flex-col items-center gap-2"
-          >
-            <div className="p-3 bg-gray-800 rounded-full">
-              <CreditCard className="w-6 h-6" />
-            </div>
-            <span className="text-sm">{translations.profile.payments}</span>
-          </Link>
-          <Link href="/support" className="flex flex-col items-center gap-2">
-            <div className="p-3 bg-gray-800 rounded-full">
-              <Headset className="w-6 h-6" />
-            </div>
-            <span className="text-sm">{translations.profile.support}</span>
-          </Link>
-          <Link href="/wallet" className="flex flex-col items-center gap-2">
-            <div className="p-3 bg-gray-800 rounded-full">
-              <Wallet className="w-6 h-6" />
-            </div>
-            <span className="text-sm">{translations.profile.wallet}</span>
-          </Link>
+          {profileQuickAccessLinks.map((item, index) => (
+            <Link
+                key={index}
+                href={item.href}
+                className="flex flex-col items-center gap-2 text-white"
+            >
+                <div className="p-3 bg-gray-800 rounded-full">
+                <item.icon className="w-6 h-6" />
+                </div>
+                <span className="text-sm">{translations.profile[item.labelKey]}</span>
+            </Link>
+          ))}
         </div>
       </div>
 
-      <div className="bg-white dark:bg-card text-gray-900 dark:text-gray-100 rounded-t-3xl p-6 flex-grow overflow-y-auto">
+      <div className="bg-card text-card-foreground rounded-t-3xl p-6 flex-grow overflow-y-auto">
         <div className="space-y-4">
-          {menuItems.map((item, index) => {
-            const ItemWrapper = item.href ? Link : 'div';
-            const props = item.href ? { href: item.href } : {};
-            return (
-              <ItemWrapper
+          {profileMenuItems.map((item, index) => (
+            <Link
                 key={index}
-                {...props}
+                href={item.href}
                 className="flex items-center justify-between py-2 cursor-pointer"
               >
                 <div className="flex items-center gap-4">
-                  <item.icon className="w-6 h-6 text-gray-600 dark:text-gray-400" />
-                  <span className="font-medium">{item.text}</span>
+                  <item.icon className="w-6 h-6 text-muted-foreground" />
+                  <span className="font-medium">{translations.profile[item.labelKey]}</span>
                 </div>
                 <ChevronRight className="w-6 h-6 text-gray-400 dark:text-gray-500" />
-              </ItemWrapper>
-            );
-          })}
+              </Link>
+          ))}
         </div>
         <div className="mt-8">
-          <h3 className="text-gray-400 dark:text-gray-500 text-sm font-bold tracking-wider mb-4">
+          <h3 className="text-muted-foreground text-sm font-bold tracking-wider mb-4">
             {translations.profile.otherInfo}
           </h3>
           <div className="space-y-4">
+            {profileOtherInfoLinks.map((item, index) => (
+                 <Link
+                    key={index}
+                    href={item.href}
+                    className="flex items-center justify-between py-2 cursor-pointer"
+                >
+                    <div className="flex items-center gap-4">
+                        <item.icon className="w-6 h-6 text-muted-foreground" />
+                        <span className="font-medium">
+                        {translations.profile[item.labelKey]}
+                        </span>
+                    </div>
+                    <ChevronRight className="w-6 h-6 text-gray-400 dark:text-gray-500" />
+                </Link>
+            ))}
             <button
               onClick={handleShare}
               className="w-full flex items-center justify-between py-2 cursor-pointer text-left"
             >
               <div className="flex items-center gap-4">
-                <Share2 className="w-6 h-6 text-gray-600 dark:text-gray-400" />
+                <profileOtherInfoLinks[0].icon className="w-6 h-6 text-muted-foreground" />
                 <span className="font-medium">
                   {translations.profile.shareApp}
                 </span>
               </div>
               <ChevronRight className="w-6 h-6 text-gray-400 dark:text-gray-500" />
             </button>
-            <Link
-              href="/about"
-              className="flex items-center justify-between py-2 cursor-pointer"
-            >
-              <div className="flex items-center gap-4">
-                <Info className="w-6 h-6 text-gray-600 dark:text-gray-400" />
-                <span className="font-medium">
-                  {translations.profile.aboutUs}
-                </span>
-              </div>
-              <ChevronRight className="w-6 h-6 text-gray-400 dark:text-gray-500" />
-            </Link>
             {user && (
                  <button
                     onClick={handleSignOut}
                     disabled={signOutPending}
                     className="w-full flex items-center gap-4 py-2 cursor-pointer text-left disabled:opacity-50"
                   >
-                    {signOutPending ? <Loader2 className="w-6 h-6 text-gray-600 dark:text-gray-400 animate-spin" /> : <LogOut className="w-6 h-6 text-gray-600 dark:text-gray-400" />}
+                    {signOutPending ? <Loader2 className="w-6 h-6 text-muted-foreground animate-spin" /> : <profileOtherInfoLinks[2].icon className="w-6 h-6 text-muted-foreground" />}
                     <span className="font-medium">{translations.profile.logOut}</span>
                   </button>
             )}
@@ -231,7 +195,7 @@ export default function ProfilePage() {
         </div>
 
         {carImage && (
-          <div className="bg-card dark:bg-gray-800 text-card-foreground rounded-2xl p-4 mt-6 flex items-center gap-4 shadow-sm border dark:border-gray-700">
+          <div className="bg-card-foreground/5 dark:bg-gray-800 text-card-foreground rounded-2xl p-4 mt-6 flex items-center gap-4 shadow-sm border">
             <div className="flex-1">
               <h4 className="font-bold text-lg">
                 {translations.profile.referEarn}
@@ -259,9 +223,9 @@ export default function ProfilePage() {
           </div>
         )}
 
-        <div className="flex items-center space-x-2 mt-8 p-1 bg-gray-200 dark:bg-gray-800 rounded-full">
+        <div className="flex items-center space-x-2 mt-8 p-1 bg-muted rounded-full">
             <Label htmlFor="theme-switch" className="flex-1 text-center">
-                <div className={`w-full p-2 rounded-full flex items-center justify-center cursor-pointer transition-colors ${theme === 'light' ? 'bg-white text-black shadow' : 'bg-transparent text-gray-500'}`}>
+                <div className={`w-full p-2 rounded-full flex items-center justify-center cursor-pointer transition-colors ${theme === 'light' ? 'bg-background text-foreground shadow' : 'bg-transparent text-muted-foreground'}`}>
                     <Sun className="w-4 h-4 mr-2" />
                     {translations.profile.lightMode}
                 </div>
@@ -273,7 +237,7 @@ export default function ProfilePage() {
                 className="hidden"
             />
              <Label htmlFor="theme-switch" className="flex-1 text-center">
-                <div className={`w-full p-2 rounded-full flex items-center justify-center cursor-pointer transition-colors ${theme === 'dark' ? 'bg-gray-900 text-white shadow' : 'bg-transparent text-gray-500'}`}>
+                <div className={`w-full p-2 rounded-full flex items-center justify-center cursor-pointer transition-colors ${theme === 'dark' ? 'bg-gray-900 text-white shadow' : 'bg-transparent text-muted-foreground'}`}>
                     <Moon className="w-4 h-4 mr-2" />
                     {translations.profile.darkMode}
                 </div>

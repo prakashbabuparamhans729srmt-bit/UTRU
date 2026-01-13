@@ -1,44 +1,21 @@
 
 'use client';
 
-import {
-  LayoutDashboard,
-  Box,
-  Building,
-  List,
-  ChevronRight,
-  Calendar,
-  Ticket,
-  Users,
-  CreditCard,
-  Wallet,
-  MessageSquare,
-  Settings,
-  Search,
-  Bell,
-  Banknote,
-  Tags,
-  Plus,
-  Wrench,
-  User,
-  MapPin,
-  ClipboardList,
-  Menu,
-  X
-} from 'lucide-react';
+import { ChevronRight, Menu, Search, X } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Bar, BarChart, CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { adminSidebarNav, dashboardCards, dashboardStats } from '@/lib/navigation';
 
 
 const SidebarMenuItem = ({ icon: Icon, children, isSelected, hasSubmenu, isExpanded }) => (
   <div
     className={cn(
-      'flex items-center p-2 rounded-lg cursor-pointer text-[#FFFFFF]',
-      isSelected ? 'bg-[#14181B]' : 'hover:bg-[#14181B]'
+      'flex items-center p-2 rounded-lg cursor-pointer text-white',
+      isSelected ? 'bg-gray-800' : 'hover:bg-gray-800'
     )}
   >
     <Icon className="w-5 h-5 shrink-0" />
@@ -52,48 +29,24 @@ const SidebarMenuItem = ({ icon: Icon, children, isSelected, hasSubmenu, isExpan
 
 const SidebarContent = ({ isExpanded }) => (
     <>
-        <div className="text-2xl font-bold mb-8 text-center text-[#FFFFFF]">
+        <div className="text-2xl font-bold mb-8 text-center text-white">
             {isExpanded ? 'UCLAP' : 'U'}
         </div>
         <nav className="flex flex-col gap-2">
-            <SidebarMenuItem icon={LayoutDashboard} isSelected isExpanded={isExpanded}>
-                Dashboard
-            </SidebarMenuItem>
-            <SidebarMenuItem icon={Box} isExpanded={isExpanded}>Orders</SidebarMenuItem>
-
-            <div className={cn("mt-4 mb-2 text-gray-400 text-sm font-semibold transition-opacity duration-200", !isExpanded && 'opacity-0 text-center text-xs')}>
-                {isExpanded ? 'MANAGEMENT' : '...'}
-            </div>
-            <SidebarMenuItem icon={Building} isExpanded={isExpanded}>City</SidebarMenuItem>
-
-            <div className={cn("mt-4 mb-2 text-gray-400 text-sm font-semibold transition-opacity duration-200", !isExpanded && 'opacity-0 text-center text-xs')}>
-                {isExpanded ? 'CATEGORIES' : '...'}
-            </div>
-            <SidebarMenuItem icon={List} hasSubmenu isExpanded={isExpanded}>
-                Main Category
-            </SidebarMenuItem>
-
-            <div className={cn("mt-4 mb-2 text-gray-400 text-sm font-semibold transition-opacity duration-200", !isExpanded && 'opacity-0 text-center text-xs')}>
-                {isExpanded ? 'BUSINESS' : '...'}
-            </div>
-            <SidebarMenuItem icon={Calendar} isExpanded={isExpanded}>TimeSlot & Date</SidebarMenuItem>
-            <SidebarMenuItem icon={Ticket} isExpanded={isExpanded}>Banner</SidebarMenuItem>
-            <SidebarMenuItem icon={Users} isExpanded={isExpanded}>Partner</SidebarMenuItem>
-
-            <div className={cn("mt-4 mb-2 text-gray-400 text-sm font-semibold transition-opacity duration-200", !isExpanded && 'opacity-0 text-center text-xs')}>
-                {isExpanded ? 'FINANCE' : '...'}
-            </div>
-            <SidebarMenuItem icon={CreditCard} isExpanded={isExpanded}>Credit Packages</SidebarMenuItem>
-            <SidebarMenuItem icon={Wallet} isExpanded={isExpanded}>Payment Gateway</SidebarMenuItem>
-
-            <div className={cn("mt-4 mb-2 text-gray-400 text-sm font-semibold transition-opacity duration-200", !isExpanded && 'opacity-0 text-center text-xs')}>
-                {isExpanded ? 'CONTENT' : '...'}
-            </div>
-            <SidebarMenuItem icon={MessageSquare} isExpanded={isExpanded}>Testimonials</SidebarMenuItem>
-
-            <div className="mt-auto">
-                <SidebarMenuItem icon={Settings} isExpanded={isExpanded}>Settings</SidebarMenuItem>
-            </div>
+           {adminSidebarNav.map((section, sectionIndex) => (
+                <div key={sectionIndex}>
+                    {section.title && (
+                         <div className={cn("mt-4 mb-2 text-gray-400 text-sm font-semibold transition-opacity duration-200", !isExpanded && 'opacity-0 text-center text-xs')}>
+                            {isExpanded ? section.title : '...'}
+                        </div>
+                    )}
+                    {section.items.map((item, itemIndex) => (
+                        <SidebarMenuItem key={itemIndex} icon={item.icon} isSelected={item.isSelected} hasSubmenu={item.hasSubmenu} isExpanded={isExpanded}>
+                            {item.name}
+                        </SidebarMenuItem>
+                    ))}
+                </div>
+           ))}
         </nav>
     </>
 )
@@ -110,17 +63,17 @@ const SalesOverviewChart = () => {
     ];
 
     return (
-        <div className="bg-[#161C21] p-4 rounded-lg text-[#FFFFFF]">
+        <div className="bg-card p-4 rounded-lg">
             <h3 className="text-lg font-bold mb-1">Sales Overview</h3>
-            <p className="text-gray-400 text-sm mb-4">Total sales over the last 7 months.</p>
-            <div style={{ width: '100%', height: 300 }}>
-                <ResponsiveContainer>
+            <p className="text-muted-foreground text-sm mb-4">Total sales over the last 7 months.</p>
+            <div className="h-[300px]">
+                <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
-                        <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} stroke="#FFFFFF" />
-                        <XAxis dataKey="name" stroke="#A0AEC0" />
-                        <YAxis tickFormatter={(value) => `$${value/1000}k`} stroke="#A0AEC0" />
-                        <Tooltip contentStyle={{ backgroundColor: '#14181B', border: 'none', color: '#FFFFFF' }} />
-                        <Line type="monotone" dataKey="sales" stroke="#07F1D6" strokeWidth={2} dot={{ r: 4, fill: '#07F1D6' }} activeDot={{ r: 8, fill: '#07F1D6' }} />
+                        <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} />
+                        <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" />
+                        <YAxis tickFormatter={(value) => `$${value/1000}k`} stroke="hsl(var(--muted-foreground))" />
+                        <Tooltip contentStyle={{ backgroundColor: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', color: 'hsl(var(--foreground))' }} />
+                        <Line type="monotone" dataKey="sales" stroke="hsl(var(--primary))" strokeWidth={2} dot={{ r: 4, fill: 'hsl(var(--primary))' }} activeDot={{ r: 8, fill: 'hsl(var(--primary))' }} />
                     </LineChart>
                 </ResponsiveContainer>
             </div>
@@ -137,16 +90,16 @@ const OrderStatisticsChart = () => {
     ];
 
     return (
-        <div className="bg-[#161C21] p-4 rounded-lg text-[#FFFFFF]">
+        <div className="bg-card p-4 rounded-lg">
             <h3 className="text-lg font-bold mb-4">Order Statistics</h3>
-            <div style={{ width: '100%', height: 300 }}>
-                <ResponsiveContainer>
+             <div className="h-[300px]">
+                <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
-                         <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} stroke="#FFFFFF" />
-                        <XAxis dataKey="name" stroke="#A0AEC0" />
-                        <YAxis stroke="#A0AEC0" />
-                        <Tooltip contentStyle={{ backgroundColor: '#14181B', border: 'none', color: '#FFFFFF' }} />
-                        <Bar dataKey="orders" fill="#07F1D6" radius={[4, 4, 0, 0]} />
+                         <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} />
+                        <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" />
+                        <YAxis stroke="hsl(var(--muted-foreground))" />
+                        <Tooltip contentStyle={{ backgroundColor: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', color: 'hsl(var(--foreground))' }} />
+                        <Bar dataKey="orders" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
                     </BarChart>
                 </ResponsiveContainer>
             </div>
@@ -160,44 +113,12 @@ export default function AdminDashboard() {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-
-  const stats = [
-    { title: 'Pending', value: '1413', valueClass: 'text-[#07F1D6]' },
-    { title: 'Process', value: '2' },
-    { title: 'Cancel', value: '90' },
-    { title: 'Completed', value: '1' },
-  ];
-
-  const dashboardCards = [
-    {
-      icon: Box,
-      title: 'Total Orders',
-      value: '1506',
-      isHighlighted: true,
-    },
-    { icon: Banknote, title: 'Total Sales', value: '₹ 534' },
-    { icon: Ticket, title: 'Total Banners', value: '3' },
-    { icon: List, title: 'Total Main Category', value: '9' },
-    { icon: Wallet, title: 'Total Payment Gateway', value: '5' },
-    { icon: List, title: 'Total Sub Category', value: '9' },
-    { icon: List, title: 'Total Child Category', value: '41' },
-    { icon: Plus, title: 'Total Add On', value: '36' },
-    { icon: Calendar, title: 'Total Timeslot & Date', value: '9' },
-    { icon: Users, title: 'Total Partner', value: '148' },
-    { icon: Wrench, title: 'Total Partner Service', value: '57' },
-    { icon: CreditCard, title: 'Total Credit Package', value: '3' },
-    { icon: ClipboardList, title: 'Total Section', value: '1' },
-    { icon: Wrench, title: 'Total Section Service', value: '4' },
-    { icon: MapPin, title: 'Total City', value: '1' },
-    { icon: User, title: 'Total Customer', value: '631' },
-  ];
-
   return (
-    <div className="flex h-screen bg-[#070707] text-[#FFFFFF]">
+    <div className="flex h-screen bg-background text-foreground">
       {/* Sidebar for Desktop */}
        <aside 
         className={cn(
-          "bg-[#161C21] p-4 flex-col hidden md:flex transition-all duration-300 ease-in-out",
+          "bg-card p-4 flex-col hidden md:flex transition-all duration-300 ease-in-out border-r",
           isSidebarExpanded ? 'w-64' : 'w-20'
         )}
       >
@@ -206,7 +127,7 @@ export default function AdminDashboard() {
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col">
-        <header className="flex items-center justify-between p-4 border-b border-[#14181B] bg-[#161C21]">
+        <header className="flex items-center justify-between p-4 border-b bg-card">
           <div className="flex items-center gap-4">
              <Button
               variant="ghost"
@@ -220,32 +141,34 @@ export default function AdminDashboard() {
             <Button
                 variant="ghost"
                 size="icon"
-                className="p-2 border border-gray-600 rounded-md hidden md:block"
+                className="p-2 border rounded-md hidden md:block"
                 onClick={() => setIsSidebarExpanded(!isSidebarExpanded)}
             >
-                <LayoutDashboard className="w-6 h-6" />
+                <Menu className="w-6 h-6" />
                 <span className="sr-only">Toggle Sidebar</span>
             </Button>
             <h1 className="text-xl md:text-2xl font-bold">Dashboard</h1>
           </div>
           <div className="flex items-center gap-2 sm:gap-4">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
               <Input
                 type="search"
                 placeholder="Search..."
-                className="bg-[#14181B] border-[#14181B] rounded-lg pl-10 pr-10 w-full sm:w-48 md:w-64 text-white"
+                className="bg-background border-border rounded-lg pl-10 pr-10 w-full sm:w-48 md:w-64"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
               {searchQuery && (
                 <X 
-                  className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 cursor-pointer"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground cursor-pointer"
                   onClick={() => setSearchQuery('')}
                 />
               )}
             </div>
-            <Bell className="w-6 h-6 text-gray-400 cursor-pointer" />
+            <Button variant="ghost" size="icon" className='rounded-full'>
+              <Search className="w-6 h-6 text-muted-foreground" />
+            </Button>
             <Avatar>
               <AvatarImage src="https://picsum.photos/seed/admin-avatar/40/40" />
               <AvatarFallback>A</AvatarFallback>
@@ -256,18 +179,18 @@ export default function AdminDashboard() {
         {/* Mobile Dropdown Menu */}
         {isMobileMenuOpen && (
           <div 
-            className="md:hidden bg-[#161C21] p-4 absolute top-16 left-0 right-0 z-20"
+            className="md:hidden bg-card p-4 absolute top-16 left-0 right-0 z-20 border-b"
           >
             <SidebarContent isExpanded={true} />
           </div>
         )}
 
-        <div className="flex-1 p-4 md:p-6 overflow-y-auto bg-[#070707]">
+        <div className="flex-1 p-4 md:p-6 overflow-y-auto bg-background">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6 mb-6">
-            {stats.map((stat) => (
-              <div key={stat.title} className="bg-[#161C21] p-4 rounded-lg">
-                <p className="text-gray-400 text-sm">{stat.title}</p>
-                <p className={`text-2xl md:text-3xl font-bold ${stat.valueClass || 'text-[#FFFFFF]'}`}>
+            {dashboardStats.map((stat) => (
+              <div key={stat.title} className="bg-card p-4 rounded-lg border">
+                <p className="text-muted-foreground text-sm">{stat.title}</p>
+                <p className={cn('text-2xl md:text-3xl font-bold', stat.valueClass || 'text-foreground')}>
                   {stat.value}
                 </p>
               </div>
@@ -284,14 +207,14 @@ export default function AdminDashboard() {
               <div
                 key={index}
                 className={cn(
-                  'p-4 rounded-lg flex flex-col justify-between',
-                  card.isHighlighted ? 'bg-[#07F1D6] text-black' : 'bg-[#161C21]'
+                  'p-4 rounded-lg flex flex-col justify-between border',
+                  card.isHighlighted ? 'bg-primary text-primary-foreground' : 'bg-card'
                 )}
               >
                 <div className="flex justify-between items-start">
                     <div className="flex-col">
-                        <p className={cn('text-sm', card.isHighlighted ? 'text-black' : 'text-gray-400')}>{card.title}</p>
-                        <p className={cn('text-2xl font-bold', card.isHighlighted ? 'text-black' : 'text-[#FFFFFF]')}>{card.value}</p>
+                        <p className={cn('text-sm', card.isHighlighted ? 'text-primary-foreground/80' : 'text-muted-foreground')}>{card.title}</p>
+                        <p className={cn('text-2xl font-bold', card.isHighlighted ? 'text-primary-foreground' : 'text-foreground')}>{card.value}</p>
                     </div>
                     {card.icon && <card.icon className="w-6 h-6" />}
                 </div>
@@ -303,5 +226,3 @@ export default function AdminDashboard() {
     </div>
   );
 }
-
-    

@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { ChevronLeft, Send, User, Bot, Mic } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { appChat, type AppChatInput, type AppChatOutput } from '@/ai/flows/app-chatbot';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { useLanguage } from '@/context/LanguageContext';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
@@ -51,8 +51,6 @@ export default function ChatbotPage() {
       }
 
       try {
-        // Use a permission that doesn't automatically trigger a prompt.
-        // 'microphone' as PermissionName is a safe cast here.
         const permissionStatus = await navigator.permissions.query({ name: 'microphone' as PermissionName });
         setIsMicAllowed(permissionStatus.state !== 'denied');
         permissionStatus.onchange = () => {
@@ -149,9 +147,7 @@ export default function ChatbotPage() {
     }
 
     try {
-        // Request permission only when the user clicks the button
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        // Stop the tracks immediately since we only need the permission, not the stream.
         stream.getTracks().forEach(track => track.stop());
         setIsMicAllowed(true);
         isStoppingRef.current = false;
@@ -178,7 +174,6 @@ export default function ChatbotPage() {
   }, [messages]);
   
   useEffect(() => {
-    // Initial greeting from the bot
     setMessages([{
         text: 'Hello! I am your personal assistant. How can I help you learn about this application?',
         sender: 'bot'
@@ -186,7 +181,7 @@ export default function ChatbotPage() {
   }, []);
 
   const handleSend = async () => {
-    if (input.trim() === '') return;
+    if (input.trim() === '' || isLoading) return;
     if (isListening) {
       isStoppingRef.current = true;
       if(recognitionRef.current) {
@@ -245,7 +240,7 @@ export default function ChatbotPage() {
         </div>
       </header>
 
-      <main className="flex-1 overflow-y-auto p-6 space-y-6">
+      <main className="flex-1 overflow-y-auto p-6 space-y-8">
         {messages.map((msg, index) => (
           <div
             key={index}

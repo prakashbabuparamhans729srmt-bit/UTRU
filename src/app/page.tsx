@@ -1,120 +1,32 @@
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from '@/components/ui/carousel';
-import { PlaceHolderImages, type ImagePlaceholder } from '@/lib/placeholder-images';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 import {
   Search,
   X,
   Mic,
   ShoppingCart,
   MapPin,
-  Home as HomeIcon,
-  BookCopy,
-  PlaySquare,
   LayoutGrid,
-  Heart,
-  Star,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { useLanguage } from '@/context/LanguageContext';
-import FloatingActionButton from '@/components/FloatingActionButton';
 import { cn } from '@/lib/utils';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import { Skeleton } from '@/components/ui/skeleton';
-
-interface ProductGridProps {
-  products: ImagePlaceholder[];
-}
-
-function ProductGrid({ products }: ProductGridProps) {
-  const [productList, setProductList] = useState<any[]>([]);
-
-  useEffect(() => {
-    // This now only runs on the client, avoiding the hydration error.
-    setProductList(
-      products.map((product) => ({
-        ...product,
-        price: (Math.random() * 50 + 10).toFixed(2),
-        discount: (Math.random() * 40 + 10).toFixed(0),
-        rating: (Math.random() * 2 + 3).toFixed(1),
-        reviews: (Math.random() * 100 + 50).toFixed(0),
-      }))
-    );
-  }, [products]);
-
-  if (!products.length) return null;
-
-  if (!productList.length) {
-    return (
-        <div className="grid grid-cols-2 gap-4 px-4">
-            {Array.from({ length: products.length || 4 }).map((_, i) => (
-                <Card key={i} className="overflow-hidden rounded-lg">
-                    <CardContent className="p-0">
-                        <Skeleton className="w-full aspect-square" />
-                        <div className="p-3 space-y-2">
-                            <Skeleton className="h-4 w-3/4" />
-                            <Skeleton className="h-3 w-1/2" />
-                             <div className="flex items-center justify-between">
-                                <Skeleton className="h-5 w-12" />
-                                <Skeleton className="h-5 w-8" />
-                            </div>
-                            <Skeleton className="h-4 w-1/3" />
-                        </div>
-                    </CardContent>
-                </Card>
-            ))}
-        </div>
-    );
-  }
-
-  return (
-    <div className="grid grid-cols-2 gap-4 px-4">
-      {productList.map((product) => (
-        <Card key={product.id} className="overflow-hidden rounded-lg">
-          <CardContent className="p-0">
-            <div className="relative">
-              <Image
-                src={product.imageUrl}
-                alt={product.description}
-                width={300}
-                height={300}
-                className="object-cover w-full aspect-square"
-                data-ai-hint={product.imageHint}
-              />
-              <Button size="icon" variant="secondary" className="absolute top-2 right-2 h-8 w-8 rounded-full">
-                <Heart className="w-4 h-4 text-muted-foreground" />
-              </Button>
-            </div>
-            <div className="p-3">
-              <h3 className="font-semibold text-sm truncate">{product.description}</h3>
-              <p className="text-xs text-muted-foreground mb-2">Lorem ipsum</p>
-              <div className="flex items-center justify-between">
-                <span className="font-bold text-base">$ {product.price}</span>
-                <Badge variant="destructive" className="text-xs">{product.discount}%</Badge>
-              </div>
-               <div className="flex items-center gap-1 text-xs text-amber-500 mt-1">
-                <Star className="w-3 h-3 fill-current" />
-                <span className="text-muted-foreground">{product.rating} | {product.reviews}</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      ))}
-    </div>
-  );
-}
+import { useLanguage } from '@/context/LanguageContext';
+import FloatingActionButton from '@/components/FloatingActionButton';
+import ProductGrid from '@/components/ProductGrid';
+import { homeCategoryLinks, mainFooterNavLinks } from '@/lib/navigation';
 
 
 export default function Home() {
@@ -134,14 +46,6 @@ export default function Home() {
   const productCollageImage = PlaceHolderImages.find((img) => img.id === 'product-collage');
   const products = PlaceHolderImages.filter(img => img.id.startsWith('product-'));
   
-  const categories = [
-    { name: translations.home.all, href: '/' },
-    { name: translations.home.electronics, href: '/electronics' },
-    { name: translations.home.beauty, href: '/beauty' },
-    { name: translations.home.kids, href: '/kids' },
-    { name: translations.home.gifting, href: '/gifting' },
-    { name: translations.home.premium, href: '/premium' },
-  ];
 
   return (
     <div className="bg-background min-h-screen flex flex-col">
@@ -201,7 +105,7 @@ export default function Home() {
         <div className="px-4 my-4">
           <ScrollArea className="w-full whitespace-nowrap">
             <div className="flex space-x-4 border-b">
-              {categories.map((category) => (
+              {homeCategoryLinks.map((category) => (
                 <Link key={category.name} href={category.href} passHref>
                    <Button variant="ghost" className={cn(
                       "pb-3 rounded-none",
@@ -209,7 +113,7 @@ export default function Home() {
                         ? 'border-b-2 border-primary text-primary shadow-none' 
                         : 'text-muted-foreground'
                     )}>
-                      {category.name}
+                      {translations.home[category.name]}
                   </Button>
                 </Link>
               ))}
@@ -273,25 +177,21 @@ export default function Home() {
 
       <footer className="fixed bottom-0 left-0 right-0 bg-card border-t z-50">
         <div className="flex justify-around items-center p-2">
-          <Link href="/" className="flex flex-col items-center h-auto text-primary">
-            <HomeIcon className="w-6 h-6 mb-1" />
-            <span className="text-xs font-semibold">{translations.home.home}</span>
-          </Link>
-          <Link href="/cart" className="flex flex-col items-center h-auto text-muted-foreground">
-            <BookCopy className="w-6 h-6 mb-1" />
-            <span className="text-xs">{translations.home.library}</span>
-          </Link>
-          <Link href="/location" className="w-16 h-16 rounded-full bg-primary -translate-y-4 shadow-md border-4 border-background flex items-center justify-center">
-             <LayoutGrid className="w-8 h-8 text-primary-foreground" />
-          </Link>
-          <Link href="/search" className="flex flex-col items-center h-auto text-muted-foreground">
-            <PlaySquare className="w-6 h-6 mb-1" />
-            <span className="text-xs">{translations.home.explore}</span>
-          </Link>
-          <Link href="/profile" className="flex flex-col items-center h-auto text-muted-foreground">
-            <LayoutGrid className="w-6 h-6 mb-1" />
-            <span className="text-xs">{translations.home.opinion}</span>
-          </Link>
+          {mainFooterNavLinks.map((link, index) => {
+            if (link.isCentral) {
+              return (
+                <Link key={index} href={link.href} className="w-16 h-16 rounded-full bg-primary -translate-y-4 shadow-md border-4 border-background flex items-center justify-center">
+                   <link.icon className="w-8 h-8 text-primary-foreground" />
+                </Link>
+              )
+            }
+            return (
+              <Link key={index} href={link.href} className={cn("flex flex-col items-center h-auto", pathname === link.href ? 'text-primary' : 'text-muted-foreground')}>
+                <link.icon className="w-6 h-6 mb-1" />
+                <span className="text-xs font-semibold">{translations.home[link.labelKey]}</span>
+              </Link>
+            )
+          })}
         </div>
       </footer>
     </div>
