@@ -22,7 +22,7 @@ import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { useUser } from '@/firebase';
 import { useAuthUI } from '@/firebase/auth/use-auth-ui';
-import { profileMenuItems, profileOtherInfoLinks, profileQuickAccessLinks } from '@/lib/navigation';
+import { profileMenuItems, profileOtherInfoLinks, profileQuickAccessLinks } from '@/lib/navigation.tsx';
 
 export default function ProfilePage() {
   const { toast } = useToast();
@@ -154,7 +154,40 @@ export default function ProfilePage() {
             {translations.profile.otherInfo}
           </h3>
           <div className="space-y-4">
-            {profileOtherInfoLinks.map((item, index) => (
+            {profileOtherInfoLinks.map((item, index) => {
+              // Conditionally render based on the link's purpose
+              if (item.labelKey === 'logOut') {
+                 if (!user) return null; // Don't show log out if not logged in
+                 return (
+                    <button
+                      key={index}
+                      onClick={handleSignOut}
+                      disabled={signOutPending}
+                      className="w-full flex items-center gap-4 py-2 cursor-pointer text-left disabled:opacity-50"
+                    >
+                      {signOutPending ? <Loader2 className="w-6 h-6 text-muted-foreground animate-spin" /> : <item.icon className="w-6 h-6 text-muted-foreground" />}
+                      <span className="font-medium">{translations.profile.logOut}</span>
+                    </button>
+                 );
+              }
+              if (item.labelKey === 'shareApp') {
+                  return (
+                    <button
+                        key={index}
+                        onClick={handleShare}
+                        className="w-full flex items-center justify-between py-2 cursor-pointer text-left"
+                    >
+                        <div className="flex items-center gap-4">
+                            <item.icon className="w-6 h-6 text-muted-foreground" />
+                            <span className="font-medium">
+                                {translations.profile[item.labelKey]}
+                            </span>
+                        </div>
+                        <ChevronRight className="w-6 h-6 text-gray-400 dark:text-gray-500" />
+                    </button>
+                  );
+              }
+              return (
                  <Link
                     key={index}
                     href={item.href}
@@ -168,29 +201,7 @@ export default function ProfilePage() {
                     </div>
                     <ChevronRight className="w-6 h-6 text-gray-400 dark:text-gray-500" />
                 </Link>
-            ))}
-            <button
-              onClick={handleShare}
-              className="w-full flex items-center justify-between py-2 cursor-pointer text-left"
-            >
-              <div className="flex items-center gap-4">
-                <profileOtherInfoLinks[0].icon className="w-6 h-6 text-muted-foreground" />
-                <span className="font-medium">
-                  {translations.profile.shareApp}
-                </span>
-              </div>
-              <ChevronRight className="w-6 h-6 text-gray-400 dark:text-gray-500" />
-            </button>
-            {user && (
-                 <button
-                    onClick={handleSignOut}
-                    disabled={signOutPending}
-                    className="w-full flex items-center gap-4 py-2 cursor-pointer text-left disabled:opacity-50"
-                  >
-                    {signOutPending ? <Loader2 className="w-6 h-6 text-muted-foreground animate-spin" /> : <profileOtherInfoLinks[2].icon className="w-6 h-6 text-muted-foreground" />}
-                    <span className="font-medium">{translations.profile.logOut}</span>
-                  </button>
-            )}
+            )})}
           </div>
         </div>
 

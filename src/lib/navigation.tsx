@@ -35,7 +35,8 @@ import {
     Mail,
     Phone,
     Shield,
-    Download
+    Download,
+    Hotel
   } from 'lucide-react';
   
   // From settings/page.tsx

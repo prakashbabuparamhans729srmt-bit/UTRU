@@ -8,7 +8,7 @@ import { Switch } from '@/components/ui/switch';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
 import { useEffect, useState } from 'react';
-import { settingsItems, settingsAdminLinks, settingsAppInstall, settingsLanguageLink } from '@/lib/navigation';
+import { settingsItems, settingsAdminLinks, settingsAppInstall, settingsLanguageLink } from '@/lib/navigation.tsx';
 
 
 interface BeforeInstallPromptEvent extends Event {

@@ -20,7 +20,7 @@ import {
 import { useLanguage } from '@/context/LanguageContext';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
-import { locationNavLinks, mainFooterNavLinks } from '@/lib/navigation';
+import { locationNavLinks, mainFooterNavLinks } from '@/lib/navigation.tsx';
 
 export default function LocationPage() {
   const { translations } = useLanguage();

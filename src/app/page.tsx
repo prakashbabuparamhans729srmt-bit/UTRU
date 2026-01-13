@@ -26,7 +26,7 @@ import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { useLanguage } from '@/context/LanguageContext';
 import FloatingActionButton from '@/components/FloatingActionButton';
 import ProductGrid from '@/components/ProductGrid';
-import { homeCategoryLinks, mainFooterNavLinks } from '@/lib/navigation';
+import { homeCategoryLinks, mainFooterNavLinks } from '@/lib/navigation.tsx';
 
 
 export default function Home() {

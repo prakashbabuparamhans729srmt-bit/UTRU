@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Bar, BarChart, CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { adminSidebarNav, dashboardCards, dashboardStats } from '@/lib/navigation';
+import { adminSidebarNav, dashboardCards, dashboardStats } from '@/lib/navigation.tsx';
 
 
 const SidebarMenuItem = ({ icon: Icon, children, isSelected, hasSubmenu, isExpanded }) => (

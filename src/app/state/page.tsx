@@ -11,7 +11,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/context/LanguageContext';
 import { cn } from '@/lib/utils';
-import { locationNavLinks, mainFooterNavLinks } from '@/lib/navigation';
+import { locationNavLinks, mainFooterNavLinks } from '@/lib/navigation.tsx';
 import { usePathname } from 'next/navigation';
 
 export default function StatePage() {
