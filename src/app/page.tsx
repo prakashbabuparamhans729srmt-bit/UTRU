@@ -15,18 +15,16 @@ import {
   Mic,
   ShoppingCart,
   MapPin,
-  LayoutGrid,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { useLanguage } from '@/context/LanguageContext';
 import FloatingActionButton from '@/components/FloatingActionButton';
 import ProductGrid from '@/components/ProductGrid';
-import { homeCategoryLinks, mainFooterNavLinks, mainCategoryGrid } from '@/lib/navigation.tsx';
+import { mainFooterNavLinks, mainCategoryGrid } from '@/lib/navigation.tsx';
 import Autoplay from 'embla-carousel-autoplay';
 import { Card } from '@/components/ui/card';
 
@@ -164,7 +162,7 @@ export default function Home() {
                   pathname === link.href ? 'text-primary' : 'text-muted-foreground hover:bg-accent/50'
                 )}>
                 <link.icon className="w-6 h-6" />
-                <span className="text-xs font-semibold">{translations.location[link.labelKey as keyof typeof translations.location]}</span>
+                <span className="text-xs font-semibold">{translations.home[link.labelKey as keyof typeof translations.home]}</span>
               </Link>
           ))}
         </div>

@@ -146,9 +146,9 @@ import {
   // For src/app/page.tsx, src/app/location/* pages
   export const mainFooterNavLinks = [
     { href: '/', icon: HomeIcon, labelKey: 'home' },
-    { href: '#', icon: BookCopy, labelKey: 'library' },
-    { href: '/location', icon: Globe, labelKey: 'explore'},
-    { href: '#', icon: PlaySquare, labelKey: 'opinion' },
+    { href: '/my-plans', icon: ClipboardList, labelKey: 'bookings' },
+    { href: '/chatbot', icon: MessageSquare, labelKey: 'chat'},
+    { href: '/profile', icon: User, labelKey: 'profile' },
   ];
   
   // For src/app/page.tsx

@@ -25,12 +25,12 @@ export default function MorePage() {
       </header>
       <main className="p-4">
         <Card>
-            <div className="p-4 space-y-1">
+            <div className="divide-y divide-border">
                 {categoriesToShow.map((category, index) => (
                     <Link
                         key={index}
                         href={category.href}
-                        className="flex items-center justify-between py-3 cursor-pointer group"
+                        className="flex items-center justify-between p-4 cursor-pointer group"
                     >
                         <div className="flex items-center gap-4">
                         <category.icon className="w-6 h-6 text-muted-foreground transition-colors group-hover:text-primary" />
@@ -38,7 +38,7 @@ export default function MorePage() {
                             {translations.home[category.labelKey as keyof typeof translations.home]}
                         </span>
                         </div>
-                        <ChevronRight className="w-6 h-6 text-gray-400 dark:text-gray-500" />
+                        <ChevronRight className="w-5 h-5 text-gray-400 dark:text-gray-500" />
                     </Link>
                 ))}
             </div>

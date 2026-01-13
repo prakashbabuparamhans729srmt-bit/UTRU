@@ -23,6 +23,7 @@ import { useUser } from '@/firebase';
 import { useAuthUI } from '@/firebase/auth/use-auth-ui';
 import { profileMenuItems, profileOtherInfoLinks } from '@/lib/navigation.tsx';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Card } from '@/components/ui/card';
 
 export default function ProfilePage() {
   const { toast } = useToast();
@@ -120,14 +121,33 @@ export default function ProfilePage() {
             )}
         </div>
 
+        <Card className="bg-amber-100/50 dark:bg-amber-900/20 border-amber-400/50 p-4 rounded-lg flex items-center gap-4 mb-6">
+          {carImage && (
+            <Image
+              src={carImage.imageUrl}
+              alt={carImage.description}
+              width={80}
+              height={80}
+              className="object-contain"
+              data-ai-hint={carImage.imageHint}
+            />
+          )}
+          <div className="flex-grow">
+            <h3 className="font-bold text-amber-800 dark:text-amber-300">{translations.profile.referEarn}</h3>
+            <p className="text-sm text-amber-700/80 dark:text-amber-400/80">{translations.profile.referEarnDescription}</p>
+          </div>
+          <Button size="sm" className="bg-amber-500 hover:bg-amber-600 text-white rounded-full self-end">
+            {translations.profile.referNow}
+          </Button>
+        </Card>
 
-        <div className="bg-card rounded-lg border">
-            <div className="p-4 space-y-1">
+        <Card className="border">
+            <div className="divide-y divide-border">
             {profileMenuItems.map((item, index) => (
                 <Link
                     key={index}
                     href={item.href}
-                    className="flex items-center justify-between py-3 cursor-pointer group"
+                    className="flex items-center justify-between p-4 cursor-pointer group"
                 >
                     <div className="flex items-center gap-4">
                     <item.icon className="w-6 h-6 text-muted-foreground transition-colors group-hover:text-primary" />
@@ -137,13 +157,14 @@ export default function ProfilePage() {
                 </Link>
             ))}
             </div>
-        </div>
+        </Card>
 
-        <div className="bg-card rounded-lg border mt-6">
-          <div className="p-4 space-y-1">
-            <h3 className="text-muted-foreground text-sm font-bold tracking-wider mb-2 px-3">
+        <Card className="border mt-6">
+          <div className="p-2">
+            <h3 className="text-muted-foreground text-sm font-bold tracking-wider mb-2 px-3 pt-2">
                 {translations.profile.otherInfo}
             </h3>
+            <div className='divide-y divide-border'>
             {profileOtherInfoLinks.map((item, index) => {
               if (item.labelKey === 'logOut') {
                  if (!user) return null;
@@ -152,7 +173,7 @@ export default function ProfilePage() {
                       key={index}
                       onClick={handleSignOut}
                       disabled={signOutPending}
-                      className="w-full flex items-center justify-between py-3 cursor-pointer group disabled:opacity-50"
+                      className="w-full flex items-center justify-between p-4 cursor-pointer group disabled:opacity-50"
                     >
                         <div className='flex items-center gap-4'>
                             {signOutPending ? <Loader2 className="w-6 h-6 text-muted-foreground animate-spin" /> : <item.icon className="w-6 h-6 text-muted-foreground transition-colors group-hover:text-destructive" />}
@@ -166,7 +187,7 @@ export default function ProfilePage() {
                     <button
                         key={index}
                         onClick={handleShare}
-                        className="w-full flex items-center justify-between py-3 cursor-pointer group text-left"
+                        className="w-full flex items-center justify-between p-4 cursor-pointer group text-left"
                     >
                         <div className="flex items-center gap-4">
                             <item.icon className="w-6 h-6 text-muted-foreground transition-colors group-hover:text-primary" />
@@ -182,7 +203,7 @@ export default function ProfilePage() {
                  <Link
                     key={index}
                     href={item.href}
-                    className="flex items-center justify-between py-3 cursor-pointer group"
+                    className="flex items-center justify-between p-4 cursor-pointer group"
                 >
                     <div className="flex items-center gap-4">
                         <item.icon className="w-6 h-6 text-muted-foreground transition-colors group-hover:text-primary" />
@@ -193,8 +214,9 @@ export default function ProfilePage() {
                     <ChevronRight className="w-6 h-6 text-gray-400 dark:text-gray-500" />
                 </Link>
             )})}
+            </div>
           </div>
-        </div>
+        </Card>
 
         <div className="flex items-center space-x-2 mt-8 p-1 bg-muted rounded-full">
             <Label htmlFor="theme-switch" className="flex-1 text-center">
