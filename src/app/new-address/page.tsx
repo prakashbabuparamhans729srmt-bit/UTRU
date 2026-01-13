@@ -1,7 +1,7 @@
 
 'use client';
 
-import { ChevronLeft, Home, Building, MoreHorizontal, X } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -20,8 +20,8 @@ export default function NewAddressPage() {
   const treesImage = PlaceHolderImages.find((img) => img.id === 'new-address-trees');
 
   return (
-    <div className="bg-white text-black min-h-screen">
-      <header className="p-4 flex items-center gap-4 sticky top-0 bg-white z-10 border-b">
+    <div className="bg-background text-foreground min-h-screen">
+      <header className="p-4 flex items-center gap-4 sticky top-0 bg-background/80 backdrop-blur-sm z-10 border-b">
         <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
           <ChevronLeft />
         </Button>
@@ -74,51 +74,39 @@ export default function NewAddressPage() {
 
         <section className="mb-8">
           <div className="flex justify-around">
-            {addressTypes.map(({ icon: Icon, label }) => (
-              <div key={label} className="flex flex-col items-center gap-2">
-                <Button size="icon" variant="outline" className="w-14 h-14 rounded-full bg-black text-white border-gray-700">
+            {addressTypes.map(({ icon: Icon, labelKey }) => (
+              <div key={labelKey} className="flex flex-col items-center gap-2">
+                <Button size="icon" variant="outline" className="w-14 h-14 rounded-full bg-muted text-muted-foreground border-border hover:bg-primary/20 hover:text-primary">
                   <Icon className="w-6 h-6" />
                 </Button>
-                <span className="text-sm">{translations.newAddress[label as keyof typeof translations.newAddress]}</span>
+                <span className="text-sm">{translations.newAddress[labelKey as keyof typeof translations.newAddress]}</span>
               </div>
             ))}
           </div>
         </section>
 
         <form className="space-y-6">
-          <div className="relative">
-            <Label htmlFor="name" className="text-gray-500">{translations.newAddress.name}</Label>
-            <Input id="name" type="text" className="bg-gray-100 border-none rounded-xl h-12 pr-10" />
-            <Button size="icon" variant="ghost" className="absolute right-2 top-7 text-gray-500">
-                <X className="w-4 h-4"/>
-            </Button>
+          <div className="grid gap-2">
+            <Label htmlFor="name">{translations.newAddress.name}</Label>
+            <Input id="name" type="text" className="bg-muted border-border" />
           </div>
-          <div className="relative">
-            <Label htmlFor="mobile" className="text-gray-500">{translations.newAddress.mobile}</Label>
-            <Input id="mobile" type="tel" className="bg-gray-100 border-none rounded-xl h-12 pr-10" />
-            <Button size="icon" variant="ghost" className="absolute right-2 top-7 text-gray-500">
-                <X className="w-4 h-4"/>
-            </Button>
+          <div className="grid gap-2">
+            <Label htmlFor="mobile">{translations.newAddress.mobile}</Label>
+            <Input id="mobile" type="tel" className="bg-muted border-border" />
           </div>
-          <div className="relative">
-            <Label htmlFor="address-line" className="text-gray-500">{translations.newAddress.flatHouse}</Label>
-            <Input id="address-line" type="text" className="bg-gray-100 border-none rounded-xl h-12 pr-10" />
-            <Button size="icon" variant="ghost" className="absolute right-2 top-7 text-gray-500">
-                <X className="w-4 h-4"/>
-            </Button>
+          <div className="grid gap-2">
+            <Label htmlFor="address-line">{translations.newAddress.flatHouse}</Label>
+            <Input id="address-line" type="text" className="bg-muted border-border" />
           </div>
-          <div className="relative">
-            <Label htmlFor="floor" className="text-gray-500">{translations.newAddress.floor}</Label>
-            <Input id="floor" type="text" className="bg-gray-100 border-none rounded-xl h-12 pr-10" />
-             <Button size="icon" variant="ghost" className="absolute right-2 top-7 text-gray-500">
-                <X className="w-4 h-4"/>
-            </Button>
+          <div className="grid gap-2">
+            <Label htmlFor="floor">{translations.newAddress.floor}</Label>
+            <Input id="floor" type="text" className="bg-muted border-border" />
           </div>
-          <div className="relative">
-            <Label htmlFor="landmark" className="text-gray-500">{translations.newAddress.landmark}</Label>
-            <Input id="landmark" type="text" className="bg-gray-100 border-none rounded-xl h-12 pr-10" />
+          <div className="grid gap-2">
+            <Label htmlFor="landmark">{translations.newAddress.landmark}</Label>
+            <Input id="landmark" type="text" className="bg-muted border-border" />
           </div>
-          <Button className="w-full bg-black text-white rounded-full h-14 text-lg hover:bg-gray-800 mt-8">
+          <Button className="w-full bg-primary text-primary-foreground rounded-full h-14 text-lg hover:bg-primary/90 mt-8">
             {translations.newAddress.save}
           </Button>
         </form>
@@ -126,5 +114,3 @@ export default function NewAddressPage() {
     </div>
   );
 }
-
-    

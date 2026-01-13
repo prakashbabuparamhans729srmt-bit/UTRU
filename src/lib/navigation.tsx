@@ -206,8 +206,8 @@ import {
   
   // For src/app/new-address/page.tsx
   export const addressTypes = [
-      { icon: HomeIcon, label: 'home' },
-      { icon: Building, label: 'work' },
-      { icon: Hotel, label: 'hotel' },
-      { icon: MoreHorizontal, label: 'other' },
+      { icon: HomeIcon, labelKey: 'home' },
+      { icon: Building, labelKey: 'work' },
+      { icon: Hotel, labelKey: 'hotel' },
+      { icon: MoreHorizontal, labelKey: 'other' },
     ];

@@ -7,6 +7,7 @@ import React, {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
 } from 'react';
 import {
   RecaptchaVerifier,
@@ -43,6 +44,9 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [phoneNumber, setPhoneNumber] = useState<string | null>(null);
+  
+  const recaptchaVerifierRef = useRef<RecaptchaVerifier | null>(null);
+
 
   // Phone Sign-In Initiator
   const handleSignInWithPhoneNumber = useCallback(
@@ -57,10 +61,13 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
       setPhoneNumber(phone);
 
       try {
-        // Initialize RecaptchaVerifier on demand
-        const verifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-          size: 'invisible',
-        });
+        if (!recaptchaVerifierRef.current) {
+            recaptchaVerifierRef.current = new RecaptchaVerifier(auth, 'recaptcha-container', {
+              size: 'invisible',
+            });
+        }
+        
+        const verifier = recaptchaVerifierRef.current;
         const result = await signInWithPhoneNumber(
           auth,
           phone,
@@ -70,8 +77,11 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
         return true;
       } catch (err: any) {
         setError(err.message);
-        // In case of error, the verifier might need to be reset,
-        // but re-creating it on the next attempt is a simple strategy.
+        // Reset verifier on error
+        if (recaptchaVerifierRef.current) {
+            recaptchaVerifierRef.current.clear();
+            recaptchaVerifierRef.current = null;
+        }
         return false;
       } finally {
         setIsPending(false);

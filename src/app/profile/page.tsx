@@ -23,6 +23,7 @@ import { Label } from '@/components/ui/label';
 import { useUser } from '@/firebase';
 import { useAuthUI } from '@/firebase/auth/use-auth-ui';
 import { profileMenuItems, profileOtherInfoLinks, profileQuickAccessLinks } from '@/lib/navigation.tsx';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function ProfilePage() {
   const { toast } = useToast();
@@ -76,26 +77,35 @@ export default function ProfilePage() {
         <Button
           size="icon"
           variant="ghost"
-          className="absolute top-4 left-4 rounded-full bg-black text-white hover:bg-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+          className="absolute top-4 left-4 rounded-full bg-black text-white hover:bg-gray-700"
           onClick={() => router.back()}
         >
           <ChevronLeft className="w-6 h-6" />
         </Button>
         <div className="mt-8 mb-4">
-          <Avatar className="w-24 h-24 border-4 border-gray-700 ring-2 ring-primary">
-            {user?.photoURL ? (
-                <AvatarImage src={user.photoURL} alt={user.displayName || 'User'} />
-            ) : (
-                <AvatarImage src="https://picsum.photos/seed/user-profile/100/100" />
-            )}
-            <AvatarFallback>
-                {userLoading ? <Loader2 className="animate-spin" /> : <UserIcon />}
-            </AvatarFallback>
-          </Avatar>
+            <Avatar className="w-24 h-24 border-4 border-gray-700 ring-2 ring-primary">
+                {userLoading ? (
+                    <Skeleton className="w-full h-full rounded-full" />
+                ) : (
+                    <>
+                        {user?.photoURL ? (
+                            <AvatarImage src={user.photoURL} alt={user.displayName || 'User'} />
+                        ) : (
+                            <AvatarImage src="https://picsum.photos/seed/user-profile/100/100" />
+                        )}
+                        <AvatarFallback>
+                            <UserIcon />
+                        </AvatarFallback>
+                    </>
+                )}
+            </Avatar>
         </div>
 
         {userLoading ? (
-            <Loader2 className="animate-spin my-4" />
+            <div className="text-center w-full max-w-xs space-y-2 mx-auto">
+                <Skeleton className="h-6 w-3/4 mx-auto" />
+                <Skeleton className="h-4 w-1/2 mx-auto" />
+            </div>
         ) : user ? (
             <div className='text-center'>
                 <h2 className="text-xl font-bold">{user.displayName || 'Welcome User'}</h2>
