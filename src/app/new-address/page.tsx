@@ -11,7 +11,6 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { useLanguage } from '@/context/LanguageContext';
 import { addressTypes } from '@/lib/navigation';
-import { Hotel } from 'lucide-react';
 
 
 export default function NewAddressPage() {
@@ -19,13 +18,6 @@ export default function NewAddressPage() {
   const { translations } = useLanguage();
   const seaImage = PlaceHolderImages.find((img) => img.id === 'new-address-sea');
   const treesImage = PlaceHolderImages.find((img) => img.id === 'new-address-trees');
-
-  const addressTypeComponents = [
-    { icon: Home, labelKey: 'home' },
-    { icon: Building, labelKey: 'work' },
-    { icon: Hotel, labelKey: 'hotel' },
-    { icon: MoreHorizontal, labelKey: 'other' },
-  ];
 
   return (
     <div className="bg-white text-black min-h-screen">
@@ -82,12 +74,12 @@ export default function NewAddressPage() {
 
         <section className="mb-8">
           <div className="flex justify-around">
-            {addressTypeComponents.map(({ icon: Icon, labelKey }) => (
-              <div key={labelKey} className="flex flex-col items-center gap-2">
+            {addressTypes.map(({ icon: Icon, label }) => (
+              <div key={label} className="flex flex-col items-center gap-2">
                 <Button size="icon" variant="outline" className="w-14 h-14 rounded-full bg-black text-white border-gray-700">
                   <Icon className="w-6 h-6" />
                 </Button>
-                <span className="text-sm">{translations.newAddress[labelKey as keyof typeof translations.newAddress]}</span>
+                <span className="text-sm">{translations.newAddress[label as keyof typeof translations.newAddress]}</span>
               </div>
             ))}
           </div>

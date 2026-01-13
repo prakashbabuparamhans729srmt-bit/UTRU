@@ -17,8 +17,22 @@ export default function PhoneLoginPage() {
   const { toast } = useToast();
 
   const handleContinue = async () => {
-    // Basic validation for Indian phone numbers
-    if (!/^\+?91[6-9]\d{9}$/.test(phoneNumber)) {
+    // Ensure the number starts with +91
+    let formattedPhoneNumber = phoneNumber.trim();
+    if (!formattedPhoneNumber.startsWith('+91')) {
+      if (formattedPhoneNumber.length === 10 && /^[6-9]/.test(formattedPhoneNumber)) {
+        formattedPhoneNumber = `+91${formattedPhoneNumber}`;
+      } else {
+        toast({
+            variant: 'destructive',
+            title: 'Invalid Phone Number',
+            description: 'Please enter a valid 10-digit Indian mobile number.',
+        });
+        return;
+      }
+    }
+
+    if (!/^\+91[6-9]\d{9}$/.test(formattedPhoneNumber)) {
         toast({
             variant: 'destructive',
             title: 'Invalid Phone Number',
@@ -27,7 +41,7 @@ export default function PhoneLoginPage() {
         return;
     }
 
-    const success = await signInWithPhoneNumber(phoneNumber);
+    const success = await signInWithPhoneNumber(formattedPhoneNumber);
     if (success) {
       router.push('/verify-phone');
     } else {

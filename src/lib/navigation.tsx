@@ -37,7 +37,7 @@ import {
     Shield,
     Download,
     Hotel,
-    MoreHorizontal
+    MoreHorizontal,
   } from 'lucide-react';
   
   // From settings/page.tsx
