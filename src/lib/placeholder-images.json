@@ -159,7 +159,7 @@
     {
       "id": "plus-membership-robot",
       "description": "A cute white robot with a friendly expression",
-      "imageUrl": "https://images.unsplash.com/photo-1582571352032-448f7928eca3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y3V0ZSUyMHJvYm90fGVufDB8fHx8MTc2NDI2MDc1Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1582571352032-448f7928eca3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y3V0ZSUyMHJvYm90fGVufDB8fHx8fDE3NjQyNjA3NTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "cute robot"
     },
     {
@@ -299,6 +299,36 @@
       "description": "A person washing a luxury car",
       "imageUrl": "https://images.unsplash.com/photo-1607281313725-c6de7a50355a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXIlMjB3YXNoaW5nfGVufDB8fHx8fDE3NjQzNDE4OTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "car washing"
+    },
+    {
+      "id": "electronics-hero",
+      "description": "A collection of modern electronic gadgets on a desk",
+      "imageUrl": "https://images.unsplash.com/photo-1550009158-94ae76252426?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "electronic gadgets"
+    },
+    {
+      "id": "beauty-hero",
+      "description": "A serene spa setting with rolled towels and candles",
+      "imageUrl": "https://images.unsplash.com/photo-1512290923902-8a9f31dc236c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "serene spa"
+    },
+    {
+      "id": "kids-hero",
+      "description": "Children laughing and playing together outdoors in a field",
+      "imageUrl": "https://images.unsplash.com/photo-1503919545889-aef636e10ad4?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "children playing"
+    },
+    {
+      "id": "gifting-hero",
+      "description": "A beautifully wrapped present with a red bow on a festive background",
+      "imageUrl": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "wrapped gift"
+    },
+    {
+      "id": "premium-hero",
+      "description": "A sparkling clean and modern living room with large windows",
+      "imageUrl": "https://images.unsplash.com/photo-1618220179428-22790b461013?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "clean livingroom"
     }
   ]
 }

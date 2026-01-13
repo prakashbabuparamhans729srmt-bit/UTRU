@@ -3,8 +3,15 @@
 
 import { ChevronLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from '@/components/ui/carousel';
 import ServiceGrid from '@/components/ServiceGrid';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const electronicsServices = [
   { id: 'electronics-tv-repair', name: 'TV Repair' },
@@ -15,6 +22,7 @@ const electronicsServices = [
 
 export default function ElectronicsPage() {
   const router = useRouter();
+  const heroImage = PlaceHolderImages.find((img) => img.id === 'electronics-hero');
 
   return (
     <div className="bg-background text-foreground min-h-screen">
@@ -24,8 +32,29 @@ export default function ElectronicsPage() {
         </Button>
         <h1 className="text-lg font-semibold">Electronics</h1>
       </header>
-      <main className="p-4">
-        <ServiceGrid services={electronicsServices} />
+      <main className="pb-8">
+        <Carousel className="w-full mb-6" opts={{ loop: true }}>
+          <CarouselContent>
+            {heroImage && (
+              <CarouselItem>
+                <div className="px-4">
+                  <Image
+                    src={heroImage.imageUrl}
+                    alt={heroImage.description}
+                    width={600}
+                    height={300}
+                    className="rounded-lg object-cover w-full aspect-[2/1]"
+                    data-ai-hint={heroImage.imageHint}
+                    priority
+                  />
+                </div>
+              </CarouselItem>
+            )}
+          </CarouselContent>
+        </Carousel>
+        <div className="px-4">
+            <ServiceGrid services={electronicsServices} />
+        </div>
       </main>
     </div>
   );
