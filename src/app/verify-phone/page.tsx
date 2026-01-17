@@ -123,7 +123,7 @@ export default function VerifyPhonePage() {
           <Button 
             className="w-full bg-white text-black rounded-full h-14 text-lg font-semibold hover:bg-gray-200"
             onClick={handleVerify}
-            disabled={isPending}
+            disabled={isPending || otp.join('').length !== 6}
           >
             {isPending ? <Loader2 className="animate-spin"/> : translations.verifyPhone.verifyCode}
           </Button>

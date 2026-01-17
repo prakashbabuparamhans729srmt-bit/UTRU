@@ -7,7 +7,6 @@ import {
   ChevronLeft,
   ChevronRight,
   Loader2,
-  User as UserIcon,
 } from 'lucide-react';
 import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';

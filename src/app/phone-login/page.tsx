@@ -21,24 +21,24 @@ export default function PhoneLoginPage() {
   const handleContinue = async () => {
     // Ensure the number starts with +91
     let formattedPhoneNumber = phoneNumber.trim();
-    if (!formattedPhoneNumber.startsWith('+91')) {
-      if (formattedPhoneNumber.length === 10 && /^[6-9]/.test(formattedPhoneNumber)) {
-        formattedPhoneNumber = `+91${formattedPhoneNumber}`;
-      } else {
-        toast({
-            variant: 'destructive',
-            title: 'Invalid Phone Number',
-            description: 'Please enter a valid 10-digit Indian mobile number.',
-        });
-        return;
-      }
+    if (!formattedPhoneNumber.startsWith('+')) {
+        if (formattedPhoneNumber.length === 10 && /^[6-9]/.test(formattedPhoneNumber)) {
+            formattedPhoneNumber = `+91${formattedPhoneNumber}`;
+        } else {
+            toast({
+                variant: 'destructive',
+                title: 'Invalid Phone Number',
+                description: 'Please enter a valid 10-digit Indian mobile number.',
+            });
+            return;
+        }
     }
 
-    if (!/^\+91[6-9]\d{9}$/.test(formattedPhoneNumber)) {
+    if (!/^\+[1-9]\d{1,14}$/.test(formattedPhoneNumber)) {
         toast({
             variant: 'destructive',
             title: 'Invalid Phone Number',
-            description: 'Please enter a valid 10-digit Indian mobile number (e.g., +919876543210).',
+            description: 'Please enter a valid phone number with country code (e.g., +919876543210).',
         });
         return;
     }
