@@ -125,7 +125,7 @@ export default function ProfilePage() {
             </div>
        </div>
 
-      <main className="flex-grow bg-card -mt-12 rounded-t-3xl p-4">
+      <main className="flex-grow overflow-y-auto bg-card -mt-12 rounded-t-3xl p-4">
         <div className="divide-y divide-border">
             {profileMenuItems.map((item, index) => (
                 <Link
