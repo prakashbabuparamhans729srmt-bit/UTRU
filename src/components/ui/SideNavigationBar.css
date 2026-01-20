@@ -1,0 +1,26 @@
+.sidebar-transition {
+    transition: transform 0.3s ease-in-out;
+}
+.sidebar-open {
+    transform: translateX(0);
+}
+.sidebar-closed {
+    transform: translateX(-100%);
+}
+.desktop-sidebar-transition {
+    transition: width 0.3s ease-in-out;
+}
+.desktop-sidebar-open {
+    width: 280px;
+}
+.desktop-sidebar-closed {
+    width: 80px;
+}
+.desktop-sidebar-closed .nav-text,
+.desktop-sidebar-closed .user-name,
+.desktop-sidebar-closed .logout-text {
+    display: none;
+}
+.desktop-sidebar-closed .user-info {
+    justify-content: center;
+}

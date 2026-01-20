@@ -147,10 +147,9 @@ import {
   // For src/app/page.tsx, src/app/location/* pages
   export const mainFooterNavLinks = [
     { href: '/', icon: HomeIcon, labelKey: 'home' },
-    { href: '/library', icon: BookCopy, labelKey: 'library' },
-    { href: '/explore-action', icon: Circle, labelKey: 'exploreAction', isCentral: true },
-    { href: '/explore', icon: PlaySquare, labelKey: 'explore' },
-    { href: '/opinion', icon: LayoutGrid, labelKey: 'opinion' },
+    { href: '/my-plans', icon: ClipboardList, labelKey: 'bookings' },
+    { href: '/chatbot', icon: MessageSquare, labelKey: 'chat', isCentral: true },
+    { href: '/profile', icon: User, labelKey: 'profile' },
   ];
   
   // For src/app/page.tsx
@@ -194,7 +193,6 @@ import {
   export const profileOtherInfoLinks = [
       { icon: Share2, text: 'Share the app', href: '/refer', labelKey: 'shareApp' },
       { icon: Info, text: 'About us', href: '/about', labelKey: 'aboutUs' },
-      { icon: LogOut, text: 'Log out', href: '#', labelKey: 'logOut' },
   ];
   
   
@@ -230,5 +228,18 @@ import {
       { icon: MoreHorizontal, labelKey: 'other' },
     ];
 
+  // For src/components/ui/SideNavigationBar.tsx
+  export const sideNavLinks = [
+    { icon: FileText, text: 'My Bookings', href: '/my-plans', labelKey: 'myPlans' },
+    { icon: BookUser, text: 'Address book', href: '/address', labelKey: 'addressBook' },
+    { icon: Star, text: 'Plus membership', href: '/plus-membership', labelKey: 'plusMembership' },
+    { icon: Wallet, text: 'My Wallet', href: '/wallet', labelKey: 'wallet' },
+    { icon: Star, text: 'My Ratings', href: '#', labelKey: 'myRating' },
+    { icon: CreditCard, text: 'My Payments', href: '/payment-settings', labelKey: 'payments' },
+    { icon: Share2, text: 'Share App', href: '/refer', labelKey: 'shareApp' },
+    { icon: Info, text: 'About Us', href: '/about', labelKey: 'aboutUs' },
+    { icon: Settings, text: 'Settings', href: '/settings', labelKey: 'setting' },
+  ];
     
+
 

@@ -32,6 +32,7 @@ import { useCart } from '@/context/CartContext';
 import { Badge } from '@/components/ui/badge';
 import ServiceGrid from '@/components/ServiceGrid';
 import { servicesData } from '@/lib/services';
+import SideNavigationBar from '@/components/ui/SideNavigationBar';
 
 
 export default function Home() {
@@ -42,6 +43,7 @@ export default function Home() {
   const { items: cartItems } = useCart();
   const featuredServices = servicesData.filter(s => ['cleaning-deep-cleaning', 'beauty-salon', 'electronics-ac-repair', 'car-full-service'].includes(s.id));
 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -60,6 +62,7 @@ export default function Home() {
 
   return (
     <div className="bg-background min-h-screen flex flex-col">
+      <SideNavigationBar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
       <header className="p-4 bg-background/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
@@ -75,12 +78,12 @@ export default function Home() {
             </Link>
           </div>
           <div className="flex items-center gap-4">
-            <Link href="/profile">
+            <button onClick={() => setIsSidebarOpen(true)}>
               <Avatar>
                 <AvatarImage src="https://picsum.photos/seed/avatar/40/40" />
                 <AvatarFallback>U</AvatarFallback>
               </Avatar>
-            </Link>
+            </button>
           </div>
         </div>
         <div className="flex items-center gap-4">
