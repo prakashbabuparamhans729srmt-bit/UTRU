@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -7,19 +6,15 @@ import {
   ChevronLeft,
   ChevronRight,
   Loader2,
-  Moon,
-  Sun,
 } from 'lucide-react';
 import Link from 'next/link';
-import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
 import { useUser } from '@/firebase';
 import { useAuthUI } from '@/firebase/auth/use-auth-ui';
 import { profileHeaderLinks, profileMenuItems, profileOtherInfoLinks } from '@/lib/navigation.tsx';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Card } from '@/components/ui/card';
-import { useTheme } from '@/context/ThemeContext';
+import { useToast } from '@/hooks/use-toast';
 
 export default function ProfilePage() {
   const { toast } = useToast();
@@ -27,33 +22,6 @@ export default function ProfilePage() {
   const { translations } = useLanguage();
   const { user, loading: userLoading } = useUser();
   const { signOut, isPending: signOutPending } = useAuthUI();
-  const { theme, toggleTheme } = useTheme();
-
-  const handleShare = async () => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: 'Check out this amazing app!',
-          text: 'I found this great e-commerce app, you should try it.',
-          url: window.location.origin,
-        });
-      } catch (error: any) {
-        if (error.name !== 'AbortError') {
-          toast({
-            variant: 'destructive',
-            title: 'Sharing failed',
-            description:
-              'Could not share the app at this moment. Please try again.',
-          });
-        }
-      }
-    } else {
-      toast({
-        title: 'Web Share not supported',
-        description: 'Your browser does not support the Web Share API.',
-      });
-    }
-  };
 
   const handleSignOut = async () => {
     await signOut();
@@ -66,17 +34,17 @@ export default function ProfilePage() {
 
 
   return (
-    <div className="bg-background text-foreground min-h-screen flex flex-col">
+    <div className="bg-background text-foreground min-h-screen">
        <div className="bg-gray-900 p-4 relative flex flex-col items-center text-center pb-24">
             <Button 
                 onClick={() => router.back()} 
                 size="icon" 
                 variant="ghost" 
-                className="absolute top-4 left-4 rounded-full bg-black/50 text-white hover:bg-black/70">
+                className="absolute top-4 left-4 rounded-full bg-black/50 text-white hover:bg-black/70 border border-gray-600">
                 <ChevronLeft />
             </Button>
             
-            <Avatar className="w-24 h-24 border-4 border-primary mt-8">
+            <Avatar className="w-24 h-24 border-4 border-white mt-8">
                 {userLoading ? (
                     <Skeleton className="w-full h-full rounded-full" />
                 ) : (
@@ -95,7 +63,7 @@ export default function ProfilePage() {
             
             {userLoading ? (
                 <div className="w-full max-w-xs space-y-2 mt-4">
-                    <Skeleton className="h-6 w-3/4 mx-auto" />
+                    <Skeleton className="h-10 w-3/4 mx-auto rounded-full" />
                     <Skeleton className="h-4 w-1/2 mx-auto" />
                 </div>
             ) : user ? (
@@ -106,13 +74,13 @@ export default function ProfilePage() {
                     </p>
                 </div>
             ) : (
-                <div className="mt-6 w-full max-w-xs">
-                    <Link href="/phone-login" passHref>
-                        <Button className="w-full bg-primary text-primary-foreground font-bold rounded-full h-12 text-base hover:bg-primary/90">
+                <div className="mt-6 w-full max-w-xs flex flex-col items-center">
+                    <Link href="/phone-login" passHref className='w-full'>
+                        <Button variant="outline" className="w-full max-w-[200px] bg-transparent text-white border-primary rounded-full h-12 text-base hover:bg-primary/10 hover:text-white">
                            {translations.profile.continue}
                         </Button>
                     </Link>
-                    <p className="text-sm text-gray-400 mt-2">
+                    <p className="text-sm text-gray-400 mt-2 px-4">
                         {translations.profile.loginMessage}
                     </p>
                 </div>
@@ -121,15 +89,17 @@ export default function ProfilePage() {
             <div className="flex justify-around w-full max-w-sm mt-8">
                 {profileHeaderLinks.map((item) => (
                     <Link key={item.labelKey} href={item.href} className="flex flex-col items-center gap-2 text-white">
-                        <item.icon className="w-6 h-6" />
+                        <div className="w-14 h-14 bg-black/50 rounded-full flex items-center justify-center">
+                            <item.icon className="w-6 h-6" />
+                        </div>
                         <span className="text-xs font-medium">{translations.profile[item.labelKey as keyof typeof translations.profile]}</span>
                     </Link>
                 ))}
             </div>
        </div>
 
-      <main className="flex-grow overflow-y-auto bg-card -mt-12 rounded-t-3xl p-4">
-        <div className="divide-y divide-border">
+      <main className="flex-grow overflow-y-auto bg-white dark:bg-white text-black -mt-12 rounded-t-3xl p-4">
+        <div className="divide-y divide-gray-200">
             {profileMenuItems.map((item, index) => (
                 <Link
                     key={index}
@@ -137,36 +107,21 @@ export default function ProfilePage() {
                     className="flex items-center justify-between py-4 cursor-pointer group"
                 >
                     <div className="flex items-center gap-4">
-                    <item.icon className="w-6 h-6 text-muted-foreground transition-colors group-hover:text-primary" />
-                    <span className="font-medium transition-colors group-hover:text-primary">{translations.profile[item.labelKey as keyof typeof translations.profile]}</span>
+                    <item.icon className="w-6 h-6 text-gray-500" />
+                    <span className="font-medium text-gray-800">
+                        {translations.profile[item.labelKey as keyof typeof translations.profile]}
+                    </span>
                     </div>
-                    <ChevronRight className="w-5 h-5 text-gray-400 dark:text-gray-500" />
+                    <ChevronRight className="w-5 h-5 text-gray-400" />
                 </Link>
             ))}
         </div>
 
-        <Card className="my-6 p-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white">
-          <div className="flex justify-between items-center">
-            <div>
-              <h3 className="font-bold text-lg">{translations.profile.referEarn}</h3>
-              <p className="text-xs opacity-90">{translations.profile.referEarnDescription}</p>
-            </div>
-            <div className="text-center">
-              <p className="text-xs font-semibold">{translations.profile.hurryUp}</p>
-              <Link href="/refer">
-                <Button variant="secondary" size="sm" className="mt-1 bg-white/20 hover:bg-white/30 text-white">
-                  {translations.profile.referNow}
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </Card>
-
         <div className="mt-6">
-            <h3 className="text-muted-foreground text-sm font-bold tracking-wider mb-2 px-1">
+            <h3 className="text-gray-500 text-sm font-bold tracking-wider mb-2 px-1 uppercase">
                 {translations.profile.otherInfo}
             </h3>
-            <div className='divide-y divide-border'>
+            <div className='divide-y divide-gray-200'>
             {profileOtherInfoLinks.map((item, index) => {
               if (item.labelKey === 'logOut') {
                  if (!user && !userLoading) return null;
@@ -178,29 +133,15 @@ export default function ProfilePage() {
                       className="w-full flex items-center justify-between py-4 cursor-pointer group disabled:opacity-50 text-left"
                     >
                         <div className='flex items-center gap-4'>
-                            {signOutPending ? <Loader2 className="w-6 h-6 text-muted-foreground animate-spin" /> : <item.icon className="w-6 h-6 text-muted-foreground transition-colors group-hover:text-destructive" />}
-                            <span className="font-medium transition-colors group-hover:text-destructive">{translations.profile.logOut}</span>
+                            {signOutPending ? <Loader2 className="w-6 h-6 text-gray-500 animate-spin" /> : <item.icon className="w-6 h-6 text-gray-500 group-hover:text-destructive" />}
+                            <span className="font-medium text-gray-800 group-hover:text-destructive">{translations.profile.logOut}</span>
                         </div>
-                         <ChevronRight className="w-5 h-5 text-gray-400 dark:text-gray-500" />
+                         <ChevronRight className="w-5 h-5 text-gray-400" />
                     </button>
                  );
               }
               if (item.labelKey === 'shareApp') {
-                  return (
-                    <button
-                        key={index}
-                        onClick={handleShare}
-                        className="w-full flex items-center justify-between py-4 cursor-pointer group text-left"
-                    >
-                        <div className="flex items-center gap-4">
-                            <item.icon className="w-6 h-6 text-muted-foreground transition-colors group-hover:text-primary" />
-                            <span className="font-medium transition-colors group-hover:text-primary">
-                                {translations.profile[item.labelKey as keyof typeof translations.profile]}
-                            </span>
-                        </div>
-                        <ChevronRight className="w-5 h-5 text-gray-400 dark:text-gray-500" />
-                    </button>
-                  );
+                  return null;
               }
               return (
                  <Link
@@ -209,27 +150,16 @@ export default function ProfilePage() {
                     className="flex items-center justify-between py-4 cursor-pointer group"
                 >
                     <div className="flex items-center gap-4">
-                        <item.icon className="w-6 h-6 text-muted-foreground transition-colors group-hover:text-primary" />
-                        <span className="font-medium transition-colors group-hover:text-primary">
+                        <item.icon className="w-6 h-6 text-gray-500" />
+                        <span className="font-medium text-gray-800">
                         {translations.profile[item.labelKey as keyof typeof translations.profile]}
                         </span>
                     </div>
-                    <ChevronRight className="w-5 h-5 text-gray-400 dark:text-gray-500" />
+                    <ChevronRight className="w-5 h-5 text-gray-400" />
                 </Link>
             )})}
             </div>
         </div>
-
-        <Card className="my-6 p-4 flex justify-between items-center">
-            <span className="font-medium">{theme === 'light' ? translations.profile.lightMode : translations.profile.darkMode}</span>
-            <button onClick={toggleTheme} className="p-2 rounded-full bg-muted">
-                {theme === 'light' ? <Moon className="w-5 h-5 text-muted-foreground" /> : <Sun className="w-5 h-5 text-muted-foreground" />}
-            </button>
-        </Card>
-
-        <p className="text-center text-xs text-muted-foreground mt-8">
-            {translations.profile.appVersions} 1.0.0
-        </p>
       </main>
     </div>
   );
