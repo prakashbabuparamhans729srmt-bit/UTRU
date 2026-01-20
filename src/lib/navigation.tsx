@@ -43,6 +43,7 @@ import {
     Gift,
     Sparkles,
     Baby,
+    Circle,
   } from 'lucide-react';
   
   // From settings/page.tsx
@@ -146,9 +147,10 @@ import {
   // For src/app/page.tsx, src/app/location/* pages
   export const mainFooterNavLinks = [
     { href: '/', icon: HomeIcon, labelKey: 'home' },
-    { href: '/my-plans', icon: ClipboardList, labelKey: 'bookings' },
-    { href: '/chatbot', icon: MessageSquare, labelKey: 'chat', isCentral: true },
-    { href: '/profile', icon: User, labelKey: 'profile' },
+    { href: '/library', icon: BookCopy, labelKey: 'library' },
+    { href: '/explore-action', icon: Circle, labelKey: 'exploreAction', isCentral: true },
+    { href: '/explore', icon: PlaySquare, labelKey: 'explore' },
+    { href: '/opinion', icon: LayoutGrid, labelKey: 'opinion' },
   ];
   
   // For src/app/page.tsx
@@ -181,16 +183,16 @@ import {
   ];
 
   export const profileMenuItems = [
+      { icon: Star, text: 'Setting', href: '/settings', labelKey: 'setting' },
       { icon: FileText, text: 'My plans', href: '/my-plans', labelKey: 'myPlans' },
       { icon: Smartphone, text: 'Native devices', href: '/native-devices', labelKey: 'nativeDevices' },
       { icon: BookUser, text: 'Address book', href: '/address', labelKey: 'addressBook' },
       { icon: Star, text: 'Plus membership', href: '/plus-membership', labelKey: 'plusMembership' },
       { icon: Star, text: 'My rating', href: '#', labelKey: 'myRating' },
-      { icon: Star, text: 'Setting', href: '/settings', labelKey: 'setting' },
   ];
   
   export const profileOtherInfoLinks = [
-      { icon: Share2, text: 'Share the app', href: '#', labelKey: 'shareApp' },
+      { icon: Share2, text: 'Share the app', href: '/refer', labelKey: 'shareApp' },
       { icon: Info, text: 'About us', href: '/about', labelKey: 'aboutUs' },
       { icon: LogOut, text: 'Log out', href: '#', labelKey: 'logOut' },
   ];
@@ -229,3 +231,4 @@ import {
     ];
 
     
+

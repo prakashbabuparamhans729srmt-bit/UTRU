@@ -83,7 +83,7 @@ export default function BharatPage() {
 
       </main>
 
-      <footer className="fixed bottom-0 left-0 right-0 bg-card border-t z-50">
+      <footer className="fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-700 z-50">
         <div className="flex justify-around items-center p-2">
           {mainFooterNavLinks.map((link, index) => {
               const isActive = pathname === link.href;
@@ -91,11 +91,10 @@ export default function BharatPage() {
                 return (
                   <div key={index} className="-mt-8">
                     <Link href={link.href}>
-                        <Card className={cn(
-                            "flex items-center justify-center w-16 h-16 rounded-full bg-primary text-primary-foreground shadow-lg border-4 border-background",
+                        <div className={cn(
+                            "flex items-center justify-center w-16 h-16 rounded-full bg-gray-500 shadow-lg border-4 border-gray-900",
                         )}>
-                            <link.icon className="w-8 h-8" />
-                        </Card>
+                        </div>
                     </Link>
                   </div>
                 );
@@ -103,10 +102,12 @@ export default function BharatPage() {
               return (
                 <Link key={index} href={link.href} className={cn(
                     "flex flex-col items-center justify-center gap-1 h-auto p-2 rounded-md transition-colors w-16", 
-                    isActive ? 'text-primary' : 'text-muted-foreground hover:bg-accent/50'
+                    isActive ? 'text-white' : 'text-muted-foreground hover:text-white'
                   )}>
                   <link.icon className="w-6 h-6" />
-                  <span className="text-xs font-semibold">{translations.home[link.labelKey as keyof typeof translations.home]}</span>
+                  <span className={cn("text-xs", isActive ? 'font-bold' : 'font-semibold')}>
+                    {(translations.home as any)[link.labelKey] || ''}
+                    </span>
                 </Link>
               )
           })}

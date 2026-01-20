@@ -73,6 +73,9 @@ interface Translations {
         car: string;
         painting: string;
         more: string;
+        library: string;
+        explore: string;
+        opinion: string;
     },
     language: {
         title: string;
@@ -280,6 +283,9 @@ const translations: Record<string, Translations> = {
             car: 'Car',
             painting: 'Painting',
             more: 'More',
+            library: 'Library',
+            explore: 'Explore',
+            opinion: 'Opinion',
         },
         language: {
             title: 'Select Language',
@@ -484,6 +490,9 @@ webLink: 'Web Link',
             car: 'कार',
             painting: 'पेंटिंग',
             more: 'और',
+            library: 'लाइब्रेरी',
+            explore: 'अन्वेषण करें',
+            opinion: 'राय',
         },
         language: {
             title: 'भाषा चुनें',
@@ -688,6 +697,9 @@ webLink: 'Web Link',
             car: 'गाड़ी',
             painting: 'पेंटिंग',
             more: 'अउरी',
+            library: 'लाइब्रेरी',
+            explore: 'खोजीं',
+            opinion: 'राय',
         },
         language: {
             title: 'भाषा चुनीं',
@@ -892,6 +904,9 @@ webLink: 'Web Link',
             car: 'कार',
             painting: 'पेंटिंग',
             more: 'अधिक',
+            library: 'लायब्ररी',
+            explore: 'अन्वेषण करा',
+            opinion: 'मत',
         },
         language: {
             title: 'भाषा निवडा',

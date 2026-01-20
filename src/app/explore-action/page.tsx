@@ -17,7 +17,7 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 
-export default function DistrictPage() {
+export default function ExploreActionPage() {
   const { translations } = useLanguage();
   const pathname = usePathname();
   const [searchQuery, setSearchQuery] = useState('');
@@ -42,11 +42,11 @@ export default function DistrictPage() {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-input rounded-full pl-10 pr-20 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
             />
-             <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
                 {searchQuery && (
                     <X 
                         className="w-5 h-5 text-muted-foreground cursor-pointer"
-                        onClick={() => setSearchQuery('')} 
+                        onClick={() => setSearchQuery('')}
                     />
                 )}
                 <div className="w-px h-5 bg-border"></div>
@@ -61,26 +61,10 @@ export default function DistrictPage() {
       </header>
 
       <main className="flex-grow pb-32">
-        <div className="w-full px-4 my-4">
-          <div className="grid w-full grid-cols-4 bg-transparent p-0 border-b">
-            {locationNavLinks.map(link => (
-                <Link key={link.href} href={link.href} passHref>
-                    <Button variant="ghost" className={cn(
-                        "pb-2 rounded-none w-full",
-                        pathname === link.href ? 'border-b-2 border-primary text-primary shadow-none' : 'text-muted-foreground'
-                    )}>
-                        {translations.location[link.labelKey as keyof typeof translations.location]}
-                    </Button>
-                </Link>
-            ))}
-          </div>
-        </div>
-
         <div className="p-4 text-center">
-            <h1 className="text-2xl font-bold">District Page</h1>
-            <p className="text-muted-foreground">Content for the district will be displayed here.</p>
+            <h1 className="text-2xl font-bold">Central Action Page</h1>
+            <p className="text-muted-foreground">Content for the central action button will be displayed here.</p>
         </div>
-
       </main>
 
       <footer className="fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-700 z-50">
