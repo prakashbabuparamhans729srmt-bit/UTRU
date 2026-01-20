@@ -1,159 +1,107 @@
-
 'use client';
-import {
-  ChevronLeft,
-  Search,
-  X,
-  Mic,
-  Smile,
-  Book,
-  ShoppingCart,
-  Shirt,
-  User,
-  User2,
-} from 'lucide-react';
+import { ChevronLeft, Trash2, ShoppingBag } from 'lucide-react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { useLanguage } from '@/context/LanguageContext';
+import { useCart, type CartItem } from '@/context/CartContext';
 import { useRouter } from 'next/navigation';
+import { format } from 'date-fns';
+import { Separator } from '@/components/ui/separator';
+import Link from 'next/link';
+import { useLanguage } from '@/context/LanguageContext';
+
+
+function CartItemCard({ item }: { item: CartItem }) {
+  const { removeFromCart } = useCart();
+
+  return (
+    <Card className="flex items-start gap-4 p-4">
+      <Image
+        src={item.imageUrl}
+        alt={item.name}
+        width={80}
+        height={80}
+        className="rounded-lg object-cover aspect-square"
+      />
+      <div className="flex-grow">
+        <h3 className="font-semibold">{item.name}</h3>
+        <p className="text-sm text-muted-foreground">
+          {format(item.selectedDate, 'EEE, d MMM yyyy')}
+        </p>
+        <p className="text-sm text-muted-foreground">{item.selectedTime}</p>
+        <p className="font-bold mt-2">₹{item.price.toLocaleString()}</p>
+      </div>
+      <Button variant="ghost" size="icon" onClick={() => removeFromCart(item.id)}>
+        <Trash2 className="w-5 h-5 text-destructive" />
+      </Button>
+    </Card>
+  );
+}
 
 export default function CartPage() {
   const router = useRouter();
+  const { items, total } = useCart();
   const { translations } = useLanguage();
-  const shoppingWomanImage = PlaceHolderImages.find(
-    (img) => img.id === 'location-shopping-woman'
-  );
-  const popularProducts = PlaceHolderImages.filter((img) =>
-    img.id.startsWith('cart-popular-')
-  );
-  const productGrid = PlaceHolderImages.filter((img) =>
-    img.id.startsWith('cart-grid-')
-  );
 
-  const categories = [
-    { icon: User, label: 'Man' },
-    { icon: User2, label: 'Man' },
-    { icon: Smile, label: 'Shirts' },
-    { icon: Book, label: 'Children' },
-    { icon: ShoppingCart, label: 'women' },
-    { icon: Shirt, label: 'Man' },
-    { icon: User, label: 'Man' },
-    { icon: User2, label: 'Man' },
-    { icon: Smile, label: 'Shirts' },
-    { icon: Book, label: 'Children' },
-    { icon: ShoppingCart, label: 'women' },
-    { icon: Shirt, label: 'Man' },
-  ];
+  if (items.length === 0) {
+    return (
+      <div className="bg-background text-foreground min-h-screen flex flex-col">
+        <header className="p-4 flex items-center gap-4 border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
+          <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
+            <ChevronLeft />
+          </Button>
+          <h1 className="text-lg font-semibold">{translations.cart.yourCart}</h1>
+        </header>
+        <main className="flex-grow flex flex-col justify-center items-center text-center p-6">
+          <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+            <ShoppingBag className="w-12 h-12 text-primary" />
+          </div>
+          <h2 className="text-xl font-bold mb-1">{translations.cart.emptyTitle}</h2>
+          <p className="text-muted-foreground mb-6">{translations.cart.emptySubtitle}</p>
+          <Link href="/">
+            <Button>{translations.cart.browseServices}</Button>
+          </Link>
+        </main>
+      </div>
+    );
+  }
 
   return (
-    <div className="bg-background text-foreground min-h-screen">
-      <header className="p-4 bg-background sticky top-0 z-50 border-b border-border">
-        <div className="flex items-center gap-4">
-            <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
-              <ChevronLeft />
-            </Button>
-          <div className="relative flex-grow">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-            <input
-              type="text"
-              placeholder={translations.cart.searchPlaceholder}
-              className="w-full bg-input rounded-full pl-10 pr-16 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
-              <X
-                className="w-5 h-5 text-muted-foreground cursor-pointer"
-              />
-              <div className="w-px h-5 bg-border"></div>
-              <Mic
-                className="w-5 h-5 text-muted-foreground cursor-pointer"
-              />
-            </div>
-          </div>
-        </div>
+    <div className="bg-background text-foreground min-h-screen flex flex-col">
+      <header className="p-4 flex items-center gap-4 border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
+        <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
+          <ChevronLeft />
+        </Button>
+        <h1 className="text-lg font-semibold">{translations.cart.yourCart} ({items.length})</h1>
       </header>
 
-      <main className="p-4">
-        <Card className="flex overflow-hidden rounded-lg mb-6">
-          <div className="w-1/2 bg-[#E4C0E5] p-4 flex flex-col justify-center items-center text-center">
-            <h2 className="text-black font-bold text-xl">{translations.cart.blackFriday}</h2>
-            <p className="text-black text-sm">{translations.cart.discountsAvailable}</p>
-          </div>
-          <div className="w-1/2">
-            {shoppingWomanImage && (
-              <Image
-                src={shoppingWomanImage.imageUrl}
-                alt={shoppingWomanImage.description}
-                width={300}
-                height={300}
-                className="object-cover w-full h-full"
-                data-ai-hint={shoppingWomanImage.imageHint}
-              />
-            )}
-          </div>
-        </Card>
-        <div className="flex justify-center items-center gap-2 mb-6">
-            <div className="w-5 h-1 bg-primary rounded-full"></div>
-            <div className="w-2 h-1 bg-gray-400 rounded-full"></div>
-            <div className="w-2 h-1 bg-gray-400 rounded-full"></div>
-            <div className="w-2 h-1 bg-gray-400 rounded-full"></div>
-        </div>
-
-        <div className="mb-6">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-bold">{translations.cart.categories}</h2>
-            <Button variant="link" className="text-primary">{translations.cart.seeAll}</Button>
-          </div>
-          <div className="grid grid-cols-6 gap-2 text-center">
-            {categories.map((category, index) => (
-              <div key={index} className="flex flex-col items-center gap-1">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <category.icon className="w-6 h-6 text-primary" />
-                </div>
-                <span className="text-xs text-muted-foreground">{category.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="mb-6">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-bold">{translations.cart.popularProducts}</h2>
-             <Button variant="link" className="text-primary">{translations.cart.seeAll}</Button>
-          </div>
-          <div className="flex overflow-x-auto gap-4 pb-4">
-            {popularProducts.map((product) => (
-              <div key={product.id} className="flex flex-col items-center shrink-0 w-24">
-                <Image
-                  src={product.imageUrl}
-                  alt={product.description}
-                  width={100}
-                  height={100}
-                  className="object-contain w-24 h-24 rounded-lg mb-2"
-                  data-ai-hint={product.imageHint}
-                />
-                <span className="text-sm text-center truncate w-full">{product.description}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          {productGrid.map((product) => (
-            <Card key={product.id} className="overflow-hidden rounded-lg">
-                <Image
-                  src={product.imageUrl}
-                  alt={product.description}
-                  width={200}
-                  height={200}
-                  className="object-cover w-full aspect-square"
-                  data-ai-hint={product.imageHint}
-                />
-            </Card>
-          ))}
-        </div>
+      <main className="flex-grow p-4 space-y-4 pb-32">
+        {items.map((item) => (
+          <CartItemCard key={item.id} item={item} />
+        ))}
       </main>
+      
+      <footer className="fixed bottom-0 left-0 right-0 bg-card border-t p-4 z-10 space-y-4">
+          <h2 className="text-lg font-bold">{translations.cart.paymentSummary}</h2>
+          <div className="space-y-2 text-sm">
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">{translations.cart.itemTotal}</span>
+              <span>₹{total.toLocaleString()}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">{translations.cart.taxesFees}</span>
+              <span>₹{(total * 0.1).toLocaleString()}</span>
+            </div>
+          </div>
+          <Separator />
+          <div className="flex justify-between font-bold text-lg">
+            <span>{translations.cart.toPay}</span>
+            <span>₹{(total * 1.1).toLocaleString()}</span>
+          </div>
+        <Button size="lg" className="w-full h-12 text-base">
+          {translations.cart.checkout}
+        </Button>
+      </footer>
     </div>
   );
 }

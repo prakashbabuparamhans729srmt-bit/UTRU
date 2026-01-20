@@ -24,11 +24,14 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useLanguage } from '@/context/LanguageContext';
 import FloatingActionButton from '@/components/FloatingActionButton';
-import ProductGrid from '@/components/ProductGrid';
 import { mainFooterNavLinks, homeCategoryLinks } from '@/lib/navigation.tsx';
 import Autoplay from 'embla-carousel-autoplay';
 import { Card } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useCart } from '@/context/CartContext';
+import { Badge } from '@/components/ui/badge';
+import ServiceGrid from '@/components/ServiceGrid';
+import { servicesData } from '@/lib/services';
 
 
 export default function Home() {
@@ -36,6 +39,9 @@ export default function Home() {
   const pathname = usePathname();
   const [searchQuery, setSearchQuery] = useState('');
   const { translations } = useLanguage();
+  const { items: cartItems } = useCart();
+  const featuredServices = servicesData.filter(s => ['cleaning-deep-cleaning', 'beauty-salon', 'electronics-ac-repair', 'car-full-service'].includes(s.id));
+
 
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -47,7 +53,6 @@ export default function Home() {
   const carouselImages = PlaceHolderImages.filter(img => 
     img.id === 'city-night' || img.id === 'product-collage'
   );
-  const products = PlaceHolderImages.filter(img => img.id.startsWith('product-'));
   
   const plugin = React.useRef(
     Autoplay({ delay: 4000, stopOnInteraction: true })
@@ -101,8 +106,13 @@ export default function Home() {
               />
             </div>
           </form>
-          <Link href="/cart">
+          <Link href="/cart" className="relative">
             <ShoppingCart className="w-6 h-6" />
+             {cartItems.length > 0 && (
+                <Badge variant="destructive" className="absolute -top-2 -right-2 h-5 w-5 justify-center rounded-full p-0">
+                    {cartItems.length}
+                </Badge>
+            )}
           </Link>
         </div>
          <Tabs defaultValue="all" className="w-full mt-4">
@@ -150,17 +160,19 @@ export default function Home() {
                 <ShoppingCart className="w-4 h-4 mr-2"/>
                 {translations.home.productBuy}
             </Button>
-             <Button variant="outline" className="rounded-full">
+             <Button variant="outline" className="rounded-full" onClick={() => router.push('/more')}>
                 <LayoutGrid className="w-4 h-4 mr-2"/>
                 {translations.home.category}
             </Button>
         </div>
 
         <div className="px-4 mb-4">
-          <h2 className="text-xl font-bold">{translations.home.popularProducts}</h2>
+          <h2 className="text-xl font-bold">Featured Services</h2>
         </div>
 
-        <ProductGrid products={products} />
+        <div className='px-4'>
+            <ServiceGrid services={featuredServices} />
+        </div>
       </main>
 
       <FloatingActionButton />

@@ -18,6 +18,8 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/context/LanguageContext';
 import ProductGrid from '@/components/ProductGrid';
+import { useCart } from '@/context/CartContext';
+import { Badge } from '@/components/ui/badge';
 
 
 function SearchResults() {
@@ -29,6 +31,7 @@ function SearchResults() {
     ImagePlaceholder[]
   >([]);
   const { translations } = useLanguage();
+  const { items: cartItems } = useCart();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -80,8 +83,13 @@ function SearchResults() {
               <Mic className="w-5 h-5 text-muted-foreground cursor-pointer" />
             </div>
           </form>
-          <Link href="/cart">
+          <Link href="/cart" className="relative">
             <ShoppingCart className="w-6 h-6" />
+             {cartItems.length > 0 && (
+                <Badge variant="destructive" className="absolute -top-2 -right-2 h-5 w-5 justify-center rounded-full p-0">
+                    {cartItems.length}
+                </Badge>
+            )}
           </Link>
         </div>
       </header>

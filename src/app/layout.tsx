@@ -1,4 +1,3 @@
-
 'use client';
 
 import './globals.css';
@@ -7,6 +6,7 @@ import { LanguageProvider } from '@/context/LanguageContext';
 import { ThemeProvider } from '@/context/ThemeContext';
 import { FirebaseClientProvider } from '@/firebase';
 import { AuthUIProvider } from '@/firebase/auth/auth-ui-provider';
+import { CartProvider } from '@/context/CartContext';
 
 export default function RootLayout({
   children,
@@ -20,8 +20,10 @@ export default function RootLayout({
           <LanguageProvider>
             <FirebaseClientProvider>
               <AuthUIProvider>
-                {children}
-                <Toaster />
+                <CartProvider>
+                  {children}
+                  <Toaster />
+                </CartProvider>
               </AuthUIProvider>
             </FirebaseClientProvider>
           </LanguageProvider>

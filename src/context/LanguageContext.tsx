@@ -44,6 +44,15 @@ interface Translations {
         categories: string;
         seeAll: string;
         popularProducts: string;
+        yourCart: string;
+        emptyTitle: string;
+        emptySubtitle: string;
+        browseServices: string;
+        paymentSummary: string;
+        itemTotal: string;
+        taxesFees: string;
+        toPay: string;
+        checkout: string;
     },
     home: {
         searchPlaceholder: string;
@@ -183,8 +192,8 @@ interface Translations {
     },
     support: {
         title: string;
-        aiChatbot: string;
-        webLink: string;
+aiChatbot: string;
+webLink: string;
     },
     verifyPhone: {
         title: string;
@@ -242,6 +251,15 @@ const translations: Record<string, Translations> = {
             categories: 'Categories',
             seeAll: 'See all',
             popularProducts: 'Popular products',
+            yourCart: 'Your Cart',
+            emptyTitle: 'Your cart is empty',
+            emptySubtitle: "Looks like you haven't added any services yet.",
+            browseServices: 'Browse Services',
+            paymentSummary: 'Payment Summary',
+            itemTotal: 'Item Total',
+            taxesFees: 'Taxes & Fees',
+            toPay: 'To Pay',
+            checkout: 'Proceed to Checkout',
         },
         home: {
             searchPlaceholder: 'Search for services, e.g. Plumber...',
@@ -437,6 +455,15 @@ webLink: 'Web Link',
             categories: 'श्रेणियाँ',
             seeAll: 'सभी देखें',
             popularProducts: 'लोकप्रिय उत्पाद',
+            yourCart: 'आपकी कार्ट',
+            emptyTitle: 'आपकी कार्ट खाली है',
+            emptySubtitle: 'लगता है आपने अभी तक कोई सेवा नहीं जोड़ी है।',
+            browseServices: 'सेवाएं ब्राउज़ करें',
+            paymentSummary: 'भुगतान सारांश',
+            itemTotal: 'कुल आइटम',
+            taxesFees: 'कर और शुल्क',
+            toPay: 'भुगतान करना है',
+            checkout: 'चेकआउट के लिए आगे बढ़ें',
         },
         home: {
             searchPlaceholder: 'सेवाओं के लिए खोजें, जैसे प्लंबर...',
@@ -632,6 +659,15 @@ webLink: 'Web Link',
             categories: 'श्रेणी',
             seeAll: 'सब देखीं',
             popularProducts: 'लोकप्रिय उत्पाद',
+            yourCart: 'रउआ कार्ट',
+            emptyTitle: 'रउआ कार्ट खाली बा',
+            emptySubtitle: 'लागता कि रउआ अबहीं तक कवनो सेवा नइखीं जोड़ले।',
+            browseServices: 'सेवा खोजीं',
+            paymentSummary: 'भुगतान सारांश',
+            itemTotal: 'कुल आइटम',
+            taxesFees: 'टैक्स आ फीस',
+            toPay: 'भुगतान करे के बा',
+            checkout: 'चेकआउट खातिर आगे बढ़ीं',
         },
         home: {
             searchPlaceholder: 'सेवा खातिर खोजीं, जइसे प्लंबर...',
@@ -827,6 +863,15 @@ webLink: 'Web Link',
             categories: 'श्रेणी',
             seeAll: 'सर्व पहा',
             popularProducts: 'लोकप्रिय उत्पादने',
+            yourCart: 'तुमची कार्ट',
+            emptyTitle: 'तुमची कार्ट रिकामी आहे',
+            emptySubtitle: 'असे दिसते की तुम्ही अद्याप कोणत्याही सेवा जोडलेल्या नाहीत.',
+            browseServices: 'सेवा ब्राउझ करा',
+            paymentSummary: 'पेमेंट सारांश',
+            itemTotal: 'एकूण आयटम',
+            taxesFees: 'कर आणि शुल्क',
+            toPay: 'देय रक्कम',
+            checkout: 'चेकआउट करण्यासाठी पुढे जा',
         },
         home: {
             searchPlaceholder: 'सेवा शोधा, उदा. प्लंबर...',

@@ -13,6 +13,8 @@ import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
+import { useCart } from '@/context/CartContext';
+import { useToast } from '@/hooks/use-toast';
 
 const timeSlots = [
   '09:00 AM - 11:00 AM',
@@ -30,9 +32,37 @@ export default function ServicePage({ params }: { params: { serviceId: string } 
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
   const [selectedTime, setSelectedTime] = useState<string | null>(timeSlots[1]);
 
+  const { addToCart } = useCart();
+  const { toast } = useToast();
+
   if (!service) {
     notFound();
   }
+
+  const handleAddToCart = () => {
+    if (!selectedDate || !selectedTime || !serviceImage) {
+      toast({
+        variant: 'destructive',
+        title: 'Selection required',
+        description: 'Please select a date and time slot.',
+      });
+      return;
+    }
+
+    addToCart({
+      ...service,
+      imageUrl: serviceImage.imageUrl,
+      selectedDate,
+      selectedTime,
+    });
+
+    toast({
+      title: 'Service added to cart!',
+      description: `${service.name} has been added to your cart.`,
+    });
+    
+    router.push('/cart');
+  };
 
   return (
     <div className="bg-background text-foreground min-h-screen">
@@ -49,8 +79,8 @@ export default function ServicePage({ params }: { params: { serviceId: string } 
             <Image
               src={serviceImage.imageUrl}
               alt={service.name}
-              layout="fill"
-              objectFit="cover"
+              fill
+              className="object-cover"
               data-ai-hint={serviceImage.imageHint}
             />
           </div>
@@ -150,7 +180,7 @@ export default function ServicePage({ params }: { params: { serviceId: string } 
                 <p className="text-xl font-bold">₹{service.price.toLocaleString()}</p>
                 <p className="text-xs text-primary underline cursor-pointer">View details</p>
             </div>
-          <Button size="lg" className="rounded-md">Add to Cart</Button>
+          <Button size="lg" className="rounded-md" onClick={handleAddToCart}>Add to Cart</Button>
         </div>
       </footer>
     </div>
