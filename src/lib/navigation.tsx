@@ -186,7 +186,7 @@ import {
       { icon: BookUser, text: 'Address book', href: '/address', labelKey: 'addressBook' },
       { icon: Star, text: 'Plus membership', href: '/plus-membership', labelKey: 'plusMembership' },
       { icon: Star, text: 'My rating', href: '#', labelKey: 'myRating' },
-      { icon: Settings, text: 'Setting', href: '/settings', labelKey: 'setting' },
+      { icon: Star, text: 'Setting', href: '/settings', labelKey: 'setting' },
   ];
   
   export const profileOtherInfoLinks = [
