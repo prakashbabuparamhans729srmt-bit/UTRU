@@ -7,6 +7,9 @@ import {
   ChevronRight,
   Loader2,
   LogOut,
+  Moon,
+  Star,
+  Sun,
 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -19,6 +22,8 @@ import { useToast } from '@/hooks/use-toast';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Card } from '@/components/ui/card';
+import { useTheme } from '@/context/ThemeContext';
+import { cn } from '@/lib/utils';
 
 export default function ProfilePage() {
   const { toast } = useToast();
@@ -26,6 +31,7 @@ export default function ProfilePage() {
   const { translations } = useLanguage();
   const { user, loading: userLoading } = useUser();
   const { signOut, isPending: signOutPending } = useAuthUI();
+  const { theme, toggleTheme } = useTheme();
   const referCarImage = PlaceHolderImages.find(img => img.id === 'refer-car');
   
   const settingLink = profileMenuItems.find(link => link.labelKey === 'setting');
@@ -172,6 +178,7 @@ export default function ProfilePage() {
                 <Image 
                     src={referCarImage.imageUrl}
                     alt={referCarImage.description}
+                    data-ai-hint={referCarImage.imageHint}
                     width={120}
                     height={60}
                     className="object-contain"
@@ -185,6 +192,40 @@ export default function ProfilePage() {
                 </div>
             </Card>
         )}
+
+        <div className="mt-8 flex items-center justify-center space-x-4">
+            <Button
+                onClick={() => { if (theme === 'dark') toggleTheme(); }}
+                variant='outline'
+                className={cn(
+                    'rounded-full px-5 py-2 flex items-center gap-2',
+                    theme === 'light' 
+                    ? 'bg-gray-700 text-white border-gray-700' 
+                    : 'border-gray-300 text-gray-500'
+                )}
+            >
+                <Sun className="h-4 w-4" />
+                {translations.profile.lightMode}
+            </Button>
+            <Button
+                onClick={() => { if (theme === 'light') toggleTheme(); }}
+                variant='outline'
+                className={cn(
+                    'rounded-full px-5 py-2 flex items-center gap-2',
+                    theme === 'dark' 
+                    ? 'bg-gray-700 text-white border-gray-700' 
+                    : 'border-gray-300 text-gray-500'
+                )}
+            >
+                <Moon className="h-4 w-4" />
+                {translations.profile.darkMode}
+            </Button>
+        </div>
+
+        <div className="text-center text-gray-500 text-sm pt-6 pb-2">
+            <p>{translations.profile.appVersions}</p>
+            <p>0.2</p>
+        </div>
       </main>
     </div>
   );
