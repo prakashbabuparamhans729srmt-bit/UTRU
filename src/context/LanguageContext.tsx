@@ -169,6 +169,12 @@ interface Translations {
         darkMode: string;
         appVersions: string;
     },
+    refer: {
+        title: string;
+        subtitle: string;
+        code: string;
+        share: string;
+    },
     search: {
         searchPlaceholder: string;
         resultsFor: string;
@@ -361,6 +367,12 @@ const translations: Record<string, Translations> = {
             darkMode: 'Dark Mode',
             appVersions: 'App Versions',
         },
+        refer: {
+            title: 'Refer & Earn',
+            subtitle: 'Share your code with friends and get rewards!',
+            code: 'Your Code',
+            share: 'Share Now'
+        },
         search: {
             searchPlaceholder: 'Search for...',
             resultsFor: 'Results for',
@@ -549,6 +561,12 @@ webLink: 'Web Link',
             lightMode: 'लाइट मोड',
             darkMode: 'डार्क मोड',
             appVersions: 'ऐप संस्करण',
+        },
+        refer: {
+            title: 'रेफर करें और कमाएं',
+            subtitle: 'अपना कोड दोस्तों के साथ साझा करें और पुरस्कार पाएं!',
+            code: 'आपका कोड',
+            share: 'अभी साझा करें'
         },
         search: {
             searchPlaceholder: 'के लिए खोजें...',
@@ -739,6 +757,12 @@ webLink: 'Web Link',
             darkMode: 'डार्क मोड',
             appVersions: 'ऐप संस्करण',
         },
+        refer: {
+            title: 'रेफर करीं आ कमाईं',
+            subtitle: 'आपन कोड दोस्त लोग के साथ साझा करीं आ इनाम पाईं!',
+            code: 'रउआ कोड',
+            share: 'अबही साझा करीं'
+        },
         search: {
             searchPlaceholder: 'खातिर खोजीं...',
             resultsFor: 'खातिर परिणाम',
@@ -927,6 +951,12 @@ webLink: 'Web Link',
             lightMode: 'लाइट मोड',
             darkMode: 'डार्क मोड',
             appVersions: 'अॅप आवृत्त्या',
+        },
+        refer: {
+            title: 'रेफर करा आणि कमवा',
+            subtitle: 'तुमचा कोड मित्रांसह सामायिक करा आणि बक्षिसे मिळवा!',
+            code: 'तुमचा कोड',
+            share: 'आता सामायिक करा'
         },
         search: {
             searchPlaceholder: 'साठी शोधा...',

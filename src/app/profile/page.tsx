@@ -7,6 +7,8 @@ import {
   ChevronLeft,
   ChevronRight,
   Loader2,
+  Moon,
+  Sun,
 } from 'lucide-react';
 import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
@@ -17,6 +19,7 @@ import { useAuthUI } from '@/firebase/auth/use-auth-ui';
 import { profileHeaderLinks, profileMenuItems, profileOtherInfoLinks } from '@/lib/navigation.tsx';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Card } from '@/components/ui/card';
+import { useTheme } from '@/context/ThemeContext';
 
 export default function ProfilePage() {
   const { toast } = useToast();
@@ -24,6 +27,7 @@ export default function ProfilePage() {
   const { translations } = useLanguage();
   const { user, loading: userLoading } = useUser();
   const { signOut, isPending: signOutPending } = useAuthUI();
+  const { theme, toggleTheme } = useTheme();
 
   const handleShare = async () => {
     if (navigator.share) {
@@ -83,7 +87,7 @@ export default function ProfilePage() {
                             <AvatarImage src="https://picsum.photos/seed/user-profile/100/100" />
                         )}
                         <AvatarFallback className='text-4xl bg-gray-700 text-gray-400'>
-                           U
+                           {user?.displayName?.charAt(0) || user?.email?.charAt(0) || 'U'}
                         </AvatarFallback>
                     </>
                 )}
@@ -141,6 +145,23 @@ export default function ProfilePage() {
             ))}
         </div>
 
+        <Card className="my-6 p-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white">
+          <div className="flex justify-between items-center">
+            <div>
+              <h3 className="font-bold text-lg">{translations.profile.referEarn}</h3>
+              <p className="text-xs opacity-90">{translations.profile.referEarnDescription}</p>
+            </div>
+            <div className="text-center">
+              <p className="text-xs font-semibold">{translations.profile.hurryUp}</p>
+              <Link href="/refer">
+                <Button variant="secondary" size="sm" className="mt-1 bg-white/20 hover:bg-white/30 text-white">
+                  {translations.profile.referNow}
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </Card>
+
         <div className="mt-6">
             <h3 className="text-muted-foreground text-sm font-bold tracking-wider mb-2 px-1">
                 {translations.profile.otherInfo}
@@ -148,12 +169,12 @@ export default function ProfilePage() {
             <div className='divide-y divide-border'>
             {profileOtherInfoLinks.map((item, index) => {
               if (item.labelKey === 'logOut') {
-                 if (!user) return null;
+                 if (!user && !userLoading) return null;
                  return (
                     <button
                       key={index}
                       onClick={handleSignOut}
-                      disabled={signOutPending}
+                      disabled={signOutPending || userLoading}
                       className="w-full flex items-center justify-between py-4 cursor-pointer group disabled:opacity-50 text-left"
                     >
                         <div className='flex items-center gap-4'>
@@ -198,6 +219,17 @@ export default function ProfilePage() {
             )})}
             </div>
         </div>
+
+        <Card className="my-6 p-4 flex justify-between items-center">
+            <span className="font-medium">{theme === 'light' ? translations.profile.lightMode : translations.profile.darkMode}</span>
+            <button onClick={toggleTheme} className="p-2 rounded-full bg-muted">
+                {theme === 'light' ? <Moon className="w-5 h-5 text-muted-foreground" /> : <Sun className="w-5 h-5 text-muted-foreground" />}
+            </button>
+        </Card>
+
+        <p className="text-center text-xs text-muted-foreground mt-8">
+            {translations.profile.appVersions} 1.0.0
+        </p>
       </main>
     </div>
   );
