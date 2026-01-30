@@ -1,21 +1,23 @@
-
 'use client';
 
 import { notFound, useRouter } from 'next/navigation';
-import { servicesData } from '@/lib/services';
+import { servicesData, Service } from '@/lib/services';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { ChevronLeft, MapPin, Star, Clock, Check } from 'lucide-react';
+import { ChevronLeft, MoreHorizontal, Check } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Separator } from '@/components/ui/separator';
-import { Calendar } from '@/components/ui/calendar';
-import { useState } from 'react';
-import { Card } from '@/components/ui/card';
+import { useState, useEffect } from 'react';
+import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { useCart } from '@/context/CartContext';
 import { useToast } from '@/hooks/use-toast';
+import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from '@/components/ui/dialog';
+import { Separator } from '@/components/ui/separator';
+import { Calendar } from '@/components/ui/calendar';
 
+const filterChips = ["Details", "Packages", "Offers", "Gallery"];
 const timeSlots = [
   '09:00 AM - 11:00 AM',
   '11:00 AM - 01:00 PM',
@@ -27,7 +29,9 @@ const timeSlots = [
 export default function ServicePage({ params }: { params: { serviceId: string } }) {
   const router = useRouter();
   const service = servicesData.find((s) => s.id === params.serviceId);
-  const serviceImage = PlaceHolderImages.find((img) => img.id === params.serviceId);
+  
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => setIsClient(true), []);
 
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
   const [selectedTime, setSelectedTime] = useState<string | null>(timeSlots[1]);
@@ -38,13 +42,17 @@ export default function ServicePage({ params }: { params: { serviceId: string } 
   if (!service) {
     notFound();
   }
+  
+  const serviceImage = PlaceHolderImages.find((img) => img.id === params.serviceId);
+  const checklistImages = PlaceHolderImages.filter(img => img.imageHint.includes('cleaning') || img.imageHint.includes('tools')).slice(0, service.checklist.length);
+
 
   const handleAddToCart = () => {
     if (!selectedDate || !selectedTime || !serviceImage) {
       toast({
         variant: 'destructive',
         title: 'Selection required',
-        description: 'Please select a date and time slot.',
+        description: 'Please select a date and time slot inside the booking dialog.',
       });
       return;
     }
@@ -63,115 +71,83 @@ export default function ServicePage({ params }: { params: { serviceId: string } 
     
     router.push('/cart');
   };
+  
+  if (!isClient) {
+      return <div className="min-h-screen bg-gray-900" />;
+  }
 
   return (
-    <div className="bg-background text-foreground min-h-screen">
-      <header className="p-4 flex items-center gap-4 border-b sticky top-0 bg-background/80 backdrop-blur-sm z-20">
-        <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
+    <div className="min-h-screen bg-gray-900 text-white">
+      <header className="p-4 flex items-center gap-4 sticky top-0 bg-gray-900/80 backdrop-blur-sm z-20">
+        <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-gray-800 hover:bg-gray-700">
           <ChevronLeft />
         </Button>
-        <h1 className="text-lg font-semibold truncate">{service.name}</h1>
       </header>
 
       <main className="pb-24">
-        {serviceImage && (
-          <div className="relative h-48 w-full">
-            <Image
-              src={serviceImage.imageUrl}
-              alt={service.name}
-              fill
-              className="object-cover"
-              data-ai-hint={serviceImage.imageHint}
-            />
-          </div>
-        )}
-
-        <div className="p-4 space-y-4">
-          <h2 className="text-2xl font-bold">{service.name}</h2>
-          
-          <div className="flex items-center gap-4 text-muted-foreground text-sm">
-            <div className="flex items-center gap-1 text-amber-500">
-              <Star className="w-4 h-4 fill-current" />
-              <span>{service.rating} ({service.reviews} reviews)</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <Clock className="w-4 h-4" />
-              <span>{service.duration}</span>
-            </div>
-          </div>
-
-          <p className="text-muted-foreground">{service.description}</p>
-        </div>
-
-        <Separator />
-
-        <div className="p-4">
-            <h3 className="text-lg font-semibold mb-3">What's Included</h3>
-            <ul className="space-y-2">
-                {service.checklist.map((item, index) => (
-                    <li key={index} className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-green-500 mt-1 shrink-0" />
-                        <span className="text-muted-foreground">{item}</span>
-                    </li>
-                ))}
-            </ul>
-        </div>
-
-        <Separator />
-
-        <div className="p-4">
-            <h3 className="text-lg font-semibold mb-3">Choose Address</h3>
-             <Card className="p-4">
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                    <MapPin className="w-5 h-5 text-primary" />
-                    <div>
-                        <p className="font-semibold">Home</p>
-                        <p className="text-xs text-muted-foreground">Khasra No 206, Sector 141, Noida</p>
-                    </div>
-                    </div>
-                    <Button variant="outline" size="sm" onClick={() => router.push('/address')}>Change</Button>
-                </div>
-            </Card>
-        </div>
-
-        <Separator />
-
-         <div className="p-4">
-            <h3 className="text-lg font-semibold mb-3">
-                Select Date & Time Slot
-            </h3>
-            <p className="text-sm text-muted-foreground mb-4">
-                Selected: {selectedDate ? format(selectedDate, 'PPP') : 'No date'} at {selectedTime || 'No time'}
-            </p>
-             <Card className="flex flex-col md:flex-row">
-                <div className="p-2 flex justify-center">
-                    <Calendar
-                        mode="single"
-                        selected={selectedDate}
-                        onSelect={setSelectedDate}
-                        disabled={(date) => date < new Date(new Date().setDate(new Date().getDate() - 1))}
-                        className="rounded-md"
+        {/* Top Carousel using service image */}
+        <Carousel className="w-full mb-6" opts={{ loop: false }}>
+          <CarouselContent className="-ml-2">
+            {[service, ...servicesData.filter(s => s.category === service.category && s.id !== service.id).slice(0,2)].map((item) => {
+              const image = PlaceHolderImages.find(img => img.id === item.id);
+              return (
+              <CarouselItem key={item.id} className="pl-4 basis-2/3">
+                <Card className="overflow-hidden rounded-2xl bg-gray-800 border-gray-700 text-white">
+                  <CardContent className="p-0">
+                    <Image
+                      src={image?.imageUrl || `https://picsum.photos/seed/${item.id}/400/300`}
+                      alt={item.name}
+                      width={400}
+                      height={300}
+                      className="object-cover w-full aspect-[4/3]"
                     />
-                </div>
-                 <div className="flex-1 p-4 border-t md:border-t-0 md:border-l">
-                    <h4 className="font-semibold mb-4">Available Slots</h4>
-                    <div className="grid grid-cols-2 gap-2">
-                        {timeSlots.map((slot) => (
-                            <Button 
-                                key={slot}
-                                variant={selectedTime === slot ? "default" : "outline"}
-                                className={cn("w-full justify-center", selectedTime === slot && "bg-primary text-primary-foreground")}
-                                onClick={() => setSelectedTime(slot)}
-                            >
-                                {slot}
-                            </Button>
-                        ))}
+                    <div className="p-3">
+                      <h3 className="font-semibold truncate">{item.name}</h3>
+                      <p className="text-xs text-gray-400 mt-1">By Pro Services</p>
                     </div>
-                </div>
-            </Card>
-        </div>
+                  </CardContent>
+                </Card>
+              </CarouselItem>
+            )})}
+          </CarouselContent>
+        </Carousel>
 
+        {/* Filter Chips */}
+        <div className="px-4 mb-6">
+            <div className="flex gap-2 overflow-x-auto pb-2 -mx-4 px-4" style={{ scrollbarWidth: 'none' }}>
+                {filterChips.map((chip, index) => (
+                    <Button key={index} variant={index === 0 ? "default" : "secondary"} className={cn(
+                        "rounded-full whitespace-nowrap",
+                        index === 0 ? "bg-primary text-primary-foreground" : "bg-gray-700 text-white hover:bg-gray-600"
+                    )}>
+                        {chip}
+                    </Button>
+                ))}
+            </div>
+        </div>
+        
+        {/* "What's Included" List styled as "Popular Today" */}
+        <div className="px-4 space-y-4">
+            <h2 className="text-lg font-semibold text-gray-400">What&apos;s Included</h2>
+            {service.checklist.map((item, index) => (
+                 <div key={index} className="flex items-center gap-4">
+                    <Image 
+                        src={checklistImages[index]?.imageUrl || `https://picsum.photos/seed/${item}/100/100`}
+                        alt={item}
+                        width={80}
+                        height={80}
+                        className="rounded-2xl object-cover aspect-square"
+                    />
+                    <div className="flex-grow">
+                        <h3 className="font-semibold leading-tight">{item}</h3>
+                        <p className="text-xs text-gray-400 mt-1">Professional equipment used</p>
+                    </div>
+                    <Button variant="ghost" size="icon" className="text-gray-400">
+                        <Check className="text-primary"/>
+                    </Button>
+                </div>
+            ))}
+        </div>
       </main>
 
       <footer className="fixed bottom-0 left-0 right-0 bg-card border-t p-3 z-10">
@@ -180,7 +156,51 @@ export default function ServicePage({ params }: { params: { serviceId: string } 
                 <p className="text-xl font-bold">₹{service.price.toLocaleString()}</p>
                 <p className="text-xs text-primary underline cursor-pointer">View details</p>
             </div>
-          <Button size="lg" className="rounded-md" onClick={handleAddToCart}>Add to Cart</Button>
+            <Dialog>
+                <DialogTrigger asChild>
+                    <Button size="lg" className="rounded-md">Add to Cart</Button>
+                </DialogTrigger>
+                <DialogContent className="bg-background text-foreground max-w-sm">
+                    <DialogHeader>
+                        <DialogTitle>Select Date & Time</DialogTitle>
+                    </DialogHeader>
+                    <div className="py-4">
+                        <p className="text-center text-sm text-muted-foreground mb-4">
+                            Selected: {selectedDate ? format(selectedDate, 'PPP') : 'No date'} at {selectedTime || 'No time'}
+                        </p>
+                        <div className="flex flex-col items-center">
+                            <Calendar
+                                mode="single"
+                                selected={selectedDate}
+                                onSelect={setSelectedDate}
+                                disabled={(date) => date < new Date(new Date().setDate(new Date().getDate() - 1))}
+                                className="rounded-md border"
+                            />
+                             <Separator className="my-4" />
+                            <div className="w-full px-4">
+                                <h4 className="font-semibold mb-2 text-center">Available Slots</h4>
+                                <div className="grid grid-cols-2 gap-2">
+                                    {timeSlots.map((slot) => (
+                                        <Button 
+                                            key={slot}
+                                            variant={selectedTime === slot ? "default" : "outline"}
+                                            className="w-full justify-center"
+                                            onClick={() => setSelectedTime(slot)}
+                                        >
+                                            {slot}
+                                        </Button>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <DialogClose asChild>
+                       <Button size="lg" className="w-full" onClick={handleAddToCart} disabled={!selectedDate || !selectedTime}>
+                            Confirm & Add to Cart
+                        </Button>
+                    </DialogClose>
+                </DialogContent>
+            </Dialog>
         </div>
       </footer>
     </div>
