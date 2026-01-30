@@ -79,12 +79,12 @@ export default function Home() {
             </Link>
           </div>
           <div className="flex items-center gap-4">
-            <button onClick={() => setIsSidebarOpen(true)}>
+            <Link href="/profile">
               <Avatar>
                 <AvatarImage src="https://picsum.photos/seed/avatar/40/40" />
                 <AvatarFallback>U</AvatarFallback>
               </Avatar>
-            </button>
+            </Link>
           </div>
         </div>
         <div className="flex items-center gap-4">
