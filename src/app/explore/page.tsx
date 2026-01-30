@@ -76,8 +76,9 @@ export default function ExplorePage() {
                   <div key={index} className="-mt-8">
                     <Link href={link.href}>
                         <div className={cn(
-                            "flex items-center justify-center w-16 h-16 rounded-full bg-gray-500 shadow-lg border-4 border-gray-900",
+                            "flex items-center justify-center w-16 h-16 rounded-full bg-primary text-primary-foreground shadow-lg border-4 border-gray-900",
                         )}>
+                           <link.icon className="w-8 h-8" />
                         </div>
                     </Link>
                   </div>
@@ -86,11 +87,11 @@ export default function ExplorePage() {
               return (
                 <Link key={index} href={link.href} className={cn(
                     "flex flex-col items-center justify-center gap-1 h-auto p-2 rounded-md transition-colors w-16", 
-                    isActive ? 'text-white' : 'text-muted-foreground hover:text-white'
+                    isActive ? 'text-primary' : 'text-muted-foreground hover:text-primary'
                   )}>
                   <link.icon className="w-6 h-6" />
                   <span className={cn("text-xs", isActive ? 'font-bold' : 'font-semibold')}>
-                    {(translations.home as any)[link.labelKey] || ''}
+                    {(translations.home as any)[link.labelKey] || (translations.location as any)[link.labelKey] || ''}
                     </span>
                 </Link>
               )

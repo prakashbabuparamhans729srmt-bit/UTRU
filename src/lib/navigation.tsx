@@ -147,9 +147,10 @@ import {
   // For src/app/page.tsx, src/app/location/* pages
   export const mainFooterNavLinks = [
     { href: '/', icon: HomeIcon, labelKey: 'home' },
-    { href: '/my-plans', icon: ClipboardList, labelKey: 'bookings' },
-    { href: '/chatbot', icon: MessageSquare, labelKey: 'chat', isCentral: true },
-    { href: '/profile', icon: User, labelKey: 'profile' },
+    { href: '/library', icon: BookCopy, labelKey: 'library' },
+    { href: '/explore-action', icon: LayoutGrid, labelKey: 'central', isCentral: true },
+    { href: '/explore', icon: PlaySquare, labelKey: 'explore' },
+    { href: '/opinion', icon: LayoutGrid, labelKey: 'opinion' },
   ];
   
   // For src/app/page.tsx
@@ -241,5 +242,3 @@ import {
     { icon: Settings, text: 'Settings', href: '/settings', labelKey: 'setting' },
   ];
     
-
-
