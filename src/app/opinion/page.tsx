@@ -1,11 +1,9 @@
-
 'use client';
 
 import {
   Search,
   X,
   MapPin,
-  Phone,
   Mic,
   SlidersHorizontal,
 } from 'lucide-react';
@@ -58,10 +56,6 @@ export default function OpinionPage() {
                 </Link>
             </div>
           </div>
-          <Button className="bg-destructive hover:bg-destructive/90 text-destructive-foreground rounded-2xl flex flex-col h-auto px-3 py-1.5 items-center">
-            <Phone className="w-5 h-5" />
-            <span className="text-xs font-semibold">{translations.location.emergency}</span>
-          </Button>
         </div>
       </header>
 
