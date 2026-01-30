@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -25,6 +26,25 @@ import { Card } from '@/components/ui/card';
 import { useTheme } from '@/context/ThemeContext';
 import { cn } from '@/lib/utils';
 
+const MyPlansIcon = () => (
+  <div className="w-6 h-6 flex items-center justify-center rounded-sm bg-gray-600 text-white text-xs font-bold">
+    MP
+  </div>
+);
+
+const NotificationBadgeIcon = () => (
+  <div className="w-6 h-6 flex items-center justify-center">
+    <div className="w-5 h-5 rounded-full bg-black text-white flex items-center justify-center text-xs font-bold">1</div>
+  </div>
+);
+
+const iconMap: { [key: string]: React.ElementType } = {
+  myPlans: MyPlansIcon,
+  myRating: NotificationBadgeIcon,
+  setting: NotificationBadgeIcon,
+};
+
+
 export default function ProfilePage() {
   const { toast } = useToast();
   const router = useRouter();
@@ -34,10 +54,6 @@ export default function ProfilePage() {
   const { theme, toggleTheme } = useTheme();
   const referCarImage = PlaceHolderImages.find(img => img.id === 'refer-car');
   
-  const settingLink = profileMenuItems.find(link => link.labelKey === 'setting');
-  const shareLink = profileOtherInfoLinks.find(link => link.labelKey === 'shareApp');
-  const aboutLink = profileOtherInfoLinks.find(link => link.labelKey === 'aboutUs');
-
   const handleSignOut = async () => {
     await signOut();
     toast({
@@ -114,42 +130,35 @@ export default function ProfilePage() {
        </div>
 
       <main className="flex-grow overflow-y-auto bg-white dark:bg-white text-black -mt-12 rounded-t-3xl p-4 space-y-4">
-        {settingLink && (
-            <Link href={settingLink.href} className="flex items-center justify-between py-2 cursor-pointer group">
-            <div className="flex items-center gap-4">
-                <div className="relative">
-                <settingLink.icon className="w-6 h-6 text-gray-500" />
-                <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-black text-white text-xs font-bold">1</span>
-                </div>
-                <span className="font-medium text-gray-800">{translations.profile[settingLink.labelKey as keyof typeof translations.profile]}</span>
-            </div>
-            <ChevronRight className="w-5 h-5 text-gray-400" />
-            </Link>
-        )}
+        <div className='divide-y divide-gray-200'>
+            {profileMenuItems.map((item, index) => {
+                 const Icon = iconMap[item.labelKey as string] || item.icon;
+                 return (
+                    <Link key={item.labelKey} href={item.href} className="flex items-center justify-between py-4 cursor-pointer group">
+                        <div className="flex items-center gap-4">
+                            <Icon className="w-6 h-6 text-gray-500" />
+                            <span className="font-medium text-gray-800">{translations.profile[item.labelKey as keyof typeof translations.profile]}</span>
+                        </div>
+                        <ChevronRight className="w-5 h-5 text-gray-400" />
+                    </Link>
+                 )
+            })}
+        </div>
         
         <div className="space-y-1 pt-4">
           <h3 className="text-gray-500 text-sm font-bold tracking-wider mb-2 px-1 uppercase">
             {translations.profile.otherInfo}
           </h3>
           <div className='divide-y divide-gray-200'>
-            {shareLink && (
-            <Link href={shareLink.href} className="flex items-center justify-between py-4 cursor-pointer group">
-                <div className="flex items-center gap-4">
-                <shareLink.icon className="w-6 h-6 text-gray-500" />
-                <span className="font-medium text-gray-800">{translations.profile[shareLink.labelKey as keyof typeof translations.profile]}</span>
-                </div>
-                <ChevronRight className="w-5 h-5 text-gray-400" />
-            </Link>
-            )}
-            {aboutLink && (
-            <Link href={aboutLink.href} className="flex items-center justify-between py-4 cursor-pointer group">
-                <div className="flex items-center gap-4">
-                <aboutLink.icon className="w-6 h-6 text-gray-500" />
-                <span className="font-medium text-gray-800">{translations.profile[aboutLink.labelKey as keyof typeof translations.profile]}</span>
-                </div>
-                <ChevronRight className="w-5 h-5 text-gray-400" />
-            </Link>
-            )}
+            {profileOtherInfoLinks.map(link => (
+                <Link key={link.labelKey} href={link.href} className="flex items-center justify-between py-4 cursor-pointer group">
+                    <div className="flex items-center gap-4">
+                        <link.icon className="w-6 h-6 text-gray-500" />
+                        <span className="font-medium text-gray-800">{translations.profile[link.labelKey as keyof typeof translations.profile]}</span>
+                    </div>
+                    <ChevronRight className="w-5 h-5 text-gray-400" />
+                </Link>
+            ))}
           </div>
         </div>
 
