@@ -156,7 +156,7 @@ import {
   // For src/app/page.tsx
   export const homeCategoryLinks = [
       { name: 'all', href: '/' },
-      { name: 'electronics', href: '/electronics' },
+      { name: 'electronics', href: '/services/repairs' },
       { name: 'beauty', href: '/beauty' },
       { name: 'kids', href: '/kids' },
       { name: 'gifting', href: '/gifting' },

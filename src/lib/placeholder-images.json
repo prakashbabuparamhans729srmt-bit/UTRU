@@ -503,6 +503,48 @@
       "description": "Metal gate or grill painting.",
       "imageUrl": "https://images.unsplash.com/photo-1606525271282-676a88f90ebf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8bWV0YWwlMjBwYWludGluZ3xlbnwwfHx8fDE3NjgyNzQzNjV8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "metal painting"
+    },
+    {
+      "id": "repairs",
+      "description": "A collection of various repair tools on a wooden background.",
+      "imageUrl": "https://images.unsplash.com/photo-1593323753338-34a5323e421a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx0b29scyUyMHJlcGFpcnxlbnwwfHx8fDE3NjgzMzM1Njh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "tools repair"
+    },
+    {
+      "id": "ac-service-repair",
+      "description": "A technician servicing an air conditioner unit.",
+      "imageUrl": "https://images.unsplash.com/photo-1647221734104-b6ee4509454d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxhYyUyMHJlcGFpcnxlbnwwfHx8fDE3NjgyNDEyNTN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "ac repair"
+    },
+    {
+      "id": "split-ac",
+      "description": "A modern split air conditioner unit mounted on a wall.",
+      "imageUrl": "https://images.unsplash.com/photo-1634511739506-59124e35728f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzbGl0JTIwYWN8ZW58MHx8fHwxNzY4MzMzNTY4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "split ac"
+    },
+    {
+      "id": "window-ac",
+      "description": "A window air conditioner unit seen from outside a building.",
+      "imageUrl": "https://images.unsplash.com/photo-1621909385155-201c750f757f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx3aW5kb3clMjBhY3xlbnwwfHx8fDE3NjgzMzM1Njh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "window ac"
+    },
+    {
+      "id": "foam-jet-service",
+      "description": "Close-up of a technician using a foam jet to clean an AC unit.",
+      "imageUrl": "https://images.unsplash.com/photo-1615362141542-8889a7448398?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxhYyUyMHNlcnZpY2V8ZW58MHx8fHwxNzY4MzMzNTY4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "ac service"
+    },
+    {
+      "id": "gas-charging",
+      "description": "Technician with gauges and equipment charging an AC unit's refrigerant.",
+      "imageUrl": "https://images.unsplash.com/photo-1632789184443-6923c5201103?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhYyUyMGdhc3xlbnwwfHx8fDE3NjgzMzM1Njh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "ac gas"
+    },
+    {
+      "id": "window-ac-cleaning",
+      "description": "A person cleaning the filters of a window AC unit.",
+      "imageUrl": "https://images.unsplash.com/photo-1633633215535-37f032223846?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhYyUyMGNsZWFuaW5nfGVufDB8fHx8fDE3NjgzMzM1Njh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "ac cleaning"
     }
   ]
 }
