@@ -1,6 +1,6 @@
 'use client';
 
-import { notFound, useRouter } from 'next/navigation';
+import { notFound, useRouter, useParams } from 'next/navigation';
 import { servicesData, Service } from '@/lib/services';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -26,9 +26,11 @@ const timeSlots = [
   '05:00 PM - 07:00 PM',
 ];
 
-export default function ServicePage({ params }: { params: { serviceId: string } }) {
+export default function ServicePage() {
   const router = useRouter();
-  const service = servicesData.find((s) => s.id === params.serviceId);
+  const params = useParams();
+  const serviceId = params.serviceId as string;
+  const service = servicesData.find((s) => s.id === serviceId);
   
   const [isClient, setIsClient] = useState(false);
   useEffect(() => setIsClient(true), []);
@@ -43,7 +45,7 @@ export default function ServicePage({ params }: { params: { serviceId: string } 
     notFound();
   }
   
-  const serviceImage = PlaceHolderImages.find((img) => img.id === params.serviceId);
+  const serviceImage = PlaceHolderImages.find((img) => img.id === serviceId);
   const checklistImages = PlaceHolderImages.filter(img => img.imageHint.includes('cleaning') || img.imageHint.includes('tools')).slice(0, service.checklist.length);
 
 
