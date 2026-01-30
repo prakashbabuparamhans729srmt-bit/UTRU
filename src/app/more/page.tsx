@@ -3,17 +3,14 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { mainCategoryGrid } from '@/lib/navigation';
+import { allServiceCategories } from '@/lib/navigation';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
-import { Card } from '@/components/ui/card';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 export default function MorePage() {
   const router = useRouter();
   const { translations } = useLanguage();
-
-  // We don't want to show the "More" category within its own page
-  const categoriesToShow = mainCategoryGrid.filter(cat => cat.labelKey !== 'more');
 
   return (
     <div className="bg-background text-foreground min-h-screen">
@@ -24,25 +21,31 @@ export default function MorePage() {
         <h1 className="text-lg font-semibold">{translations.home.more}</h1>
       </header>
       <main className="p-4">
-        <Card>
-            <div className="divide-y divide-border">
-                {categoriesToShow.map((category, index) => (
-                    <Link
-                        key={index}
-                        href={category.href}
-                        className="flex items-center justify-between p-4 cursor-pointer group"
-                    >
-                        <div className="flex items-center gap-4">
-                        <category.icon className="w-6 h-6 text-muted-foreground transition-colors group-hover:text-primary" />
-                        <span className="font-medium transition-colors group-hover:text-primary">
-                            {translations.home[category.labelKey as keyof typeof translations.home]}
-                        </span>
+        <Accordion type="multiple" className="w-full">
+            {allServiceCategories.map((group, groupIndex) => (
+                <AccordionItem key={groupIndex} value={`item-${groupIndex}`}>
+                    <AccordionTrigger className="text-base font-semibold hover:no-underline text-left">
+                        {group.title}
+                    </AccordionTrigger>
+                    <AccordionContent>
+                        <div className="divide-y divide-border">
+                            {group.categories.map((category, catIndex) => (
+                                <Link
+                                    key={catIndex}
+                                    href="#" // Placeholder link
+                                    className="flex items-center justify-between p-4 cursor-pointer group"
+                                >
+                                    <span className="font-medium transition-colors group-hover:text-primary">
+                                        {category}
+                                    </span>
+                                    <ChevronRight className="w-5 h-5 text-gray-400 dark:text-gray-500" />
+                                </Link>
+                            ))}
                         </div>
-                        <ChevronRight className="w-5 h-5 text-gray-400 dark:text-gray-500" />
-                    </Link>
-                ))}
-            </div>
-        </Card>
+                    </AccordionContent>
+                </AccordionItem>
+            ))}
+        </Accordion>
       </main>
     </div>
   );
