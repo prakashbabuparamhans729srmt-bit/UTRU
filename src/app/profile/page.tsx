@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -65,7 +64,7 @@ export default function ProfilePage() {
 
 
   return (
-    <div className="bg-background text-foreground min-h-screen">
+    <div className="bg-background text-foreground flex flex-col h-screen">
        <div className="bg-gray-900 p-4 relative flex flex-col items-center text-center pb-24">
             <Button 
                 onClick={() => router.back()} 
