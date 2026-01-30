@@ -1,7 +1,6 @@
-
 'use client';
 
-import { ChevronLeft, SlidersHorizontal } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -11,15 +10,8 @@ import { Slider } from '@/components/ui/slider';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { useState } from 'react';
 import { Separator } from '@/components/ui/separator';
-
-const categories = [
-  { id: 'cleaning', label: 'Cleaning' },
-  { id: 'beauty', label: 'Beauty' },
-  { id: 'electronics', label: 'Electronics Repair' },
-  { id: 'car', label: 'Car Services' },
-  { id: 'painting', label: 'Painting' },
-  { id: 'kids', label: 'Kids' },
-];
+import { allServiceCategories } from '@/lib/navigation';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 const ratings = [
   { id: '4.5', label: '4.5 & above' },
@@ -31,6 +23,7 @@ const ratings = [
 export default function FilterPage() {
   const router = useRouter();
   const [priceRange, setPriceRange] = useState([500, 5000]);
+  const defaultOpen = ['sort', 'price', 'category-0', 'rating'];
 
   return (
     <div className="bg-background text-foreground min-h-screen flex flex-col">
@@ -42,7 +35,7 @@ export default function FilterPage() {
       </header>
 
       <main className="flex-grow p-4 pb-24">
-        <Accordion type="multiple" defaultValue={['sort', 'price', 'category', 'rating']} className="w-full">
+        <Accordion type="multiple" defaultValue={defaultOpen} className="w-full">
           {/* Sort By Section */}
           <AccordionItem value="sort">
             <AccordionTrigger className="text-base font-semibold">Sort By</AccordionTrigger>
@@ -89,17 +82,23 @@ export default function FilterPage() {
           <Separator />
 
           {/* Category Section */}
-          <AccordionItem value="category">
-            <AccordionTrigger className="text-base font-semibold">Category</AccordionTrigger>
-            <AccordionContent>
-              {categories.map((category) => (
-                <div key={category.id} className="flex items-center space-x-2 py-2">
-                  <Checkbox id={`cat-${category.id}`} />
-                  <Label htmlFor={`cat-${category.id}`}>{category.label}</Label>
-                </div>
-              ))}
-            </AccordionContent>
-          </AccordionItem>
+          {allServiceCategories.map((group, groupIndex) => (
+            <AccordionItem key={group.title} value={`category-${groupIndex}`}>
+                <AccordionTrigger className="text-base font-semibold">{group.title}</AccordionTrigger>
+                <AccordionContent>
+                  <ScrollArea className="h-72">
+                    {group.categories.map((category, catIndex) => (
+                        <div key={`${group.title}-${catIndex}`} className="flex items-center space-x-2 py-2">
+                        <Checkbox id={`cat-${groupIndex}-${catIndex}`} />
+                        <Label htmlFor={`cat-${groupIndex}-${catIndex}`} className="font-normal">
+                            {category}
+                        </Label>
+                        </div>
+                    ))}
+                  </ScrollArea>
+                </AccordionContent>
+            </AccordionItem>
+          ))}
 
           <Separator />
 
