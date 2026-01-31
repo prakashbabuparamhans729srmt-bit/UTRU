@@ -1,10 +1,9 @@
-
 'use client';
 
 import { ChevronLeft, ChevronRight, Mic, Search, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { allServiceCategories, type ServiceCategory } from '@/lib/navigation';
+import { serviceHierarchy, type ServiceCategory } from '@/lib/service-hierarchy';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -44,45 +43,47 @@ export default function MorePage() {
     }, []);
   };
 
-  const filteredCategories = useMemo(() => filterCategories(allServiceCategories, searchQuery), [searchQuery, allServiceCategories]);
+  const filteredCategories = useMemo(() => filterCategories(serviceHierarchy, searchQuery), [searchQuery]);
 
-  // Recursive function to get all category names for expanding the accordion on search
-  const getAllCategoryNames = (categories: ServiceCategory[]): string[] => {
-    let names: string[] = [];
+  // Recursive function to get all category IDs for expanding the accordion on search
+  const getAllCategoryIds = (categories: ServiceCategory[]): string[] => {
+    let ids: string[] = [];
     for (const category of categories) {
-      names.push(category.name);
+      ids.push(category.id);
       if (category.children) {
-        names = [...names, ...getAllCategoryNames(category.children)];
+        ids = [...ids, ...getAllCategoryIds(category.children)];
       }
     }
-    return names;
+    return ids;
   };
   
-  const defaultOpenValues = searchQuery ? getAllCategoryNames(filteredCategories) : [];
+  const defaultOpenValues = searchQuery ? getAllCategoryIds(filteredCategories) : [];
 
   // Recursive component to render categories and sub-categories
-  const CategoryAccordion = ({ categories, level }: { categories: ServiceCategory[], level: number }) => {
+  const CategoryAccordion = ({ categories, level, parentPath }: { categories: ServiceCategory[], level: number, parentPath: string }) => {
     return (
       <Accordion type="multiple" className="w-full" defaultValue={defaultOpenValues}>
         {categories.map((category) => {
           const hasChildren = category.children && category.children.length > 0;
+          const currentPath = parentPath ? `${parentPath}/${category.id}` : category.id;
+          const href = category.serviceId ? `/service/${category.serviceId}` : `/services/${currentPath}`;
 
           if (hasChildren) {
             return (
-              <AccordionItem key={category.name} value={category.name} className={level > 0 ? "border-b-0" : "border-b"}>
+              <AccordionItem key={category.id} value={category.id} className={level > 0 ? "border-b-0" : "border-b"}>
                  <AccordionTrigger className={`hover:no-underline text-left ${level > 0 ? 'py-3 text-sm font-medium' : 'text-base font-semibold'}`}>
                   {category.name}
                 </AccordionTrigger>
                 <AccordionContent className="pl-4 border-l">
-                  <CategoryAccordion categories={category.children!} level={level + 1} />
+                  <CategoryAccordion categories={category.children!} level={level + 1} parentPath={currentPath} />
                 </AccordionContent>
               </AccordionItem>
             );
           } else {
             return (
-              <div key={category.name} className="border-b last:border-b-0">
+              <div key={category.id} className="border-b last:border-b-0">
                 <Link
-                  href="#"
+                  href={href}
                   className="flex items-center justify-between p-3 cursor-pointer group hover:bg-accent"
                 >
                   <span className={`font-normal transition-colors group-hover:text-primary ${level > 0 ? 'text-sm' : 'text-base'}`}>
@@ -137,7 +138,7 @@ export default function MorePage() {
 
       <main className="p-4">
         {filteredCategories.length > 0 ? (
-          <CategoryAccordion categories={filteredCategories} level={0} />
+          <CategoryAccordion categories={filteredCategories} level={0} parentPath="" />
         ) : (
           <p className="text-center text-muted-foreground py-10">No categories found matching your search.</p>
         )}
