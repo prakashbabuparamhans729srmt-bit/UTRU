@@ -156,7 +156,7 @@ import {
   export const mainFooterNavLinks = [
     { href: '/', icon: HomeIcon, labelKey: 'home' },
     { href: '/library', icon: BookCopy, labelKey: 'library' },
-    { href: '/explore-action', icon: CentralIcon, labelKey: 'central', isCentral: true },
+    { href: '/more', icon: LayoutGrid, labelKey: 'more', isCentral: true },
     { href: '/explore', icon: PlaySquare, labelKey: 'explore' },
     { href: '/opinion', icon: OpinionIcon, labelKey: 'opinion' },
   ];
@@ -252,8 +252,11 @@ import {
 
 // For src/app/more/page.tsx
 export interface ServiceCategory {
+  id: string;
   name: string;
   children?: ServiceCategory[];
+  serviceId?: string;
+  imageHint: string;
 }
 
 export const allServiceCategories: ServiceCategory[] = [
@@ -868,3 +871,5 @@ export const allServiceCategories: ServiceCategory[] = [
         ]
     },
 ];
+
+    
