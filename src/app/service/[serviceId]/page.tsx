@@ -13,6 +13,7 @@ import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { useCart } from '@/context/CartContext';
 import { useToast } from '@/hooks/use-toast';
+import { ToastAction } from '@/components/ui/toast';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from '@/components/ui/dialog';
 import { Separator } from '@/components/ui/separator';
@@ -71,6 +72,7 @@ export default function ServicePage() {
     toast({
       title: 'Service added to cart!',
       description: `${service.name} has been added to your cart.`,
+      action: <ToastAction altText="View Cart" onClick={() => router.push('/cart')}>View Cart</ToastAction>,
     });
   };
   
