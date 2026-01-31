@@ -12,6 +12,7 @@ import { Card } from '@/components/ui/card';
 import Image from 'next/image';
 import { format } from 'date-fns';
 import { Skeleton } from '@/components/ui/skeleton';
+import Link from 'next/link';
 
 interface BookingItem {
   id: string;
@@ -59,9 +60,13 @@ function BookingCard({ booking }: { booking: Booking }) {
                     }
                     return (
                         <div key={index} className="flex gap-3 items-center">
-                            <Image src={item.imageUrl} alt={item.name} width={60} height={60} className="rounded-md aspect-square object-cover" />
+                            <Link href={`/service/${item.id}`}>
+                                <Image src={item.imageUrl} alt={item.name} width={60} height={60} className="rounded-md aspect-square object-cover" />
+                            </Link>
                             <div>
-                                <p className="font-semibold text-sm">{item.name}</p>
+                                <Link href={`/service/${item.id}`}>
+                                    <p className="font-semibold text-sm hover:text-primary transition-colors">{item.name}</p>
+                                </Link>
                                 <p className="text-xs text-muted-foreground">Qty: {item.quantity}</p>
                                 {itemDate && (
                                     <p className="text-xs text-muted-foreground">
