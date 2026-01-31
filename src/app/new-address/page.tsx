@@ -37,7 +37,7 @@ export default function NewAddressPage() {
   const [addressType, setAddressType] = useState('Home');
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSaveAddress = async () => {
+  const handleSaveAddress = () => {
     if (!name || !mobile || !fullAddress) {
       toast({
         variant: 'destructive',
@@ -67,26 +67,29 @@ export default function NewAddressPage() {
       type: addressType,
     };
 
-    try {
-      const addressCollection = collection(firestore, 'users', user.uid, 'addresses');
-      await addDoc(addressCollection, addressData);
-      toast({ title: 'Address Saved!', description: 'Your new address has been saved.' });
-      router.back();
-    } catch (serverError) {
-        const permissionError = new FirestorePermissionError({
-          path: `users/${user.uid}/addresses`,
-          operation: 'create',
-          requestResourceData: addressData,
-        });
-        errorEmitter.emit('permission-error', permissionError);
-        toast({
-            variant: 'destructive',
-            title: 'Save Failed',
-            description: 'Could not save your address. Please try again.',
-        });
-    } finally {
-        setIsLoading(false);
-    }
+    const addressCollection = collection(firestore, 'users', user.uid, 'addresses');
+    
+    addDoc(addressCollection, addressData)
+      .then(() => {
+        toast({ title: 'Address Saved!', description: 'Your new address has been saved.' });
+        router.back();
+      })
+      .catch((serverError) => {
+          const permissionError = new FirestorePermissionError({
+            path: `users/${user.uid}/addresses`,
+            operation: 'create',
+            requestResourceData: addressData,
+          });
+          errorEmitter.emit('permission-error', permissionError);
+          toast({
+              variant: 'destructive',
+              title: 'Save Failed',
+              description: 'Could not save your address. Please try again.',
+          });
+      })
+      .finally(() => {
+          setIsLoading(false);
+      });
   };
 
 
