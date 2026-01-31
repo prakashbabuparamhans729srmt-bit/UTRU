@@ -4,6 +4,7 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { type Service } from '@/lib/services';
 
 export interface CartItem extends Service {
+  cartItemId: string; // Unique ID for the cart entry
   imageUrl: string;
   selectedDate: Date;
   selectedTime: string;
@@ -11,8 +12,8 @@ export interface CartItem extends Service {
 
 interface CartContextType {
   items: CartItem[];
-  addToCart: (item: CartItem) => void;
-  removeFromCart: (itemId: string) => void;
+  addToCart: (item: Omit<CartItem, 'cartItemId'>) => void;
+  removeFromCart: (cartItemId: string) => void;
   clearCart: () => void;
   total: number;
 }
@@ -50,20 +51,24 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [items, isClient]);
 
-  const addToCart = (item: CartItem) => {
+  const addToCart = (item: Omit<CartItem, 'cartItemId'>) => {
+    const cartItemId = `${item.id}-${item.selectedDate.toISOString()}-${item.selectedTime}`;
+    
     setItems((prevItems) => {
-      const existingItemIndex = prevItems.findIndex(i => i.id === item.id);
+      const existingItemIndex = prevItems.findIndex(i => i.cartItemId === cartItemId);
+      
       if (existingItemIndex > -1) {
-        const newItems = [...prevItems];
-        newItems[existingItemIndex] = item;
-        return newItems;
+        // Item with same service, date, and time already exists. Do nothing.
+        return prevItems;
       }
-      return [...prevItems, item];
+      
+      const newItem: CartItem = { ...item, cartItemId };
+      return [...prevItems, newItem];
     });
   };
 
-  const removeFromCart = (itemId: string) => {
-    setItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
+  const removeFromCart = (cartItemId: string) => {
+    setItems((prevItems) => prevItems.filter((item) => item.cartItemId !== cartItemId));
   };
 
   const clearCart = () => {

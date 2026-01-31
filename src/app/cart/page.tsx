@@ -31,7 +31,7 @@ function CartItemCard({ item }: { item: CartItem }) {
         <p className="text-sm text-muted-foreground">{item.selectedTime}</p>
         <p className="font-bold mt-2">₹{item.price.toLocaleString()}</p>
       </div>
-      <Button variant="ghost" size="icon" onClick={() => removeFromCart(item.id)}>
+      <Button variant="ghost" size="icon" onClick={() => removeFromCart(item.cartItemId)}>
         <Trash2 className="w-5 h-5 text-destructive" />
       </Button>
     </Card>
@@ -77,7 +77,7 @@ export default function CartPage() {
 
       <main className="flex-grow p-4 space-y-4 pb-32">
         {items.map((item) => (
-          <CartItemCard key={item.id} item={item} />
+          <CartItemCard key={item.cartItemId} item={item} />
         ))}
       </main>
       
