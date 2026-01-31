@@ -1,3 +1,4 @@
+
 'use client';
 
 import { ChevronLeft, Home, MapPin, MoreVertical, Loader2 } from 'lucide-react';
@@ -9,7 +10,13 @@ import Image from 'next/image';
 import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { format } from 'date-fns';
-import { useUser } from '@/firebase';
+import { useUser, useFirestore } from '@/firebase';
+import { useState } from 'react';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { useToast } from '@/hooks/use-toast';
+import { errorEmitter } from '@/firebase/error-emitter';
+import { FirestorePermissionError } from '@/firebase/errors';
+
 
 function CheckoutItemCard({ item }: { item: CartItem }) {
   return (
@@ -39,6 +46,9 @@ export default function CheckoutPage() {
     const { items, total, clearCart } = useCart();
     const { translations } = useLanguage();
     const { user, loading: userLoading } = useUser();
+    const firestore = useFirestore();
+    const { toast } = useToast();
+    const [isPlacingOrder, setIsPlacingOrder] = useState(false);
 
     if (items.length === 0) {
         // Redirect to home if cart is empty
@@ -49,10 +59,65 @@ export default function CheckoutPage() {
     }
 
     const handlePlaceOrder = () => {
-        // Here you would typically process the payment
-        // For this demo, we'll just simulate success
-        clearCart();
-        router.push('/payment-success');
+        if (!user || !firestore) {
+            toast({
+                variant: 'destructive',
+                title: 'Error',
+                description: 'User not logged in or Firestore not available.',
+            });
+            return;
+        }
+        setIsPlacingOrder(true);
+
+        const deliveryFee = 50;
+        const platformFee = 10;
+        const finalTotal = total + deliveryFee + platformFee;
+
+        const bookingData = {
+            userId: user.uid,
+            items: items.map(item => ({
+                id: item.id,
+                name: item.name,
+                price: item.price,
+                quantity: item.quantity,
+                imageUrl: item.imageUrl,
+                selectedDate: item.selectedDate,
+                selectedTime: item.selectedTime,
+            })),
+            total,
+            deliveryFee,
+            platformFee,
+            finalTotal,
+            placedAt: serverTimestamp(),
+            deliveryAddress: {
+                type: 'Home',
+                address: 'A-42, Sector 63, Noida, Uttar Pradesh 201301'
+            }
+        };
+
+        const bookingsCol = collection(firestore, 'users', user.uid, 'bookings');
+        
+        addDoc(bookingsCol, bookingData)
+          .then(() => {
+              clearCart();
+              router.push('/payment-success');
+          })
+          .catch((serverError) => {
+            const permissionError = new FirestorePermissionError({
+              path: `users/${user.uid}/bookings`,
+              operation: 'create',
+              requestResourceData: bookingData,
+            });
+            errorEmitter.emit('permission-error', permissionError);
+            toast({
+                variant: 'destructive',
+                title: 'Order Failed',
+                description: 'Could not save your booking. Please try again.',
+            });
+          })
+          .finally(() => {
+              setIsPlacingOrder(false);
+          });
     }
 
     const deliveryFee = 50;
@@ -145,8 +210,8 @@ export default function CheckoutPage() {
                         Loading...
                     </Button>
                 ) : user ? (
-                    <Button size="lg" className="w-full h-12 text-base" onClick={handlePlaceOrder}>
-                        Place Order & Pay
+                    <Button size="lg" className="w-full h-12 text-base" onClick={handlePlaceOrder} disabled={isPlacingOrder}>
+                        {isPlacingOrder ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'Place Order & Pay'}
                     </Button>
                 ) : (
                     <Button size="lg" className="w-full h-12 text-base" onClick={() => router.push('/phone-login')}>
