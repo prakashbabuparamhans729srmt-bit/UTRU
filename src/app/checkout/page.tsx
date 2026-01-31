@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronLeft, Home, MapPin, MoreVertical } from 'lucide-react';
+import { ChevronLeft, Home, MapPin, MoreVertical, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { useCart, type CartItem } from '@/context/CartContext';
@@ -9,6 +9,7 @@ import Image from 'next/image';
 import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { format } from 'date-fns';
+import { useUser } from '@/firebase';
 
 function CheckoutItemCard({ item }: { item: CartItem }) {
   return (
@@ -37,6 +38,7 @@ export default function CheckoutPage() {
     const router = useRouter();
     const { items, total, clearCart } = useCart();
     const { translations } = useLanguage();
+    const { user, loading: userLoading } = useUser();
 
     if (items.length === 0) {
         // Redirect to home if cart is empty
@@ -137,9 +139,20 @@ export default function CheckoutPage() {
                         </Button>
                      </div>
                 </div>
-                <Button size="lg" className="w-full h-12 text-base" onClick={handlePlaceOrder}>
-                    Place Order & Pay
-                </Button>
+                {userLoading ? (
+                    <Button disabled size="lg" className="w-full h-12 text-base">
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Loading...
+                    </Button>
+                ) : user ? (
+                    <Button size="lg" className="w-full h-12 text-base" onClick={handlePlaceOrder}>
+                        Place Order & Pay
+                    </Button>
+                ) : (
+                    <Button size="lg" className="w-full h-12 text-base" onClick={() => router.push('/phone-login')}>
+                        Login to Place Order
+                    </Button>
+                )}
             </footer>
 
         </div>
