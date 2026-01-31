@@ -126,7 +126,7 @@ export default function VerifyPhonePage() {
               <div className="w-4 h-4 bg-black rounded-full" />
             </div>
             <div className="flex items-center">
-              <span className="text-3xl font-bold tracking-wider">utru.in</span>
+              <span className="text-3xl font-bold tracking-wider">UTRU</span>
             </div>
           </div>
         </div>
