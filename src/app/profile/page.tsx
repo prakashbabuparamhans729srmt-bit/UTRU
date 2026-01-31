@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -5,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import {
   ChevronLeft,
   ChevronRight,
+  Edit,
   Loader2,
   LogOut,
   Moon,
@@ -14,7 +16,7 @@ import {
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
-import { useUser } from '@/firebase';
+import { useUser, useFirestore, useDoc } from '@/firebase';
 import { useAuthUI } from '@/firebase/auth/use-auth-ui';
 import { profileHeaderLinks, profileMenuItems, profileOtherInfoLinks } from '@/lib/navigation.tsx';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -25,6 +27,8 @@ import { Card } from '@/components/ui/card';
 import { useTheme } from '@/context/ThemeContext';
 import { cn } from '@/lib/utils';
 import { useCart } from '@/context/CartContext';
+import { useMemo } from 'react';
+import { doc } from 'firebase/firestore';
 
 const MyPlansIcon = () => (
   <div className="w-6 h-6 flex items-center justify-center rounded-sm bg-gray-600 text-white text-xs font-bold">
@@ -50,11 +54,19 @@ export default function ProfilePage() {
   const router = useRouter();
   const { translations } = useLanguage();
   const { user, loading: userLoading } = useUser();
+  const firestore = useFirestore();
   const { signOut, isPending: signOutPending } = useAuthUI();
   const { theme, toggleTheme } = useTheme();
   const { clearCart } = useCart();
   const referCarImage = PlaceHolderImages.find(img => img.id === 'refer-car');
   
+  const userProfileRef = useMemo(() => {
+    if (!user || !firestore) return null;
+    return doc(firestore, 'users', user.uid);
+  }, [user, firestore]);
+
+  const { data: userProfile, loading: profileLoading } = useDoc(userProfileRef);
+
   const handleSignOut = async () => {
     await signOut();
     clearCart();
@@ -65,6 +77,7 @@ export default function ProfilePage() {
     router.push('/');
   };
 
+  const isLoading = userLoading || profileLoading;
 
   return (
     // The main container is now relative, with the dark background
@@ -81,32 +94,33 @@ export default function ProfilePage() {
         {/* This container holds the Avatar and user info, centered on the 25% line */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-xs flex flex-col items-center text-center z-20">
             <Avatar className="w-24 h-24 border-4 border-white">
-                {userLoading ? (
+                {isLoading ? (
                     <Skeleton className="w-full h-full rounded-full" />
                 ) : (
                     <>
-                        {user?.photoURL ? (
-                            <AvatarImage src={user.photoURL} alt={user.displayName || 'User'} />
-                        ) : (
-                            <AvatarImage src="https://picsum.photos/seed/user-profile/100/100" />
-                        )}
+                        <AvatarImage src={userProfile?.photoURL || user?.photoURL || "https://picsum.photos/seed/user-profile/100/100"} alt={userProfile?.displayName || 'User'} />
                         <AvatarFallback className='text-4xl bg-gray-700 text-gray-400'>
-                           {user?.displayName?.charAt(0) || user?.email?.charAt(0) || 'U'}
+                           {userProfile?.displayName?.charAt(0) || user?.displayName?.charAt(0) || user?.email?.charAt(0) || 'U'}
                         </AvatarFallback>
                     </>
                 )}
             </Avatar>
             
-            {userLoading ? (
+            {isLoading ? (
                 <div className="w-full space-y-2 mt-4">
                     <Skeleton className="h-8 w-3/4 mx-auto rounded-md bg-gray-500" />
                     <Skeleton className="h-4 w-1/2 mx-auto rounded-md bg-gray-600" />
                 </div>
             ) : user ? (
-                <div className="mt-4 text-white">
-                    <h2 className="text-xl font-bold">{user.displayName || 'Welcome User'}</h2>
+                 <div className="mt-4 text-white">
+                    <div className="flex items-center justify-center gap-2">
+                        <h2 className="text-xl font-bold">{userProfile?.displayName || user?.displayName || 'Welcome User'}</h2>
+                        <Button variant="ghost" size="icon" className="text-white hover:bg-white/20 h-8 w-8 rounded-full" onClick={() => router.push('/edit-profile')}>
+                            <Edit className="w-4 h-4" />
+                        </Button>
+                    </div>
                     <p className="text-sm text-gray-400">
-                      {user.phoneNumber || user.email}
+                      {userProfile?.phoneNumber || user?.phoneNumber || userProfile?.email || user?.email}
                     </p>
                 </div>
             ) : (

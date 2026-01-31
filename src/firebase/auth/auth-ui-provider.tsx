@@ -13,8 +13,11 @@ import {
   RecaptchaVerifier,
   signInWithPhoneNumber,
   type ConfirmationResult,
+  type UserCredential,
 } from 'firebase/auth';
-import { useAuth, useUser } from '@/firebase';
+import { useAuth, useFirestore, useUser } from '@/firebase';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+
 
 // Define the shape of the context state
 interface AuthUIContextType {
@@ -38,6 +41,7 @@ export const AuthUIContext = createContext<AuthUIContextType | undefined>(
 // Create the provider component
 export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
   const auth = useAuth();
+  const firestore = useFirestore();
   const { user, loading: userLoading } = useUser();
   const [confirmationResult, setConfirmationResult] =
     useState<ConfirmationResult | null>(null);
@@ -103,8 +107,27 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
       setError(null);
 
       try {
-        await confirmationResult.confirm(otp);
-        // User is now signed in. The useUser hook will pick up the change.
+        const userCredential: UserCredential = await confirmationResult.confirm(otp);
+        const user = userCredential.user;
+
+        // --- NEW LOGIC: Create user document in Firestore on first login ---
+        if (user && firestore) {
+            const userRef = doc(firestore, 'users', user.uid);
+            const userSnap = await getDoc(userRef);
+
+            if (!userSnap.exists()) {
+                const { uid, email, displayName, photoURL, phoneNumber } = user;
+                await setDoc(userRef, {
+                    uid,
+                    email: email || null,
+                    displayName: displayName || 'New User',
+                    photoURL: photoURL || null,
+                    phoneNumber: phoneNumber || null
+                });
+            }
+        }
+        // --- END NEW LOGIC ---
+
         setConfirmationResult(null); // Clear confirmation result
         setPhoneNumber(null);
         return true;
@@ -115,7 +138,7 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
         setIsPending(false);
       }
     },
-    [confirmationResult]
+    [confirmationResult, firestore]
   );
 
   // Sign Out
