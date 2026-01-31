@@ -1,14 +1,14 @@
 {
   "name": "UCLAP",
   "short_name": "UCLAP",
-  "description": "A modern PWA for all your service needs.",
+  "description": "A one-stop solution for all your home service needs.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#000000",
+  "background_color": "#242424",
+  "theme_color": "hsl(170, 80%, 45%)",
   "icons": [
     {
-      "src": "/logo.svg",
+      "src": "logo.svg",
       "sizes": "any",
       "type": "image/svg+xml"
     }
