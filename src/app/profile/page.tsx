@@ -90,9 +90,19 @@ export default function ProfilePage() {
             </Avatar>
             
             {isLoading ? (
-                <div className="w-full space-y-2 mt-4">
-                    <Skeleton className="h-8 w-3/4 mx-auto rounded-md bg-gray-500" />
-                    <Skeleton className="h-4 w-1/2 mx-auto rounded-md bg-gray-600" />
+                <div className="w-full flex flex-col items-center">
+                    <div className="w-full space-y-2 mt-4">
+                        <Skeleton className="h-8 w-3/4 mx-auto rounded-md bg-gray-500" />
+                        <Skeleton className="h-4 w-1/2 mx-auto rounded-md bg-gray-600" />
+                    </div>
+                     <div className="flex justify-around w-full max-w-sm mx-auto mt-6">
+                        {profileHeaderLinks.map((item) => (
+                        <div key={item.labelKey} className="flex flex-col items-center gap-2">
+                            <Skeleton className="w-14 h-14 rounded-full bg-gray-600" />
+                            <Skeleton className="h-3 w-16 bg-gray-700" />
+                        </div>
+                        ))}
+                    </div>
                 </div>
             ) : user ? (
                  <div className="mt-4 text-white">
@@ -107,31 +117,45 @@ export default function ProfilePage() {
                     </p>
                 </div>
             ) : (
-                <div className="mt-6 w-full max-w-xs flex flex-col items-center">
-                    <Link href="/phone-login" passHref className='w-full'>
-                        <Button variant="outline" className="w-full max-w-[200px] bg-transparent text-white border-primary rounded-full h-12 text-base hover:bg-primary/10 hover:text-white">
-                           {translations.profile.continue}
-                        </Button>
-                    </Link>
-                    <p className="text-sm text-gray-400 mt-2 px-4">
-                        {translations.profile.loginMessage}
-                    </p>
-                </div>
+                <>
+                    <div className="mt-6 w-full max-w-xs flex flex-col items-center">
+                        <Link href="/phone-login" passHref className='w-full'>
+                            <Button variant="outline" className="w-full max-w-[200px] bg-transparent text-white border-primary rounded-full h-12 text-base hover:bg-primary/10 hover:text-white">
+                               {translations.profile.continue}
+                            </Button>
+                        </Link>
+                        <p className="text-sm text-gray-400 mt-2 px-4">
+                            {translations.profile.loginMessage}
+                        </p>
+                    </div>
+                    <div className="flex justify-around w-full max-w-sm mx-auto mt-6">
+                        {profileHeaderLinks.map((item) => (
+                            <Link key={item.labelKey} href={item.href} className="flex flex-col items-center gap-2 text-gray-400 hover:text-white">
+                                <div className="w-14 h-14 bg-gray-800 rounded-full flex items-center justify-center border border-gray-600">
+                                    <item.icon className="w-6 h-6" />
+                                </div>
+                                <span className="text-xs font-medium text-center">{translations.profile[item.labelKey as keyof typeof translations.profile]}</span>
+                            </Link>
+                        ))}
+                    </div>
+                </>
             )}
         </div>
         
         <main className="absolute top-1/4 bottom-0 left-0 right-0 overflow-y-auto bg-gray-50 rounded-t-3xl p-4 space-y-4 z-10">
-            <div className="pt-24 space-y-4">
-                <div className="flex justify-around w-full max-w-sm mx-auto">
-                    {profileHeaderLinks.map((item) => (
-                        <Link key={item.labelKey} href={item.href} className="flex flex-col items-center gap-2 text-gray-600">
-                            <div className="w-14 h-14 bg-gray-100 rounded-full flex items-center justify-center">
-                                <item.icon className="w-6 h-6" />
-                            </div>
-                            <span className="text-xs font-medium text-center">{translations.profile[item.labelKey as keyof typeof translations.profile]}</span>
-                        </Link>
-                    ))}
-                </div>
+            <div className={cn("space-y-4", isLoading || !user ? "pt-48" : "pt-24")}>
+                 { user &&
+                    <div className="flex justify-around w-full max-w-sm mx-auto">
+                        {profileHeaderLinks.map((item) => (
+                            <Link key={item.labelKey} href={item.href} className="flex flex-col items-center gap-2 text-gray-600">
+                                <div className="w-14 h-14 bg-gray-100 rounded-full flex items-center justify-center">
+                                    <item.icon className="w-6 h-6" />
+                                </div>
+                                <span className="text-xs font-medium text-center">{translations.profile[item.labelKey as keyof typeof translations.profile]}</span>
+                            </Link>
+                        ))}
+                    </div>
+                 }
 
                 <div className='divide-y divide-gray-200'>
                     {profileMenuItems.map((item) => (
