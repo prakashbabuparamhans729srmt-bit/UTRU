@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -60,9 +61,7 @@ export default function ProfilePage() {
   const isLoading = userLoading || profileLoading;
 
   return (
-    // The main container is now relative, with the dark background
-    <div className="bg-gray-900 text-foreground relative h-screen">
-        {/* Back button is absolutely positioned */}
+    <div className="bg-gray-900 text-white relative h-screen">
         <Button 
             onClick={() => router.back()} 
             size="icon" 
@@ -71,7 +70,6 @@ export default function ProfilePage() {
             <ChevronLeft />
         </Button>
 
-        {/* This container holds the Avatar and user info, centered on the 25% line */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-xs flex flex-col items-center text-center z-20">
             <Avatar className="w-24 h-24 border-4 border-white">
                 {isLoading ? (
@@ -122,46 +120,43 @@ export default function ProfilePage() {
             )}
         </div>
         
-        {/* The main scrollable card area, now theme-aware */}
-        <main className="absolute top-1/4 bottom-0 left-0 right-0 overflow-y-auto bg-card text-card-foreground rounded-t-3xl p-4 space-y-4 z-10">
-            {/* Spacer to push content below the overlapping avatar/user info */}
+        <main className="absolute top-1/4 bottom-0 left-0 right-0 overflow-y-auto bg-gray-50 rounded-t-3xl p-4 space-y-4 z-10">
             <div className="pt-24 space-y-4">
-                {/* The three header links, now theme-aware */}
                 <div className="flex justify-around w-full max-w-sm mx-auto">
                     {profileHeaderLinks.map((item) => (
-                        <Link key={item.labelKey} href={item.href} className="flex flex-col items-center gap-2 text-muted-foreground">
-                            <div className="w-14 h-14 bg-muted rounded-full flex items-center justify-center">
+                        <Link key={item.labelKey} href={item.href} className="flex flex-col items-center gap-2 text-gray-600">
+                            <div className="w-14 h-14 bg-gray-100 rounded-full flex items-center justify-center">
                                 <item.icon className="w-6 h-6" />
                             </div>
-                            <span className="text-xs font-medium">{translations.profile[item.labelKey as keyof typeof translations.profile]}</span>
+                            <span className="text-xs font-medium text-center">{translations.profile[item.labelKey as keyof typeof translations.profile]}</span>
                         </Link>
                     ))}
                 </div>
 
-                <div className='divide-y divide-border'>
+                <div className='divide-y divide-gray-200'>
                     {profileMenuItems.map((item) => (
                         <Link key={item.labelKey} href={item.href} className="flex items-center justify-between py-4 cursor-pointer group">
                             <div className="flex items-center gap-4">
-                                <item.icon className="w-6 h-6 text-muted-foreground" />
-                                <span className="font-medium text-foreground">{translations.profile[item.labelKey as keyof typeof translations.profile]}</span>
+                                <item.icon className="w-6 h-6 text-gray-500" />
+                                <span className="font-medium text-gray-800">{translations.profile[item.labelKey as keyof typeof translations.profile]}</span>
                             </div>
-                            <ChevronRight className="w-5 h-5 text-muted-foreground" />
+                            <ChevronRight className="w-5 h-5 text-gray-400" />
                         </Link>
                     ))}
                 </div>
                 
                 <div className="space-y-1 pt-4">
-                  <h3 className="text-muted-foreground text-sm font-bold tracking-wider mb-2 px-1 uppercase">
+                  <h3 className="text-gray-500 text-sm font-bold tracking-wider mb-2 px-1 uppercase">
                     {translations.profile.otherInfo}
                   </h3>
-                  <div className='divide-y divide-border'>
+                  <div className='divide-y divide-gray-200'>
                     {profileOtherInfoLinks.map(link => (
                         <Link key={link.labelKey} href={link.href} className="flex items-center justify-between py-4 cursor-pointer group">
                             <div className="flex items-center gap-4">
-                                <link.icon className="w-6 h-6 text-muted-foreground" />
-                                <span className="font-medium text-foreground">{translations.profile[link.labelKey as keyof typeof translations.profile]}</span>
+                                <link.icon className="w-6 h-6 text-gray-500" />
+                                <span className="font-medium text-gray-800">{translations.profile[link.labelKey as keyof typeof translations.profile]}</span>
                             </div>
-                            <ChevronRight className="w-5 h-5 text-muted-foreground" />
+                            <ChevronRight className="w-5 h-5 text-gray-400" />
                         </Link>
                     ))}
                   </div>
@@ -173,7 +168,7 @@ export default function ProfilePage() {
                             variant="outline"
                             onClick={handleSignOut}
                             disabled={signOutPending}
-                            className="w-auto h-auto px-4 py-2 rounded-full border-border text-foreground"
+                            className="w-auto h-auto px-4 py-2 rounded-full border-gray-300 text-gray-800"
                         >
                             {signOutPending ? <Loader2 className="w-5 h-5 animate-spin" /> : <LogOut className="w-5 h-5 mr-2" />}
                             {translations.profile.logOut}
@@ -182,10 +177,10 @@ export default function ProfilePage() {
                 )}
 
                 {referCarImage && (
-                    <Card className="p-4 rounded-lg flex items-center justify-between bg-muted/50 border-none shadow-md mt-6">
+                    <Card className="p-4 rounded-lg flex items-center justify-between bg-gray-100 border-none shadow-md mt-6">
                         <div>
-                        <h4 className="font-bold text-lg">{translations.profile.referEarn}</h4>
-                        <p className="text-sm text-muted-foreground max-w-[150px]">{translations.profile.referEarnDescription}</p>
+                        <h4 className="font-bold text-lg text-gray-900">{translations.profile.referEarn}</h4>
+                        <p className="text-sm text-gray-600 max-w-[150px]">{translations.profile.referEarnDescription}</p>
                         <p className="text-xs text-primary font-bold mt-1">{translations.profile.hurryUp}</p>
                         </div>
                         <div className="flex flex-col items-center">
@@ -226,7 +221,7 @@ export default function ProfilePage() {
                     </Button>
                 </div>
 
-                <div className="text-center text-muted-foreground text-sm pt-6 pb-2">
+                <div className="text-center text-gray-500 text-sm pt-6 pb-2">
                     <p>{translations.profile.appVersions}</p>
                     <p>0.2</p>
                 </div>
