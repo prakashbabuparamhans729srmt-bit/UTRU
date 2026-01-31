@@ -50,7 +50,8 @@ interface Translations {
         browseServices: string;
         paymentSummary: string;
         itemTotal: string;
-        taxesFees: string;
+        deliveryFee: string;
+        platformFee: string;
         toPay: string;
         checkout: string;
     },
@@ -260,7 +261,8 @@ const translations: Record<string, Translations> = {
             browseServices: 'Browse Services',
             paymentSummary: 'Payment Summary',
             itemTotal: 'Item Total',
-            taxesFees: 'Taxes & Fees',
+            deliveryFee: 'Delivery Fee',
+            platformFee: 'Platform Fee',
             toPay: 'To Pay',
             checkout: 'Proceed to Checkout',
         },
@@ -467,7 +469,8 @@ webLink: 'Web Link',
             browseServices: 'सेवाएं ब्राउज़ करें',
             paymentSummary: 'भुगतान सारांश',
             itemTotal: 'कुल आइटम',
-            taxesFees: 'कर और शुल्क',
+            deliveryFee: 'डिलीवरी शुल्क',
+            platformFee: 'प्लेटफार्म शुल्क',
             toPay: 'भुगतान करना है',
             checkout: 'चेकआउट के लिए आगे बढ़ें',
         },
@@ -674,7 +677,8 @@ webLink: 'Web Link',
             browseServices: 'सेवा खोजीं',
             paymentSummary: 'भुगतान सारांश',
             itemTotal: 'कुल आइटम',
-            taxesFees: 'टैक्स आ फीस',
+            deliveryFee: 'डिलीवरी शुल्क',
+            platformFee: 'प्लेटफार्म शुल्क',
             toPay: 'भुगतान करे के बा',
             checkout: 'चेकआउट खातिर आगे बढ़ीं',
         },
@@ -881,7 +885,8 @@ webLink: 'Web Link',
             browseServices: 'सेवा ब्राउझ करा',
             paymentSummary: 'पेमेंट सारांश',
             itemTotal: 'एकूण आयटम',
-            taxesFees: 'कर आणि शुल्क',
+            deliveryFee: 'डिलिव्हरी शुल्क',
+            platformFee: 'प्लॅटफॉर्म शुल्क',
             toPay: 'देय रक्कम',
             checkout: 'चेकआउट करण्यासाठी पुढे जा',
         },

@@ -1,3 +1,4 @@
+
 'use client';
 import { ChevronLeft, Trash2, ShoppingBag, Plus, Minus } from 'lucide-react';
 import Image from 'next/image';
@@ -54,6 +55,10 @@ export default function CartPage() {
   const { items, total } = useCart();
   const { translations } = useLanguage();
 
+  const deliveryFee = 50;
+  const platformFee = 10;
+  const finalTotal = total + deliveryFee + platformFee;
+
   if (items.length === 0) {
     return (
       <div className="bg-background text-foreground min-h-screen flex flex-col">
@@ -86,7 +91,7 @@ export default function CartPage() {
         <h1 className="text-lg font-semibold">{translations.cart.yourCart} ({items.length})</h1>
       </header>
 
-      <main className="flex-grow p-4 space-y-4 pb-32">
+      <main className="flex-grow p-4 space-y-4 pb-40">
         {items.map((item) => (
           <CartItemCard key={item.cartItemId} item={item} />
         ))}
@@ -100,14 +105,18 @@ export default function CartPage() {
               <span>₹{total.toLocaleString()}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-muted-foreground">{translations.cart.taxesFees}</span>
-              <span>₹{(total * 0.1).toLocaleString()}</span>
+                <span className="text-muted-foreground">{translations.cart.deliveryFee}</span>
+                <span>₹{deliveryFee.toLocaleString()}</span>
+            </div>
+            <div className="flex justify-between">
+                <span className="text-muted-foreground">{translations.cart.platformFee}</span>
+                <span>₹{platformFee.toLocaleString()}</span>
             </div>
           </div>
           <Separator />
           <div className="flex justify-between font-bold text-lg">
             <span>{translations.cart.toPay}</span>
-            <span>₹{(total * 1.1).toLocaleString()}</span>
+            <span>₹{finalTotal.toLocaleString()}</span>
           </div>
         <Button size="lg" className="w-full h-12 text-base" onClick={() => router.push('/checkout')}>
           {translations.cart.checkout}
