@@ -7,12 +7,14 @@ import { useState, useRef, useEffect } from 'react';
 import { useAuthUI } from '@/firebase/auth/use-auth-ui';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/context/LanguageContext';
+import { useCart } from '@/context/CartContext';
 
 export default function VerifyPhonePage() {
   const router = useRouter();
   const { toast } = useToast();
   const { translations } = useLanguage();
   const { verifyOtp, isPending, error, confirmationResult, phoneNumber } = useAuthUI();
+  const { items: cartItems } = useCart();
   const [otp, setOtp] = useState(new Array(6).fill(''));
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
@@ -67,7 +69,11 @@ export default function VerifyPhonePage() {
     const success = await verifyOtp(otpCode);
     if (success) {
       toast({ title: 'Success!', description: 'You have been logged in successfully.' });
-      router.replace('/');
+      if (cartItems.length > 0) {
+        router.replace('/checkout');
+      } else {
+        router.replace('/');
+      }
     } else {
       toast({ variant: 'destructive', title: 'Verification Failed', description: error || 'The OTP is incorrect. Please try again.' });
       setOtp(new Array(6).fill(''));
