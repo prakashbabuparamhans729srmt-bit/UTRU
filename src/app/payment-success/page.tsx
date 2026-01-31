@@ -1,23 +1,14 @@
+
 'use client';
 
 import { CheckCircle2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/context/LanguageContext';
-import { useEffect } from 'react';
-import { useCart } from '@/context/CartContext';
 
 export default function PaymentSuccessPage() {
     const router = useRouter();
     const { translations } = useLanguage();
-    const { clearCart } = useCart();
-
-    // Clear cart on component mount to prevent users from seeing old items
-    // if they navigate back to the cart.
-    useEffect(() => {
-        clearCart();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
     
     return (
         <div className="bg-background text-foreground min-h-screen flex flex-col">
