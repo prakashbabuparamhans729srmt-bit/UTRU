@@ -196,7 +196,7 @@ import {
       { icon: Smartphone, text: 'Native devices', href: '/native-devices', labelKey: 'nativeDevices' },
       { icon: BookUser, text: 'Address book', href: '/address', labelKey: 'addressBook' },
       { icon: Star, text: 'Plus membership', href: '/plus-membership', labelKey: 'plusMembership' },
-      { icon: Star, text: 'My rating', href: '#', labelKey: 'myRating' },
+      { icon: Star, text: 'My rating', href: '/my-ratings', labelKey: 'myRating' },
   ];
   
   export const profileOtherInfoLinks = [
@@ -243,7 +243,7 @@ import {
     { icon: BookUser, text: 'Address book', href: '/address', labelKey: 'addressBook' },
     { icon: Star, text: 'Plus membership', href: '/plus-membership', labelKey: 'plusMembership' },
     { icon: Wallet, text: 'My Wallet', href: '/wallet', labelKey: 'wallet' },
-    { icon: Star, text: 'My Ratings', href: '#', labelKey: 'myRating' },
+    { icon: Star, text: 'My Ratings', href: '/my-ratings', labelKey: 'myRating' },
     { icon: CreditCard, text: 'My Payments', href: '/payment-settings', labelKey: 'payments' },
     { icon: Share2, text: 'Share App', href: '/refer', labelKey: 'shareApp' },
     { icon: Info, text: 'About Us', href: '/about', labelKey: 'aboutUs' },
