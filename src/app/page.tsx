@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useRef } from 'react';
@@ -174,10 +173,12 @@ export default function Home() {
         </Carousel>
         
         <div className="px-4 mb-6 flex justify-around">
-            <Button variant="outline" className="rounded-full">
-                <ShoppingCart className="w-4 h-4 mr-2"/>
-                {translations.home.productBuy}
-            </Button>
+            <Link href="/search">
+              <Button variant="outline" className="rounded-full">
+                  <ShoppingCart className="w-4 h-4 mr-2"/>
+                  {translations.home.productBuy}
+              </Button>
+            </Link>
              <Button variant="outline" className="rounded-full" onClick={() => router.push('/more')}>
                 <LayoutGrid className="w-4 h-4 mr-2"/>
                 {translations.home.category}
