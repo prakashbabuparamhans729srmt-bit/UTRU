@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
@@ -18,43 +19,52 @@ export default function FloatingActionButton() {
   const hasDragged = useRef(false);
   const returnTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Store default position
+  // Store default position in a ref
   const defaultPosition = useRef({ x: 0, y: 0 });
 
+  // Function to calculate and update the default position.
+  // No dependencies, so it's a stable function.
   const updateDefaultPosition = useCallback(() => {
     if (fabRef.current) {
-        const fabWidth = fabRef.current.offsetWidth || 56;
-        const defaultX = window.innerWidth - fabWidth - 24; // ~1.5rem padding
-        const defaultY = window.innerHeight - 160;
-        defaultPosition.current = { x: defaultX, y: defaultY };
-        // Only set position if not currently dragging and there's no pending timeout
-        if (!isDragging && !returnTimeoutRef.current) {
-          setPosition({ x: defaultX, y: defaultY });
-        }
+      const fabWidth = fabRef.current.offsetWidth || 56;
+      const defaultX = window.innerWidth - fabWidth - 24; // ~1.5rem padding
+      const defaultY = window.innerHeight - 160;
+      defaultPosition.current = { x: defaultX, y: defaultY };
     }
-  }, [isDragging]);
+  }, []);
 
-  // Use useEffect to handle client-side only state initialization
+  // Effect to set initial position and handle window resizing.
   useEffect(() => {
-    const timer = setTimeout(updateDefaultPosition, 10);
-    window.addEventListener('resize', updateDefaultPosition);
-    return () => {
-        clearTimeout(timer);
-        window.removeEventListener('resize', updateDefaultPosition);
-        if (returnTimeoutRef.current) {
-            clearTimeout(returnTimeoutRef.current);
-        }
+    // A function to set/reset the position to default.
+    const resetToDefaultPosition = () => {
+      updateDefaultPosition();
+      setPosition(defaultPosition.current);
     }
+    
+    // Set initial position after a short delay to ensure fabRef is available.
+    const timer = setTimeout(resetToDefaultPosition, 10);
+    
+    // Reset position on window resize.
+    window.addEventListener('resize', resetToDefaultPosition);
+
+    // Cleanup function.
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', resetToDefaultPosition);
+      if (returnTimeoutRef.current) {
+        clearTimeout(returnTimeoutRef.current);
+      }
+    };
   }, [updateDefaultPosition]);
   
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
 
-    // Clear any existing return timer on new interaction
+    // Clear any existing return timer on new interaction.
     if (returnTimeoutRef.current) {
-        clearTimeout(returnTimeoutRef.current);
-        returnTimeoutRef.current = null;
+      clearTimeout(returnTimeoutRef.current);
+      returnTimeoutRef.current = null;
     }
 
     hasDragged.current = false;
@@ -63,47 +73,51 @@ export default function FloatingActionButton() {
     const target = e.target as HTMLElement;
     target.setPointerCapture(e.pointerId);
 
+    // Store the initial cursor position relative to the viewport.
     dragStartPos.current = { x: e.clientX, y: e.clientY };
     
     target.onpointermove = (moveEvent) => {
-        const dx = moveEvent.clientX - dragStartPos.current.x;
-        const dy = moveEvent.clientY - dragStartPos.current.y;
-        
-        if (!hasDragged.current && Math.sqrt(dx * dx + dy * dy) > 5) { // Threshold to consider it a drag
-            hasDragged.current = true;
-        }
+      const dx = moveEvent.clientX - dragStartPos.current.x;
+      const dy = moveEvent.clientY - dragStartPos.current.y;
+      
+      if (!hasDragged.current && Math.sqrt(dx * dx + dy * dy) > 5) { // Threshold to register as a drag.
+        hasDragged.current = true;
+      }
 
-        let newX = position.x + dx;
-        let newY = position.y + dy;
+      // Calculate new position based on movement, not initial component position.
+      // This prevents jumps if state updates are slow.
+      let newX = position.x + moveEvent.movementX;
+      let newY = position.y + moveEvent.movementY;
 
-        if (fabRef.current) {
-            const fabWidth = fabRef.current.offsetWidth;
-            const fabHeight = fabRef.current.offsetHeight;
-            const padding = 8;
-            newX = position.x + moveEvent.movementX;
-            newY = position.y + moveEvent.movementY;
-            newX = Math.max(padding, Math.min(newX, window.innerWidth - fabWidth - padding));
-            newY = Math.max(padding, Math.min(newY, window.innerHeight - fabHeight - padding));
-        }
+      // Constrain position within the viewport.
+      if (fabRef.current) {
+        const fabWidth = fabRef.current.offsetWidth;
+        const fabHeight = fabRef.current.offsetHeight;
+        const padding = 8;
+        newX = Math.max(padding, Math.min(newX, window.innerWidth - fabWidth - padding));
+        newY = Math.max(padding, Math.min(newY, window.innerHeight - fabHeight - padding));
+      }
 
-        setPosition({ x: newX, y: newY });
+      setPosition({ x: newX, y: newY });
     };
 
     target.onpointerup = () => {
-        target.onpointermove = null;
-        target.onpointerup = null;
-        target.releasePointerCapture(e.pointerId);
-        
-        setIsDragging(false);
-        
-        if (!hasDragged.current) {
-            setIsOpen(prev => !prev);
-        }
+      target.onpointermove = null;
+      target.onpointerup = null;
+      target.releasePointerCapture(e.pointerId);
+      
+      setIsDragging(false);
+      
+      // If it wasn't a drag, it's a click.
+      if (!hasDragged.current) {
+        setIsOpen(prev => !prev);
+      }
 
-        // After any interaction, start a timer to return the FAB to its default position.
-        returnTimeoutRef.current = setTimeout(() => {
-            setPosition(defaultPosition.current);
-        }, 10000); // 10 seconds
+      // After any interaction, start a timer to return the FAB to its default position.
+      returnTimeoutRef.current = setTimeout(() => {
+        setPosition(defaultPosition.current);
+        returnTimeoutRef.current = null; // Clear the ref after it's been used.
+      }, 10000); // 10 seconds
     };
   };
 
