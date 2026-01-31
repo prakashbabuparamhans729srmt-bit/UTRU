@@ -13,6 +13,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { addressTypes } from '@/lib/navigation';
+import Link from 'next/link';
 
 
 function AddressCard({ address, onSelect, isSelected }: { address: Address, onSelect: (address: Address) => void, isSelected: boolean }) {
@@ -60,6 +61,29 @@ export default function AddressPage() {
   
   const isLoading = userLoading || addressesLoading;
 
+  if (!userLoading && !user) {
+    return (
+      <div className="bg-background text-foreground min-h-screen flex flex-col">
+        <header className="p-4 bg-card flex items-center gap-4 sticky top-0 z-10 border-b">
+          <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
+            <ChevronLeft />
+          </Button>
+          <h1 className="text-lg font-semibold">{translations.address.title}</h1>
+        </header>
+        <main className="flex-grow flex flex-col justify-center items-center text-center p-6">
+            <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                <User className="w-12 h-12 text-primary" />
+            </div>
+            <h2 className="text-xl font-bold mb-2">Please Log In</h2>
+            <p className="text-muted-foreground mb-4">You need to be logged in to manage your addresses.</p>
+            <Link href="/phone-login">
+                <Button>Login</Button>
+            </Link>
+        </main>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-background text-foreground min-h-screen flex flex-col">
       <header className="p-4 bg-card flex items-center gap-4 sticky top-0 z-10 border-b">
@@ -98,7 +122,7 @@ export default function AddressPage() {
 
         {!isLoading && (!addresses || addresses.length === 0) && (
             <div className="flex-grow flex flex-col justify-center items-center text-center p-10">
-                <h2 className="text-2xl font-bold mb-2">{translations.address.nothingHere}</h2>
+                <h2 className="text-2xl font-bold">{translations.address.nothingHere}</h2>
                 <p className="text-muted-foreground mb-6">
                 {translations.address.deliveryMessage}
                 </p>

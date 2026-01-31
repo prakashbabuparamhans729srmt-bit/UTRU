@@ -15,6 +15,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Skeleton } from '@/components/ui/skeleton';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
+import Link from 'next/link';
 
 // Copied from my-plans page, with rating and review added
 interface Booking {
@@ -154,6 +155,29 @@ export default function MyRatingsPage() {
   }, [bookings]);
 
   const isLoading = userLoading || bookingsLoading;
+
+  if (!userLoading && !user) {
+    return (
+      <div className="bg-background text-foreground min-h-screen">
+        <header className="p-4 flex items-center gap-4 border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
+          <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
+            <ChevronLeft />
+          </Button>
+          <h1 className="text-lg font-semibold">{translations.profile.myRating}</h1>
+        </header>
+        <main className="flex-grow flex flex-col justify-center items-center text-center p-6">
+            <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                <Star className="w-12 h-12 text-primary" />
+            </div>
+            <h2 className="text-xl font-bold mb-2">Please Log In</h2>
+            <p className="text-muted-foreground mb-4">You need to be logged in to view your ratings.</p>
+            <Link href="/phone-login">
+                <Button>Login</Button>
+            </Link>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-background text-foreground min-h-screen">
