@@ -10,7 +10,7 @@ import { Slider } from '@/components/ui/slider';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { useState } from 'react';
 import { Separator } from '@/components/ui/separator';
-import { allServiceCategories } from '@/lib/navigation';
+import { serviceHierarchy } from '@/lib/service-hierarchy';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 const ratings = [
@@ -23,13 +23,9 @@ const ratings = [
 export default function FilterPage() {
   const router = useRouter();
   const [priceRange, setPriceRange] = useState([500, 5000]);
-  const defaultOpen = ['sort', 'price', 'category-0', 'rating'];
+  const defaultOpen = ['sort', 'price', 'repairs', 'rating'];
   
-  // The first item in `allServiceCategories` is the main container for grouped categories.
-  // We use its children as the top-level filter groups.
-  const categoryGroups = allServiceCategories.length > 0 && allServiceCategories[0].children 
-    ? allServiceCategories[0].children 
-    : [];
+  const categoryGroups = serviceHierarchy;
 
   return (
     <div className="bg-background text-foreground min-h-screen flex flex-col">
@@ -88,15 +84,15 @@ export default function FilterPage() {
           <Separator />
 
           {/* Category Section */}
-          {categoryGroups.map((group, groupIndex) => (
-            <AccordionItem key={group.name} value={`category-${groupIndex}`}>
+          {categoryGroups.map((group) => (
+            <AccordionItem key={group.id} value={group.id}>
                 <AccordionTrigger className="text-base font-semibold">{group.name}</AccordionTrigger>
                 <AccordionContent>
                   <ScrollArea className="h-72">
-                    {group.children?.map((category, catIndex) => (
-                        <div key={`${group.name}-${catIndex}`} className="flex items-center space-x-2 py-2">
-                        <Checkbox id={`cat-${groupIndex}-${catIndex}`} />
-                        <Label htmlFor={`cat-${groupIndex}-${catIndex}`} className="font-normal">
+                    {group.children?.map((category) => (
+                        <div key={category.id} className="flex items-center space-x-2 py-2">
+                        <Checkbox id={category.id} />
+                        <Label htmlFor={category.id} className="font-normal">
                             {category.name}
                         </Label>
                         </div>
