@@ -8,7 +8,7 @@ service cloud.firestore {
       allow read, update: if isOwner(userId);
       allow create: if request.auth.uid == userId
                     && request.resource.data.uid == userId
-                    && request.resource.data.walletBalance == 0
+                    && request.resource.data.walletBalance == 100
                     && request.resource.data.keys().hasAll(['uid', 'email', 'displayName', 'photoURL', 'phoneNumber', 'walletBalance'])
                     && request.resource.data.size() == 6;
     }
@@ -20,7 +20,13 @@ service cloud.firestore {
     }
     match /users/{userId}/walletTransactions/{transactionId} {
       allow read: if isOwner(userId);
-      allow write: if false;
+      // Allow a user to create their own first transaction only if it's the sign-up bonus.
+      allow create: if isOwner(userId)
+                    && request.resource.data.type == 'credit'
+                    && request.resource.data.amount == 100
+                    && request.resource.data.description == 'Sign-up Bonus'
+                    && get(/databases/$(database)/documents/users/$(userId)/walletTransactions).size == 0;
+      allow update, delete: if false;
     }
   }
 }

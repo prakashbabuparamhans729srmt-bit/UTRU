@@ -16,7 +16,7 @@ import {
   type UserCredential,
 } from 'firebase/auth';
 import { useAuth, useFirestore, useUser } from '@/firebase';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, writeBatch, collection, serverTimestamp } from 'firebase/firestore';
 
 
 // Define the shape of the context state
@@ -110,21 +110,36 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
         const userCredential: UserCredential = await confirmationResult.confirm(otp);
         const user = userCredential.user;
 
-        // --- NEW LOGIC: Create user document in Firestore on first login ---
+        // --- NEW LOGIC: Create user document and sign-up bonus in Firestore on first login ---
         if (user && firestore) {
             const userRef = doc(firestore, 'users', user.uid);
             const userSnap = await getDoc(userRef);
 
             if (!userSnap.exists()) {
                 const { uid, email, displayName, photoURL, phoneNumber } = user;
-                await setDoc(userRef, {
+                
+                const batch = writeBatch(firestore);
+
+                // 1. Create the user document with a 100 balance
+                batch.set(userRef, {
                     uid,
                     email: email || null,
                     displayName: displayName || 'New User',
                     photoURL: photoURL || null,
                     phoneNumber: phoneNumber || null,
-                    walletBalance: 0
+                    walletBalance: 100
                 });
+
+                // 2. Create the sign-up bonus transaction
+                const transactionRef = doc(collection(firestore, 'users', user.uid, 'walletTransactions'));
+                batch.set(transactionRef, {
+                    amount: 100,
+                    type: 'credit',
+                    description: 'Sign-up Bonus',
+                    timestamp: serverTimestamp()
+                });
+
+                await batch.commit();
             }
         }
         // --- END NEW LOGIC ---

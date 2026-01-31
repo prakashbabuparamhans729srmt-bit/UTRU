@@ -29,7 +29,7 @@
                 },
                 "walletBalance": {
                     "type": "number",
-                    "description": "The user's current wallet balance, initialized to 0."
+                    "description": "The user's current wallet balance. New users receive a ₹100 sign-up bonus."
                 }
             },
             "required": [
@@ -171,7 +171,7 @@
             "schema": {
                 "$ref": "#/backend/entities/walletTransaction"
             },
-            "description": "Stores a user's wallet transaction history."
+            "description": "Stores a user's wallet transaction history. A 'Sign-up Bonus' transaction is added for new users."
         }
     }
 }
