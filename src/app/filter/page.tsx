@@ -24,6 +24,12 @@ export default function FilterPage() {
   const router = useRouter();
   const [priceRange, setPriceRange] = useState([500, 5000]);
   const defaultOpen = ['sort', 'price', 'category-0', 'rating'];
+  
+  // The first item in `allServiceCategories` is the main container for grouped categories.
+  // We use its children as the top-level filter groups.
+  const categoryGroups = allServiceCategories.length > 0 && allServiceCategories[0].children 
+    ? allServiceCategories[0].children 
+    : [];
 
   return (
     <div className="bg-background text-foreground min-h-screen flex flex-col">
@@ -82,16 +88,16 @@ export default function FilterPage() {
           <Separator />
 
           {/* Category Section */}
-          {allServiceCategories.map((group, groupIndex) => (
-            <AccordionItem key={group.title} value={`category-${groupIndex}`}>
-                <AccordionTrigger className="text-base font-semibold">{group.title}</AccordionTrigger>
+          {categoryGroups.map((group, groupIndex) => (
+            <AccordionItem key={group.name} value={`category-${groupIndex}`}>
+                <AccordionTrigger className="text-base font-semibold">{group.name}</AccordionTrigger>
                 <AccordionContent>
                   <ScrollArea className="h-72">
-                    {group.categories.map((category, catIndex) => (
-                        <div key={`${group.title}-${catIndex}`} className="flex items-center space-x-2 py-2">
+                    {group.children?.map((category, catIndex) => (
+                        <div key={`${group.name}-${catIndex}`} className="flex items-center space-x-2 py-2">
                         <Checkbox id={`cat-${groupIndex}-${catIndex}`} />
                         <Label htmlFor={`cat-${groupIndex}-${catIndex}`} className="font-normal">
-                            {category}
+                            {category.name}
                         </Label>
                         </div>
                     ))}
