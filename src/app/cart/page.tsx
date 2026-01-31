@@ -10,6 +10,9 @@ import { format } from 'date-fns';
 import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
+import { useState } from 'react';
+import { useToast } from '@/hooks/use-toast';
+import { Input } from '@/components/ui/input';
 
 
 function CartItemCard({ item }: { item: CartItem }) {
@@ -52,18 +55,28 @@ function CartItemCard({ item }: { item: CartItem }) {
 
 export default function CartPage() {
   const router = useRouter();
-  const { items, total } = useCart();
+  const { items, total, deliveryFee, platformFee, finalTotal, couponCode, discount, applyCoupon, removeCoupon } = useCart();
   const { translations } = useLanguage();
+  const { toast } = useToast();
+  const [couponInput, setCouponInput] = useState('');
 
-  const deliveryFee = 50;
-  const platformFee = 10;
-  const finalTotal = total + deliveryFee + platformFee;
+  const handleApplyCoupon = () => {
+    if (!couponInput.trim()) return;
+    const success = applyCoupon(couponInput);
+    if (success) {
+        toast({ title: 'Coupon applied!', description: `You've received a discount!` });
+    } else {
+        toast({ variant: 'destructive', title: 'Invalid Coupon', description: 'The coupon code you entered is not valid.' });
+    }
+    setCouponInput('');
+  };
+
 
   if (items.length === 0) {
     return (
       <div className="bg-background text-foreground min-h-screen flex flex-col">
         <header className="p-4 flex items-center gap-4 border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
-          <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full">
+          <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
             <ChevronLeft />
           </Button>
           <h1 className="text-lg font-semibold">{translations.cart.yourCart}</h1>
@@ -85,19 +98,39 @@ export default function CartPage() {
   return (
     <div className="bg-background text-foreground min-h-screen flex flex-col">
       <header className="p-4 flex items-center gap-4 border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
-        <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full">
+        <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
           <ChevronLeft />
         </Button>
         <h1 className="text-lg font-semibold">{translations.cart.yourCart} ({items.length})</h1>
       </header>
 
-      <main className="flex-grow p-4 space-y-4 pb-40">
+      <main className="flex-grow p-4 space-y-4 pb-48">
         {items.map((item) => (
           <CartItemCard key={item.cartItemId} item={item} />
         ))}
       </main>
       
       <footer className="fixed bottom-0 left-0 right-0 bg-card border-t p-4 z-10 space-y-4">
+          {!couponCode ? (
+            <div className="flex gap-2">
+              <Input
+                placeholder="Enter coupon code"
+                value={couponInput}
+                onChange={(e) => setCouponInput(e.target.value)}
+                className="bg-muted"
+                onKeyPress={(e) => e.key === 'Enter' && handleApplyCoupon()}
+              />
+              <Button onClick={handleApplyCoupon} disabled={!couponInput.trim()}>Apply</Button>
+            </div>
+          ) : (
+            <div className="flex justify-between items-center bg-green-100 dark:bg-green-900/50 p-2 rounded-lg text-sm">
+              <p className="font-semibold text-green-700 dark:text-green-300">
+                Coupon <span className="font-bold">{couponCode}</span> applied!
+              </p>
+              <Button variant="ghost" size="sm" onClick={removeCoupon} className="text-green-700 dark:text-green-300 h-auto py-1">Remove</Button>
+            </div>
+          )}
+
           <h2 className="text-lg font-bold">{translations.cart.paymentSummary}</h2>
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
@@ -112,11 +145,17 @@ export default function CartPage() {
                 <span className="text-muted-foreground">{translations.cart.platformFee}</span>
                 <span>₹{platformFee.toLocaleString()}</span>
             </div>
+            {discount > 0 && (
+              <div className="flex justify-between text-green-600 dark:text-green-400">
+                <span>Discount</span>
+                <span>- ₹{discount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+              </div>
+            )}
           </div>
           <Separator />
           <div className="flex justify-between font-bold text-lg">
             <span>{translations.cart.toPay}</span>
-            <span>₹{finalTotal.toLocaleString()}</span>
+            <span>₹{finalTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
           </div>
         <Button size="lg" className="w-full h-12 text-base" onClick={() => router.push('/checkout')}>
           {translations.cart.checkout}

@@ -43,7 +43,7 @@ function CheckoutItemCard({ item }: { item: CartItem }) {
 
 export default function CheckoutPage() {
     const router = useRouter();
-    const { items, total, clearCart } = useCart();
+    const { items, total, clearCart, deliveryFee, platformFee, couponCode, discount, finalTotal } = useCart();
     const { translations } = useLanguage();
     const { user, loading: userLoading } = useUser();
     const firestore = useFirestore();
@@ -69,10 +69,6 @@ export default function CheckoutPage() {
         }
         setIsPlacingOrder(true);
 
-        const deliveryFee = 50;
-        const platformFee = 10;
-        const finalTotal = total + deliveryFee + platformFee;
-
         const bookingData = {
             userId: user.uid,
             items: items.map(item => ({
@@ -87,6 +83,8 @@ export default function CheckoutPage() {
             total,
             deliveryFee,
             platformFee,
+            discount,
+            couponCode,
             finalTotal,
             placedAt: serverTimestamp(),
             deliveryAddress: {
@@ -120,15 +118,10 @@ export default function CheckoutPage() {
           });
     }
 
-    const deliveryFee = 50;
-    const platformFee = 10;
-    const finalTotal = total + deliveryFee + platformFee;
-
-
     return (
         <div className="bg-background text-foreground min-h-screen flex flex-col">
             <header className="p-4 flex items-center gap-4 border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
-                <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full">
+                <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
                 <ChevronLeft />
                 </Button>
                 <h1 className="text-lg font-semibold">Checkout</h1>
@@ -178,10 +171,16 @@ export default function CheckoutPage() {
                             <span className="text-muted-foreground">Platform Fee</span>
                             <span>₹{platformFee.toLocaleString()}</span>
                         </div>
+                        {discount > 0 && (
+                            <div className="flex justify-between text-green-600 dark:text-green-400">
+                                <span>Discount ({couponCode})</span>
+                                <span>- ₹{discount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                            </div>
+                        )}
                         <Separator className="my-2"/>
                          <div className="flex justify-between font-bold text-base">
                             <span>To Pay</span>
-                            <span>₹{finalTotal.toLocaleString()}</span>
+                            <span>₹{finalTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                         </div>
                     </div>
                 </Card>
@@ -198,7 +197,7 @@ export default function CheckoutPage() {
                         </div>
                      </div>
                      <div className='flex items-center gap-2'>
-                        <p className='font-bold text-lg'>₹{finalTotal.toLocaleString()}</p>
+                        <p className='font-bold text-lg'>₹{finalTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                         <Button variant="ghost" size="icon" className="rounded-full">
                             <MoreVertical />
                         </Button>

@@ -28,14 +28,25 @@ interface Booking {
   items: BookingItem[];
   finalTotal: number;
   placedAt: { seconds: number; nanoseconds: number; }; // Firestore timestamp
+  discount?: number;
+  couponCode?: string;
 }
 
 function BookingCard({ booking }: { booking: Booking }) {
     return (
         <Card className="p-4">
-            <div className="flex justify-between items-center mb-2">
+            <div className="flex justify-between items-start mb-2">
                 <h3 className="font-bold text-sm">Booking ID: {booking.id.substring(0, 7).toUpperCase()}</h3>
-                <p className="text-sm font-bold">₹{booking.finalTotal.toLocaleString()}</p>
+                 <div>
+                  {booking.discount && booking.discount > 0 ? (
+                      <div className="text-right">
+                          <p className="text-base font-bold">₹{booking.finalTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                          <p className="text-xs text-green-600">You saved ₹{booking.discount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                      </div>
+                  ) : (
+                      <p className="text-base font-bold">₹{booking.finalTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                  )}
+                </div>
             </div>
             <p className="text-xs text-muted-foreground mb-4">
                 {booking.placedAt ? format(new Date(booking.placedAt.seconds * 1000), 'PPP p') : 'Date not available'}
@@ -119,7 +130,7 @@ export default function MyPlansPage() {
   return (
     <div className="bg-background text-foreground min-h-screen">
        <header className="p-4 flex items-center gap-4 border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
-        <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full">
+        <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
           <ChevronLeft />
         </Button>
         <h1 className="text-lg font-semibold">{translations.myPlans.title}</h1>

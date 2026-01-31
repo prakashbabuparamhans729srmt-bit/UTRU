@@ -57,6 +57,14 @@
                 "total": { "type": "number" },
                 "deliveryFee": { "type": "number" },
                 "platformFee": { "type": "number" },
+                "discount": {
+                    "type": "number",
+                    "description": "Discount applied to the booking."
+                },
+                "couponCode": {
+                    "type": "string",
+                    "description": "The coupon code used for the discount."
+                },
                 "finalTotal": { "type": "number" },
                 "placedAt": { "type": "string", "format": "date-time" },
                 "deliveryAddress": {
