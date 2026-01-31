@@ -1,13 +1,12 @@
-
 'use client';
 
 import { notFound, useRouter, useParams } from 'next/navigation';
 import { servicesData, Service } from '@/lib/services';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { ChevronLeft, MoreHorizontal, Check, Minus, Plus } from 'lucide-react';
+import { ChevronLeft, MoreHorizontal, Check, Minus, Plus, Star, Tag } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
@@ -41,6 +40,8 @@ export default function ServicePage() {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
   const [selectedTime, setSelectedTime] = useState<string | null>(timeSlots[1]);
   const [quantity, setQuantity] = useState(1);
+  const [activeFilter, setActiveFilter] = useState('Details');
+  const mainContainerRef = useRef<HTMLDivElement>(null);
 
 
   const { addToCart } = useCart();
@@ -52,6 +53,22 @@ export default function ServicePage() {
   
   const serviceImage = PlaceHolderImages.find((img) => img.id === serviceId);
   const checklistImages = PlaceHolderImages.filter(img => img.imageHint.includes('cleaning') || img.imageHint.includes('tools')).slice(0, service.checklist.length);
+  const galleryImages = PlaceHolderImages.filter(img => img.imageHint.includes(service.category) || img.imageHint.includes('service')).slice(0, 4);
+
+  const handleFilterClick = (filter: string) => {
+    setActiveFilter(filter);
+    const section = document.getElementById(filter.toLowerCase());
+    if (section) {
+        const headerOffset = 80; // height of sticky headers
+        const elementPosition = section.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      
+        window.scrollTo({
+         top: offsetPosition,
+         behavior: "smooth"
+        });
+    }
+  };
 
 
   const handleAddToCart = () => {
@@ -94,9 +111,9 @@ export default function ServicePage() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground" ref={mainContainerRef}>
       <header className="p-4 flex items-center gap-4 sticky top-0 bg-background/80 backdrop-blur-sm z-20 border-b">
-        <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full">
+        <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
           <ChevronLeft />
         </Button>
       </header>
@@ -132,40 +149,87 @@ export default function ServicePage() {
         </Carousel>
 
         {/* Filter Chips */}
-        <div className="px-4 mb-6">
+        <div className="px-4 mb-6 sticky top-[69px] bg-background/80 backdrop-blur-sm py-2 z-10">
             <div className="flex gap-2 overflow-x-auto pb-2 -mx-4 px-4" style={{ scrollbarWidth: 'none' }}>
-                {filterChips.map((chip, index) => (
-                    <Button key={index} variant={index === 0 ? "default" : "secondary"} className={cn(
-                        "rounded-full whitespace-nowrap",
-                        index === 0 ? "bg-primary text-primary-foreground" : ""
-                    )}>
+                {filterChips.map((chip) => (
+                    <Button 
+                        key={chip} 
+                        variant={activeFilter === chip ? "default" : "secondary"} 
+                        className={cn("rounded-full whitespace-nowrap", activeFilter === chip ? "bg-primary text-primary-foreground" : "")}
+                        onClick={() => handleFilterClick(chip)}
+                    >
                         {chip}
                     </Button>
                 ))}
             </div>
         </div>
         
-        {/* "What's Included" List styled as "Popular Today" */}
-        <div className="px-4 space-y-4">
-            <h2 className="text-lg font-semibold text-muted-foreground">What&apos;s Included</h2>
-            {service.checklist.map((item, index) => (
-                 <div key={index} className="flex items-center gap-4">
-                    <Image 
-                        src={checklistImages[index]?.imageUrl || `https://picsum.photos/seed/${item}/100/100`}
-                        alt={item}
-                        width={80}
-                        height={80}
-                        className="rounded-2xl object-cover aspect-square"
-                    />
-                    <div className="flex-grow">
-                        <h3 className="font-semibold leading-tight">{item}</h3>
-                        <p className="text-xs text-muted-foreground mt-1">Professional equipment used</p>
+        {/* Page Content Sections */}
+        <div className="px-4 space-y-8">
+            <section id="details" className="space-y-4 scroll-mt-24">
+                 <h2 className="text-xl font-bold">{service.name}</h2>
+                 <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                    <div className="flex items-center gap-1">
+                        <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
+                        <span className="font-semibold text-foreground">{service.rating}</span>
+                        <span>({service.reviews} reviews)</span>
                     </div>
-                    <Button variant="ghost" size="icon" className="text-muted-foreground">
-                        <Check className="text-primary"/>
-                    </Button>
+                    <span>&bull;</span>
+                    <span>{service.duration}</span>
+                 </div>
+                 <p className="text-muted-foreground">{service.description}</p>
+            </section>
+            <Separator/>
+            <section id="packages" className="space-y-4 scroll-mt-24">
+                <h2 className="text-lg font-semibold text-muted-foreground">What&apos;s Included</h2>
+                {service.checklist.map((item, index) => (
+                     <div key={index} className="flex items-center gap-4">
+                        <Image 
+                            src={checklistImages[index]?.imageUrl || `https://picsum.photos/seed/${item}/100/100`}
+                            alt={item}
+                            width={80}
+                            height={80}
+                            className="rounded-2xl object-cover aspect-square"
+                        />
+                        <div className="flex-grow">
+                            <h3 className="font-semibold leading-tight">{item}</h3>
+                            <p className="text-xs text-muted-foreground mt-1">Professional equipment used</p>
+                        </div>
+                        <Button variant="ghost" size="icon" className="text-muted-foreground">
+                            <Check className="text-primary"/>
+                        </Button>
+                    </div>
+                ))}
+            </section>
+            <Separator/>
+            <section id="offers" className="space-y-4 scroll-mt-24">
+                <h2 className="text-lg font-semibold text-muted-foreground">Available Offers</h2>
+                <Card className="bg-green-50 dark:bg-green-900/30 border-green-200 dark:border-green-800">
+                    <CardContent className="p-4 flex items-center gap-4">
+                        <Tag className="w-6 h-6 text-green-600 dark:text-green-400"/>
+                        <div>
+                            <p className="font-bold text-green-800 dark:text-green-300">Use code UCLAP10</p>
+                            <p className="text-sm text-green-600 dark:text-green-500">Get 10% instant discount on your first order.</p>
+                        </div>
+                    </CardContent>
+                </Card>
+            </section>
+            <Separator/>
+             <section id="gallery" className="space-y-4 scroll-mt-24">
+                <h2 className="text-lg font-semibold text-muted-foreground">Gallery</h2>
+                 <div className="grid grid-cols-2 gap-4">
+                    {galleryImages.map((image) => (
+                        <Image 
+                            key={image.id}
+                            src={image.imageUrl}
+                            alt={image.description}
+                            width={200}
+                            height={200}
+                            className="rounded-lg object-cover aspect-square w-full"
+                        />
+                    ))}
                 </div>
-            ))}
+            </section>
         </div>
       </main>
 
