@@ -225,7 +225,7 @@ export default function CheckoutPage() {
                         Loading...
                     </Button>
                 ) : user ? (
-                    <Button size="lg" className="w-full h-12 text-base" onClick={handlePlaceOrder} disabled={isPlacingOrder}>
+                    <Button size="lg" className="w-full h-12 text-base" onClick={handlePlaceOrder} disabled={isPlacingOrder || !deliveryAddress}>
                         {isPlacingOrder ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'Place Order & Pay'}
                     </Button>
                 ) : (
