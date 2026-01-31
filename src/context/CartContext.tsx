@@ -13,7 +13,7 @@ export interface CartItem extends Service {
 
 interface CartContextType {
   items: CartItem[];
-  addToCart: (item: Omit<CartItem, 'cartItemId' | 'quantity'>, quantity: number) => void;
+  addToCart: (item: Omit<CartItem, 'cartItemId' | 'quantity'>, quantity: number) => 'added' | 'updated';
   removeFromCart: (cartItemId: string) => void;
   updateItemQuantity: (cartItemId: string, quantity: number) => void;
   clearCart: () => void;
@@ -53,10 +53,13 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [items, isClient]);
 
-  const addToCart = (item: Omit<CartItem, 'cartItemId' | 'quantity'>, quantity: number) => {
+  const addToCart = (item: Omit<CartItem, 'cartItemId' | 'quantity'>, quantity: number): 'added' | 'updated' => {
     const cartItemId = `${item.id}-${item.selectedDate.toISOString()}-${item.selectedTime}`;
+    
+    const existingItem = items.find((i) => i.cartItemId === cartItemId);
+    const action: 'added' | 'updated' = existingItem ? 'updated' : 'added';
+
     setItems((prevItems) => {
-      const existingItem = prevItems.find((i) => i.cartItemId === cartItemId);
       if (existingItem) {
         // If item exists, update its quantity
         return prevItems.map((i) =>
@@ -70,6 +73,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         return [...prevItems, newItem];
       }
     });
+
+    return action;
   };
 
   const removeFromCart = (cartItemId: string) => {
