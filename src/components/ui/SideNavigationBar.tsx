@@ -83,7 +83,19 @@ export default function SideNavigationBar({ isOpen, setIsOpen }: SideNavigationB
                     <p className="text-sm text-gray-400 user-name">{userProfile?.phoneNumber || user?.phoneNumber || userProfile?.email}</p>
                 </>
             ) : (
-                 <p className="font-semibold text-lg user-name">Guest User</p>
+                 <div>
+                    <p className="font-semibold text-lg user-name">Guest User</p>
+                     <Button
+                        variant="link"
+                        className="p-0 h-auto text-primary nav-text"
+                        onClick={() => {
+                            router.push('/phone-login');
+                            setIsOpen(false);
+                        }}
+                    >
+                        Login / Sign Up
+                    </Button>
+                </div>
             )}
           </div>
         </div>
