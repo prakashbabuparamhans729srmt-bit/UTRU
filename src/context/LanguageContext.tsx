@@ -218,6 +218,29 @@ webLink: string;
         subtitle: string;
         viewBookings: string;
         continueShopping: string;
+    },
+    service: {
+        details: string;
+        packages: string;
+        offers: string;
+        gallery: string;
+        whatsIncluded: string;
+        availableOffers: string;
+        byProServices: string;
+        viewDetails: string;
+        addToCart: string;
+        selectDateTime: string;
+        selected: string;
+        noDate: string;
+        noTime: string;
+        availableSlots: string;
+        quantity: string;
+        confirmAndAddToCart: string;
+        addedToCartTitle: string;
+        viewCart: string;
+        updatedCartTitle: string;
+        selectionRequiredTitle: string;
+        selectionRequiredDesc: string;
     }
 }
 
@@ -438,6 +461,29 @@ const translations: Record<string, Translations> = {
             viewBookings: 'View Bookings',
             continueShopping: 'Continue Shopping',
         },
+        service: {
+            details: 'Details',
+            packages: 'Packages',
+            offers: 'Offers',
+            gallery: 'Gallery',
+            whatsIncluded: "What's Included",
+            availableOffers: 'Available Offers',
+            byProServices: 'By Pro Services',
+            viewDetails: 'View details',
+            addToCart: 'Add to Cart',
+            selectDateTime: 'Select Date & Time',
+            selected: 'Selected:',
+            noDate: 'No date',
+            noTime: 'No time',
+            availableSlots: 'Available Slots',
+            quantity: 'Quantity',
+            confirmAndAddToCart: 'Confirm & Add to Cart',
+            addedToCartTitle: 'Service added to cart!',
+            viewCart: 'View Cart',
+            updatedCartTitle: 'Cart updated!',
+            selectionRequiredTitle: 'Selection required',
+            selectionRequiredDesc: 'Please select a date and time slot.',
+        }
     },
     'हिंदी': {
         settings: {
@@ -654,6 +700,29 @@ const translations: Record<string, Translations> = {
             viewBookings: 'बुकिंग देखें',
             continueShopping: 'खरीदारी जारी रखें',
         },
+        service: {
+            details: 'विवरण',
+            packages: 'पैकेज',
+            offers: 'ऑफर',
+            gallery: 'गैलरी',
+            whatsIncluded: 'क्या-क्या शामिल है',
+            availableOffers: 'उपलब्ध ऑफर',
+            byProServices: 'प्रो सर्विसेज द्वारा',
+            viewDetails: 'विवरण देखें',
+            addToCart: 'कार्ट में जोड़ें',
+            selectDateTime: 'तिथि और समय चुनें',
+            selected: 'चयनित:',
+            noDate: 'कोई तिथि नहीं',
+            noTime: 'कोई समय नहीं',
+            availableSlots: 'उपलब्ध स्लॉट',
+            quantity: 'मात्रा',
+            confirmAndAddToCart: 'पुष्टि करें और कार्ट में जोड़ें',
+            addedToCartTitle: 'सेवा कार्ट में जोड़ी गई!',
+            viewCart: 'कार्ट देखें',
+            updatedCartTitle: 'कार्ट अपडेट किया गया!',
+            selectionRequiredTitle: 'चयन आवश्यक है',
+            selectionRequiredDesc: 'कृपया एक तिथि और समय स्लॉट चुनें।',
+        }
     },
     'Bhojpuri': {
         settings: {
@@ -870,6 +939,29 @@ const translations: Record<string, Translations> = {
             viewBookings: 'बुकिंग देखीं',
             continueShopping: 'खरीदारी जारी राखीं',
         },
+        service: {
+            details: 'विवरण',
+            packages: 'पैकेज',
+            offers: 'ऑफर',
+            gallery: 'गैलरी',
+            whatsIncluded: 'का-का शामिल बा',
+            availableOffers: 'उपलब्ध ऑफर',
+            byProServices: 'प्रो सर्विसेज द्वारा',
+            viewDetails: 'विवरण देखीं',
+            addToCart: 'कार्ट में जोड़ीं',
+            selectDateTime: 'तिथि आ समय चुनीं',
+            selected: 'चयनित:',
+            noDate: 'कवनो तिथि नइखे',
+            noTime: 'कवनो समय नइखे',
+            availableSlots: 'उपलब्ध स्लॉट',
+            quantity: 'मात्रा',
+            confirmAndAddToCart: 'पुष्टि करीं आ कार्ट में जोड़ीं',
+            addedToCartTitle: 'सेवा कार्ट में जोड़ल गईल!',
+            viewCart: 'कार्ट देखीं',
+            updatedCartTitle: 'कार्ट अपडेट भईल!',
+            selectionRequiredTitle: 'चयन जरूरी बा',
+            selectionRequiredDesc: 'कृपया एगो तिथि आ समय स्लॉट चुनीं।',
+        }
     },
     'मराठी': {
         settings: {
@@ -1086,6 +1178,29 @@ const translations: Record<string, Translations> = {
             viewBookings: 'बुकिंग पहा',
             continueShopping: 'खरेदी सुरू ठेवा',
         },
+        service: {
+            details: 'तपशील',
+            packages: 'पॅकेजेस',
+            offers: 'ऑफर्स',
+            gallery: 'गॅलरी',
+            whatsIncluded: 'काय समाविष्ट आहे',
+            availableOffers: 'उपलब्ध ऑफर्स',
+            byProServices: 'प्रो सर्व्हिसेसद्वारे',
+            viewDetails: 'तपशील पहा',
+            addToCart: 'कार्टमध्ये जोडा',
+            selectDateTime: 'तारीख आणि वेळ निवडा',
+            selected: 'निवडलेले:',
+            noDate: 'तारीख नाही',
+            noTime: 'वेळ नाही',
+            availableSlots: 'उपलब्ध स्लॉट्स',
+            quantity: 'प्रमाण',
+            confirmAndAddToCart: 'निश्चित करा आणि कार्टमध्ये जोडा',
+            addedToCartTitle: 'सेवा कार्टमध्ये जोडली!',
+            viewCart: 'कार्ट पहा',
+            updatedCartTitle: 'कार्ट अपडेट केले!',
+            selectionRequiredTitle: 'निवड आवश्यक आहे',
+            selectionRequiredDesc: 'कृपया एक तारीख आणि वेळ स्लॉट निवडा.',
+        }
     }
 };
 
@@ -1134,3 +1249,5 @@ export const useLanguage = () => {
     }
     return context;
 };
+
+    

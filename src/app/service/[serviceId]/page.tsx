@@ -19,8 +19,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 import { Separator } from '@/components/ui/separator';
 import { Calendar } from '@/components/ui/calendar';
 import Link from 'next/link';
+import { useLanguage } from '@/context/LanguageContext';
 
-const filterChips = ["Details", "Packages", "Offers", "Gallery"];
 const timeSlots = [
   '09:00 AM - 11:00 AM',
   '11:00 AM - 01:00 PM',
@@ -32,8 +32,16 @@ const timeSlots = [
 export default function ServicePage() {
   const router = useRouter();
   const params = useParams();
+  const { translations } = useLanguage();
   const serviceId = params.serviceId as string;
   const service = servicesData.find((s) => s.id === serviceId);
+
+  const filterChips = [
+    { key: "details", label: translations.service.details },
+    { key: "packages", label: translations.service.packages },
+    { key: "offers", label: translations.service.offers },
+    { key: "gallery", label: translations.service.gallery }
+  ];
   
   const [isClient, setIsClient] = useState(false);
   useEffect(() => setIsClient(true), []);
@@ -41,7 +49,7 @@ export default function ServicePage() {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
   const [selectedTime, setSelectedTime] = useState<string | null>(timeSlots[1]);
   const [quantity, setQuantity] = useState(1);
-  const [activeFilter, setActiveFilter] = useState('Details');
+  const [activeFilter, setActiveFilter] = useState('details');
   const mainContainerRef = useRef<HTMLDivElement>(null);
 
 
@@ -92,7 +100,7 @@ export default function ServicePage() {
       (entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
-                 const filterName = entry.target.id.charAt(0).toUpperCase() + entry.target.id.slice(1);
+                 const filterName = entry.target.id;
                  setActiveFilter(filterName);
             }
         });
@@ -102,7 +110,7 @@ export default function ServicePage() {
       }
     );
 
-    const sections = filterChips.map(chip => document.getElementById(chip.toLowerCase()));
+    const sections = filterChips.map(chip => document.getElementById(chip.key.toLowerCase()));
     sections.forEach((section) => {
       if (section) observer.observe(section);
     });
@@ -112,15 +120,15 @@ export default function ServicePage() {
         if (section) observer.unobserve(section);
       });
     };
-  }, []);
+  }, [filterChips]);
 
 
   const handleAddToCart = () => {
     if (!selectedDate || !selectedTime) {
       toast({
         variant: 'destructive',
-        title: 'Selection required',
-        description: 'Please select a date and time slot inside the booking dialog.',
+        title: translations.service.selectionRequiredTitle,
+        description: translations.service.selectionRequiredDesc,
       });
       return;
     }
@@ -137,15 +145,15 @@ export default function ServicePage() {
 
     if (action === 'added') {
       toast({
-        title: 'Service added to cart!',
-        description: `${quantity} x ${service.name} has been added.`,
-        action: <ToastAction altText="View Cart" onClick={() => router.push('/cart')}>View Cart</ToastAction>,
+        title: translations.service.addedToCartTitle,
+        description: `${quantity} x ${service.name}`,
+        action: <ToastAction altText={translations.service.viewCart} onClick={() => router.push('/cart')}>{translations.service.viewCart}</ToastAction>,
       });
     } else { // 'updated'
       toast({
-        title: 'Cart updated!',
-        description: `Quantity for ${service.name} has been updated.`,
-        action: <ToastAction altText="View Cart" onClick={() => router.push('/cart')}>View Cart</ToastAction>,
+        title: translations.service.updatedCartTitle,
+        description: `${translations.service.quantity} for ${service.name} has been updated.`,
+        action: <ToastAction altText={translations.service.viewCart} onClick={() => router.push('/cart')}>{translations.service.viewCart}</ToastAction>,
       });
     }
   };
@@ -182,7 +190,7 @@ export default function ServicePage() {
                         />
                         <div className="p-3">
                         <h3 className="font-semibold truncate">{item.name}</h3>
-                        <p className="text-xs text-muted-foreground mt-1">By Pro Services</p>
+                        <p className="text-xs text-muted-foreground mt-1">{translations.service.byProServices}</p>
                         </div>
                     </CardContent>
                     </Card>
@@ -197,12 +205,12 @@ export default function ServicePage() {
             <div className="flex gap-2 overflow-x-auto pb-2 -mx-4 px-4" style={{ scrollbarWidth: 'none' }}>
                 {filterChips.map((chip) => (
                     <Button 
-                        key={chip} 
-                        variant={activeFilter === chip ? "default" : "secondary"} 
-                        className={cn("rounded-full whitespace-nowrap", activeFilter === chip ? "bg-primary text-primary-foreground" : "")}
-                        onClick={() => handleFilterClick(chip)}
+                        key={chip.key} 
+                        variant={activeFilter === chip.key ? "default" : "secondary"} 
+                        className={cn("rounded-full whitespace-nowrap", activeFilter === chip.key ? "bg-primary text-primary-foreground" : "")}
+                        onClick={() => handleFilterClick(chip.key)}
                     >
-                        {chip}
+                        {chip.label}
                     </Button>
                 ))}
             </div>
@@ -225,7 +233,7 @@ export default function ServicePage() {
             </section>
             <Separator/>
             <section id="packages" className="space-y-4 scroll-mt-24">
-                <h2 className="text-lg font-semibold text-muted-foreground">What&apos;s Included</h2>
+                <h2 className="text-lg font-semibold text-muted-foreground">{translations.service.whatsIncluded}</h2>
                 {service.checklist.map((item, index) => (
                      <div key={index} className="flex items-center gap-4">
                         <Image 
@@ -247,7 +255,7 @@ export default function ServicePage() {
             </section>
             <Separator/>
             <section id="offers" className="space-y-4 scroll-mt-24">
-                <h2 className="text-lg font-semibold text-muted-foreground">Available Offers</h2>
+                <h2 className="text-lg font-semibold text-muted-foreground">{translations.service.availableOffers}</h2>
                 <Card className="bg-green-50 dark:bg-green-900/30 border-green-200 dark:border-green-800">
                     <CardContent className="p-4 flex items-center gap-4">
                         <Tag className="w-6 h-6 text-green-600 dark:text-green-400"/>
@@ -260,7 +268,7 @@ export default function ServicePage() {
             </section>
             <Separator/>
              <section id="gallery" className="space-y-4 scroll-mt-24">
-                <h2 className="text-lg font-semibold text-muted-foreground">Gallery</h2>
+                <h2 className="text-lg font-semibold text-muted-foreground">{translations.service.gallery}</h2>
                  <div className="grid grid-cols-2 gap-4">
                     {galleryImages.map((image) => (
                         <Image 
@@ -281,19 +289,19 @@ export default function ServicePage() {
         <div className="flex items-center justify-between">
             <div>
                 <p className="text-xl font-bold text-card-foreground">₹{service.price.toLocaleString()}</p>
-                <p onClick={() => handleFilterClick('Details')} className="text-xs text-primary underline cursor-pointer">View details</p>
+                <p onClick={() => handleFilterClick('details')} className="text-xs text-primary underline cursor-pointer">{translations.service.viewDetails}</p>
             </div>
             <Dialog>
                 <DialogTrigger asChild>
-                    <Button size="lg" className="rounded-md">Add to Cart</Button>
+                    <Button size="lg" className="rounded-md">{translations.service.addToCart}</Button>
                 </DialogTrigger>
                 <DialogContent className="bg-background text-foreground max-w-sm">
                     <DialogHeader>
-                        <DialogTitle>Select Date & Time</DialogTitle>
+                        <DialogTitle>{translations.service.selectDateTime}</DialogTitle>
                     </DialogHeader>
                     <div className="py-4">
                         <p className="text-center text-sm text-muted-foreground mb-4">
-                            Selected: {selectedDate ? format(selectedDate, 'PPP') : 'No date'} at {selectedTime || 'No time'}
+                            {translations.service.selected} {selectedDate ? format(selectedDate, 'PPP') : translations.service.noDate} at {selectedTime || translations.service.noTime}
                         </p>
                         <div className="flex flex-col items-center">
                             <Calendar
@@ -305,7 +313,7 @@ export default function ServicePage() {
                             />
                              <Separator className="my-4" />
                             <div className="w-full px-4">
-                                <h4 className="font-semibold mb-2 text-center">Available Slots</h4>
+                                <h4 className="font-semibold mb-2 text-center">{translations.service.availableSlots}</h4>
                                 <div className="grid grid-cols-2 gap-2">
                                     {timeSlots.map((slot) => (
                                         <Button 
@@ -321,7 +329,7 @@ export default function ServicePage() {
                             </div>
                             <Separator className="my-4" />
                             <div className="w-full px-4 flex flex-col items-center">
-                                <h4 className="font-semibold mb-2 text-center">Quantity</h4>
+                                <h4 className="font-semibold mb-2 text-center">{translations.service.quantity}</h4>
                                 <div className="flex items-center justify-center gap-4">
                                     <Button
                                         variant="outline"
@@ -344,7 +352,7 @@ export default function ServicePage() {
                     </div>
                     <DialogClose asChild>
                        <Button size="lg" className="w-full" onClick={handleAddToCart} disabled={!selectedDate || !selectedTime}>
-                            Confirm & Add to Cart
+                            {translations.service.confirmAndAddToCart}
                         </Button>
                     </DialogClose>
                 </DialogContent>
@@ -354,3 +362,5 @@ export default function ServicePage() {
     </div>
   );
 }
+
+    
