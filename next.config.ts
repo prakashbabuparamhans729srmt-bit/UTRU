@@ -10,6 +10,9 @@ const withPWA = require('next-pwa')({
 
 const nextConfig: NextConfig = {
   /* config options here */
+  experimental: {
+    allowedDevOrigins: ["*.cloudworkstations.dev"],
+  },
   typescript: {
     ignoreBuildErrors: true,
   },
