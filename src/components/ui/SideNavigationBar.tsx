@@ -13,6 +13,7 @@ import { cn } from '@/lib/utils';
 import { sideNavLinks } from '@/lib/navigation';
 import { useLanguage } from '@/context/LanguageContext';
 import { useCart } from '@/context/CartContext';
+import { useToast } from '@/hooks/use-toast';
 
 interface SideNavigationBarProps {
   isOpen: boolean;
@@ -26,6 +27,7 @@ export default function SideNavigationBar({ isOpen, setIsOpen }: SideNavigationB
   const isMobile = useIsMobile();
   const [isDesktop, setIsDesktop] = useState(false);
   const { clearCart } = useCart();
+  const { toast } = useToast();
 
   const { translations } = useLanguage();
 
@@ -37,6 +39,10 @@ export default function SideNavigationBar({ isOpen, setIsOpen }: SideNavigationB
     await signOut();
     clearCart();
     setIsOpen(false);
+    toast({
+      title: 'Logged Out',
+      description: 'You have been successfully logged out.',
+    });
   };
 
   const content = (
