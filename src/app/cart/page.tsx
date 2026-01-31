@@ -98,7 +98,7 @@ export default function CartPage() {
             <span>{translations.cart.toPay}</span>
             <span>₹{(total * 1.1).toLocaleString()}</span>
           </div>
-        <Button size="lg" className="w-full h-12 text-base">
+        <Button size="lg" className="w-full h-12 text-base" onClick={() => router.push('/checkout')}>
           {translations.cart.checkout}
         </Button>
       </footer>
