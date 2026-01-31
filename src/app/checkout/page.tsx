@@ -4,7 +4,7 @@
 import { ChevronLeft, Home, MapPin, MoreVertical, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { useCart, type CartItem } from '@/context/CartContext';
+import { useCart, type CartItem, type Address } from '@/context/CartContext';
 import { useLanguage } from '@/context/LanguageContext';
 import Image from 'next/image';
 import { Card } from '@/components/ui/card';
@@ -43,30 +43,29 @@ function CheckoutItemCard({ item }: { item: CartItem }) {
 
 export default function CheckoutPage() {
     const router = useRouter();
-    const { items, total, clearCart, deliveryFee, platformFee, couponCode, discount, finalTotal } = useCart();
+    const { items, total, clearCart, deliveryFee, platformFee, couponCode, discount, finalTotal, deliveryAddress } = useCart();
     const { translations } = useLanguage();
     const { user, loading: userLoading } = useUser();
     const firestore = useFirestore();
     const { toast } = useToast();
     const [isPlacingOrder, setIsPlacingOrder] = useState(false);
 
-    if (items.length === 0) {
-        // Redirect to home if cart is empty
-        if (typeof window !== 'undefined') {
-            router.replace('/');
-        }
+    if (items.length === 0 && typeof window !== 'undefined') {
+        router.replace('/');
         return null;
     }
 
     const handlePlaceOrder = () => {
         if (!user || !firestore) {
-            toast({
-                variant: 'destructive',
-                title: 'Error',
-                description: 'User not logged in or Firestore not available.',
-            });
+            toast({ variant: 'destructive', title: 'Error', description: 'User not logged in or Firestore not available.'});
+            router.push('/phone-login');
             return;
         }
+        if (!deliveryAddress) {
+            toast({ variant: 'destructive', title: 'Address Missing', description: 'Please select a delivery address.' });
+            return;
+        }
+
         setIsPlacingOrder(true);
 
         const bookingData = {
@@ -87,10 +86,7 @@ export default function CheckoutPage() {
             couponCode,
             finalTotal,
             placedAt: serverTimestamp(),
-            deliveryAddress: {
-                type: 'Home',
-                address: 'A-42, Sector 63, Noida, Uttar Pradesh 201301'
-            }
+            deliveryAddress: deliveryAddress,
         };
 
         const bookingsCol = collection(firestore, 'users', user.uid, 'bookings');
@@ -131,19 +127,28 @@ export default function CheckoutPage() {
                 {/* Delivery Address Section */}
                 <Card className="p-4">
                     <div className="flex justify-between items-start">
-                        <div>
-                            <p className="text-muted-foreground text-sm font-semibold mb-2">DELIVERING TO</p>
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-muted rounded-full flex items-center justify-center">
-                                    <Home className="w-5 h-5 text-primary" />
-                                </div>
+                        {deliveryAddress ? (
+                            <>
                                 <div>
-                                    <p className="font-bold">Home</p>
-                                    <p className="text-sm text-muted-foreground max-w-xs truncate">A-42, Sector 63, Noida, Uttar Pradesh 201301</p>
+                                    <p className="text-muted-foreground text-sm font-semibold mb-2">DELIVERING TO</p>
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-10 h-10 bg-muted rounded-full flex items-center justify-center">
+                                            <Home className="w-5 h-5 text-primary" />
+                                        </div>
+                                        <div>
+                                            <p className="font-bold">{deliveryAddress.type}</p>
+                                            <p className="text-sm text-muted-foreground max-w-xs truncate">{deliveryAddress.fullAddress}</p>
+                                        </div>
+                                    </div>
                                 </div>
+                                <Button variant="outline" size="sm" className="rounded-full border-primary text-primary" onClick={() => router.push('/address')}>Change</Button>
+                            </>
+                        ) : (
+                            <div className='w-full flex flex-col items-center text-center gap-2 py-4'>
+                                <p className='font-semibold'>Please select a delivery address</p>
+                                <Button onClick={() => router.push('/address')}>Select Address</Button>
                             </div>
-                        </div>
-                        <Button variant="outline" size="sm" className="rounded-full border-primary text-primary" onClick={() => router.push('/address')}>Change</Button>
+                        )}
                     </div>
                 </Card>
 
@@ -190,11 +195,17 @@ export default function CheckoutPage() {
             <footer className="fixed bottom-0 left-0 right-0 bg-card border-t p-4 z-10">
                 <div className='flex justify-between items-center mb-2'>
                      <div className="flex items-center gap-3">
-                        <MapPin className="w-5 h-5 text-primary" />
-                        <div>
-                            <p className="text-sm">Deliver to <span className='font-bold'>Home</span></p>
-                            <p className="text-xs text-muted-foreground">in 25-30 mins</p>
-                        </div>
+                        {deliveryAddress ? (
+                            <>
+                                <MapPin className="w-5 h-5 text-primary" />
+                                <div>
+                                    <p className="text-sm">Deliver to <span className='font-bold'>{deliveryAddress.type}</span></p>
+                                    <p className="text-xs text-muted-foreground">in 25-30 mins</p>
+                                </div>
+                            </>
+                        ) : (
+                            <p className="text-sm text-muted-foreground">No address selected</p>
+                        )}
                      </div>
                      <div className='flex items-center gap-2'>
                         <p className='font-bold text-lg'>₹{finalTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
@@ -209,7 +220,7 @@ export default function CheckoutPage() {
                         Loading...
                     </Button>
                 ) : user ? (
-                    <Button size="lg" className="w-full h-12 text-base" onClick={handlePlaceOrder} disabled={isPlacingOrder}>
+                    <Button size="lg" className="w-full h-12 text-base" onClick={handlePlaceOrder} disabled={isPlacingOrder || !deliveryAddress}>
                         {isPlacingOrder ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'Place Order & Pay'}
                     </Button>
                 ) : (

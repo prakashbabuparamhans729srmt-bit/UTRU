@@ -12,6 +12,16 @@ export interface CartItem extends Service {
   quantity: number;
 }
 
+export interface Address {
+  id: string;
+  type: 'Home' | 'Work' | 'Hotel' | 'Other';
+  name: string;
+  mobile: string;
+  fullAddress: string;
+  floor?: string;
+  landmark?: string;
+}
+
 interface CartContextType {
   items: CartItem[];
   addToCart: (item: Omit<CartItem, 'cartItemId' | 'quantity'>, quantity: number) => 'added' | 'updated';
@@ -26,6 +36,8 @@ interface CartContextType {
   finalTotal: number;
   applyCoupon: (code: string) => boolean;
   removeCoupon: () => void;
+  deliveryAddress: Address | null;
+  setDeliveryAddress: (address: Address | null) => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -39,6 +51,7 @@ const VALID_COUPONS: { [key: string]: { type: 'percent' | 'fixed'; value: number
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [items, setItems] = useState<CartItem[]>([]);
   const [couponCode, setCouponCode] = useState<string | null>(null);
+  const [deliveryAddress, setDeliveryAddressState] = useState<Address | null>(null);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -59,11 +72,16 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         if (savedCoupon && VALID_COUPONS[savedCoupon]) {
             setCouponCode(savedCoupon);
         }
+        const savedAddress = localStorage.getItem('deliveryAddress');
+        if (savedAddress) {
+            setDeliveryAddressState(JSON.parse(savedAddress));
+        }
 
       } catch (error) {
-        console.error("Failed to parse cart from localStorage", error);
+        console.error("Failed to parse data from localStorage", error);
         localStorage.removeItem('cart');
         localStorage.removeItem('couponCode');
+        localStorage.removeItem('deliveryAddress');
       }
     }
   }, []);
@@ -76,8 +94,13 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       } else {
         localStorage.removeItem('couponCode');
       }
+      if (deliveryAddress) {
+        localStorage.setItem('deliveryAddress', JSON.stringify(deliveryAddress));
+      } else {
+        localStorage.removeItem('deliveryAddress');
+      }
     }
-  }, [items, couponCode, isClient]);
+  }, [items, couponCode, deliveryAddress, isClient]);
 
   const addToCart = (item: Omit<CartItem, 'cartItemId' | 'quantity'>, quantity: number): 'added' | 'updated' => {
     const cartItemId = `${item.id}-${item.selectedDate.toISOString()}-${item.selectedTime}`;
@@ -118,10 +141,15 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
+  const setDeliveryAddress = (address: Address | null) => {
+    setDeliveryAddressState(address);
+  };
+
 
   const clearCart = () => {
     setItems([]);
     setCouponCode(null);
+    setDeliveryAddressState(null);
   };
 
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -158,7 +186,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
 
   return (
-    <CartContext.Provider value={{ items, addToCart, removeFromCart, updateItemQuantity, clearCart, total, deliveryFee, platformFee, couponCode, discount, finalTotal, applyCoupon, removeCoupon }}>
+    <CartContext.Provider value={{ items, addToCart, removeFromCart, updateItemQuantity, clearCart, total, deliveryFee, platformFee, couponCode, discount, finalTotal, applyCoupon, removeCoupon, deliveryAddress, setDeliveryAddress }}>
       {children}
     </CartContext.Provider>
   );

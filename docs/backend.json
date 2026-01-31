@@ -28,6 +28,21 @@
                 "uid"
             ]
         },
+        "address": {
+            "title": "Address",
+            "description": "A user's delivery address.",
+            "type": "object",
+            "properties": {
+                "id": { "type": "string" },
+                "type": { "type": "string", "enum": ["Home", "Work", "Hotel", "Other"] },
+                "name": { "type": "string" },
+                "mobile": { "type": "string" },
+                "fullAddress": { "type": "string", "description": "Flat, House no, Building, Apartment" },
+                "floor": { "type": "string" },
+                "landmark": { "type": "string" }
+            },
+            "required": ["type", "name", "mobile", "fullAddress"]
+        },
         "cartItem": {
             "title": "Cart Item",
             "description": "An item within a shopping cart or booking.",
@@ -68,14 +83,10 @@
                 "finalTotal": { "type": "number" },
                 "placedAt": { "type": "string", "format": "date-time" },
                 "deliveryAddress": {
-                    "type": "object",
-                    "properties": {
-                        "type": { "type": "string" },
-                        "address": { "type": "string" }
-                    }
+                    "$ref": "#/backend/entities/address"
                 }
             },
-            "required": ["id", "userId", "items", "finalTotal", "placedAt"]
+            "required": ["id", "userId", "items", "finalTotal", "placedAt", "deliveryAddress"]
         }
     },
     "auth": {
@@ -89,6 +100,12 @@
                 "$ref": "#/backend/entities/user"
             },
             "description": "Stores user profile information."
+        },
+        "/users/{userId}/addresses/{addressId}": {
+            "schema": {
+                "$ref": "#/backend/entities/address"
+            },
+            "description": "Stores user's saved addresses."
         },
         "/users/{userId}/bookings/{bookingId}": {
             "schema": {
