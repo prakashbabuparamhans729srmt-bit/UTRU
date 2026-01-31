@@ -74,6 +74,14 @@ export default function CartPage() {
     }
     setCouponInput('');
   };
+  
+  const handleRemoveCoupon = () => {
+    removeCoupon();
+    toast({
+      title: 'Coupon Removed',
+      description: 'Your cart total has been updated.',
+    });
+  };
 
 
   if (items.length === 0) {
@@ -131,7 +139,7 @@ export default function CartPage() {
               <p className="font-semibold text-green-700 dark:text-green-300">
                 Coupon <span className="font-bold">{couponCode}</span> applied!
               </p>
-              <Button variant="ghost" size="sm" onClick={removeCoupon} className="text-green-700 dark:text-green-300 h-auto py-1">Remove</Button>
+              <Button variant="ghost" size="sm" onClick={handleRemoveCoupon} className="text-green-700 dark:text-green-300 h-auto py-1">Remove</Button>
             </div>
           )}
 
