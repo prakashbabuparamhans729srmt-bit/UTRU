@@ -24,6 +24,7 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Card } from '@/components/ui/card';
 import { useTheme } from '@/context/ThemeContext';
 import { cn } from '@/lib/utils';
+import { useCart } from '@/context/CartContext';
 
 const MyPlansIcon = () => (
   <div className="w-6 h-6 flex items-center justify-center rounded-sm bg-gray-600 text-white text-xs font-bold">
@@ -51,10 +52,12 @@ export default function ProfilePage() {
   const { user, loading: userLoading } = useUser();
   const { signOut, isPending: signOutPending } = useAuthUI();
   const { theme, toggleTheme } = useTheme();
+  const { clearCart } = useCart();
   const referCarImage = PlaceHolderImages.find(img => img.id === 'refer-car');
   
   const handleSignOut = async () => {
     await signOut();
+    clearCart();
     toast({
       title: 'Logged Out',
       description: 'You have been successfully logged out.',

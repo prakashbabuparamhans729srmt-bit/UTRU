@@ -12,6 +12,7 @@ import { LogOut, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { sideNavLinks } from '@/lib/navigation';
 import { useLanguage } from '@/context/LanguageContext';
+import { useCart } from '@/context/CartContext';
 
 interface SideNavigationBarProps {
   isOpen: boolean;
@@ -24,6 +25,7 @@ export default function SideNavigationBar({ isOpen, setIsOpen }: SideNavigationB
   const pathname = usePathname();
   const isMobile = useIsMobile();
   const [isDesktop, setIsDesktop] = useState(false);
+  const { clearCart } = useCart();
 
   const { translations } = useLanguage();
 
@@ -33,6 +35,7 @@ export default function SideNavigationBar({ isOpen, setIsOpen }: SideNavigationB
 
   const handleSignOut = async () => {
     await signOut();
+    clearCart();
     setIsOpen(false);
   };
 
