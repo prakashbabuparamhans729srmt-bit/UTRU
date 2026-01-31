@@ -1,3 +1,4 @@
+
 'use client';
 
 import { notFound, useRouter, useParams } from 'next/navigation';
@@ -95,7 +96,7 @@ export default function ServicePage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="p-4 flex items-center gap-4 sticky top-0 bg-background/80 backdrop-blur-sm z-20 border-b">
-        <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
+        <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full">
           <ChevronLeft />
         </Button>
       </header>

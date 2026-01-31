@@ -63,7 +63,7 @@ export default function CartPage() {
     return (
       <div className="bg-background text-foreground min-h-screen flex flex-col">
         <header className="p-4 flex items-center gap-4 border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
-          <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full hover:bg-gray-700">
+          <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full">
             <ChevronLeft />
           </Button>
           <h1 className="text-lg font-semibold">{translations.cart.yourCart}</h1>
@@ -85,7 +85,7 @@ export default function CartPage() {
   return (
     <div className="bg-background text-foreground min-h-screen flex flex-col">
       <header className="p-4 flex items-center gap-4 border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
-        <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full hover:bg-gray-700">
+        <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full">
           <ChevronLeft />
         </Button>
         <h1 className="text-lg font-semibold">{translations.cart.yourCart} ({items.length})</h1>
