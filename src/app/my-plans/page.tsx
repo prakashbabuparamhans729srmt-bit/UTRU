@@ -1,7 +1,7 @@
 
 'use client';
 
-import { ChevronLeft, FileText } from 'lucide-react';
+import { ChevronLeft, FileText, CalendarCheck, History } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/context/LanguageContext';
@@ -30,6 +30,42 @@ interface Booking {
   placedAt: { seconds: number; nanoseconds: number; }; // Firestore timestamp
 }
 
+function BookingCard({ booking }: { booking: Booking }) {
+    return (
+        <Card className="p-4">
+            <div className="flex justify-between items-center mb-2">
+                <h3 className="font-bold text-sm">Booking ID: {booking.id.substring(0, 7).toUpperCase()}</h3>
+                <p className="text-sm font-bold">₹{booking.finalTotal.toLocaleString()}</p>
+            </div>
+            <p className="text-xs text-muted-foreground mb-4">
+                {booking.placedAt ? format(new Date(booking.placedAt.seconds * 1000), 'PPP p') : 'Date not available'}
+            </p>
+            <div className="space-y-4">
+                {booking.items.map((item, index) => {
+                    let itemDate;
+                    if (item.selectedDate) {
+                        itemDate = item.selectedDate instanceof Date ? item.selectedDate : new Date((item.selectedDate as any).seconds * 1000);
+                    }
+                    return (
+                        <div key={index} className="flex gap-3 items-center">
+                            <Image src={item.imageUrl} alt={item.name} width={60} height={60} className="rounded-md aspect-square object-cover" />
+                            <div>
+                                <p className="font-semibold text-sm">{item.name}</p>
+                                <p className="text-xs text-muted-foreground">Qty: {item.quantity}</p>
+                                {itemDate && (
+                                    <p className="text-xs text-muted-foreground">
+                                        {format(itemDate, 'EEE, d MMM yyyy')} at {item.selectedTime}
+                                    </p>
+                                )}
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+        </Card>
+    );
+}
+
 export default function MyPlansPage() {
   const router = useRouter();
   const { translations } = useLanguage();
@@ -46,6 +82,38 @@ export default function MyPlansPage() {
 
   const { data: bookings, loading: bookingsLoading, error } = useCollection<Booking>(bookingsQuery);
 
+  const { upcomingBookings, pastBookings } = useMemo(() => {
+    if (!bookings) return { upcomingBookings: [], pastBookings: [] };
+    
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const upcoming: Booking[] = [];
+    const past: Booking[] = [];
+
+    bookings.forEach(booking => {
+      if (!booking.items || booking.items.length === 0) {
+        past.push(booking); // Consider bookings with no items as past
+        return;
+      }
+      
+      // A booking is 'upcoming' if at least one of its items is for today or a future date.
+      const isUpcoming = booking.items.some(item => {
+        const itemDate = new Date((item.selectedDate as any).seconds * 1000);
+        return itemDate >= today;
+      });
+
+      if (isUpcoming) {
+        upcoming.push(booking);
+      } else {
+        past.push(booking);
+      }
+    });
+
+    return { upcomingBookings: upcoming, pastBookings: past };
+  }, [bookings]);
+
+
   const isLoading = userLoading || bookingsLoading;
 
   return (
@@ -56,7 +124,7 @@ export default function MyPlansPage() {
         </Button>
         <h1 className="text-lg font-semibold">{translations.myPlans.title}</h1>
       </header>
-      <main className="flex-grow p-4 space-y-4">
+      <main className="flex-grow p-4 space-y-6">
         {isLoading && (
             Array.from({ length: 3 }).map((_, i) => (
                 <Card key={i} className="p-4 space-y-3">
@@ -78,39 +146,37 @@ export default function MyPlansPage() {
         )}
 
         {!isLoading && bookings && bookings.length > 0 && (
-            bookings.map(booking => (
-                <Card key={booking.id} className="p-4">
-                    <div className="flex justify-between items-center mb-2">
-                        <h3 className="font-bold text-sm">Booking ID: {booking.id.substring(0, 7).toUpperCase()}</h3>
-                        <p className="text-sm font-bold">₹{booking.finalTotal.toLocaleString()}</p>
+            <>
+                {upcomingBookings.length > 0 && (
+                    <section>
+                        <h2 className="flex items-center gap-2 text-lg font-semibold mb-4 text-muted-foreground">
+                            <CalendarCheck className="w-5 h-5" />
+                            {translations.myPlans.activePlans}
+                        </h2>
+                        <div className="space-y-4">
+                            {upcomingBookings.map(booking => <BookingCard key={booking.id} booking={booking} />)}
+                        </div>
+                    </section>
+                )}
+
+                {pastBookings.length > 0 && (
+                     <section>
+                        <h2 className="flex items-center gap-2 text-lg font-semibold my-6 text-muted-foreground">
+                            <History className="w-5 h-5" />
+                            {translations.myPlans.pastBookings}
+                        </h2>
+                        <div className="space-y-4">
+                            {pastBookings.map(booking => <BookingCard key={booking.id} booking={booking} />)}
+                        </div>
+                    </section>
+                )}
+
+                {upcomingBookings.length === 0 && pastBookings.length > 0 && (
+                    <div className="text-center py-10">
+                        <p className="text-muted-foreground">{translations.myPlans.noActivePlans}</p>
                     </div>
-                    <p className="text-xs text-muted-foreground mb-4">
-                        {booking.placedAt ? format(new Date(booking.placedAt.seconds * 1000), 'PPP p') : 'Date not available'}
-                    </p>
-                    <div className="space-y-4">
-                        {booking.items.map((item, index) => {
-                            let itemDate;
-                            if (item.selectedDate) {
-                                itemDate = item.selectedDate instanceof Date ? item.selectedDate : new Date((item.selectedDate as any).seconds * 1000);
-                            }
-                            return (
-                                <div key={index} className="flex gap-3 items-center">
-                                    <Image src={item.imageUrl} alt={item.name} width={60} height={60} className="rounded-md aspect-square object-cover" />
-                                    <div>
-                                        <p className="font-semibold text-sm">{item.name}</p>
-                                        <p className="text-xs text-muted-foreground">Qty: {item.quantity}</p>
-                                        {itemDate && (
-                                            <p className="text-xs text-muted-foreground">
-                                                {format(itemDate, 'EEE, d MMM yyyy')} at {item.selectedTime}
-                                            </p>
-                                        )}
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </Card>
-            ))
+                )}
+            </>
         )}
 
         {!isLoading && (!bookings || bookings.length === 0) && (
@@ -118,7 +184,7 @@ export default function MyPlansPage() {
                 <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mb-6">
                     <FileText className="w-12 h-12 text-primary" />
                 </div>
-                <h2 className="text-xl font-bold mb-1">{translations.myPlans.activePlans}</h2>
+                <h2 className="text-xl font-bold mb-1">{translations.myPlans.bookings}</h2>
                 <p className="text-muted-foreground">{translations.myPlans.noActivePlans}</p>
             </div>
         )}

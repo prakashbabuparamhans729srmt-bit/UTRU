@@ -109,6 +109,7 @@ interface Translations {
         activePlans: string;
         noActivePlans: string;
         bookings: string;
+        pastBookings: string;
     },
     nativeDevices: {
         title: string;
@@ -326,6 +327,7 @@ const translations: Record<string, Translations> = {
             activePlans: 'Upcoming Bookings',
             noActivePlans: 'You have no upcoming bookings.',
             bookings: 'Bookings',
+            pastBookings: 'Past Bookings',
         },
         nativeDevices: {
             title: 'Native',
@@ -540,6 +542,7 @@ webLink: 'Web Link',
             activePlans: 'आगामी बुकिंग',
             noActivePlans: 'आपकी कोई आगामी बुकिंग नहीं है।',
             bookings: 'बुकिंग',
+            pastBookings: 'पिछली बुकिंग',
         },
         nativeDevices: {
             title: 'देशी',
@@ -754,6 +757,7 @@ webLink: 'Web Link',
             activePlans: 'आवे वाला बुकिंग',
             noActivePlans: 'रउआ पास कवनो आवे वाला बुकिंग नइखे।',
             bookings: 'बुकिंग',
+            pastBookings: 'पिछला बुकिंग',
         },
         nativeDevices: {
             title: 'देशी',
@@ -968,6 +972,7 @@ webLink: 'Web Link',
             activePlans: 'आगामी बुकिंग',
             noActivePlans: 'तुमच्याकडे कोणतीही आगामी बुकिंग नाही.',
             bookings: 'बुकिंग',
+            pastBookings: 'मागील बुकिंग',
         },
         nativeDevices: {
             title: 'नेटिव्ह',
