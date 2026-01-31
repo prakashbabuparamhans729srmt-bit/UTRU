@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
@@ -36,6 +35,7 @@ export default function ChatbotPage() {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [isClient, setIsClient] = useState(false);
+  const CHAT_HISTORY_KEY = 'chatbot_history';
 
   const [isListening, setIsListening] = useState(false);
   const recognitionRef = useRef<any>(null);
@@ -64,6 +64,41 @@ export default function ChatbotPage() {
     };
     checkSupportAndPermission();
   }, []);
+  
+  // Load chat history from localStorage on mount
+  useEffect(() => {
+    if (isClient) {
+        try {
+            const savedHistory = localStorage.getItem(CHAT_HISTORY_KEY);
+            if (savedHistory) {
+                setMessages(JSON.parse(savedHistory));
+            } else {
+                setMessages([{
+                    text: 'Hello! I am your personal assistant. How can I help you learn about this application?',
+                    sender: 'bot'
+                }]);
+            }
+        } catch (error) {
+            console.error("Failed to load chat history:", error);
+            setMessages([{
+                text: 'Hello! I am your personal assistant. How can I help you learn about this application?',
+                sender: 'bot'
+            }]);
+        }
+    }
+  }, [isClient]);
+
+  // Save chat history to localStorage whenever it changes
+  useEffect(() => {
+    if (isClient && messages.length > 0) {
+        try {
+            localStorage.setItem(CHAT_HISTORY_KEY, JSON.stringify(messages));
+        } catch (error) {
+            console.error("Failed to save chat history:", error);
+        }
+    }
+  }, [messages, isClient]);
+
 
   // Initialize SpeechRecognition
    useEffect(() => {
@@ -187,17 +222,6 @@ export default function ChatbotPage() {
   useEffect(() => {
     scrollToBottom();
   }, [messages, isLoading]);
-  
-  useEffect(() => {
-    // Only set the initial message if there are no messages yet.
-    if (messages.length === 0) {
-        setMessages([{
-            text: 'Hello! I am your personal assistant. How can I help you learn about this application?',
-            sender: 'bot'
-        }]);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const handleSend = async () => {
     if (input.trim() === '' || isLoading) return;
