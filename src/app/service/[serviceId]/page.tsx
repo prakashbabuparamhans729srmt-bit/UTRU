@@ -72,8 +72,6 @@ export default function ServicePage() {
       title: 'Service added to cart!',
       description: `${service.name} has been added to your cart.`,
     });
-    
-    router.push('/cart');
   };
   
   if (!isClient) {
