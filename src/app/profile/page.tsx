@@ -76,12 +76,17 @@ export default function ProfilePage() {
             <Avatar className="w-24 h-24 border-4 border-white">
                 {isLoading ? (
                     <Skeleton className="w-full h-full rounded-full" />
-                ) : (
+                ) : user ? (
                     <>
                         <AvatarImage src={userProfile?.photoURL || user?.photoURL || "https://picsum.photos/seed/user-profile/100/100"} alt={userProfile?.displayName || 'User'} />
                         <AvatarFallback className='text-4xl bg-gray-700 text-gray-400'>
                            {userProfile?.displayName?.charAt(0) || user?.displayName?.charAt(0) || user?.email?.charAt(0) || 'U'}
                         </AvatarFallback>
+                    </>
+                ) : (
+                    <>
+                        <AvatarImage src={"https://picsum.photos/seed/user-profile/100/100"} alt="Guest user avatar" />
+                        <AvatarFallback className='text-4xl bg-gray-700 text-gray-400'>G</AvatarFallback>
                     </>
                 )}
             </Avatar>
