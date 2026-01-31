@@ -122,7 +122,9 @@ export default function VerifyPhonePage() {
             <ChevronLeft className="w-6 h-6" />
           </Button>
           <div className="flex flex-col items-center">
-            <div className="w-8 h-8 border-4 border-white rounded-full mb-2"></div>
+            <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center mb-2">
+              <div className="w-4 h-4 bg-black rounded-full" />
+            </div>
             <div className="flex items-center">
               <span className="text-3xl font-bold tracking-wider">utru.in</span>
             </div>
