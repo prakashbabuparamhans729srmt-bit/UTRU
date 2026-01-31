@@ -1,3 +1,4 @@
+
 'use client';
 
 import { notFound, useRouter, useParams } from 'next/navigation';
@@ -76,13 +77,13 @@ export default function ServicePage() {
   };
   
   if (!isClient) {
-      return <div className="min-h-screen bg-gray-900" />;
+      return null;
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
-      <header className="p-4 flex items-center gap-4 sticky top-0 bg-gray-900/80 backdrop-blur-sm z-20">
-        <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-gray-800 hover:bg-gray-700">
+    <div className="min-h-screen bg-background text-foreground">
+      <header className="p-4 flex items-center gap-4 sticky top-0 bg-background/80 backdrop-blur-sm z-20 border-b">
+        <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
           <ChevronLeft />
         </Button>
       </header>
@@ -96,7 +97,7 @@ export default function ServicePage() {
               return (
               <CarouselItem key={item.id} className="pl-4 basis-2/3">
                 <Link href={`/service/${item.id}`} className="block">
-                    <Card className="overflow-hidden rounded-2xl bg-gray-800 border-gray-700 text-white">
+                    <Card className="overflow-hidden rounded-2xl bg-card border-border text-card-foreground">
                     <CardContent className="p-0">
                         <Image
                         src={image?.imageUrl || `https://picsum.photos/seed/${item.id}/400/300`}
@@ -107,7 +108,7 @@ export default function ServicePage() {
                         />
                         <div className="p-3">
                         <h3 className="font-semibold truncate">{item.name}</h3>
-                        <p className="text-xs text-gray-400 mt-1">By Pro Services</p>
+                        <p className="text-xs text-muted-foreground mt-1">By Pro Services</p>
                         </div>
                     </CardContent>
                     </Card>
@@ -123,7 +124,7 @@ export default function ServicePage() {
                 {filterChips.map((chip, index) => (
                     <Button key={index} variant={index === 0 ? "default" : "secondary"} className={cn(
                         "rounded-full whitespace-nowrap",
-                        index === 0 ? "bg-primary text-primary-foreground" : "bg-gray-700 text-white hover:bg-gray-600"
+                        index === 0 ? "bg-primary text-primary-foreground" : ""
                     )}>
                         {chip}
                     </Button>
@@ -133,7 +134,7 @@ export default function ServicePage() {
         
         {/* "What's Included" List styled as "Popular Today" */}
         <div className="px-4 space-y-4">
-            <h2 className="text-lg font-semibold text-gray-400">What&apos;s Included</h2>
+            <h2 className="text-lg font-semibold text-muted-foreground">What&apos;s Included</h2>
             {service.checklist.map((item, index) => (
                  <div key={index} className="flex items-center gap-4">
                     <Image 
@@ -145,9 +146,9 @@ export default function ServicePage() {
                     />
                     <div className="flex-grow">
                         <h3 className="font-semibold leading-tight">{item}</h3>
-                        <p className="text-xs text-gray-400 mt-1">Professional equipment used</p>
+                        <p className="text-xs text-muted-foreground mt-1">Professional equipment used</p>
                     </div>
-                    <Button variant="ghost" size="icon" className="text-gray-400">
+                    <Button variant="ghost" size="icon" className="text-muted-foreground">
                         <Check className="text-primary"/>
                     </Button>
                 </div>
@@ -158,7 +159,7 @@ export default function ServicePage() {
       <footer className="fixed bottom-0 left-0 right-0 bg-card border-t p-3 z-10">
         <div className="flex items-center justify-between">
             <div>
-                <p className="text-xl font-bold">₹{service.price.toLocaleString()}</p>
+                <p className="text-xl font-bold text-card-foreground">₹{service.price.toLocaleString()}</p>
                 <p className="text-xs text-primary underline cursor-pointer">View details</p>
             </div>
             <Dialog>
