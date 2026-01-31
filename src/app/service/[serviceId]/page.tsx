@@ -82,6 +82,33 @@ export default function ServicePage() {
         });
     }
   };
+  
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                 const filterName = entry.target.id.charAt(0).toUpperCase() + entry.target.id.slice(1);
+                 setActiveFilter(filterName);
+            }
+        });
+      },
+      {
+        rootMargin: '-100px 0px -80% 0px',
+      }
+    );
+
+    const sections = filterChips.map(chip => document.getElementById(chip.toLowerCase()));
+    sections.forEach((section) => {
+      if (section) observer.observe(section);
+    });
+
+    return () => {
+      sections.forEach((section) => {
+        if (section) observer.unobserve(section);
+      });
+    };
+  }, []);
 
 
   const handleAddToCart = () => {
