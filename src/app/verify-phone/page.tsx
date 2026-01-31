@@ -1,4 +1,3 @@
-
 'use client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,7 +7,6 @@ import { useState, useRef, useEffect } from 'react';
 import { useAuthUI } from '@/firebase/auth/use-auth-ui';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/context/LanguageContext';
-import { useCart } from '@/context/CartContext';
 
 export default function VerifyPhonePage() {
   const router = useRouter();
@@ -17,7 +15,6 @@ export default function VerifyPhonePage() {
   const { verifyOtp, isPending, error, confirmationResult, phoneNumber } = useAuthUI();
   const [otp, setOtp] = useState(new Array(6).fill(''));
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-  const { clearCart } = useCart();
 
   useEffect(() => {
     // If there's no confirmationResult, the user shouldn't be on this page.
@@ -69,7 +66,6 @@ export default function VerifyPhonePage() {
     }
     const success = await verifyOtp(otpCode);
     if (success) {
-      clearCart();
       toast({ title: 'Success!', description: 'You have been logged in successfully.' });
       router.replace('/');
     } else {
