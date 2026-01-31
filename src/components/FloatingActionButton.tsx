@@ -18,6 +18,7 @@ export default function FloatingActionButton() {
   const dragStartPos = useRef({ x: 0, y: 0 });
   const hasDragged = useRef(false);
   const returnTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const autoCloseTimeoutRef = useRef<NodeJS.Timeout | null>(null); // For auto-closing the menu
 
   // Store default position in a ref
   const defaultPosition = useRef({ x: 0, y: 0 });
@@ -53,17 +54,52 @@ export default function FloatingActionButton() {
       if (returnTimeoutRef.current) {
         clearTimeout(returnTimeoutRef.current);
       }
+      if (autoCloseTimeoutRef.current) {
+        clearTimeout(autoCloseTimeoutRef.current);
+      }
     };
   }, [updateDefaultPosition]);
   
+  // Effect to auto-close the menu after 10 seconds of inactivity.
+  useEffect(() => {
+    // If the menu is closed, make sure there's no active timer.
+    if (!isOpen) {
+      if (autoCloseTimeoutRef.current) {
+        clearTimeout(autoCloseTimeoutRef.current);
+        autoCloseTimeoutRef.current = null;
+      }
+      return;
+    }
+
+    // If the menu is open, set a 10-second timer to close it.
+    autoCloseTimeoutRef.current = setTimeout(() => {
+      setIsOpen(false);
+    }, 10000);
+
+    // The cleanup function will run when the component unmounts or `isOpen` changes.
+    // This correctly handles manual closing of the menu.
+    return () => {
+      if (autoCloseTimeoutRef.current) {
+        clearTimeout(autoCloseTimeoutRef.current);
+        autoCloseTimeoutRef.current = null;
+      }
+    };
+  }, [isOpen]);
+
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
 
-    // Clear any existing return timer on new interaction.
+    // Clear any existing return-to-default-position timer on new interaction.
     if (returnTimeoutRef.current) {
       clearTimeout(returnTimeoutRef.current);
       returnTimeoutRef.current = null;
+    }
+    
+    // If menu is open, interacting with it should reset the auto-close timer.
+    if (isOpen) {
+        if (autoCloseTimeoutRef.current) clearTimeout(autoCloseTimeoutRef.current);
+        autoCloseTimeoutRef.current = setTimeout(() => setIsOpen(false), 10000);
     }
 
     hasDragged.current = false;
@@ -72,9 +108,6 @@ export default function FloatingActionButton() {
     const target = e.target as HTMLElement;
     target.setPointerCapture(e.pointerId);
 
-    // Store the initial cursor position relative to the viewport.
-    dragStartPos.current = { x: e.clientX, y: e.clientY };
-    
     target.onpointermove = (moveEvent) => {
       const dx = moveEvent.clientX - dragStartPos.current.x;
       const dy = moveEvent.clientY - dragStartPos.current.y;
@@ -83,19 +116,15 @@ export default function FloatingActionButton() {
         hasDragged.current = true;
       }
 
-      // Calculate new position based on movement, not initial component position.
-      // This prevents jumps if state updates are slow.
       let newX = position.x + moveEvent.movementX;
       let newY = position.y + moveEvent.movementY;
 
-      // Constrain position within the viewport, accounting for the bottom nav bar.
       if (fabRef.current) {
         const fabWidth = fabRef.current.offsetWidth;
         const fabHeight = fabRef.current.offsetHeight;
         const padding = 8;
-        const footerHeight = 80; // Estimated height of the bottom nav bar in pixels
+        const footerHeight = 80;
         newX = Math.max(padding, Math.min(newX, window.innerWidth - fabWidth - padding));
-        // Prevent the button from going below the top edge of the footer
         newY = Math.max(padding, Math.min(newY, window.innerHeight - fabHeight - footerHeight));
       }
 
@@ -109,21 +138,22 @@ export default function FloatingActionButton() {
       
       setIsDragging(false);
       
-      // If it wasn't a drag, it's a click.
       if (!hasDragged.current) {
         setIsOpen(prev => !prev);
       }
 
-      // After any interaction, start a timer to return the FAB to its default position.
       returnTimeoutRef.current = setTimeout(() => {
         setPosition(defaultPosition.current);
-        returnTimeoutRef.current = null; // Clear the ref after it's been used.
-      }, 10000); // 10 seconds
+        returnTimeoutRef.current = null;
+      }, 10000);
     };
   };
 
+  const handleSubMenuClick = (path: string) => {
+    router.push(path);
+    setIsOpen(false); // This will trigger the useEffect to clear the timeout
+  };
   
-  // Make the button smaller
   const mainButtonClasses = `rounded-full w-14 h-14 bg-primary text-primary-foreground shadow-lg transform hover:scale-110`;
   const subButtonClasses = "rounded-full w-12 h-12 bg-secondary text-secondary-foreground shadow-lg";
 
@@ -132,12 +162,12 @@ export default function FloatingActionButton() {
       ref={fabRef}
       className={cn(
         "fixed z-50",
-        !isDragging && "transition-all duration-300 ease-in-out" // Apply transition only when not dragging
+        !isDragging && "transition-all duration-300 ease-in-out"
       )}
       style={{
         left: `${position.x}px`,
         top: `${position.y}px`,
-        touchAction: 'none' // Prevent page scroll on touch devices when dragging
+        touchAction: 'none'
       }}
     >
       <div className="relative flex flex-col items-center gap-3">
@@ -146,7 +176,7 @@ export default function FloatingActionButton() {
             <Button
               size="icon"
               className={subButtonClasses}
-              onClick={() => { router.push('/my-plans'); setIsOpen(false); }}
+              onClick={() => handleSubMenuClick('/my-plans')}
               aria-label="Bookings"
             >
               <ClipboardList className="w-5 h-5" />
@@ -154,7 +184,7 @@ export default function FloatingActionButton() {
             <Button
               size="icon"
               className={subButtonClasses}
-              onClick={() => { router.push('/chatbot'); setIsOpen(false); }}
+              onClick={() => handleSubMenuClick('/chatbot')}
               aria-label="Chat"
             >
               <MessageCircle className="w-5 h-5" />
@@ -162,7 +192,7 @@ export default function FloatingActionButton() {
             <Button
               size="icon"
               className={subButtonClasses}
-              onClick={() => { router.push('/cart'); setIsOpen(false); }}
+              onClick={() => handleSubMenuClick('/cart')}
               aria-label="Cart"
             >
               <ShoppingCart className="w-5 h-5" />
