@@ -5,7 +5,7 @@ import { notFound, useRouter, useParams } from 'next/navigation';
 import { servicesData, Service } from '@/lib/services';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { ChevronLeft, MoreHorizontal, Check } from 'lucide-react';
+import { ChevronLeft, MoreHorizontal, Check, Minus, Plus } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
@@ -40,6 +40,8 @@ export default function ServicePage() {
 
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
   const [selectedTime, setSelectedTime] = useState<string | null>(timeSlots[1]);
+  const [quantity, setQuantity] = useState(1);
+
 
   const { addToCart } = useCart();
   const { toast } = useToast();
@@ -62,16 +64,19 @@ export default function ServicePage() {
       return;
     }
 
-    addToCart({
-      ...service,
-      imageUrl: serviceImage.imageUrl,
-      selectedDate,
-      selectedTime,
-    });
+    addToCart(
+      {
+        ...service,
+        imageUrl: serviceImage.imageUrl,
+        selectedDate,
+        selectedTime,
+      },
+      quantity
+    );
 
     toast({
       title: 'Service added to cart!',
-      description: `${service.name} has been added to your cart.`,
+      description: `${quantity} x ${service.name} has been added.`,
       action: <ToastAction altText="View Cart" onClick={() => router.push('/cart')}>View Cart</ToastAction>,
     });
   };
@@ -83,7 +88,7 @@ export default function ServicePage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="p-4 flex items-center gap-4 sticky top-0 bg-background/80 backdrop-blur-sm z-20 border-b">
-        <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
+        <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full hover:bg-gray-700">
           <ChevronLeft />
         </Button>
       </header>
@@ -196,6 +201,27 @@ export default function ServicePage() {
                                             {slot}
                                         </Button>
                                     ))}
+                                </div>
+                            </div>
+                            <Separator className="my-4" />
+                            <div className="w-full px-4 flex flex-col items-center">
+                                <h4 className="font-semibold mb-2 text-center">Quantity</h4>
+                                <div className="flex items-center justify-center gap-4">
+                                    <Button
+                                        variant="outline"
+                                        size="icon"
+                                        onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                                    >
+                                        <Minus className="h-4 w-4" />
+                                    </Button>
+                                    <span className="text-xl font-bold w-12 text-center">{quantity}</span>
+                                    <Button
+                                        variant="outline"
+                                        size="icon"
+                                        onClick={() => setQuantity(quantity + 1)}
+                                    >
+                                        <Plus className="h-4 w-4" />
+                                    </Button>
                                 </div>
                             </div>
                         </div>

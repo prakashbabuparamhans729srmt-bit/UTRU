@@ -1,5 +1,5 @@
 'use client';
-import { ChevronLeft, Trash2, ShoppingBag } from 'lucide-react';
+import { ChevronLeft, Trash2, ShoppingBag, Plus, Minus } from 'lucide-react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -12,7 +12,7 @@ import { useLanguage } from '@/context/LanguageContext';
 
 
 function CartItemCard({ item }: { item: CartItem }) {
-  const { removeFromCart } = useCart();
+  const { updateItemQuantity } = useCart();
 
   return (
     <Card className="flex items-start gap-4 p-4">
@@ -29,9 +29,20 @@ function CartItemCard({ item }: { item: CartItem }) {
           {format(item.selectedDate, 'EEE, d MMM yyyy')}
         </p>
         <p className="text-sm text-muted-foreground">{item.selectedTime}</p>
-        <p className="font-bold mt-2">₹{item.price.toLocaleString()}</p>
+        <div className="flex items-center justify-between mt-2">
+            <p className="font-bold text-lg">₹{(item.price * item.quantity).toLocaleString()}</p>
+            <div className="flex items-center gap-2">
+                <Button variant="outline" size="icon" className="h-7 w-7" onClick={() => updateItemQuantity(item.cartItemId, item.quantity - 1)}>
+                    <Minus className="h-4 w-4"/>
+                </Button>
+                <span className="font-bold">{item.quantity}</span>
+                <Button variant="outline" size="icon" className="h-7 w-7" onClick={() => updateItemQuantity(item.cartItemId, item.quantity + 1)}>
+                    <Plus className="h-4 w-4"/>
+                </Button>
+            </div>
+        </div>
       </div>
-      <Button variant="ghost" size="icon" onClick={() => removeFromCart(item.cartItemId)}>
+      <Button variant="ghost" size="icon" onClick={() => updateItemQuantity(item.cartItemId, 0)}>
         <Trash2 className="w-5 h-5 text-destructive" />
       </Button>
     </Card>
@@ -47,7 +58,7 @@ export default function CartPage() {
     return (
       <div className="bg-background text-foreground min-h-screen flex flex-col">
         <header className="p-4 flex items-center gap-4 border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
-          <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
+          <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full hover:bg-gray-700">
             <ChevronLeft />
           </Button>
           <h1 className="text-lg font-semibold">{translations.cart.yourCart}</h1>
@@ -69,7 +80,7 @@ export default function CartPage() {
   return (
     <div className="bg-background text-foreground min-h-screen flex flex-col">
       <header className="p-4 flex items-center gap-4 border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
-        <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
+        <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full hover:bg-gray-700">
           <ChevronLeft />
         </Button>
         <h1 className="text-lg font-semibold">{translations.cart.yourCart} ({items.length})</h1>

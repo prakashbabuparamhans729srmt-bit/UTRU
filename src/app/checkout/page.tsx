@@ -22,12 +22,12 @@ function CheckoutItemCard({ item }: { item: CartItem }) {
       />
       <div className="flex-grow">
         <p className="font-semibold text-sm">{item.name}</p>
-        <p className="text-xs text-muted-foreground">Qty: 1</p>
+        <p className="text-xs text-muted-foreground">Qty: {item.quantity}</p>
         <p className="text-xs text-muted-foreground">
           {format(item.selectedDate, 'EEE, d MMM')} &bull; {item.selectedTime}
         </p>
       </div>
-      <p className="font-bold text-sm">₹{item.price.toLocaleString()}</p>
+      <p className="font-bold text-sm">₹{(item.price * item.quantity).toLocaleString()}</p>
     </div>
   );
 }
@@ -61,7 +61,7 @@ export default function CheckoutPage() {
     return (
         <div className="bg-background text-foreground min-h-screen flex flex-col">
             <header className="p-4 flex items-center gap-4 border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
-                <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
+                <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full hover:bg-gray-700">
                 <ChevronLeft />
                 </Button>
                 <h1 className="text-lg font-semibold">Checkout</h1>

@@ -8,12 +8,14 @@ export interface CartItem extends Service {
   imageUrl: string;
   selectedDate: Date;
   selectedTime: string;
+  quantity: number;
 }
 
 interface CartContextType {
   items: CartItem[];
-  addToCart: (item: Omit<CartItem, 'cartItemId'>) => void;
+  addToCart: (item: Omit<CartItem, 'cartItemId' | 'quantity'>, quantity: number) => void;
   removeFromCart: (cartItemId: string) => void;
+  updateItemQuantity: (cartItemId: string, quantity: number) => void;
   clearCart: () => void;
   total: number;
 }
@@ -51,34 +53,49 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [items, isClient]);
 
-  const addToCart = (item: Omit<CartItem, 'cartItemId'>) => {
+  const addToCart = (item: Omit<CartItem, 'cartItemId' | 'quantity'>, quantity: number) => {
     const cartItemId = `${item.id}-${item.selectedDate.toISOString()}-${item.selectedTime}`;
-    
     setItems((prevItems) => {
-      const existingItemIndex = prevItems.findIndex(i => i.cartItemId === cartItemId);
-      
-      if (existingItemIndex > -1) {
-        // Item with same service, date, and time already exists. Do nothing.
-        return prevItems;
+      const existingItem = prevItems.find((i) => i.cartItemId === cartItemId);
+      if (existingItem) {
+        // If item exists, update its quantity
+        return prevItems.map((i) =>
+          i.cartItemId === cartItemId
+            ? { ...i, quantity: i.quantity + quantity }
+            : i
+        );
+      } else {
+        // If item doesn't exist, add it to the cart
+        const newItem: CartItem = { ...item, cartItemId, quantity };
+        return [...prevItems, newItem];
       }
-      
-      const newItem: CartItem = { ...item, cartItemId };
-      return [...prevItems, newItem];
     });
   };
 
   const removeFromCart = (cartItemId: string) => {
     setItems((prevItems) => prevItems.filter((item) => item.cartItemId !== cartItemId));
   };
+  
+  const updateItemQuantity = (cartItemId: string, quantity: number) => {
+    setItems((prevItems) => {
+      if (quantity <= 0) {
+        return prevItems.filter((item) => item.cartItemId !== cartItemId);
+      }
+      return prevItems.map((item) =>
+        item.cartItemId === cartItemId ? { ...item, quantity } : item
+      );
+    });
+  };
+
 
   const clearCart = () => {
     setItems([]);
   };
 
-  const total = items.reduce((sum, item) => sum + item.price, 0);
+  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
-    <CartContext.Provider value={{ items, addToCart, removeFromCart, clearCart, total }}>
+    <CartContext.Provider value={{ items, addToCart, removeFromCart, updateItemQuantity, clearCart, total }}>
       {children}
     </CartContext.Provider>
   );
