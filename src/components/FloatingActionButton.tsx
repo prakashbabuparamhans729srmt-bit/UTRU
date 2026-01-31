@@ -23,7 +23,6 @@ export default function FloatingActionButton() {
   const defaultPosition = useRef({ x: 0, y: 0 });
 
   // Function to calculate and update the default position.
-  // No dependencies, so it's a stable function.
   const updateDefaultPosition = useCallback(() => {
     if (fabRef.current) {
       const fabWidth = fabRef.current.offsetWidth || 56;
@@ -89,13 +88,15 @@ export default function FloatingActionButton() {
       let newX = position.x + moveEvent.movementX;
       let newY = position.y + moveEvent.movementY;
 
-      // Constrain position within the viewport.
+      // Constrain position within the viewport, accounting for the bottom nav bar.
       if (fabRef.current) {
         const fabWidth = fabRef.current.offsetWidth;
         const fabHeight = fabRef.current.offsetHeight;
         const padding = 8;
+        const footerHeight = 80; // Estimated height of the bottom nav bar in pixels
         newX = Math.max(padding, Math.min(newX, window.innerWidth - fabWidth - padding));
-        newY = Math.max(padding, Math.min(newY, window.innerHeight - fabHeight - padding));
+        // Prevent the button from going below the top edge of the footer
+        newY = Math.max(padding, Math.min(newY, window.innerHeight - fabHeight - footerHeight));
       }
 
       setPosition({ x: newX, y: newY });
