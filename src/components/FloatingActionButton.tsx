@@ -15,10 +15,9 @@ export default function FloatingActionButton() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const fabRef = useRef<HTMLDivElement>(null);
-  const dragStartPos = useRef({ x: 0, y: 0 });
   const hasDragged = useRef(false);
   const returnTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const autoCloseTimeoutRef = useRef<NodeJS.Timeout | null>(null); // For auto-closing the menu
+  const autoCloseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Store default position in a ref
   const defaultPosition = useRef({ x: 0, y: 0 });
@@ -35,34 +34,25 @@ export default function FloatingActionButton() {
 
   // Effect to set initial position and handle window resizing.
   useEffect(() => {
-    // A function to set/reset the position to default.
     const resetToDefaultPosition = () => {
       updateDefaultPosition();
       setPosition(defaultPosition.current);
     }
     
-    // Set initial position after a short delay to ensure fabRef is available.
     const timer = setTimeout(resetToDefaultPosition, 10);
     
-    // Reset position on window resize.
     window.addEventListener('resize', resetToDefaultPosition);
 
-    // Cleanup function.
     return () => {
       clearTimeout(timer);
       window.removeEventListener('resize', resetToDefaultPosition);
-      if (returnTimeoutRef.current) {
-        clearTimeout(returnTimeoutRef.current);
-      }
-      if (autoCloseTimeoutRef.current) {
-        clearTimeout(autoCloseTimeoutRef.current);
-      }
+      if (returnTimeoutRef.current) clearTimeout(returnTimeoutRef.current);
+      if (autoCloseTimeoutRef.current) clearTimeout(autoCloseTimeoutRef.current);
     };
   }, [updateDefaultPosition]);
   
   // Effect to auto-close the menu after 10 seconds of inactivity.
   useEffect(() => {
-    // If the menu is closed, make sure there's no active timer.
     if (!isOpen) {
       if (autoCloseTimeoutRef.current) {
         clearTimeout(autoCloseTimeoutRef.current);
@@ -71,13 +61,10 @@ export default function FloatingActionButton() {
       return;
     }
 
-    // If the menu is open, set a 10-second timer to close it.
     autoCloseTimeoutRef.current = setTimeout(() => {
       setIsOpen(false);
     }, 10000);
 
-    // The cleanup function will run when the component unmounts or `isOpen` changes.
-    // This correctly handles manual closing of the menu.
     return () => {
       if (autoCloseTimeoutRef.current) {
         clearTimeout(autoCloseTimeoutRef.current);
@@ -90,29 +77,30 @@ export default function FloatingActionButton() {
     e.preventDefault();
     e.stopPropagation();
 
-    // Clear any existing return-to-default-position timer on new interaction.
+    // Clear any existing timers on new interaction.
     if (returnTimeoutRef.current) {
       clearTimeout(returnTimeoutRef.current);
       returnTimeoutRef.current = null;
     }
-    
-    // If menu is open, interacting with it should reset the auto-close timer.
-    if (isOpen) {
-        if (autoCloseTimeoutRef.current) clearTimeout(autoCloseTimeoutRef.current);
-        autoCloseTimeoutRef.current = setTimeout(() => setIsOpen(false), 10000);
+    if (autoCloseTimeoutRef.current) {
+      clearTimeout(autoCloseTimeoutRef.current);
+      autoCloseTimeoutRef.current = null;
     }
 
     hasDragged.current = false;
     setIsDragging(true);
 
+    const startX = e.clientX;
+    const startY = e.clientY;
+
     const target = e.target as HTMLElement;
     target.setPointerCapture(e.pointerId);
 
     target.onpointermove = (moveEvent) => {
-      const dx = moveEvent.clientX - dragStartPos.current.x;
-      const dy = moveEvent.clientY - dragStartPos.current.y;
+      const dx = moveEvent.clientX - startX;
+      const dy = moveEvent.clientY - startY;
       
-      if (!hasDragged.current && Math.sqrt(dx * dx + dy * dy) > 5) { // Threshold to register as a drag.
+      if (!hasDragged.current && Math.sqrt(dx * dx + dy * dy) > 5) {
         hasDragged.current = true;
       }
 
@@ -138,20 +126,22 @@ export default function FloatingActionButton() {
       
       setIsDragging(false);
       
-      if (!hasDragged.current) {
+      if (hasDragged.current) {
+        // If it was a drag, set the return timer.
+        returnTimeoutRef.current = setTimeout(() => {
+          setPosition(defaultPosition.current);
+          returnTimeoutRef.current = null;
+        }, 10000);
+      } else {
+        // If it was just a click, toggle the menu.
         setIsOpen(prev => !prev);
       }
-
-      returnTimeoutRef.current = setTimeout(() => {
-        setPosition(defaultPosition.current);
-        returnTimeoutRef.current = null;
-      }, 10000);
     };
   };
 
   const handleSubMenuClick = (path: string) => {
     router.push(path);
-    setIsOpen(false); // This will trigger the useEffect to clear the timeout
+    setIsOpen(false);
   };
   
   const mainButtonClasses = `rounded-full w-14 h-14 bg-primary text-primary-foreground shadow-lg transform hover:scale-110`;
