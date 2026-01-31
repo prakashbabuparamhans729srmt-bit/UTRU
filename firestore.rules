@@ -6,7 +6,11 @@ service cloud.firestore {
     }
     match /users/{userId} {
       allow read, update: if isOwner(userId);
-      allow create: if request.auth.uid == userId;
+      allow create: if request.auth.uid == userId
+                    && request.resource.data.uid == userId
+                    && request.resource.data.walletBalance == 0
+                    && request.resource.data.keys().hasAll(['uid', 'email', 'displayName', 'photoURL', 'phoneNumber', 'walletBalance'])
+                    && request.resource.data.size() == 6;
     }
     match /users/{userId}/addresses/{addressId} {
       allow read, write: if isOwner(userId);
