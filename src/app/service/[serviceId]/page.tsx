@@ -16,6 +16,7 @@ import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carouse
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from '@/components/ui/dialog';
 import { Separator } from '@/components/ui/separator';
 import { Calendar } from '@/components/ui/calendar';
+import Link from 'next/link';
 
 const filterChips = ["Details", "Packages", "Offers", "Gallery"];
 const timeSlots = [
@@ -94,21 +95,23 @@ export default function ServicePage() {
               const image = PlaceHolderImages.find(img => img.id === item.id);
               return (
               <CarouselItem key={item.id} className="pl-4 basis-2/3">
-                <Card className="overflow-hidden rounded-2xl bg-gray-800 border-gray-700 text-white">
-                  <CardContent className="p-0">
-                    <Image
-                      src={image?.imageUrl || `https://picsum.photos/seed/${item.id}/400/300`}
-                      alt={item.name}
-                      width={400}
-                      height={300}
-                      className="object-cover w-full aspect-[4/3]"
-                    />
-                    <div className="p-3">
-                      <h3 className="font-semibold truncate">{item.name}</h3>
-                      <p className="text-xs text-gray-400 mt-1">By Pro Services</p>
-                    </div>
-                  </CardContent>
-                </Card>
+                <Link href={`/service/${item.id}`} className="block">
+                    <Card className="overflow-hidden rounded-2xl bg-gray-800 border-gray-700 text-white">
+                    <CardContent className="p-0">
+                        <Image
+                        src={image?.imageUrl || `https://picsum.photos/seed/${item.id}/400/300`}
+                        alt={item.name}
+                        width={400}
+                        height={300}
+                        className="object-cover w-full aspect-[4/3]"
+                        />
+                        <div className="p-3">
+                        <h3 className="font-semibold truncate">{item.name}</h3>
+                        <p className="text-xs text-gray-400 mt-1">By Pro Services</p>
+                        </div>
+                    </CardContent>
+                    </Card>
+                </Link>
               </CarouselItem>
             )})}
           </CarouselContent>
