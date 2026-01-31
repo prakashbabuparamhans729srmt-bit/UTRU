@@ -237,7 +237,7 @@ export default function ServicePage() {
         <div className="flex items-center justify-between">
             <div>
                 <p className="text-xl font-bold text-card-foreground">₹{service.price.toLocaleString()}</p>
-                <p className="text-xs text-primary underline cursor-pointer">View details</p>
+                <p onClick={() => handleFilterClick('Details')} className="text-xs text-primary underline cursor-pointer">View details</p>
             </div>
             <Dialog>
                 <DialogTrigger asChild>
