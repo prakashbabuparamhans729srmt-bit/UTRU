@@ -77,8 +77,8 @@ export default function NewAddressPage() {
             id: docRef.id
         }
         setDeliveryAddress(newAddressWithId);
-        toast({ title: 'Address Saved!', description: 'Your new address has been saved and selected for this order.' });
-        router.push('/checkout');
+        toast({ title: 'Address Saved!', description: 'Your new address has been saved.' });
+        router.back();
       })
       .catch((serverError) => {
           const permissionError = new FirestorePermissionError({
