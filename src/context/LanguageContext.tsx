@@ -205,6 +205,7 @@ webLink: string;
         subtitle: string;
         changeNumber: string;
         verifyCode: string;
+        resendCode: string;
     },
     wallet: {
         title: string;
@@ -423,6 +424,7 @@ const translations: Record<string, Translations> = {
             subtitle: 'Enter the 6 digit code that you received at:',
             changeNumber: 'change number?',
             verifyCode: 'Verify Code',
+            resendCode: 'Resend Code',
         },
         wallet: {
             title: 'My Wallet',
@@ -638,6 +640,7 @@ const translations: Record<string, Translations> = {
             subtitle: 'आपको प्राप्त 6 अंकों का कोड दर्ज करें:',
             changeNumber: 'नंबर बदलें?',
             verifyCode: 'कोड सत्यापित करें',
+            resendCode: 'कोड पुनः भेजें',
         },
         wallet: {
             title: 'मेरा बटुआ',
@@ -853,6 +856,7 @@ const translations: Record<string, Translations> = {
             subtitle: 'रउआ प्राप्त 6 अंक के कोड डालीं:',
             changeNumber: 'नंबर बदलीं?',
             verifyCode: 'कोड सत्यापित करीं',
+            resendCode: 'कोड पुनः भेजें',
         },
         wallet: {
             title: 'मोर बटुआ',
@@ -1068,6 +1072,7 @@ const translations: Record<string, Translations> = {
             subtitle: 'तुम्हाला मिळालेला ६ अंकी कोड टाका:',
             changeNumber: 'नंबर बदला?',
             verifyCode: 'कोड सत्यापित करा',
+            resendCode: 'कोड पुन्हा पाठवा',
         },
         wallet: {
             title: 'माझे वॉलेट',

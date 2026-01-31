@@ -13,10 +13,13 @@ export default function VerifyPhonePage() {
   const router = useRouter();
   const { toast } = useToast();
   const { translations } = useLanguage();
-  const { verifyOtp, isPending, error, confirmationResult, phoneNumber } = useAuthUI();
+  const { verifyOtp, isPending, error, confirmationResult, phoneNumber, signInWithPhoneNumber } = useAuthUI();
   const { items: cartItems } = useCart();
   const [otp, setOtp] = useState(new Array(6).fill(''));
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const recaptchaResendRef = useRef<HTMLButtonElement>(null);
+  const [countdown, setCountdown] = useState(30);
+
 
   useEffect(() => {
     // If there's no confirmationResult, the user shouldn't be on this page.
@@ -29,6 +32,13 @@ export default function VerifyPhonePage() {
       router.replace('/phone-login');
     }
   }, [confirmationResult, router, toast, isPending]);
+
+  useEffect(() => {
+    if (countdown > 0) {
+      const timer = setTimeout(() => setCountdown(countdown - 1), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [countdown]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const { value } = e.target;
@@ -81,6 +91,24 @@ export default function VerifyPhonePage() {
     }
   };
 
+  const handleResendOtp = async () => {
+    if (!phoneNumber || !recaptchaResendRef.current) {
+        toast({ variant: 'destructive', title: 'Error', description: 'Could not resend OTP. Please try again.' });
+        return;
+    }
+
+    const success = await signInWithPhoneNumber(phoneNumber, recaptchaResendRef.current);
+
+    if (success) {
+        toast({ title: 'OTP Resent', description: 'A new OTP has been sent to your phone.' });
+        setCountdown(30); // Reset countdown
+        setOtp(new Array(6).fill('')); // Clear OTP inputs
+        inputRefs.current[0]?.focus(); // Focus first input
+    } else {
+        toast({ variant: 'destructive', title: 'Failed to Resend OTP', description: error || 'Please try again later.' });
+    }
+  };
+
   return (
     <div className="bg-white min-h-screen flex items-center justify-center">
       <div className="bg-black text-white w-full max-w-md mx-4 rounded-[40px] p-8 shadow-2xl flex flex-col h-[70vh] my-auto">
@@ -123,6 +151,24 @@ export default function VerifyPhonePage() {
                 disabled={isPending}
               />
             ))}
+          </div>
+
+          <div className="text-center mb-6">
+            {countdown > 0 ? (
+                <p className="text-gray-400">
+                    Resend code in {countdown}s
+                </p>
+            ) : (
+                <Button
+                    ref={recaptchaResendRef}
+                    variant="link"
+                    className="text-white underline"
+                    onClick={handleResendOtp}
+                    disabled={isPending}
+                >
+                    {translations.verifyPhone.resendCode}
+                </Button>
+            )}
           </div>
 
           <Button 
