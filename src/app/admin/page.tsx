@@ -1,4 +1,3 @@
-
 'use client';
 
 import { ChevronRight, Menu, Search, X } from 'lucide-react';
@@ -7,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
-import { Bar, BarChart, CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Bar, BarChart, CartesianGrid, Line, LineChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 import { adminSidebarNav, dashboardCards, dashboardStats } from '@/lib/navigation';
 import {
   Sidebar,
@@ -22,59 +21,86 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
+  type ChartConfig,
+} from '@/components/ui/chart';
+
+
+const salesData = [
+    { month: 'Jan', sales: 4000 },
+    { month: 'Feb', sales: 3000 },
+    { month: 'Mar', sales: 5000 },
+    { month: 'Apr', sales: 4500 },
+    { month: 'May', sales: 6000 },
+    { month: 'Jun', sales: 7500 },
+    { month: 'Jul', sales: 6500 },
+];
+const salesChartConfig = {
+  sales: {
+    label: 'Sales',
+    color: 'hsl(var(--primary))',
+  },
+} satisfies ChartConfig;
 
 
 const SalesOverviewChart = () => {
-    const data = [
-        { name: 'Jan', sales: 4000 },
-        { name: 'Feb', sales: 3000 },
-        { name: 'Mar', sales: 5000 },
-        { name: 'Apr', sales: 4500 },
-        { name: 'May', sales: 6000 },
-        { name: 'Jun', sales: 7500 },
-        { name: 'Jul', sales: 6500 },
-    ];
-
     return (
         <div className="bg-card p-4 rounded-lg">
             <h3 className="text-lg font-bold mb-1">Sales Overview</h3>
             <p className="text-muted-foreground text-sm mb-4">Total sales over the last 7 months.</p>
             <div className="h-[300px]">
-                <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
-                        <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} />
-                        <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" />
-                        <YAxis tickFormatter={(value) => `$${value/1000}k`} stroke="hsl(var(--muted-foreground))" />
-                        <Tooltip contentStyle={{ backgroundColor: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', color: 'hsl(var(--foreground))' }} />
-                        <Line type="monotone" dataKey="sales" stroke="hsl(var(--primary))" strokeWidth={2} dot={{ r: 4, fill: 'hsl(var(--primary))' }} activeDot={{ r: 8, fill: 'hsl(var(--primary))' }} />
-                    </LineChart>
-                </ResponsiveContainer>
+                <ChartContainer config={salesChartConfig} className="w-full h-full">
+                  <LineChart data={salesData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+                      <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                      <XAxis dataKey="month" tickLine={false} axisLine={false} tickMargin={8} />
+                      <YAxis tickFormatter={(value) => `$${Number(value) / 1000}k`} tickLine={false} axisLine={false} tickMargin={8} />
+                      <ChartTooltip
+                        cursor={false}
+                        content={<ChartTooltipContent indicator="dot" />}
+                      />
+                      <Line dataKey="sales" type="monotone" stroke="var(--color-sales)" strokeWidth={2} dot={false} />
+                  </LineChart>
+                </ChartContainer>
             </div>
         </div>
     );
 };
 
-const OrderStatisticsChart = () => {
-    const data = [
-        { name: 'Pending', orders: 150 },
-        { name: 'Processing', orders: 80 },
-        { name: 'Completed', orders: 450 },
-        { name: 'Cancelled', orders: 50 },
-    ];
+const ordersData = [
+    { status: 'Pending', orders: 150 },
+    { status: 'Processing', orders: 80 },
+    { status: 'Completed', orders: 450 },
+    { status: 'Cancelled', orders: 50 },
+];
+const ordersChartConfig = {
+    orders: {
+        label: 'Orders',
+        color: 'hsl(var(--primary))',
+    },
+} satisfies ChartConfig;
 
+const OrderStatisticsChart = () => {
     return (
         <div className="bg-card p-4 rounded-lg">
             <h3 className="text-lg font-bold mb-4">Order Statistics</h3>
              <div className="h-[300px]">
-                <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
-                         <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} />
-                        <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" />
-                        <YAxis stroke="hsl(var(--muted-foreground))" />
-                        <Tooltip contentStyle={{ backgroundColor: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', color: 'hsl(var(--foreground))' }} />
-                        <Bar dataKey="orders" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                 <ChartContainer config={ordersChartConfig} className="w-full h-full">
+                    <BarChart data={ordersData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+                         <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                        <XAxis dataKey="status" tickLine={false} axisLine={false} tickMargin={8} />
+                        <YAxis tickLine={false} axisLine={false} tickMargin={8} />
+                        <ChartTooltip
+                            cursor={false}
+                            content={<ChartTooltipContent indicator="dot" />}
+                        />
+                        <Bar dataKey="orders" fill="var(--color-orders)" radius={4} />
                     </BarChart>
-                </ResponsiveContainer>
+                </ChartContainer>
             </div>
         </div>
     );
@@ -190,4 +216,3 @@ export default function AdminDashboard() {
     </SidebarProvider>
   );
 }
-
