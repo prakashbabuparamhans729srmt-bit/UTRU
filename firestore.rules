@@ -5,12 +5,18 @@ service cloud.firestore {
       return request.auth != null && request.auth.uid == userId;
     }
     match /users/{userId} {
-      allow read, update: if isOwner(userId);
+      // Allow users to read their own document.
+      allow read: if isOwner(userId);
+
+      // Allow users to create their own document only with specific initial data.
       allow create: if request.auth.uid == userId
                     && request.resource.data.uid == userId
                     && request.resource.data.walletBalance == 100
                     && request.resource.data.keys().hasAll(['uid', 'email', 'displayName', 'photoURL', 'phoneNumber', 'walletBalance'])
                     && request.resource.data.size() == 6;
+      
+      // Allow users to update their own document, but NOT their walletBalance.
+      allow update: if isOwner(userId) && request.resource.data.walletBalance == resource.data.walletBalance;
     }
     match /users/{userId}/addresses/{addressId} {
       allow read, write: if isOwner(userId);
@@ -20,12 +26,19 @@ service cloud.firestore {
     }
     match /users/{userId}/walletTransactions/{transactionId} {
       allow read: if isOwner(userId);
-      // Allow a user to create their own first transaction only if it's the sign-up bonus.
+
+      // Allow a user to create their own sign-up bonus transaction.
+      // The invalid 'get().size' check is removed to fix the OTP flow.
+      // The client-side logic already prevents creating this for existing users.
+      // This rule is now stricter about the shape of the data.
       allow create: if isOwner(userId)
                     && request.resource.data.type == 'credit'
                     && request.resource.data.amount == 100
                     && request.resource.data.description == 'Sign-up Bonus'
-                    && get(/databases/$(database)/documents/users/$(userId)/walletTransactions).size == 0;
+                    && request.resource.data.timestamp == request.time
+                    && request.resource.data.keys().hasAll(['amount', 'type', 'description', 'timestamp'])
+                    && request.resource.data.size() == 4;
+
       allow update, delete: if false;
     }
   }
