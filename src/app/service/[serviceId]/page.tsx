@@ -1,3 +1,4 @@
+
 'use client';
 
 import { notFound, useRouter, useParams } from 'next/navigation';
@@ -65,6 +66,9 @@ export default function ServicePage() {
   }
   
   const serviceImage = PlaceHolderImages.find((img) => img.id === serviceId);
+  const fallbackImageUrl = `https://picsum.photos/seed/${service.id}/400/300`;
+  const imageUrl = serviceImage?.imageUrl || fallbackImageUrl;
+  
   const checklistImages = PlaceHolderImages.filter(img => img.imageHint.includes('cleaning') || img.imageHint.includes('tools')).slice(0, service.checklist.length);
   const galleryImages = PlaceHolderImages.filter(img => img.imageHint.includes(service.category) || img.imageHint.includes('service')).slice(0, 4);
 
@@ -112,7 +116,7 @@ export default function ServicePage() {
 
 
   const handleAddToCart = () => {
-    if (!selectedDate || !selectedTime || !serviceImage) {
+    if (!selectedDate || !selectedTime) {
       toast({
         variant: 'destructive',
         title: 'Selection required',
@@ -124,7 +128,7 @@ export default function ServicePage() {
     const action = addToCart(
       {
         ...service,
-        imageUrl: serviceImage.imageUrl,
+        imageUrl: imageUrl,
         selectedDate,
         selectedTime,
       },
