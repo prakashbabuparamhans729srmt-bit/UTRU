@@ -44,8 +44,21 @@ export default function ServicePage() {
   const mainContainerRef = useRef<HTMLDivElement>(null);
 
 
-  const { addToCart } = useCart();
+  const { addToCart, items: cartItems } = useCart();
   const { toast } = useToast();
+
+  useEffect(() => {
+    if (selectedDate && selectedTime && service) {
+        const cartItemId = `${service.id}-${selectedDate.toISOString()}-${selectedTime}`;
+        const existingItem = cartItems.find(item => item.cartItemId === cartItemId);
+        if (existingItem) {
+            setQuantity(existingItem.quantity);
+        } else {
+            setQuantity(1); // Reset to 1 if it's a new combination of service/date/time
+        }
+    }
+  }, [selectedDate, selectedTime, cartItems, service]);
+
 
   if (!service) {
     notFound();
