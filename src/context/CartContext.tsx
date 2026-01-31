@@ -113,7 +113,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         // If item exists, update its quantity
         return prevItems.map((i) =>
           i.cartItemId === cartItemId
-            ? { ...i, quantity: i.quantity + quantity }
+            ? { ...i, quantity: quantity }
             : i
         );
       } else {
@@ -149,7 +149,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const clearCart = () => {
     setItems([]);
     setCouponCode(null);
-    setDeliveryAddressState(null);
   };
 
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
