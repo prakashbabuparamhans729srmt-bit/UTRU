@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
@@ -12,35 +11,35 @@ export default function FloatingActionButton() {
   const router = useRouter();
 
   // Draggable state
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isDragging, setIsDragging] = useState(false);
   const fabRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
   const hasDragged = useRef(false);
+  
+  // Position and offset refs
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const offsetRef = useRef({ x: 0, y: 0 });
+  
+  // Timers
   const returnTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const autoCloseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Store default position in a ref
+  // Default position ref
   const defaultPosition = useRef({ x: 0, y: 0 });
 
-  // Function to calculate and update the default position.
-  const updateDefaultPosition = useCallback(() => {
+  const resetToDefaultPosition = useCallback(() => {
     if (fabRef.current) {
       const fabWidth = fabRef.current.offsetWidth || 56;
       const defaultX = window.innerWidth - fabWidth - 24; // ~1.5rem padding
-      const defaultY = window.innerHeight - 160;
+      const defaultY = window.innerHeight - 160; // Above footer
       defaultPosition.current = { x: defaultX, y: defaultY };
+      setPosition({ x: defaultX, y: defaultY });
     }
   }, []);
-
-  // Effect to set initial position and handle window resizing.
+  
+  // Set initial position and handle resize
   useEffect(() => {
-    const resetToDefaultPosition = () => {
-      updateDefaultPosition();
-      setPosition(defaultPosition.current);
-    }
-    
-    const timer = setTimeout(resetToDefaultPosition, 10);
-    
+    // Set initial position after a short delay
+    const timer = setTimeout(resetToDefaultPosition, 50); 
     window.addEventListener('resize', resetToDefaultPosition);
 
     return () => {
@@ -49,95 +48,93 @@ export default function FloatingActionButton() {
       if (returnTimeoutRef.current) clearTimeout(returnTimeoutRef.current);
       if (autoCloseTimeoutRef.current) clearTimeout(autoCloseTimeoutRef.current);
     };
-  }, [updateDefaultPosition]);
-  
-  // Effect to auto-close the menu after 10 seconds of inactivity.
-  useEffect(() => {
-    if (!isOpen) {
-      if (autoCloseTimeoutRef.current) {
-        clearTimeout(autoCloseTimeoutRef.current);
-        autoCloseTimeoutRef.current = null;
-      }
-      return;
-    }
-
-    autoCloseTimeoutRef.current = setTimeout(() => {
-      setIsOpen(false);
-    }, 10000);
-
-    return () => {
-      if (autoCloseTimeoutRef.current) {
-        clearTimeout(autoCloseTimeoutRef.current);
-        autoCloseTimeoutRef.current = null;
-      }
-    };
-  }, [isOpen]);
+  }, [resetToDefaultPosition]);
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     e.preventDefault();
-    e.stopPropagation();
+    (e.target as HTMLElement).setPointerCapture(e.pointerId);
 
-    // Clear any existing timers on new interaction.
-    if (returnTimeoutRef.current) {
-      clearTimeout(returnTimeoutRef.current);
-      returnTimeoutRef.current = null;
-    }
-    if (autoCloseTimeoutRef.current) {
-      clearTimeout(autoCloseTimeoutRef.current);
-      autoCloseTimeoutRef.current = null;
-    }
-
+    // Clear any existing timers on new interaction
+    if (returnTimeoutRef.current) clearTimeout(returnTimeoutRef.current);
+    if (autoCloseTimeoutRef.current) clearTimeout(autoCloseTimeoutRef.current);
+    
     hasDragged.current = false;
     setIsDragging(true);
 
-    const startX = e.clientX;
-    const startY = e.clientY;
-
-    const target = e.target as HTMLElement;
-    target.setPointerCapture(e.pointerId);
-
-    target.onpointermove = (moveEvent) => {
-      const dx = moveEvent.clientX - startX;
-      const dy = moveEvent.clientY - startY;
-      
-      if (!hasDragged.current && Math.sqrt(dx * dx + dy * dy) > 5) {
-        hasDragged.current = true;
-      }
-
-      let newX = position.x + moveEvent.movementX;
-      let newY = position.y + moveEvent.movementY;
-
-      if (fabRef.current) {
-        const fabWidth = fabRef.current.offsetWidth;
-        const fabHeight = fabRef.current.offsetHeight;
-        const padding = 8;
-        const footerHeight = 80;
-        newX = Math.max(padding, Math.min(newX, window.innerWidth - fabWidth - padding));
-        newY = Math.max(padding, Math.min(newY, window.innerHeight - fabHeight - footerHeight));
-      }
-
-      setPosition({ x: newX, y: newY });
-    };
-
-    target.onpointerup = () => {
-      target.onpointermove = null;
-      target.onpointerup = null;
-      target.releasePointerCapture(e.pointerId);
-      
-      setIsDragging(false);
-      
-      if (hasDragged.current) {
-        // If it was a drag, set the return timer.
-        returnTimeoutRef.current = setTimeout(() => {
-          setPosition(defaultPosition.current);
-          returnTimeoutRef.current = null;
-        }, 10000);
-      } else {
-        // If it was just a click, toggle the menu.
-        setIsOpen(prev => !prev);
-      }
+    offsetRef.current = {
+      x: e.clientX - position.x,
+      y: e.clientY - position.y
     };
   };
+
+  const handlePointerMove = useCallback((e: PointerEvent) => {
+    if (!isDragging) return;
+    
+    // Use a simpler hasDragged logic
+    if (!hasDragged.current) {
+        hasDragged.current = true;
+        // Close menu if it was open when drag starts
+        if (isOpen) setIsOpen(false);
+    }
+    
+    let newX = e.clientX - offsetRef.current.x;
+    let newY = e.clientY - offsetRef.current.y;
+    
+    // Constrain within viewport
+    if (fabRef.current) {
+      const fabWidth = fabRef.current.offsetWidth;
+      const fabHeight = fabRef.current.offsetHeight;
+      const padding = 8;
+      const footerHeight = 80; // Estimated height of the bottom nav bar
+      newX = Math.max(padding, Math.min(newX, window.innerWidth - fabWidth - padding));
+      newY = Math.max(padding, Math.min(newY, window.innerHeight - fabHeight - footerHeight));
+    }
+    
+    setPosition({ x: newX, y: newY });
+  }, [isDragging, isOpen]);
+
+
+  const handlePointerUp = useCallback(() => {
+    setIsDragging(false);
+
+    if (hasDragged.current) {
+      // If it was a drag, set the return timer.
+      returnTimeoutRef.current = setTimeout(() => {
+        setPosition(defaultPosition.current);
+      }, 10000);
+    } else {
+      // This was a click/tap, toggle the menu.
+      setIsOpen(prev => !prev);
+    }
+  }, []);
+
+  // Add/remove global event listeners for dragging
+  useEffect(() => {
+    const moveHandler = (e: PointerEvent) => handlePointerMove(e);
+    const upHandler = () => handlePointerUp();
+
+    if (isDragging) {
+      window.addEventListener('pointermove', moveHandler);
+      window.addEventListener('pointerup', upHandler);
+    }
+
+    return () => {
+      window.removeEventListener('pointermove', moveHandler);
+      window.removeEventListener('pointerup', upHandler);
+    };
+  }, [isDragging, handlePointerMove, handlePointerUp]);
+
+  // Effect to auto-close the menu
+  useEffect(() => {
+    if (isOpen) {
+      autoCloseTimeoutRef.current = setTimeout(() => {
+        setIsOpen(false);
+      }, 10000);
+    }
+    return () => {
+      if (autoCloseTimeoutRef.current) clearTimeout(autoCloseTimeoutRef.current);
+    };
+  }, [isOpen]);
 
   const handleSubMenuClick = (path: string) => {
     router.push(path);
