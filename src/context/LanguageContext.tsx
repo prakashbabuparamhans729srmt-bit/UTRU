@@ -210,6 +210,12 @@ webLink: string;
         availableBalance: string;
         transitionHistory: string;
         refund: string;
+    },
+    paymentSuccess: {
+        title: string;
+        subtitle: string;
+        viewBookings: string;
+        continueShopping: string;
     }
 }
 
@@ -422,6 +428,12 @@ webLink: 'Web Link',
             transitionHistory: 'Transition history',
             refund: 'Refund',
         },
+        paymentSuccess: {
+            title: 'Order Placed Successfully!',
+            subtitle: "Your booking has been confirmed. You can check the status of your booking in the 'My Bookings' section.",
+            viewBookings: 'View Bookings',
+            continueShopping: 'Continue Shopping',
+        },
     },
     'हिंदी': {
         settings: {
@@ -629,6 +641,12 @@ webLink: 'Web Link',
             availableBalance: 'उपलब्ध शेष राशि',
             transitionHistory: 'लेन-देन इतिहास',
             refund: 'धनवापसी',
+        },
+        paymentSuccess: {
+            title: 'ऑर्डर सफलतापूर्वक दिया गया!',
+            subtitle: 'आपकी बुकिंग की पुष्टि हो गई है। आप अपनी बुकिंग की स्थिति \'मेरी बुकिंग\' अनुभाग में देख सकते हैं।',
+            viewBookings: 'बुकिंग देखें',
+            continueShopping: 'खरीदारी जारी रखें',
         },
     },
     'Bhojpuri': {
@@ -838,6 +856,12 @@ webLink: 'Web Link',
             transitionHistory: 'लेन-देन इतिहास',
             refund: 'धनवापसी',
         },
+        paymentSuccess: {
+            title: 'ऑर्डर सफलतापूर्वक दिहल गईल!',
+            subtitle: 'रउआ बुकिंग के पुष्टि हो गईल बा। रउआ आपन बुकिंग के स्थिति \'मोर बुकिंग\' अनुभाग में देख सकत बानी।',
+            viewBookings: 'बुकिंग देखीं',
+            continueShopping: 'खरीदारी जारी राखीं',
+        },
     },
     'मराठी': {
         settings: {
@@ -1045,6 +1069,12 @@ webLink: 'Web Link',
             availableBalance: 'उपलब्ध शिल्लक',
             transitionHistory: 'व्यवहार इतिहास',
             refund: 'परतावा',
+        },
+        paymentSuccess: {
+            title: 'ऑर्डर यशस्वीरित्या पूर्ण झाले!',
+            subtitle: 'तुमची बुकिंग निश्चित झाली आहे. तुम्ही तुमच्या बुकिंगची स्थिती \'माझे बुकिंग\' विभागात तपासू शकता.',
+            viewBookings: 'बुकिंग पहा',
+            continueShopping: 'खरेदी सुरू ठेवा',
         },
     }
 };
