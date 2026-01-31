@@ -1,7 +1,8 @@
+
 'use client'
 
 import { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -24,6 +25,7 @@ export default function SideNavigationBar({ isOpen, setIsOpen }: SideNavigationB
   const { user, loading } = useUser();
   const { signOut, isPending: signOutPending } = useAuthUI();
   const pathname = usePathname();
+  const router = useRouter();
   const isMobile = useIsMobile();
   const [isDesktop, setIsDesktop] = useState(false);
   const { clearCart } = useCart();
@@ -43,6 +45,7 @@ export default function SideNavigationBar({ isOpen, setIsOpen }: SideNavigationB
       title: 'Logged Out',
       description: 'You have been successfully logged out.',
     });
+    router.push('/');
   };
 
   const content = (
