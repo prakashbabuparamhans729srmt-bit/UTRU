@@ -8,6 +8,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import Image from 'next/image';
 import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+import { format } from 'date-fns';
 
 function CheckoutItemCard({ item }: { item: CartItem }) {
   return (
@@ -22,6 +23,9 @@ function CheckoutItemCard({ item }: { item: CartItem }) {
       <div className="flex-grow">
         <p className="font-semibold text-sm">{item.name}</p>
         <p className="text-xs text-muted-foreground">Qty: 1</p>
+        <p className="text-xs text-muted-foreground">
+          {format(item.selectedDate, 'EEE, d MMM')} &bull; {item.selectedTime}
+        </p>
       </div>
       <p className="font-bold text-sm">₹{item.price.toLocaleString()}</p>
     </div>
