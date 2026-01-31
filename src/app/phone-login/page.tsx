@@ -1,4 +1,3 @@
-
 'use client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -17,35 +16,29 @@ export default function PhoneLoginPage() {
   const { toast } = useToast();
   const recaptchaContainerRef = useRef<HTMLButtonElement>(null);
 
+  const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    // Allow only numbers
+    const numericValue = value.replace(/[^0-9]/g, '');
+    setPhoneNumber(numericValue);
+  };
 
   const handleContinue = async () => {
-    // Ensure the number starts with +91
-    let formattedPhoneNumber = phoneNumber.trim();
-    if (!formattedPhoneNumber.startsWith('+')) {
-        if (formattedPhoneNumber.length === 10 && /^[6-9]/.test(formattedPhoneNumber)) {
-            formattedPhoneNumber = `+91${formattedPhoneNumber}`;
-        } else {
-            toast({
-                variant: 'destructive',
-                title: 'Invalid Phone Number',
-                description: 'Please enter a valid 10-digit Indian mobile number.',
-            });
-            return;
-        }
-    }
-
-    if (!/^\+[1-9]\d{1,14}$/.test(formattedPhoneNumber)) {
-        toast({
-            variant: 'destructive',
-            title: 'Invalid Phone Number',
-            description: 'Please enter a valid phone number with country code (e.g., +919876543210).',
-        });
-        return;
+    // Validate the 10-digit phone number
+    if (phoneNumber.length !== 10 || !/^[6-9]/.test(phoneNumber)) {
+      toast({
+        variant: 'destructive',
+        title: 'Invalid Phone Number',
+        description: 'Please enter a valid 10-digit Indian mobile number.',
+      });
+      return;
     }
     
+    const fullPhoneNumber = `+91${phoneNumber}`;
+
     if (!recaptchaContainerRef.current) return;
 
-    const success = await signInWithPhoneNumber(formattedPhoneNumber, recaptchaContainerRef.current);
+    const success = await signInWithPhoneNumber(fullPhoneNumber, recaptchaContainerRef.current);
     if (success) {
       router.push('/verify-phone');
     } else {
@@ -71,7 +64,7 @@ export default function PhoneLoginPage() {
           </Button>
           <div className="flex flex-col items-center">
             <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center mb-2">
-              <div className="w-6 h-6 bg-black rounded-full" />
+              <div className="w-8 h-8 bg-black rounded-full" />
             </div>
             <div className="flex items-center">
               <span className="text-3xl font-bold tracking-wider">UTRU</span>
@@ -86,13 +79,16 @@ export default function PhoneLoginPage() {
             {translations.phoneLogin.subtitle}
           </p>
 
-          <div className="relative mb-6">
+          <div className="relative flex items-center bg-white text-black rounded-full h-14 px-4 mb-6">
+            <span className="text-base font-semibold text-gray-700">+91</span>
+            <div className="w-px h-6 bg-gray-300 mx-3"></div>
             <Input
               type="tel"
-              placeholder="+919876543210"
-              className="bg-white text-black rounded-full h-14 pl-6 pr-12 text-base"
+              placeholder="9876543210"
+              className="bg-transparent border-0 h-full p-0 text-base text-black focus:ring-0 focus-visible:ring-0 shadow-none flex-grow"
               value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
+              onChange={handlePhoneNumberChange}
+              maxLength={10}
               disabled={isPending}
             />
             {phoneNumber && (
