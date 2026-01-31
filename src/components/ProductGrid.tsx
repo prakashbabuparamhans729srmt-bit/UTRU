@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -27,7 +26,7 @@ export default function ProductGrid({ products }: ProductGridProps) {
     setProductList(
       products.map((product) => ({
         ...product,
-        price: (Math.random() * 50 + 10).toFixed(2),
+        price: (Math.random() * 500 + 100).toFixed(2),
         discount: (Math.random() * 40 + 10).toFixed(0),
         rating: (Math.random() * 2 + 3).toFixed(1),
         reviews: Math.floor(Math.random() * 100 + 50),
@@ -82,7 +81,7 @@ export default function ProductGrid({ products }: ProductGridProps) {
               <h3 className="font-semibold text-sm truncate">{product.description}</h3>
               <p className="text-xs text-muted-foreground mb-2">Lorem ipsum</p>
               <div className="flex items-center justify-between">
-                <span className="font-bold text-base">$ {product.price}</span>
+                <span className="font-bold text-base">₹{product.price}</span>
                 <Badge variant="destructive" className="text-xs">{product.discount}%</Badge>
               </div>
                <div className="flex items-center gap-1 text-xs text-amber-500 mt-1">
