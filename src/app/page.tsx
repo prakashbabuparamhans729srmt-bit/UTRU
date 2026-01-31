@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useRef } from 'react';
@@ -17,6 +16,7 @@ import {
   MapPin,
   LayoutGrid,
   SlidersHorizontal,
+  Menu,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -67,6 +67,9 @@ export default function Home() {
       <header className="p-4 bg-background/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
+            <Button onClick={() => setIsSidebarOpen(true)} size="icon" variant="ghost">
+              <Menu />
+            </Button>
             <div className="w-10 h-10 bg-black dark:bg-white rounded-full flex items-center justify-center">
               <div className="w-4 h-4 bg-white dark:bg-black rounded-full" />
             </div>
