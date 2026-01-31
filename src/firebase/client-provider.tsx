@@ -47,9 +47,13 @@ export function FirebaseClientProvider({
     useState<FirebaseContextType | null>(null);
 
   useEffect(() => {
-    // Initialize Firebase only once when the component mounts.
-    const context = initializeFirebase();
-    setFirebaseContext(context);
+    // This async function initializes Firebase and sets the context.
+    const initFirebase = async () => {
+      const context = await initializeFirebase();
+      setFirebaseContext(context);
+    };
+    
+    initFirebase();
 
     // Note: We don't need a cleanup function here as we want Firebase
     // to remain initialized for the lifetime of the client session.
