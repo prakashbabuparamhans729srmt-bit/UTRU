@@ -92,6 +92,7 @@ export default function CheckoutPage() {
             finalTotal,
             placedAt: serverTimestamp(),
             deliveryAddress: deliveryAddress,
+            status: 'Placed',
         };
 
         const bookingsCol = collection(firestore, 'users', user.uid, 'bookings');

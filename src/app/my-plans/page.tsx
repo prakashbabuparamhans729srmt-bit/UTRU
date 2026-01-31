@@ -13,6 +13,8 @@ import Image from 'next/image';
 import { format } from 'date-fns';
 import { Skeleton } from '@/components/ui/skeleton';
 import Link from 'next/link';
+import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 
 interface BookingItem {
   id: string;
@@ -31,13 +33,40 @@ interface Booking {
   placedAt: { seconds: number; nanoseconds: number; }; // Firestore timestamp
   discount?: number;
   couponCode?: string;
+  status?: 'Placed' | 'Confirmed' | 'In Progress' | 'Completed' | 'Cancelled';
 }
 
 function BookingCard({ booking }: { booking: Booking }) {
+    const getStatusVariant = (status?: string): "default" | "secondary" | "outline" | "destructive" => {
+        switch (status) {
+            case 'Placed':
+            case 'Confirmed':
+                return 'default';
+            case 'In Progress':
+                return 'secondary';
+            case 'Completed':
+                return 'outline'; // This will have a border, which can signify completion
+            case 'Cancelled':
+                return 'destructive';
+            default:
+                return 'secondary';
+        }
+    }
+
     return (
         <Card className="p-4">
             <div className="flex justify-between items-start mb-2">
-                <h3 className="font-bold text-sm">Booking ID: {booking.id.substring(0, 7).toUpperCase()}</h3>
+                 <div className="flex items-center gap-2 flex-wrap">
+                    <h3 className="font-bold text-sm">Booking ID: {booking.id.substring(0, 7).toUpperCase()}</h3>
+                    {booking.status && 
+                        <Badge 
+                            variant={getStatusVariant(booking.status)}
+                            className={cn(booking.status === 'Completed' && 'border-green-500 text-green-600')}
+                        >
+                            {booking.status}
+                        </Badge>
+                    }
+                </div>
                  <div>
                   {booking.discount && booking.discount > 0 ? (
                       <div className="text-right">
@@ -101,32 +130,19 @@ export default function MyPlansPage() {
   const { upcomingBookings, pastBookings } = useMemo(() => {
     if (!bookings) return { upcomingBookings: [], pastBookings: [] };
     
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
     const upcoming: Booking[] = [];
     const past: Booking[] = [];
 
     bookings.forEach(booking => {
-      if (!booking.items || booking.items.length === 0) {
-        past.push(booking); // Consider bookings with no items as past
-        return;
-      }
-      
-      // A booking is 'upcoming' if at least one of its items is for today or a future date.
-      const isUpcoming = booking.items.some(item => {
-        const itemDate = new Date((item.selectedDate as any).seconds * 1000);
-        return itemDate >= today;
-      });
-
-      if (isUpcoming) {
-        upcoming.push(booking);
-      } else {
+      if (booking.status === 'Completed' || booking.status === 'Cancelled') {
         past.push(booking);
+      } else {
+        // All other statuses (including undefined for old data) are considered active/upcoming
+        upcoming.push(booking);
       }
     });
 
-    return { upcomingBookings: upcoming, pastBookings: past };
+    return { upcomingBookings, pastBookings };
   }, [bookings]);
 
 

@@ -93,6 +93,11 @@
                 "deliveryAddress": {
                     "$ref": "#/backend/entities/address"
                 },
+                "status": {
+                    "type": "string",
+                    "enum": ["Placed", "Confirmed", "In Progress", "Completed", "Cancelled"],
+                    "description": "The current status of the booking."
+                },
                 "rating": {
                     "type": "number",
                     "description": "User's rating for this booking, from 1 to 5."
