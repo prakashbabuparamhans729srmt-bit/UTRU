@@ -191,12 +191,12 @@ import {
   ];
 
   export const profileMenuItems = [
-      { icon: Settings, text: 'Setting', href: '/settings', labelKey: 'setting' },
       { icon: FileText, text: 'My plans', href: '/my-plans', labelKey: 'myPlans' },
       { icon: Smartphone, text: 'Native devices', href: '/native-devices', labelKey: 'nativeDevices' },
       { icon: BookUser, text: 'Address book', href: '/address', labelKey: 'addressBook' },
       { icon: Star, text: 'Plus membership', href: '/plus-membership', labelKey: 'plusMembership' },
       { icon: Star, text: 'My rating', href: '/my-ratings', labelKey: 'myRating' },
+      { icon: Settings, text: 'Setting', href: '/settings', labelKey: 'setting' },
   ];
   
   export const profileOtherInfoLinks = [
@@ -871,5 +871,3 @@ export const allServiceCategories: ServiceCategory[] = [
         ]
     },
 ];
-
-    
