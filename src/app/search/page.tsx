@@ -21,6 +21,8 @@ import { useLanguage } from '@/context/LanguageContext';
 import ProductGrid from '@/components/ProductGrid';
 import { useCart } from '@/context/CartContext';
 import { Badge } from '@/components/ui/badge';
+import { useSpeechRecognition } from '@/hooks/use-speech-recognition';
+import { cn } from '@/lib/utils';
 
 
 function SearchResults() {
@@ -34,6 +36,7 @@ function SearchResults() {
   const { translations } = useLanguage();
   const { items: cartItems } = useCart();
   const [isLoading, setIsLoading] = useState(true);
+  const { isListening, isMicAvailable, startListening } = useSpeechRecognition(setSearchQuery);
 
   useEffect(() => {
     setIsLoading(true);
@@ -68,7 +71,7 @@ function SearchResults() {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
             <input
               type="text"
-              placeholder={translations.search.searchPlaceholder}
+              placeholder={isListening ? "Listening..." : translations.search.searchPlaceholder}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-input rounded-full pl-10 pr-24 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
@@ -81,7 +84,12 @@ function SearchResults() {
                 />
               )}
               <div className="w-px h-5 bg-border"></div>
-              <Mic className="w-5 h-5 text-muted-foreground cursor-pointer" />
+              {isMicAvailable && (
+                <Mic
+                  className={cn("w-5 h-5 text-muted-foreground cursor-pointer", isListening && "text-primary animate-pulse")}
+                  onClick={() => startListening()}
+                />
+              )}
               <div className="w-px h-5 bg-border"></div>
                 <Link href="/filter">
                   <SlidersHorizontal className="w-5 h-5 text-muted-foreground cursor-pointer" />
