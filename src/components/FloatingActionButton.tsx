@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { MessageCircle, ShoppingCart, ClipboardList, Plus } from 'lucide-react';
+import { MessageCircle, ShoppingCart, ClipboardList, Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function FloatingActionButton() {
@@ -84,7 +84,7 @@ export default function FloatingActionButton() {
   };
   
   // Make the button smaller
-  const mainButtonClasses = `rounded-full w-14 h-14 bg-primary text-primary-foreground shadow-lg transition-transform duration-300 ease-in-out transform hover:scale-110 ${isOpen ? 'rotate-45' : 'rotate-0'}`;
+  const mainButtonClasses = `rounded-full w-14 h-14 bg-primary text-primary-foreground shadow-lg transition-transform duration-300 ease-in-out transform hover:scale-110`;
   const subButtonClasses = "rounded-full w-12 h-12 bg-secondary text-secondary-foreground shadow-lg";
 
   return (
@@ -134,7 +134,7 @@ export default function FloatingActionButton() {
           aria-expanded={isOpen}
           aria-label={isOpen ? "Close actions menu" : "Open actions menu"}
         >
-          <Plus className="w-7 h-7" />
+          <Search className="w-7 h-7" />
         </div>
       </div>
     </div>
