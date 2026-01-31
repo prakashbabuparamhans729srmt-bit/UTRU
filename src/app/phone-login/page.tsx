@@ -1,3 +1,4 @@
+
 'use client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -69,8 +70,8 @@ export default function PhoneLoginPage() {
             <Play className="w-6 h-6 rotate-180" />
           </Button>
           <div className="flex flex-col items-center">
-            <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center mb-2">
-              <div className="w-4 h-4 bg-black rounded-full" />
+            <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center mb-2">
+              <div className="w-6 h-6 bg-black rounded-full" />
             </div>
             <div className="flex items-center">
               <span className="text-3xl font-bold tracking-wider">UTRU</span>
