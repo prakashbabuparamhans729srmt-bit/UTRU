@@ -12,7 +12,7 @@ export default function FloatingActionButton() {
 
   // Draggable state
   const fabRef = useRef<HTMLDivElement>(null);
-  const [isDragging, setIsDragging] = useState(false);
+  const isDraggingRef = useRef(false);
   const hasDragged = useRef(false);
   
   // Position and offset refs
@@ -59,28 +59,28 @@ export default function FloatingActionButton() {
     if (autoCloseTimeoutRef.current) clearTimeout(autoCloseTimeoutRef.current);
     
     hasDragged.current = false;
-    setIsDragging(true);
+    isDraggingRef.current = true;
 
     offsetRef.current = {
       x: e.clientX - position.x,
       y: e.clientY - position.y
     };
+
+    window.addEventListener('pointermove', handlePointerMove);
+    window.addEventListener('pointerup', handlePointerUp);
   };
 
   const handlePointerMove = useCallback((e: PointerEvent) => {
-    if (!isDragging) return;
+    if (!isDraggingRef.current) return;
     
-    // Use a simpler hasDragged logic
     if (!hasDragged.current) {
         hasDragged.current = true;
-        // Close menu if it was open when drag starts
         if (isOpen) setIsOpen(false);
     }
     
     let newX = e.clientX - offsetRef.current.x;
     let newY = e.clientY - offsetRef.current.y;
     
-    // Constrain within viewport
     if (fabRef.current) {
       const fabWidth = fabRef.current.offsetWidth;
       const fabHeight = fabRef.current.offsetHeight;
@@ -91,11 +91,13 @@ export default function FloatingActionButton() {
     }
     
     setPosition({ x: newX, y: newY });
-  }, [isDragging, isOpen]);
+  }, [isOpen]);
 
 
   const handlePointerUp = useCallback(() => {
-    setIsDragging(false);
+    isDraggingRef.current = false;
+    window.removeEventListener('pointermove', handlePointerMove);
+    window.removeEventListener('pointerup', handlePointerUp);
 
     if (hasDragged.current) {
       // If it was a drag, set the return timer.
@@ -106,34 +108,16 @@ export default function FloatingActionButton() {
       // This was a click/tap, toggle the menu.
       setIsOpen(prev => !prev);
     }
-  }, []);
-
-  // Add/remove global event listeners for dragging
-  useEffect(() => {
-    const moveHandler = (e: PointerEvent) => handlePointerMove(e);
-    const upHandler = () => handlePointerUp();
-
-    if (isDragging) {
-      window.addEventListener('pointermove', moveHandler);
-      window.addEventListener('pointerup', upHandler);
-    }
-
-    return () => {
-      window.removeEventListener('pointermove', moveHandler);
-      window.removeEventListener('pointerup', upHandler);
-    };
-  }, [isDragging, handlePointerMove, handlePointerUp]);
+  }, [handlePointerMove]);
 
   // Effect to auto-close the menu
   useEffect(() => {
+    if (autoCloseTimeoutRef.current) clearTimeout(autoCloseTimeoutRef.current);
     if (isOpen) {
       autoCloseTimeoutRef.current = setTimeout(() => {
         setIsOpen(false);
       }, 10000);
     }
-    return () => {
-      if (autoCloseTimeoutRef.current) clearTimeout(autoCloseTimeoutRef.current);
-    };
   }, [isOpen]);
 
   const handleSubMenuClick = (path: string) => {
@@ -149,7 +133,7 @@ export default function FloatingActionButton() {
       ref={fabRef}
       className={cn(
         "fixed z-50",
-        !isDragging && "transition-all duration-300 ease-in-out"
+        isDraggingRef.current ? "" : "transition-all duration-300 ease-in-out"
       )}
       style={{
         left: `${position.x}px`,
@@ -158,6 +142,15 @@ export default function FloatingActionButton() {
       }}
     >
       <div className="relative flex flex-col items-center gap-3">
+        <div
+          className={cn(mainButtonClasses, "flex items-center justify-center cursor-pointer")}
+          onPointerDown={handlePointerDown}
+          role="button"
+          aria-expanded={isOpen}
+          aria-label={isOpen ? "Close actions menu" : "Open actions menu"}
+        >
+          <Search className="w-7 h-7" />
+        </div>
         {isOpen && (
           <div className="flex flex-col items-center gap-3 transition-all duration-300 ease-in-out">
             <Button
@@ -186,15 +179,6 @@ export default function FloatingActionButton() {
             </Button>
           </div>
         )}
-        <div
-          className={cn(mainButtonClasses, "flex items-center justify-center cursor-pointer")}
-          onPointerDown={handlePointerDown}
-          role="button"
-          aria-expanded={isOpen}
-          aria-label={isOpen ? "Close actions menu" : "Open actions menu"}
-        >
-          <Search className="w-7 h-7" />
-        </div>
       </div>
     </div>
   );
