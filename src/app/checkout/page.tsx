@@ -1,4 +1,3 @@
-
 'use client';
 
 import { ChevronLeft, Home, MapPin, MoreVertical, Loader2 } from 'lucide-react';
@@ -48,7 +47,7 @@ function CheckoutItemCard({ item }: { item: CartItem }) {
 
 export default function CheckoutPage() {
     const router = useRouter();
-    const { items, total, clearCart, deliveryFee, platformFee, couponCode, discount, finalTotal, deliveryAddress } = useCart();
+    const { items, total, clearCart, deliveryFee, platformFee, couponCode, discount, finalTotal, deliveryAddress, removeCoupon } = useCart();
     const { translations } = useLanguage();
     const { user, loading: userLoading } = useUser();
     const firestore = useFirestore();
@@ -120,6 +119,14 @@ export default function CheckoutPage() {
           });
     }
 
+    const handleRemoveCoupon = () => {
+        removeCoupon();
+        toast({
+        title: 'Coupon Removed',
+        description: 'Your cart total has been updated.',
+        });
+    };
+
     return (
         <div className="bg-background text-foreground min-h-screen flex flex-col">
             <header className="p-4 flex items-center gap-4 border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
@@ -183,8 +190,11 @@ export default function CheckoutPage() {
                             <span>₹{platformFee.toLocaleString()}</span>
                         </div>
                         {discount > 0 && (
-                            <div className="flex justify-between text-green-600 dark:text-green-400">
-                                <span>Discount ({couponCode})</span>
+                            <div className="flex justify-between items-center text-green-600 dark:text-green-400">
+                                <div className="flex items-center gap-1">
+                                     <span>Discount ({couponCode})</span>
+                                     <Button variant="ghost" size="sm" onClick={handleRemoveCoupon} className="text-green-700 dark:text-green-300 h-auto py-0.5 px-1.5 text-xs font-normal">Remove</Button>
+                                </div>
                                 <span>- ₹{discount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                             </div>
                         )}
