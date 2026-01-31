@@ -30,25 +30,6 @@ import { useCart } from '@/context/CartContext';
 import { useMemo } from 'react';
 import { doc } from 'firebase/firestore';
 
-const MyPlansIcon = () => (
-  <div className="w-6 h-6 flex items-center justify-center rounded-sm bg-gray-600 text-white text-xs font-bold">
-    MP
-  </div>
-);
-
-const NotificationBadgeIcon = () => (
-  <div className="w-6 h-6 flex items-center justify-center">
-    <div className="w-5 h-5 rounded-full bg-black text-white flex items-center justify-center text-xs font-bold">1</div>
-  </div>
-);
-
-const iconMap: { [key: string]: React.ElementType } = {
-  myPlans: MyPlansIcon,
-  myRating: NotificationBadgeIcon,
-  setting: NotificationBadgeIcon,
-};
-
-
 export default function ProfilePage() {
   const { toast } = useToast();
   const router = useRouter();
@@ -154,18 +135,15 @@ export default function ProfilePage() {
                 </div>
 
                 <div className='divide-y divide-gray-200'>
-                    {profileMenuItems.map((item, index) => {
-                        const Icon = iconMap[item.labelKey as string] || item.icon;
-                        return (
-                            <Link key={item.labelKey} href={item.href} className="flex items-center justify-between py-4 cursor-pointer group">
-                                <div className="flex items-center gap-4">
-                                    <Icon className="w-6 h-6 text-gray-500" />
-                                    <span className="font-medium text-gray-800">{translations.profile[item.labelKey as keyof typeof translations.profile]}</span>
-                                </div>
-                                <ChevronRight className="w-5 h-5 text-gray-400" />
-                            </Link>
-                        )
-                    })}
+                    {profileMenuItems.map((item) => (
+                        <Link key={item.labelKey} href={item.href} className="flex items-center justify-between py-4 cursor-pointer group">
+                            <div className="flex items-center gap-4">
+                                <item.icon className="w-6 h-6 text-gray-500" />
+                                <span className="font-medium text-gray-800">{translations.profile[item.labelKey as keyof typeof translations.profile]}</span>
+                            </div>
+                            <ChevronRight className="w-5 h-5 text-gray-400" />
+                        </Link>
+                    ))}
                 </div>
                 
                 <div className="space-y-1 pt-4">

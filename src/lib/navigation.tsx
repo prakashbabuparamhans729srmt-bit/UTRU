@@ -191,7 +191,7 @@ import {
   ];
 
   export const profileMenuItems = [
-      { icon: Star, text: 'Setting', href: '/settings', labelKey: 'setting' },
+      { icon: Settings, text: 'Setting', href: '/settings', labelKey: 'setting' },
       { icon: FileText, text: 'My plans', href: '/my-plans', labelKey: 'myPlans' },
       { icon: Smartphone, text: 'Native devices', href: '/native-devices', labelKey: 'nativeDevices' },
       { icon: BookUser, text: 'Address book', href: '/address', labelKey: 'addressBook' },
