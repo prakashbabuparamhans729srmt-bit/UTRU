@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { MessageCircle, ShoppingCart, ClipboardList, Search } from 'lucide-react';
@@ -12,85 +12,100 @@ export default function FloatingActionButton() {
 
   // Draggable state
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
   const fabRef = useRef<HTMLDivElement>(null);
-  const isDraggingRef = useRef(false);
   const dragStartPos = useRef({ x: 0, y: 0 });
-  const dragOffset = useRef({ x: 0, y: 0 });
+  const hasDragged = useRef(false);
+
+  // Store default position
+  const defaultPosition = useRef({ x: 0, y: 0 });
+
+  const updateDefaultPosition = useCallback(() => {
+    if (fabRef.current) {
+        const fabWidth = fabRef.current.offsetWidth || 56;
+        const defaultX = window.innerWidth - fabWidth - 24; // ~1.5rem padding
+        const defaultY = window.innerHeight - 160;
+        defaultPosition.current = { x: defaultX, y: defaultY };
+        if (!isDragging) {
+          setPosition({ x: defaultX, y: defaultY });
+        }
+    }
+  }, [isDragging]);
 
   // Use useEffect to handle client-side only state initialization
   useEffect(() => {
-    setPosition({ x: window.innerWidth - 72, y: window.innerHeight - 160 });
-  }, []);
-
-  const handleDragStart = (e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
-    if (fabRef.current) {
-        isDraggingRef.current = true;
-        
-        const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
-        const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
-
-        dragStartPos.current = { x: clientX, y: clientY };
-        dragOffset.current = { x: position.x, y: position.y };
-        
-        // Add listeners to window
-        window.addEventListener('mousemove', handleDragMove);
-        window.addEventListener('touchmove', handleDragMove, { passive: false });
-        window.addEventListener('mouseup', handleDragEnd);
-        window.addEventListener('touchend', handleDragEnd);
+    // We need a slight delay to ensure fabRef.current is available for width calculation
+    const timer = setTimeout(updateDefaultPosition, 10);
+    window.addEventListener('resize', updateDefaultPosition);
+    return () => {
+        clearTimeout(timer);
+        window.removeEventListener('resize', updateDefaultPosition);
     }
-  };
-
-  const handleDragMove = (e: globalThis.MouseEvent | globalThis.TouchEvent) => {
-    if (!isDraggingRef.current || !fabRef.current) return;
-    if (e.cancelable) e.preventDefault();
-
-    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
-    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
-
-    const dx = clientX - dragStartPos.current.x;
-    const dy = clientY - dragStartPos.current.y;
-
-    let newX = dragOffset.current.x + dx;
-    let newY = dragOffset.current.y + dy;
-
-    // Constrain within viewport
-    const fabWidth = fabRef.current.offsetWidth;
-    const fabHeight = fabRef.current.offsetHeight;
-    newX = Math.max(8, Math.min(newX, window.innerWidth - fabWidth - 8));
-    newY = Math.max(8, Math.min(newY, window.innerHeight - fabHeight - 8));
-    
-    setPosition({ x: newX, y: newY });
-  };
+  }, [updateDefaultPosition]);
   
-  const handleDragEnd = (e: globalThis.MouseEvent | globalThis.TouchEvent) => {
-    const clientX = 'changedTouches' in e ? e.changedTouches[0].clientX : e.clientX;
-    const clientY = 'changedTouches' in e ? e.changedTouches[0].clientY : e.clientY;
-    
-    const dx = clientX - dragStartPos.current.x;
-    const dy = clientY - dragStartPos.current.y;
-    const distance = Math.sqrt(dx * dx + dy * dy);
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    hasDragged.current = false;
+    setIsDragging(true);
 
-    if (distance < 10) { // If it's a small movement, treat it as a click
-      setIsOpen(prev => !prev);
-    }
+    const target = e.target as HTMLElement;
+    target.setPointerCapture(e.pointerId);
+
+    dragStartPos.current = { x: e.clientX, y: e.clientY };
     
-    isDraggingRef.current = false;
-    
-    // Clean up listeners
-    window.removeEventListener('mousemove', handleDragMove);
-    window.removeEventListener('touchmove', handleDragMove);
-    window.removeEventListener('mouseup', handleDragEnd);
-    window.removeEventListener('touchend', handleDragEnd);
+    target.onpointermove = (moveEvent) => {
+        const dx = moveEvent.clientX - dragStartPos.current.x;
+        const dy = moveEvent.clientY - dragStartPos.current.y;
+        
+        if (!hasDragged.current && Math.sqrt(dx * dx + dy * dy) > 5) { // Threshold to consider it a drag
+            hasDragged.current = true;
+        }
+
+        let newX = position.x + dx;
+        let newY = position.y + dy;
+
+        if (fabRef.current) {
+            const fabWidth = fabRef.current.offsetWidth;
+            const fabHeight = fabRef.current.offsetHeight;
+            const padding = 8;
+            newX = position.x + moveEvent.movementX;
+            newY = position.y + moveEvent.movementY;
+            newX = Math.max(padding, Math.min(newX, window.innerWidth - fabWidth - padding));
+            newY = Math.max(padding, Math.min(newY, window.innerHeight - fabHeight - padding));
+        }
+
+        setPosition({ x: newX, y: newY });
+    };
+
+    target.onpointerup = () => {
+        target.onpointermove = null;
+        target.onpointerup = null;
+        target.releasePointerCapture(e.pointerId);
+        
+        setIsDragging(false);
+        
+        if (!hasDragged.current) {
+            setIsOpen(prev => !prev);
+        }
+
+        // Return to default position smoothly
+        setPosition(defaultPosition.current);
+    };
   };
+
   
   // Make the button smaller
-  const mainButtonClasses = `rounded-full w-14 h-14 bg-primary text-primary-foreground shadow-lg transition-transform duration-300 ease-in-out transform hover:scale-110`;
+  const mainButtonClasses = `rounded-full w-14 h-14 bg-primary text-primary-foreground shadow-lg transform hover:scale-110`;
   const subButtonClasses = "rounded-full w-12 h-12 bg-secondary text-secondary-foreground shadow-lg";
 
   return (
     <div
       ref={fabRef}
-      className="fixed z-50"
+      className={cn(
+        "fixed z-50",
+        !isDragging && "transition-all duration-300 ease-in-out" // Apply transition only when not dragging
+      )}
       style={{
         left: `${position.x}px`,
         top: `${position.y}px`,
@@ -128,8 +143,7 @@ export default function FloatingActionButton() {
         )}
         <div
           className={cn(mainButtonClasses, "flex items-center justify-center cursor-pointer")}
-          onMouseDown={handleDragStart}
-          onTouchStart={handleDragStart}
+          onPointerDown={handlePointerDown}
           role="button"
           aria-expanded={isOpen}
           aria-label={isOpen ? "Close actions menu" : "Open actions menu"}
