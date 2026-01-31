@@ -20,15 +20,19 @@ function CartItemCard({ item }: { item: CartItem }) {
 
   return (
     <Card className="flex items-start gap-4 p-4">
-      <Image
-        src={item.imageUrl}
-        alt={item.name}
-        width={80}
-        height={80}
-        className="rounded-lg object-cover aspect-square"
-      />
+      <Link href={`/service/${item.id}`} className="shrink-0">
+        <Image
+          src={item.imageUrl}
+          alt={item.name}
+          width={80}
+          height={80}
+          className="rounded-lg object-cover aspect-square"
+        />
+      </Link>
       <div className="flex-grow">
-        <h3 className="font-semibold">{item.name}</h3>
+        <Link href={`/service/${item.id}`}>
+          <h3 className="font-semibold hover:text-primary transition-colors">{item.name}</h3>
+        </Link>
         <p className="text-sm text-muted-foreground">
           {format(item.selectedDate, 'EEE, d MMM yyyy')}
         </p>

@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { useCart, type CartItem, type Address } from '@/context/CartContext';
 import { useLanguage } from '@/context/LanguageContext';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { format } from 'date-fns';
@@ -21,15 +22,19 @@ import { FirestorePermissionError } from '@/firebase/errors';
 function CheckoutItemCard({ item }: { item: CartItem }) {
   return (
     <div className="flex items-center gap-4 py-3">
-      <Image
-        src={item.imageUrl}
-        alt={item.name}
-        width={48}
-        height={48}
-        className="rounded-lg object-cover aspect-square"
-      />
+      <Link href={`/service/${item.id}`} className="shrink-0">
+        <Image
+          src={item.imageUrl}
+          alt={item.name}
+          width={48}
+          height={48}
+          className="rounded-lg object-cover aspect-square"
+        />
+      </Link>
       <div className="flex-grow">
-        <p className="font-semibold text-sm">{item.name}</p>
+        <Link href={`/service/${item.id}`}>
+            <p className="font-semibold text-sm hover:text-primary transition-colors">{item.name}</p>
+        </Link>
         <p className="text-xs text-muted-foreground">Qty: {item.quantity}</p>
         <p className="text-xs text-muted-foreground">
           {format(item.selectedDate, 'EEE, d MMM')} &bull; {item.selectedTime}
