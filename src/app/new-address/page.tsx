@@ -1,4 +1,3 @@
-
 'use client';
 
 import { ChevronLeft, Loader2 } from 'lucide-react';
@@ -17,6 +16,7 @@ import { addDoc, collection } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
+import { useCart, type Address } from '@/context/CartContext';
 
 
 export default function NewAddressPage() {
@@ -28,6 +28,7 @@ export default function NewAddressPage() {
   const { user } = useUser();
   const firestore = useFirestore();
   const { toast } = useToast();
+  const { setDeliveryAddress } = useCart();
   
   const [name, setName] = useState('');
   const [mobile, setMobile] = useState('');
@@ -64,15 +65,20 @@ export default function NewAddressPage() {
       fullAddress,
       floor,
       landmark,
-      type: addressType,
+      type: addressType as 'Home' | 'Work' | 'Hotel' | 'Other',
     };
 
     const addressCollection = collection(firestore, 'users', user.uid, 'addresses');
     
     addDoc(addressCollection, addressData)
-      .then(() => {
-        toast({ title: 'Address Saved!', description: 'Your new address has been saved.' });
-        router.back();
+      .then((docRef) => {
+        const newAddressWithId: Address = {
+            ...addressData,
+            id: docRef.id
+        }
+        setDeliveryAddress(newAddressWithId);
+        toast({ title: 'Address Saved!', description: 'Your new address has been saved and selected for this order.' });
+        router.push('/checkout');
       })
       .catch((serverError) => {
           const permissionError = new FirestorePermissionError({
@@ -149,14 +155,15 @@ export default function NewAddressPage() {
         <section className="mb-8">
            <RadioGroup value={addressType} onValueChange={(value) => setAddressType(value)} className="flex justify-around">
             {addressTypes.map(({ icon: Icon, labelKey }) => {
-              const type = translations.newAddress[labelKey as keyof typeof translations.newAddress];
+              const typeLabel = translations.newAddress[labelKey as keyof typeof translations.newAddress];
+              const typeValue = labelKey.charAt(0).toUpperCase() + labelKey.slice(1);
               return (
                 <Label key={labelKey} htmlFor={labelKey} className="flex flex-col items-center gap-2 cursor-pointer">
-                  <RadioGroupItem value={type} id={labelKey} className="sr-only" />
-                  <div className={`w-14 h-14 rounded-full flex items-center justify-center transition-colors ${addressType === type ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground border hover:bg-primary/20 hover:text-primary'}`}>
+                  <RadioGroupItem value={typeValue} id={labelKey} className="sr-only" />
+                  <div className={`w-14 h-14 rounded-full flex items-center justify-center transition-colors ${addressType === typeValue ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground border hover:bg-primary/20 hover:text-primary'}`}>
                     <Icon className="w-6 h-6" />
                   </div>
-                  <span className="text-sm">{type}</span>
+                  <span className="text-sm">{typeLabel}</span>
                 </Label>
               )
             })}
