@@ -88,6 +88,14 @@
                 "placedAt": { "type": "string", "format": "date-time" },
                 "deliveryAddress": {
                     "$ref": "#/backend/entities/address"
+                },
+                "rating": {
+                    "type": "number",
+                    "description": "User's rating for this booking, from 1 to 5."
+                },
+                "review": {
+                    "type": "string",
+                    "description": "User's text review for this booking."
                 }
             },
             "required": ["id", "userId", "items", "finalTotal", "placedAt", "deliveryAddress"]
