@@ -26,6 +26,10 @@
                 "phoneNumber": {
                     "type": "string",
                     "description": "The user's phone number."
+                },
+                "walletBalance": {
+                    "type": "number",
+                    "description": "The user's current wallet balance, initialized to 0."
                 }
             },
             "required": [
@@ -99,6 +103,39 @@
                 }
             },
             "required": ["id", "userId", "items", "finalTotal", "placedAt", "deliveryAddress"]
+        },
+        "walletTransaction": {
+            "title": "Wallet Transaction",
+            "description": "A single transaction in the user's wallet history.",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "amount": {
+                    "type": "number",
+                    "description": "The transaction amount. Positive for credit, negative for debit."
+                },
+                "type": {
+                    "type": "string",
+                    "enum": ["credit", "debit"]
+                },
+                "description": {
+                    "type": "string",
+                    "description": "A brief description of the transaction (e.g., 'Referral Bonus', 'Refund for Order #XYZ')."
+                },
+                "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The date and time of the transaction."
+                }
+            },
+            "required": [
+                "amount",
+                "type",
+                "description",
+                "timestamp"
+            ]
         }
     },
     "auth": {
@@ -124,6 +161,12 @@
                 "$ref": "#/backend/entities/booking"
             },
             "description": "Stores user's booking history."
+        },
+        "/users/{userId}/walletTransactions/{transactionId}": {
+            "schema": {
+                "$ref": "#/backend/entities/walletTransaction"
+            },
+            "description": "Stores a user's wallet transaction history."
         }
     }
 }

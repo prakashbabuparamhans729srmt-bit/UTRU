@@ -122,7 +122,8 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
                     email: email || null,
                     displayName: displayName || 'New User',
                     photoURL: photoURL || null,
-                    phoneNumber: phoneNumber || null
+                    phoneNumber: phoneNumber || null,
+                    walletBalance: 0
                 });
             }
         }
