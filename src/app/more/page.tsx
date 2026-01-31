@@ -1,3 +1,4 @@
+
 'use client';
 
 import { ChevronLeft, ChevronRight, Mic, Search, X } from 'lucide-react';
@@ -11,6 +12,7 @@ import { useMemo, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { useSpeechRecognition } from '@/hooks/use-speech-recognition';
 import { cn } from '@/lib/utils';
+import FloatingActionButton from '@/components/FloatingActionButton';
 
 export default function MorePage() {
   const router = useRouter();
@@ -143,6 +145,7 @@ export default function MorePage() {
           <p className="text-center text-muted-foreground py-10">No categories found matching your search.</p>
         )}
       </main>
+      <FloatingActionButton />
     </div>
   );
 }

@@ -17,6 +17,7 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { useSpeechRecognition } from '@/hooks/use-speech-recognition';
+import FloatingActionButton from '@/components/FloatingActionButton';
 
 export default function LibraryPage() {
   const { translations } = useLanguage();
@@ -73,6 +74,8 @@ export default function LibraryPage() {
             <p className="text-muted-foreground">Content for the Library will be displayed here.</p>
         </div>
       </main>
+
+      <FloatingActionButton />
 
       <footer className="fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-700 z-50">
         <div className="flex justify-around items-center p-2">
