@@ -51,6 +51,16 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
   
   const recaptchaVerifierRef = useRef<RecaptchaVerifier | null>(null);
 
+  // Effect to clean up the RecaptchaVerifier on unmount
+  useEffect(() => {
+    return () => {
+      if (recaptchaVerifierRef.current) {
+        recaptchaVerifierRef.current.clear();
+        recaptchaVerifierRef.current = null;
+      }
+    };
+  }, []);
+
 
   // Phone Sign-In Initiator
   const handleSignInWithPhoneNumber = useCallback(
@@ -65,14 +75,16 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
       setPhoneNumber(phone);
 
       try {
-        // Only create a new verifier if one doesn't exist or if it has expired
-        if (!recaptchaVerifierRef.current) {
-            recaptchaVerifierRef.current = new RecaptchaVerifier(auth, container, {
-              size: 'invisible',
-            });
+        // Ensure any previous verifier is cleared before creating a new one
+        if (recaptchaVerifierRef.current) {
+            recaptchaVerifierRef.current.clear();
         }
         
-        const verifier = recaptchaVerifierRef.current;
+        const verifier = new RecaptchaVerifier(auth, container, {
+          'size': 'invisible',
+        });
+        recaptchaVerifierRef.current = verifier;
+
         const result = await signInWithPhoneNumber(
           auth,
           phone,
@@ -82,7 +94,7 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
         return true;
       } catch (err: any) {
         setError(err.message);
-        // Reset verifier on error. It will be recreated on next attempt.
+        // Reset verifier on error.
         if (recaptchaVerifierRef.current) {
             recaptchaVerifierRef.current.clear();
             recaptchaVerifierRef.current = null;
@@ -144,6 +156,12 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
         }
         // --- END NEW LOGIC ---
 
+        // Clean up the reCAPTCHA verifier after successful sign-in
+        if (recaptchaVerifierRef.current) {
+          recaptchaVerifierRef.current.clear();
+          recaptchaVerifierRef.current = null;
+        }
+        
         setConfirmationResult(null); // Clear confirmation result
         setPhoneNumber(null);
         return true;
@@ -163,6 +181,10 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
     setIsPending(true);
     try {
       await auth.signOut();
+       if (recaptchaVerifierRef.current) {
+          recaptchaVerifierRef.current.clear();
+          recaptchaVerifierRef.current = null;
+        }
     } catch (err: any) {
       setError(err.message);
     } finally {
