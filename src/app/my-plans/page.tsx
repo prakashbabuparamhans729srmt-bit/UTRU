@@ -1,7 +1,6 @@
-
 'use client';
 
-import { ChevronLeft, FileText, CalendarCheck, History } from 'lucide-react';
+import { ChevronLeft, FileText, CalendarCheck, History, Star } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/context/LanguageContext';
@@ -15,6 +14,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
+import { Separator } from '@/components/ui/separator';
 
 interface BookingItem {
   id: string;
@@ -34,9 +34,12 @@ interface Booking {
   discount?: number;
   couponCode?: string;
   status?: 'Placed' | 'Confirmed' | 'In Progress' | 'Completed' | 'Cancelled';
+  rating?: number;
+  review?: string;
 }
 
 function BookingCard({ booking }: { booking: Booking }) {
+    const router = useRouter();
     const getStatusVariant = (status?: string): "default" | "secondary" | "outline" | "destructive" => {
         switch (status) {
             case 'Placed':
@@ -107,6 +110,19 @@ function BookingCard({ booking }: { booking: Booking }) {
                     );
                 })}
             </div>
+            {booking.status === 'Completed' && !booking.rating && (
+                <>
+                    <Separator className="my-4" />
+                    <Button 
+                        variant="outline" 
+                        className="w-full border-primary text-primary hover:bg-primary/10 hover:text-primary"
+                        onClick={() => router.push('/my-ratings')}
+                    >
+                        <Star className="w-4 h-4 mr-2" />
+                        Rate Your Experience
+                    </Button>
+                </>
+            )}
         </Card>
     );
 }
