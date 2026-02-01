@@ -194,6 +194,7 @@ import {
   export const profileOtherInfoLinks = [
       { icon: Share2, text: 'Share the app', href: '/refer', labelKey: 'shareApp' },
       { icon: Info, text: 'About us', href: '/about', labelKey: 'aboutUs' },
+      { icon: Shield, text: 'Master Admin Panel', href: '/admin', labelKey: 'masterAdminPanel' },
   ];
   
   
