@@ -1,4 +1,3 @@
-
 'use client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -111,20 +110,20 @@ export default function VerifyPhonePage() {
   };
 
   return (
-    <div className="bg-white min-h-screen flex items-center justify-center">
-      <div className="bg-black text-white w-full max-w-md mx-4 rounded-[40px] p-8 shadow-2xl flex flex-col h-[70vh] my-auto">
+    <div className="bg-background text-foreground min-h-screen flex items-center justify-center">
+      <div className="bg-card text-card-foreground w-full max-w-md mx-4 rounded-[40px] p-8 shadow-2xl flex flex-col h-auto md:h-auto my-auto border">
         <div className="flex items-center justify-center relative mb-8">
           <Button
             size="icon"
-            variant="ghost"
-            className="absolute left-0 top-1/2 -translate-y-1/2 rounded-full w-12 h-12 bg-black text-white hover:bg-gray-700"
+            variant="outline"
+            className="absolute left-0 top-1/2 -translate-y-1/2 rounded-full w-12 h-12"
             onClick={() => router.back()}
           >
             <ChevronLeft className="w-6 h-6" />
           </Button>
           <div className="flex flex-col items-center">
-            <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center mb-2">
-              <div className="w-6 h-6 bg-black rounded-full" />
+            <div className="w-14 h-14 bg-card-foreground rounded-full flex items-center justify-center mb-2">
+              <div className="w-6 h-6 bg-card rounded-full" />
             </div>
             <div className="flex items-center">
               <span className="text-3xl font-bold tracking-wider">UTRU</span>
@@ -134,10 +133,10 @@ export default function VerifyPhonePage() {
 
         <div className="flex-grow flex flex-col justify-center text-left">
           <h1 className="text-4xl font-bold mb-2">{translations.verifyPhone.title}</h1>
-          <p className="text-gray-400 mb-8">
+          <p className="text-muted-foreground mb-8">
             {translations.verifyPhone.subtitle} <br />
-            <span className="text-white font-semibold">{phoneNumber || 'your phone number'}</span> 
-            <button onClick={() => router.push('/phone-login')} className="text-white underline ml-2">{translations.verifyPhone.changeNumber}</button>
+            <span className="text-card-foreground font-semibold">{phoneNumber || 'your phone number'}</span> 
+            <button onClick={() => router.push('/phone-login')} className="text-primary underline ml-2">{translations.verifyPhone.changeNumber}</button>
           </p>
 
           <div className="flex justify-center gap-2 mb-8" onPaste={handlePaste}>
@@ -150,7 +149,7 @@ export default function VerifyPhonePage() {
                 value={digit}
                 onChange={(e) => handleChange(e, index)}
                 onKeyDown={(e) => handleKeyDown(e, index)}
-                className="w-12 h-12 text-center text-xl font-bold bg-white text-black rounded-full border-2 border-gray-500 aspect-square"
+                className="w-12 h-12 text-center text-xl font-bold bg-background text-foreground rounded-full border-2 border-border aspect-square"
                 disabled={isPending}
               />
             ))}
@@ -158,14 +157,14 @@ export default function VerifyPhonePage() {
 
           <div className="text-center mb-6">
             {countdown > 0 ? (
-                <p className="text-gray-400">
+                <p className="text-muted-foreground">
                     Resend code in {countdown}s
                 </p>
             ) : (
                 <Button
                     ref={recaptchaResendRef}
                     variant="link"
-                    className="text-white underline"
+                    className="text-primary underline"
                     onClick={handleResendOtp}
                     disabled={isPending}
                 >
@@ -175,7 +174,7 @@ export default function VerifyPhonePage() {
           </div>
 
           <Button 
-            className="w-full bg-white text-black rounded-full h-14 text-lg font-semibold hover:bg-gray-200"
+            className="w-full bg-primary text-primary-foreground rounded-full h-14 text-lg font-semibold hover:bg-primary/90"
             onClick={handleVerify}
             disabled={isPending || otp.join('').length !== 6}
           >

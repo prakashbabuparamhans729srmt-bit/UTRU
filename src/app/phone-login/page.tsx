@@ -1,7 +1,7 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { X, Play, Loader2 } from 'lucide-react';
+import { X, Play, Loader2, ChevronLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
 import { useState, useRef } from 'react';
@@ -51,20 +51,20 @@ export default function PhoneLoginPage() {
   };
 
   return (
-    <div className="bg-white min-h-screen flex items-center justify-center">
-      <div className="bg-black text-white w-full max-w-md mx-4 rounded-[40px] p-8 shadow-2xl flex flex-col h-[70vh] my-auto">
+    <div className="bg-background text-foreground min-h-screen flex items-center justify-center">
+      <div className="bg-card text-card-foreground w-full max-w-md mx-4 rounded-[40px] p-8 shadow-2xl flex flex-col h-auto md:h-auto my-auto border">
         <div className="flex items-start justify-between">
           <Button
             size="icon"
-            variant="ghost"
-            className="rounded-full w-12 h-12 border border-gray-700 hover:bg-gray-800"
+            variant="outline"
+            className="rounded-full w-12 h-12"
             onClick={() => router.back()}
           >
-            <Play className="w-6 h-6 rotate-180" />
+            <ChevronLeft className="w-6 h-6" />
           </Button>
           <div className="flex flex-col items-center">
-            <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center mb-2">
-              <div className="w-8 h-8 bg-black rounded-full" />
+            <div className="w-14 h-14 bg-card-foreground rounded-full flex items-center justify-center mb-2">
+              <div className="w-8 h-8 bg-card rounded-full" />
             </div>
             <div className="flex items-center">
               <span className="text-3xl font-bold tracking-wider">UTRU</span>
@@ -75,17 +75,17 @@ export default function PhoneLoginPage() {
 
         <div className="flex-grow flex flex-col justify-center text-left mt-8">
           <h1 className="text-4xl font-bold mb-2">{translations.phoneLogin.title}</h1>
-          <p className="text-gray-400 mb-8">
+          <p className="text-muted-foreground mb-8">
             {translations.phoneLogin.subtitle}
           </p>
 
-          <div className="relative flex items-center bg-white text-black rounded-full h-14 px-4 mb-6">
-            <span className="text-base font-semibold text-gray-700">+91</span>
-            <div className="w-px h-6 bg-gray-300 mx-3"></div>
+          <div className="relative flex items-center bg-background text-foreground rounded-full h-14 px-4 mb-6 border">
+            <span className="text-base font-semibold text-muted-foreground">+91</span>
+            <div className="w-px h-6 bg-border mx-3"></div>
             <Input
               type="tel"
               placeholder="9876543210"
-              className="bg-transparent border-0 h-full p-0 text-base text-black focus:ring-0 focus-visible:ring-0 shadow-none flex-grow"
+              className="bg-transparent border-0 h-full p-0 text-base text-foreground focus:ring-0 focus-visible:ring-0 shadow-none flex-grow"
               value={phoneNumber}
               onChange={handlePhoneNumberChange}
               maxLength={10}
@@ -95,7 +95,7 @@ export default function PhoneLoginPage() {
               <Button
                 size="icon"
                 variant="ghost"
-                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full w-10 h-10 text-gray-500 hover:text-black"
+                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full w-10 h-10 text-muted-foreground hover:text-foreground"
                 onClick={() => setPhoneNumber('')}
                 disabled={isPending}
               >
@@ -106,7 +106,7 @@ export default function PhoneLoginPage() {
 
           <Button 
             ref={recaptchaContainerRef}
-            className="w-full bg-white text-black rounded-full h-14 text-lg font-semibold hover:bg-gray-200"
+            className="w-full bg-primary text-primary-foreground rounded-full h-14 text-lg font-semibold hover:bg-primary/90"
             onClick={handleContinue}
             disabled={isPending || !phoneNumber}
           >
