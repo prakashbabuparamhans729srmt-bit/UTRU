@@ -1,4 +1,3 @@
-
 'use client';
 
 import { notFound, useRouter, useParams } from 'next/navigation';
@@ -232,26 +231,37 @@ export default function ServicePage() {
                  <p className="text-muted-foreground">{service.description}</p>
             </section>
             <Separator/>
-            <section id="packages" className="space-y-4 scroll-mt-24">
-                <h2 className="text-lg font-semibold text-muted-foreground">{translations.service.whatsIncluded}</h2>
-                {service.checklist.map((item, index) => (
-                     <div key={index} className="flex items-center gap-4">
-                        <Image 
-                            src={checklistImages[index]?.imageUrl || `https://picsum.photos/seed/${item}/100/100`}
-                            alt={item}
-                            width={80}
-                            height={80}
-                            className="rounded-2xl object-cover aspect-square"
-                        />
-                        <div className="flex-grow">
-                            <h3 className="font-semibold leading-tight">{item}</h3>
-                            <p className="text-xs text-muted-foreground mt-1">Professional equipment used</p>
+            <section id="packages" className="scroll-mt-24">
+                <h2 className="text-lg font-semibold text-muted-foreground mb-6">{translations.service.whatsIncluded}</h2>
+                <div className="relative flex flex-col gap-8">
+                    {/* The timeline line */}
+                    <div className="absolute left-3 top-0 h-full w-px bg-border"></div>
+
+                    {service.checklist.map((item, index) => (
+                        <div key={index} className="relative pl-10">
+                            {/* The circle on the line */}
+                            <div className="absolute -left-0.5 top-1 h-7 w-7 rounded-full bg-background border-2 border-primary flex items-center justify-center">
+                                <Check className="h-4 w-4 text-primary" />
+                            </div>
+                            
+                            {/* The content */}
+                            <div className="flex-1">
+                                <div className="mb-4">
+                                    <h3 className="font-semibold text-base">{item}</h3>
+                                    <p className="text-sm text-muted-foreground mt-1">Professional equipment used</p>
+                                </div>
+                                <Image
+                                    src={checklistImages[index]?.imageUrl || `https://picsum.photos/seed/${item}/600/400`}
+                                    alt={item}
+                                    width={600}
+                                    height={400}
+                                    className="rounded-lg object-cover w-full aspect-video"
+                                    data-ai-hint={checklistImages[index]?.imageHint || "tools cleaning"}
+                                />
+                            </div>
                         </div>
-                        <Button variant="ghost" size="icon" className="text-muted-foreground">
-                            <Check className="text-primary"/>
-                        </Button>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </section>
             <Separator/>
             <section id="offers" className="space-y-4 scroll-mt-24">
@@ -362,5 +372,3 @@ export default function ServicePage() {
     </div>
   );
 }
-
-    
