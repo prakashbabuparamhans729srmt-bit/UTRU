@@ -60,7 +60,11 @@ function BookingCard({ booking }: { booking: Booking }) {
         <Card className="p-4">
             <div className="flex justify-between items-start mb-2">
                  <div className="flex items-center gap-2 flex-wrap">
-                    <h3 className="font-bold text-sm">Booking ID: {booking.id.substring(0, 7).toUpperCase()}</h3>
+                    <h3 className="font-bold text-sm">
+                        <Link href={`/booking/${booking.id}`} className="hover:underline">
+                            Booking ID: {booking.id.substring(0, 7).toUpperCase()}
+                        </Link>
+                    </h3>
                     {booking.status && 
                         <Badge 
                             variant={getStatusVariant(booking.status)}
