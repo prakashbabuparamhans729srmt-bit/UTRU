@@ -120,7 +120,7 @@ function BookingCard({ booking }: { booking: Booking }) {
                     <Button 
                         variant="outline" 
                         className="w-full border-primary text-primary hover:bg-primary/10 hover:text-primary"
-                        onClick={() => router.push('/my-ratings')}
+                        onClick={() => router.push(`/booking/${booking.id}`)}
                     >
                         <Star className="w-4 h-4 mr-2" />
                         Rate Your Experience
