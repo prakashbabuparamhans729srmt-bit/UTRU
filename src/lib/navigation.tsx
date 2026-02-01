@@ -239,6 +239,7 @@ import {
     { icon: CreditCard, text: 'My Payments', href: '/payment-settings', labelKey: 'payments' },
     { icon: Share2, text: 'Share App', href: '/refer', labelKey: 'shareApp' },
     { icon: Info, text: 'About Us', href: '/about', labelKey: 'aboutUs' },
+    { icon: Shield, text: 'Master Admin', href: '/admin', labelKey: 'masterAdminPanel' },
     { icon: Settings, text: 'Settings', href: '/settings', labelKey: 'setting' },
   ];
 

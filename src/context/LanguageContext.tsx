@@ -182,6 +182,7 @@ interface Translations {
         lightMode: string;
         darkMode: string;
         appVersions: string;
+        masterAdminPanel: string;
     },
     refer: {
         title: string;
@@ -424,6 +425,7 @@ const translations: Record<string, Translations> = {
             lightMode: 'Light Mode',
             darkMode: 'Dark Mode',
             appVersions: 'App Versions',
+            masterAdminPanel: 'Master Admin Panel',
         },
         refer: {
             title: 'Refer & Earn',
@@ -663,6 +665,7 @@ const translations: Record<string, Translations> = {
             lightMode: 'लाइट मोड',
             darkMode: 'डार्क मोड',
             appVersions: 'ऐप संस्करण',
+            masterAdminPanel: 'मास्टर एडमिन पैनल',
         },
         refer: {
             title: 'रेफर करें और कमाएं',
@@ -902,6 +905,7 @@ const translations: Record<string, Translations> = {
             lightMode: 'लाइट मोड',
             darkMode: 'डार्क मोड',
             appVersions: 'ऐप संस्करण',
+            masterAdminPanel: 'मास्टर एडमिन पैनल',
         },
         refer: {
             title: 'रेफर करीं आ कमाईं',
@@ -1141,6 +1145,7 @@ const translations: Record<string, Translations> = {
             lightMode: 'लाइट मोड',
             darkMode: 'डार्क मोड',
             appVersions: 'अॅप आवृत्त्या',
+            masterAdminPanel: 'मास्टर ऍडमिन पॅनेल',
         },
         refer: {
             title: 'रेफर करा आणि कमवा',
