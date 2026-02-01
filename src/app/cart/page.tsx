@@ -1,4 +1,3 @@
-
 'use client';
 import { ChevronLeft, Trash2, ShoppingBag, Plus, Minus } from 'lucide-react';
 import Image from 'next/image';
@@ -116,62 +115,64 @@ export default function CartPage() {
         <h1 className="text-lg font-semibold">{translations.cart.yourCart} ({items.length})</h1>
       </header>
 
-      <main className="flex-grow p-4 space-y-4 pb-48">
+      <main className="flex-grow p-4 space-y-4 pb-96">
         {items.map((item) => (
           <CartItemCard key={item.cartItemId} item={item} />
         ))}
       </main>
       
-      <footer className="fixed bottom-0 left-0 right-0 bg-card border-t p-4 z-10 space-y-4">
-          {!couponCode ? (
+      <footer className="fixed bottom-0 left-0 right-0 bg-transparent p-4 z-10">
+        <div className="bg-gray-900 text-white rounded-3xl p-6 space-y-4 shadow-lg border border-gray-700">
+            {!couponCode ? (
             <div className="flex gap-2">
-              <Input
+                <Input
                 placeholder="Enter coupon code"
                 value={couponInput}
                 onChange={(e) => setCouponInput(e.target.value)}
-                className="bg-muted"
+                className="bg-gray-800 border-gray-700 text-white placeholder-gray-400 focus:ring-primary rounded-lg"
                 onKeyPress={(e) => e.key === 'Enter' && handleApplyCoupon()}
-              />
-              <Button onClick={handleApplyCoupon} disabled={!couponInput.trim()}>Apply</Button>
+                />
+                <Button onClick={handleApplyCoupon} disabled={!couponInput.trim()} className="rounded-lg">Apply</Button>
             </div>
-          ) : (
-            <div className="flex justify-between items-center bg-green-100 dark:bg-green-900/50 p-2 rounded-lg text-sm">
-              <p className="font-semibold text-green-700 dark:text-green-300">
+            ) : (
+            <div className="flex justify-between items-center bg-green-900/50 p-3 rounded-lg text-sm">
+                <p className="font-semibold text-green-300">
                 Coupon <span className="font-bold">{couponCode}</span> applied!
-              </p>
-              <Button variant="ghost" size="sm" onClick={handleRemoveCoupon} className="text-green-700 dark:text-green-300 h-auto py-1">Remove</Button>
+                </p>
+                <Button variant="ghost" size="sm" onClick={handleRemoveCoupon} className="text-green-300 h-auto py-1">Remove</Button>
             </div>
-          )}
-
-          <h2 className="text-lg font-bold">{translations.cart.paymentSummary}</h2>
-          <div className="space-y-2 text-sm">
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">{translations.cart.itemTotal}</span>
-              <span>₹{total.toLocaleString()}</span>
-            </div>
-            <div className="flex justify-between">
-                <span className="text-muted-foreground">{translations.cart.deliveryFee}</span>
-                <span>₹{deliveryFee.toLocaleString()}</span>
-            </div>
-            <div className="flex justify-between">
-                <span className="text-muted-foreground">{translations.cart.platformFee}</span>
-                <span>₹{platformFee.toLocaleString()}</span>
-            </div>
-            {discount > 0 && (
-              <div className="flex justify-between text-green-600 dark:text-green-400">
-                <span>Discount</span>
-                <span>- ₹{discount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-              </div>
             )}
-          </div>
-          <Separator />
-          <div className="flex justify-between font-bold text-lg">
-            <span>{translations.cart.toPay}</span>
-            <span>₹{finalTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-          </div>
-        <Button size="lg" className="w-full h-12 text-base" onClick={() => router.push('/checkout')}>
-          {translations.cart.checkout}
-        </Button>
+
+            <h2 className="text-xl font-bold text-center pt-2">Bill Details</h2>
+            <div className="space-y-3 text-base">
+                <div className="flex justify-between">
+                    <span className="text-gray-400">{translations.cart.itemTotal}</span>
+                    <span className="font-medium">₹{total.toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between">
+                    <span className="text-gray-400">{translations.cart.deliveryFee}</span>
+                    <span className="font-medium">₹{deliveryFee.toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between">
+                    <span className="text-gray-400">{translations.cart.platformFee}</span>
+                    <span className="font-medium">₹{platformFee.toLocaleString()}</span>
+                </div>
+                {discount > 0 && (
+                <div className="flex justify-between text-green-400">
+                    <span className="text-gray-400">Discount</span>
+                    <span className="font-medium">- ₹{discount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                </div>
+                )}
+            </div>
+            <Separator className="bg-gray-700" />
+            <div className="flex justify-between font-bold text-lg">
+                <span>{translations.cart.toPay}</span>
+                <span>₹{finalTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+            </div>
+            <Button size="lg" className="w-full h-12 text-lg rounded-full bg-primary hover:bg-primary/90" onClick={() => router.push('/checkout')}>
+                Pay
+            </Button>
+        </div>
       </footer>
     </div>
   );
