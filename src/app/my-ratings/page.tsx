@@ -87,7 +87,9 @@ function RatingCard({ booking, onUpdate }: { booking: Booking, onUpdate: () => v
         <Card className="p-4">
             <div className="flex justify-between items-start">
                 <div>
-                    <p className="font-semibold">{booking.items[0]?.name}{booking.items.length > 1 ? ` + ${booking.items.length - 1} more` : ''}</p>
+                    <Link href={`/booking/${booking.id}`}>
+                        <p className="font-semibold hover:underline">{booking.items[0]?.name}{booking.items.length > 1 ? ` + ${booking.items.length - 1} more` : ''}</p>
+                    </Link>
                     <p className="text-sm text-muted-foreground">{format(new Date(booking.placedAt.seconds * 1000), 'PPP')}</p>
                 </div>
                 {booking.rating && !isSaving && (
