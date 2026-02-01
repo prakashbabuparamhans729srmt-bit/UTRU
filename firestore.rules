@@ -22,7 +22,11 @@ service cloud.firestore {
       allow read, write: if isOwner(userId);
     }
     match /users/{userId}/bookings/{bookingId} {
-      allow read, write: if isOwner(userId);
+      allow read, create: if isOwner(userId);
+      allow update: if isOwner(userId)
+                    && request.resource.data.keys().hasAll(['rating', 'review'])
+                    && request.resource.data.keys().size() == 2;
+      allow delete: if false;
     }
     match /users/{userId}/walletTransactions/{transactionId} {
       allow read: if isOwner(userId);
