@@ -387,7 +387,7 @@
     {
       "id": "gifting-hero-3",
       "description": "Hands exchanging a wrapped gift, symbolizing the act of giving.",
-      "imageUrl": "https://images.unsplash.com/photo-1730389658758-e61f3293b94d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxleGNoYW5naW5nJTIwZ2lmdHxlbnwwfHx8fDE3NjgyNzQzNjV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1730389658758-e61f3293b94d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHhleGNoYW5naW5nJTIwZ2lmdHxlbnwwfHx8fDE3NjgyNzQzNjV8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "exchanging gift"
     },
     {
@@ -575,6 +575,42 @@
       "description": "Join our membership advertisement",
       "imageUrl": "https://images.unsplash.com/photo-1587653268955-e43185e9d156?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxqb2luJTIwbWVtYmVyc2hpcHxlbnwwfHx8fDE3Njk5MjQyNzV8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "join membership"
+    },
+    {
+      "id": "shorts-dangerous-food",
+      "description": "A dangerous fugu fish, known for being poisonous if not prepared correctly.",
+      "imageUrl": "https://images.unsplash.com/photo-1598515598691-1763955220c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxkYW5nZXJvdXMlMjBmb29kfGVufDB8fHx8MTc3MDA4MjM5MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dangerous food"
+    },
+    {
+      "id": "shorts-chef-knife",
+      "description": "A chef sharpening a large kitchen knife.",
+      "imageUrl": "https://images.unsplash.com/photo-1620913160428-2055f6e1f3b3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjheWYlMjBrbmlmZXxlbnwwfHx8fDE3NzAwODIzOTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "chef knife"
+    },
+    {
+      "id": "shorts-girl-crying",
+      "description": "A young woman looking distressed or crying.",
+      "imageUrl": "https://images.unsplash.com/photo-1587402092942-a25c1de5cc23?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxnaXJsJTIwY3J5aW5nfGVufDB8fHx8MTc3MDA4MjM5MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "girl crying"
+    },
+    {
+      "id": "shorts-animal-glass",
+      "description": "A small snake inside a glass container held by a person.",
+      "imageUrl": "https://images.unsplash.com/photo-1593433693635-f09e66164137?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhbmltYWwlMjBpbiUyMGdsYXNzfGVufDB8fHx8MTc3MDA4MjM5MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "animal glass"
+    },
+    {
+      "id": "shorts-baseball-swing",
+      "description": "A baseball player in mid-swing at a lake.",
+      "imageUrl": "https://images.unsplash.com/photo-1551046140-972553188554?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxiYXNlYmFsbCUyMHN3aW5nfGVufDB8fHx8MTc3MDA4MjM5MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "baseball swing"
+    },
+    {
+      "id": "shorts-jelly-cherries",
+      "description": "Gummy jelly candies in the shape of cherries.",
+      "imageUrl": "https://images.unsplash.com/photo-1610971514758-5544605e5d36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxqZWxseSUyMGNoZXJyaWVzfGVufDB8fHx8MTc3MDA4MjM5MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "jelly cherries"
     }
   ]
 }

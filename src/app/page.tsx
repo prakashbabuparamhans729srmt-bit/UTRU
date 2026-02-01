@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useRef } from 'react';
@@ -17,6 +18,7 @@ import {
   LayoutGrid,
   SlidersHorizontal,
   Menu,
+  PlaySquare,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -27,7 +29,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import FloatingActionButton from '@/components/FloatingActionButton';
 import { mainFooterNavLinks, homeCategoryLinks } from '@/lib/navigation.tsx';
 import Autoplay from 'embla-carousel-autoplay';
-import { Card } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useCart } from '@/context/CartContext';
 import { Badge } from '@/components/ui/badge';
@@ -60,7 +62,17 @@ export default function Home() {
   const carouselImages = PlaceHolderImages.filter(img => 
     img.id === 'city-night' || img.id === 'product-collage'
   );
+  const shortsImages = PlaceHolderImages.filter(img => img.id.startsWith('shorts-'));
   
+  const shortsData = [
+    { id: 'shorts-1', title: "'DANGEROUS food'", views: '20M views', imageId: 'shorts-dangerous-food' },
+    { id: 'shorts-2', title: 'Iron Chef kitchen', views: '2M views', imageId: 'shorts-chef-knife' },
+    { id: 'shorts-3', title: "17 Year Teeth-One KNOCKS...", views: '11M views', imageId: 'shorts-girl-crying' },
+    { id: 'shorts-4', title: "ANIMALS THAT ASHES PEOPLE TO...", views: '18M views', imageId: 'shorts-animal-glass' },
+    { id: 'shorts-5', title: "The weirdest scenes in sports...", views: '9M views', imageId: 'shorts-baseball-swing' },
+    { id: 'shorts-6', title: "SPAGHETTI BOWL THEM IN SLIME", views: '1M views', imageId: 'shorts-jelly-cherries' }
+  ];
+
   const adPlugin = React.useRef(
     Autoplay({ delay: 3000, stopOnInteraction: true })
   );
@@ -217,6 +229,47 @@ export default function Home() {
                 {translations.home.category}
             </Button>
         </div>
+
+        <section className="space-y-4">
+          <div className="px-4 flex items-center justify-between">
+            <h2 className="text-xl font-bold flex items-center gap-2">
+              <PlaySquare className="text-red-500" />
+              Shorts
+            </h2>
+            <Button variant="ghost" size="icon">
+              <X className="w-5 h-5 text-muted-foreground" />
+            </Button>
+          </div>
+          <Carousel opts={{ align: 'start', loop: false }} className="w-full">
+            <CarouselContent className="-ml-2">
+              {shortsData.map((short, index) => {
+                const image = shortsImages.find(img => img.id === short.imageId);
+                return (
+                  <CarouselItem key={index} className="pl-4 basis-1/3 md:basis-1/4 lg:basis-1/6">
+                    <Link href="/explore">
+                      <Card className="overflow-hidden rounded-xl border-none">
+                        <CardContent className="p-0 relative">
+                          <Image
+                            src={image?.imageUrl || `https://picsum.photos/seed/${short.id}/300/500`}
+                            alt={short.title}
+                            width={300}
+                            height={500}
+                            className="object-cover w-full aspect-[9/16] rounded-xl"
+                            data-ai-hint={image?.imageHint || 'video content'}
+                          />
+                          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-2">
+                            <h4 className="font-semibold text-white text-sm truncate">{short.title}</h4>
+                            <p className="text-xs text-gray-300">{short.views}</p>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  </CarouselItem>
+                );
+              })}
+            </CarouselContent>
+          </Carousel>
+        </section>
 
         <div className="px-4">
           <h2 className="text-xl font-bold">Featured Services</h2>
