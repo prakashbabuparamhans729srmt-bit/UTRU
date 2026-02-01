@@ -177,9 +177,9 @@ import {
   // For src/app/profile/page.tsx
   
   export const profileHeaderLinks = [
-    { icon: CreditCard, text: 'Payments', href: '/payment-settings', labelKey: 'payments' },
-    { icon: Headset, text: 'Support', href: '/support', labelKey: 'support' },
-    { icon: Wallet, text: 'Wallet', href: '/wallet', labelKey: 'wallet' },
+    { id: 'payments', icon: CreditCard, text: 'Payments', href: '/payment-settings', labelKey: 'payments' },
+    { id: 'support', icon: Headset, text: 'Support', href: '/support', labelKey: 'support' },
+    { id: 'wallet', icon: Wallet, text: 'Wallet', href: '/wallet', labelKey: 'wallet' },
   ];
 
   export const profileMenuItems = [
@@ -864,3 +864,4 @@ export const allServiceCategories: ServiceCategory[] = [
         ]
     },
 ];
+

@@ -29,6 +29,36 @@ import { cn } from '@/lib/utils';
 import { useCart } from '@/context/CartContext';
 import { useMemo } from 'react';
 import { doc } from 'firebase/firestore';
+import { Badge } from '@/components/ui/badge';
+
+
+// This component will render the three icons in the header
+const HeaderActionLinks = ({ isLoading, balance }: { isLoading: boolean; balance?: number }) => {
+  const { translations } = useLanguage();
+  const { user } = useUser();
+
+  return (
+    <div className="flex justify-around w-full max-w-sm mx-auto mt-6">
+      {profileHeaderLinks.map((item) => (
+        <Link key={item.labelKey} href={item.href} className="relative flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-colors">
+          <div className="w-14 h-14 bg-gray-800 rounded-full flex items-center justify-center border border-gray-600">
+            <item.icon className="w-6 h-6" />
+          </div>
+          <span className="text-xs font-medium text-center">{translations.profile[item.labelKey as keyof typeof translations.profile]}</span>
+          {item.id === 'wallet' && user && !isLoading && (
+            <Badge className="absolute -top-1 -right-1 bg-primary text-primary-foreground px-2 py-0.5 text-xs">
+              ₹{balance ?? 0}
+            </Badge>
+          )}
+          {item.id === 'wallet' && user && isLoading && (
+             <Skeleton className="absolute -top-1 -right-1 h-5 w-10 rounded-full bg-gray-600" />
+          )}
+        </Link>
+      ))}
+    </div>
+  );
+};
+
 
 export default function ProfilePage() {
   const { toast } = useToast();
@@ -59,20 +89,6 @@ export default function ProfilePage() {
   };
 
   const isLoading = userLoading || profileLoading;
-
-  // This component will render the three icons in the header
-  const HeaderActionLinks = () => (
-    <div className="flex justify-around w-full max-w-sm mx-auto mt-6">
-      {profileHeaderLinks.map((item) => (
-        <Link key={item.labelKey} href={item.href} className="flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-colors">
-          <div className="w-14 h-14 bg-gray-800 rounded-full flex items-center justify-center border border-gray-600">
-            <item.icon className="w-6 h-6" />
-          </div>
-          <span className="text-xs font-medium text-center">{translations.profile[item.labelKey as keyof typeof translations.profile]}</span>
-        </Link>
-      ))}
-    </div>
-  );
 
   return (
     <div className="flex flex-col h-screen bg-gray-900">
@@ -109,14 +125,7 @@ export default function ProfilePage() {
                 <div className="w-full flex flex-col items-center mt-4 space-y-2">
                     <Skeleton className="h-8 w-3/4 mx-auto rounded-md bg-gray-600" />
                     <Skeleton className="h-4 w-1/2 mx-auto rounded-md bg-gray-700" />
-                    <div className="flex justify-around w-full max-w-sm mx-auto mt-6">
-                        {profileHeaderLinks.map((item) => (
-                          <div key={item.labelKey} className="flex flex-col items-center gap-2">
-                              <Skeleton className="w-14 h-14 rounded-full bg-gray-700" />
-                              <Skeleton className="h-3 w-16 bg-gray-600" />
-                          </div>
-                        ))}
-                    </div>
+                    <HeaderActionLinks isLoading={isLoading} />
                 </div>
             ) : user ? (
                  <div className="mt-4 text-white">
@@ -129,7 +138,7 @@ export default function ProfilePage() {
                     <p className="text-sm text-gray-400">
                       {userProfile?.phoneNumber || user?.phoneNumber || userProfile?.email || user?.email}
                     </p>
-                    <HeaderActionLinks />
+                    <HeaderActionLinks isLoading={isLoading} balance={userProfile?.walletBalance} />
                 </div>
             ) : (
                 <div className="mt-6 w-full flex flex-col items-center">
@@ -141,7 +150,7 @@ export default function ProfilePage() {
                     <p className="text-sm text-gray-400 mt-2 px-4 text-center max-w-xs">
                         {translations.profile.loginMessage}
                     </p>
-                    <HeaderActionLinks />
+                    <HeaderActionLinks isLoading={isLoading} balance={undefined} />
                 </div>
             )}
         </div>
