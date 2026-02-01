@@ -239,8 +239,11 @@ export default function MyPlansPage() {
                 <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mb-6">
                     <FileText className="w-12 h-12 text-primary" />
                 </div>
-                <h2 className="text-xl font-bold mb-1">{translations.myPlans.bookings}</h2>
-                <p className="text-muted-foreground">{translations.myPlans.noActivePlans}</p>
+                <h2 className="text-xl font-bold mb-1">{translations.myPlans.noBookingsYet}</h2>
+                <p className="text-muted-foreground mb-6">{translations.myPlans.browseServicesPrompt}</p>
+                <Link href="/">
+                    <Button>{translations.cart.browseServices}</Button>
+                </Link>
             </div>
         )}
 

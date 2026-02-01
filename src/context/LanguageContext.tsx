@@ -110,6 +110,8 @@ interface Translations {
         noActivePlans: string;
         bookings: string;
         pastBookings: string;
+        noBookingsYet: string;
+        browseServicesPrompt: string;
     },
     nativeDevices: {
         title: string;
@@ -353,6 +355,8 @@ const translations: Record<string, Translations> = {
             noActivePlans: 'You have no upcoming bookings.',
             bookings: 'Bookings',
             pastBookings: 'Past Bookings',
+            noBookingsYet: 'No Bookings Yet',
+            browseServicesPrompt: 'Book a service to see your plan here.',
         },
         nativeDevices: {
             title: 'Native Devices',
@@ -522,7 +526,7 @@ const translations: Record<string, Translations> = {
         },
         cart: {
             searchPlaceholder: 'के लिए खोजें...',
-            blackFriday: 'ब्लैक फ्राइडे',
+            blackFriday: 'ब्लॅक फ्रायडे',
             discountsAvailable: 'छूट उपलब्ध है',
             categories: 'श्रेणियाँ',
             seeAll: 'सभी देखें',
@@ -593,6 +597,8 @@ const translations: Record<string, Translations> = {
             noActivePlans: 'आपकी कोई आगामी बुकिंग नहीं है।',
             bookings: 'बुकिंग',
             pastBookings: 'पिछली बुकिंग',
+            noBookingsYet: 'अभी तक कोई बुकिंग नहीं',
+            browseServicesPrompt: 'अपनी योजना यहाँ देखने के लिए एक सेवा बुक करें।',
         },
         nativeDevices: {
             title: 'देशी डिवाइस',
@@ -762,7 +768,7 @@ const translations: Record<string, Translations> = {
         },
         cart: {
             searchPlaceholder: 'खातिर खोजीं...',
-            blackFriday: 'ब्लैक फ्राइडे',
+            blackFriday: 'ब्लॅक फ्रायडे',
             discountsAvailable: 'छूट उपलब्ध बा',
             categories: 'श्रेणी',
             seeAll: 'सब देखीं',
@@ -833,6 +839,8 @@ const translations: Record<string, Translations> = {
             noActivePlans: 'रउआ पास कवनो आवे वाला बुकिंग नइखे।',
             bookings: 'बुकिंग',
             pastBookings: 'पिछला बुकिंग',
+            noBookingsYet: 'अबही तक कवनो बुकिंग नइखे',
+            browseServicesPrompt: 'आपन योजना इहाँ देखे खातिर एगो सेवा बुक करीं।',
         },
         nativeDevices: {
             title: 'देशी डिवाइस',
@@ -1073,6 +1081,8 @@ const translations: Record<string, Translations> = {
             noActivePlans: 'तुमच्याकडे कोणतीही आगामी बुकिंग नाही.',
             bookings: 'बुकिंग',
             pastBookings: 'मागील बुकिंग',
+            noBookingsYet: 'अद्याप कोणतीही बुकिंग नाही',
+            browseServicesPrompt: 'तुमची योजना येथे पाहण्यासाठी एक सेवा बुक करा.',
         },
         nativeDevices: {
             title: 'नेटिव्ह डिव्हाइस',
@@ -1254,5 +1264,3 @@ export const useLanguage = () => {
     }
     return context;
 };
-
-    
