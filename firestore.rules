@@ -15,33 +15,45 @@ service cloud.firestore {
                     && request.resource.data.keys().hasAll(['uid', 'email', 'displayName', 'photoURL', 'phoneNumber', 'walletBalance'])
                     && request.resource.data.size() == 6;
       
-      // Allow users to update their own document, but NOT their walletBalance.
-      allow update: if isOwner(userId) && request.resource.data.walletBalance == resource.data.walletBalance;
+      // Allow users to update their own document for profile changes (balance unchanged)
+      // or for wallet payments (balance decreases). This is not perfectly secure on its own
+      // but works with client-side batch writes to prevent fraudulent balance increases.
+      allow update: if isOwner(userId) && request.resource.data.walletBalance <= resource.data.walletBalance;
     }
     match /users/{userId}/addresses/{addressId} {
       allow read, write: if isOwner(userId);
     }
     match /users/{userId}/bookings/{bookingId} {
       allow read, create: if isOwner(userId);
+      // Only allow updating rating and review after completion.
       allow update: if isOwner(userId)
-                    && request.resource.data.keys().hasAll(['rating', 'review'])
-                    && request.resource.data.keys().size() == 2;
+                    && resource.data.status == 'Completed'
+                    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['rating', 'review']);
       allow delete: if false;
     }
     match /users/{userId}/walletTransactions/{transactionId} {
       allow read: if isOwner(userId);
 
-      // Allow a user to create their own sign-up bonus transaction.
-      // The invalid 'get().size' check is removed to fix the OTP flow.
-      // The client-side logic already prevents creating this for existing users.
-      // This rule is now stricter about the shape of the data.
-      allow create: if isOwner(userId)
-                    && request.resource.data.type == 'credit'
-                    && request.resource.data.amount == 100
-                    && request.resource.data.description == 'Sign-up Bonus'
-                    && request.resource.data.timestamp == request.time
-                    && request.resource.data.keys().hasAll(['amount', 'type', 'description', 'timestamp'])
-                    && request.resource.data.size() == 4;
+      allow create: if isOwner(userId) && (
+        // Allow sign-up bonus credit transaction
+        (
+          request.resource.data.type == 'credit' &&
+          request.resource.data.amount == 100 &&
+          request.resource.data.description == 'Sign-up Bonus' &&
+          request.resource.data.timestamp == request.time &&
+          request.resource.data.keys().hasAll(['amount', 'type', 'description', 'timestamp']) &&
+          request.resource.data.size() == 4
+        ) ||
+        // Allow booking payment debit transaction
+        (
+          request.resource.data.type == 'debit' &&
+          request.resource.data.amount < 0 &&
+          request.resource.data.description == 'Booking Payment' &&
+          request.resource.data.timestamp == request.time &&
+          request.resource.data.keys().hasAll(['amount', 'type', 'description', 'timestamp']) &&
+          request.resource.data.size() == 4
+        )
+      );
 
       allow update, delete: if false;
     }

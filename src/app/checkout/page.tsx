@@ -10,13 +10,15 @@ import Link from 'next/link';
 import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { format } from 'date-fns';
-import { useUser, useFirestore } from '@/firebase';
-import { useState } from 'react';
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { useUser, useFirestore, useDoc } from '@/firebase';
+import { useState, useMemo } from 'react';
+import { addDoc, collection, doc, serverTimestamp, writeBatch } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
-
+import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
+import { Skeleton } from '@/components/ui/skeleton';
 
 function CheckoutItemCard({ item }: { item: CartItem }) {
   return (
@@ -53,14 +55,24 @@ export default function CheckoutPage() {
     const firestore = useFirestore();
     const { toast } = useToast();
     const [isPlacingOrder, setIsPlacingOrder] = useState(false);
+    const [useWallet, setUseWallet] = useState(false);
+
+    const userProfileRef = useMemo(() => {
+      if (!user || !firestore) return null;
+      return doc(firestore, 'users', user.uid);
+    }, [user, firestore]);
+    
+    const { data: userProfile, loading: profileLoading } = useDoc(userProfileRef);
+
+    const canUseWallet = userProfile && userProfile.walletBalance >= finalTotal;
 
     if (items.length === 0 && typeof window !== 'undefined') {
         router.replace('/');
         return null;
     }
 
-    const handlePlaceOrder = () => {
-        if (!user || !firestore) {
+    const handlePlaceOrder = async () => {
+        if (!user || !firestore || !userProfileRef) {
             toast({ variant: 'destructive', title: 'Error', description: 'User not logged in or Firestore not available.'});
             router.push('/phone-login');
             return;
@@ -94,30 +106,73 @@ export default function CheckoutPage() {
             status: 'Placed',
         };
 
-        const bookingsCol = collection(firestore, 'users', user.uid, 'bookings');
-        
-        addDoc(bookingsCol, bookingData)
-          .then((docRef) => {
-              const url = `/payment-success?amount=${finalTotal}&bookingId=${docRef.id.substring(0, 8).toUpperCase()}`;
-              router.push(url);
-              clearCart();
-          })
-          .catch((serverError) => {
-            const permissionError = new FirestorePermissionError({
-              path: `users/${user.uid}/bookings`,
-              operation: 'create',
-              requestResourceData: bookingData,
-            });
-            errorEmitter.emit('permission-error', permissionError);
-            toast({
-                variant: 'destructive',
-                title: 'Order Failed',
-                description: 'Could not save your booking. Please try again.',
-            });
-          })
-          .finally(() => {
-              setIsPlacingOrder(false);
-          });
+        if (useWallet && canUseWallet && userProfile) {
+            const batch = writeBatch(firestore);
+            
+            // 1. Create the new booking document
+            const bookingRef = doc(collection(firestore, 'users', user.uid, 'bookings'));
+            batch.set(bookingRef, bookingData);
+
+            // 2. Create a wallet transaction for the debit
+            const transactionRef = doc(collection(firestore, 'users', user.uid, 'walletTransactions'));
+            const transactionData = {
+                amount: -finalTotal,
+                type: 'debit',
+                description: 'Booking Payment',
+                timestamp: serverTimestamp(),
+            };
+            batch.set(transactionRef, transactionData);
+
+            // 3. Update the user's wallet balance
+            const newBalance = userProfile.walletBalance - finalTotal;
+            batch.update(userProfileRef, { walletBalance: newBalance });
+
+            try {
+                await batch.commit();
+                const url = `/payment-success?amount=${finalTotal}&bookingId=${bookingRef.id.substring(0, 8).toUpperCase()}`;
+                router.push(url);
+                clearCart();
+            } catch (serverError) {
+                 const permissionError = new FirestorePermissionError({
+                  path: `users/${user.uid} or subcollections`,
+                  operation: 'update',
+                  requestResourceData: { bookingData, transactionData },
+                });
+                errorEmitter.emit('permission-error', permissionError);
+                toast({
+                    variant: 'destructive',
+                    title: 'Order Failed',
+                    description: 'Could not process your wallet payment. Please try again.',
+                });
+            } finally {
+                setIsPlacingOrder(false);
+            }
+        } else {
+            // Original logic for non-wallet or insufficient balance payment
+            const bookingsCol = collection(firestore, 'users', user.uid, 'bookings');
+            addDoc(bookingsCol, bookingData)
+              .then((docRef) => {
+                  const url = `/payment-success?amount=${finalTotal}&bookingId=${docRef.id.substring(0, 8).toUpperCase()}`;
+                  router.push(url);
+                  clearCart();
+              })
+              .catch((serverError) => {
+                const permissionError = new FirestorePermissionError({
+                  path: `users/${user.uid}/bookings`,
+                  operation: 'create',
+                  requestResourceData: bookingData,
+                });
+                errorEmitter.emit('permission-error', permissionError);
+                toast({
+                    variant: 'destructive',
+                    title: 'Order Failed',
+                    description: 'Could not save your booking. Please try again.',
+                });
+              })
+              .finally(() => {
+                  setIsPlacingOrder(false);
+              });
+        }
     }
 
     const handleRemoveCoupon = () => {
@@ -127,6 +182,8 @@ export default function CheckoutPage() {
         description: 'Your cart total has been updated.',
         });
     };
+    
+    const isLoading = userLoading || profileLoading;
 
     return (
         <div className="bg-background text-foreground min-h-screen flex flex-col">
@@ -173,6 +230,34 @@ export default function CheckoutPage() {
                         {items.map(item => <CheckoutItemCard key={item.cartItemId} item={item} />)}
                      </div>
                 </Card>
+                
+                {/* Payment Method Section */}
+                {user && (
+                    <Card className="p-4">
+                        <h2 className="font-bold mb-2">Payment Method</h2>
+                        {isLoading ? (
+                            <Skeleton className="h-10 w-full" />
+                        ) : userProfile && userProfile.walletBalance > 0 ? (
+                            <div className="flex items-center justify-between">
+                                <Label htmlFor="wallet-switch" className="flex flex-col gap-1 cursor-pointer">
+                                    <span className="font-medium">Pay with Wallet</span>
+                                    <span className="text-sm text-muted-foreground">Balance: ₹{userProfile.walletBalance.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+                                </Label>
+                                <Switch
+                                    id="wallet-switch"
+                                    checked={useWallet}
+                                    onCheckedChange={setUseWallet}
+                                    disabled={!canUseWallet}
+                                />
+                            </div>
+                        ) : (
+                            <p className="text-sm text-muted-foreground">You have no wallet balance.</p>
+                        )}
+                        {useWallet && !canUseWallet && (
+                            <p className="text-xs text-destructive mt-2">Insufficient balance to pay with wallet.</p>
+                        )}
+                    </Card>
+                )}
 
                 {/* Payment Details Section */}
                 <Card className="p-4">
@@ -231,14 +316,19 @@ export default function CheckoutPage() {
                         </Button>
                      </div>
                 </div>
-                {userLoading ? (
+                {isLoading ? (
                     <Button disabled size="lg" className="w-full h-12 text-base">
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                         Loading...
                     </Button>
                 ) : user ? (
-                    <Button size="lg" className="w-full h-12 text-base" onClick={handlePlaceOrder} disabled={isPlacingOrder || !deliveryAddress}>
-                        {isPlacingOrder ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'Place Order & Pay'}
+                    <Button 
+                        size="lg" 
+                        className="w-full h-12 text-base" 
+                        onClick={handlePlaceOrder} 
+                        disabled={isPlacingOrder || !deliveryAddress || (useWallet && !canUseWallet)}
+                    >
+                        {isPlacingOrder ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : (useWallet ? 'Pay from Wallet' : 'Place Order & Pay')}
                     </Button>
                 ) : (
                     <Button size="lg" className="w-full h-12 text-base" onClick={() => router.push('/phone-login')}>
