@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronLeft, Home, MapPin, MoreVertical, Loader2 } from 'lucide-react';
+import { ChevronLeft, Home, MapPin, MoreVertical, Loader2, ShoppingCart } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { useCart, type CartItem, type Address } from '@/context/CartContext';
@@ -19,6 +19,7 @@ import { FirestorePermissionError } from '@/firebase/errors';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Badge } from '@/components/ui/badge';
 
 function CheckoutItemCard({ item }: { item: CartItem }) {
   return (
@@ -187,11 +188,21 @@ export default function CheckoutPage() {
 
     return (
         <div className="bg-background text-foreground min-h-screen flex flex-col">
-            <header className="p-4 flex items-center gap-4 border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
-                <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
-                <ChevronLeft />
-                </Button>
-                <h1 className="text-lg font-semibold">Checkout</h1>
+            <header className="p-4 flex items-center justify-between border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
+                <div className="flex items-center gap-4">
+                    <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
+                        <ChevronLeft />
+                    </Button>
+                    <h1 className="text-lg font-semibold">Checkout</h1>
+                </div>
+                <Link href="/cart" className="relative">
+                    <ShoppingCart className="w-6 h-6" />
+                    {items.length > 0 && (
+                        <Badge variant="destructive" className="absolute -top-2 -right-2 h-5 w-5 justify-center rounded-full p-0">
+                            {items.length}
+                        </Badge>
+                    )}
+                </Link>
             </header>
 
             <main className="flex-grow p-4 space-y-6 pb-40">
