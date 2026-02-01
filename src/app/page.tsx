@@ -42,7 +42,7 @@ export default function Home() {
   const pathname = usePathname();
   const [searchQuery, setSearchQuery] = useState('');
   const { translations } = useLanguage();
-  const { items: cartItems } = useCart();
+  const { items: cartItems, deliveryAddress } = useCart();
   const featuredServices = servicesData.filter(s => ['cleaning-deep-cleaning', 'beauty-salon', 'electronics-ac-repair', 'car-full-service'].includes(s.id));
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -80,7 +80,9 @@ export default function Home() {
               <span className="text-xs text-muted-foreground">{translations.home.locationLabel}</span>
               <div className="flex items-center gap-1">
                 <MapPin className="w-4 h-4 text-primary" />
-                <span className="font-semibold text-sm">Noida 63</span>
+                <span className="font-semibold text-sm truncate max-w-[120px]">
+                  {deliveryAddress ? deliveryAddress.fullAddress.split(',')[0] : 'Select Location'}
+                </span>
               </div>
             </Link>
           </div>
