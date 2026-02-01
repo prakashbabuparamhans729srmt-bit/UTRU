@@ -1,9 +1,8 @@
-
 'use client';
-import { ChevronLeft, Trash2, ShoppingBag, Plus, Minus } from 'lucide-react';
+import { ChevronLeft, Trash2, ShoppingBag, Plus, Minus, Sparkles, Brush, Wrench, Car } from 'lucide-react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { useCart, type CartItem } from '@/context/CartContext';
 import { useRouter } from 'next/navigation';
 import { format } from 'date-fns';
@@ -13,6 +12,9 @@ import { useLanguage } from '@/context/LanguageContext';
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { Input } from '@/components/ui/input';
+import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
+import { servicesData, type Service } from '@/lib/services';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 
 function CartItemCard({ item }: { item: CartItem }) {
@@ -57,12 +59,53 @@ function CartItemCard({ item }: { item: CartItem }) {
   );
 }
 
+function RelatedServiceCard({ service }: { service: Service }) {
+  const serviceImage = PlaceHolderImages.find((img) => img.id === service.id);
+  const imageUrl = serviceImage?.imageUrl || `https://picsum.photos/seed/${service.id}/300/300`;
+  
+  const getCategoryIcon = (category: string) => {
+    switch (category) {
+      case 'cleaning': return <Sparkles className="w-4 h-4" />;
+      case 'beauty': return <Brush className="w-4 h-4" />;
+      case 'electronics': return <Wrench className="w-4 h-4" />;
+      case 'car': return <Car className="w-4 h-4" />;
+      default: return <Sparkles className="w-4 h-4" />;
+    }
+  }
+
+  return (
+    <Link href={`/service/${service.id}`}>
+      <Card className="overflow-hidden rounded-xl border">
+        <CardContent className="p-0">
+          <Image
+            src={imageUrl}
+            alt={service.name}
+            width={200}
+            height={200}
+            className="w-full h-32 object-cover"
+          />
+          <div className="p-3">
+            <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
+              {getCategoryIcon(service.category)}
+              <span>{service.category.charAt(0).toUpperCase() + service.category.slice(1)}</span>
+            </div>
+            <h4 className="font-semibold truncate">{service.name}</h4>
+            <p className="text-sm text-muted-foreground">₹{service.price.toLocaleString()}</p>
+          </div>
+        </CardContent>
+      </Card>
+    </Link>
+  )
+}
+
 export default function CartPage() {
   const router = useRouter();
   const { items, total, deliveryFee, platformFee, finalTotal, couponCode, discount, applyCoupon, removeCoupon } = useCart();
   const { translations } = useLanguage();
   const { toast } = useToast();
   const [couponInput, setCouponInput] = useState('');
+
+  const relatedServices = servicesData.filter(s => ['cleaning-deep-cleaning', 'beauty-salon', 'electronics-ac-repair', 'car-full-service'].includes(s.id));
 
   const handleApplyCoupon = () => {
     if (!couponInput.trim()) return;
@@ -120,6 +163,18 @@ export default function CartPage() {
         {items.map((item) => (
           <CartItemCard key={item.cartItemId} item={item} />
         ))}
+        <div className="pt-8">
+            <h2 className="text-xl font-bold mb-4">You might also like</h2>
+            <Carousel opts={{ align: "start", loop: false }}>
+                <CarouselContent className="-ml-2">
+                {relatedServices.map(service => (
+                    <CarouselItem key={service.id} className="pl-2 basis-1/2 md:basis-1/3">
+                    <RelatedServiceCard service={service} />
+                    </CarouselItem>
+                ))}
+                </CarouselContent>
+            </Carousel>
+        </div>
       </main>
       
       <footer className="fixed bottom-0 left-0 right-0 bg-transparent p-4 z-10">
