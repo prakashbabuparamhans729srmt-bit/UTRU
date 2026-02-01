@@ -123,35 +123,43 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
         const user = userCredential.user;
 
         // --- NEW LOGIC: Create user document and sign-up bonus in Firestore on first login ---
-        if (user && firestore) {
+        if (user && firestore && auth) {
             const userRef = doc(firestore, 'users', user.uid);
             const userSnap = await getDoc(userRef);
 
             if (!userSnap.exists()) {
-                const { uid, email, displayName, photoURL, phoneNumber } = user;
-                
-                const batch = writeBatch(firestore);
+                try {
+                    const { uid, email, displayName, photoURL, phoneNumber } = user;
+                    
+                    const batch = writeBatch(firestore);
 
-                // 1. Create the user document with a 100 balance
-                batch.set(userRef, {
-                    uid,
-                    email: email || null,
-                    displayName: displayName || 'New User',
-                    photoURL: photoURL || null,
-                    phoneNumber: phoneNumber || null,
-                    walletBalance: 100
-                });
+                    // 1. Create the user document with a 100 balance
+                    batch.set(userRef, {
+                        uid,
+                        email: email || null,
+                        displayName: displayName || 'New User',
+                        photoURL: photoURL || null,
+                        phoneNumber: phoneNumber || null,
+                        walletBalance: 100
+                    });
 
-                // 2. Create the sign-up bonus transaction
-                const transactionRef = doc(collection(firestore, 'users', user.uid, 'walletTransactions'));
-                batch.set(transactionRef, {
-                    amount: 100,
-                    type: 'credit',
-                    description: 'Sign-up Bonus',
-                    timestamp: serverTimestamp()
-                });
+                    // 2. Create the sign-up bonus transaction
+                    const transactionRef = doc(collection(firestore, 'users', user.uid, 'walletTransactions'));
+                    batch.set(transactionRef, {
+                        amount: 100,
+                        type: 'credit',
+                        description: 'Sign-up Bonus',
+                        timestamp: serverTimestamp()
+                    });
 
-                await batch.commit();
+                    await batch.commit();
+                } catch (firestoreError: any) {
+                    console.error("Failed to create user profile and bonus:", firestoreError);
+                    // If creating the user profile fails, sign them out to force a retry on next login
+                    await auth.signOut();
+                    setError("Could not initialize your user profile. Please try logging in again.");
+                    return false;
+                }
             }
         }
         // --- END NEW LOGIC ---
@@ -172,7 +180,7 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
         setIsPending(false);
       }
     },
-    [confirmationResult, firestore]
+    [confirmationResult, firestore, auth]
   );
 
   // Sign Out
