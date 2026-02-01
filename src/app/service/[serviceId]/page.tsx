@@ -36,8 +36,8 @@ export default function ServicePage() {
   const service = servicesData.find((s) => s.id === serviceId);
 
   const filterChips = [
-    { key: "details", label: translations.service.details },
     { key: "packages", label: translations.service.packages },
+    { key: "details", label: translations.service.details },
     { key: "offers", label: translations.service.offers },
     { key: "gallery", label: translations.service.gallery }
   ];
@@ -48,7 +48,7 @@ export default function ServicePage() {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
   const [selectedTime, setSelectedTime] = useState<string | null>(timeSlots[1]);
   const [quantity, setQuantity] = useState(1);
-  const [activeFilter, setActiveFilter] = useState('details');
+  const [activeFilter, setActiveFilter] = useState('packages');
   const mainContainerRef = useRef<HTMLDivElement>(null);
 
 
@@ -217,20 +217,6 @@ export default function ServicePage() {
         
         {/* Page Content Sections */}
         <div className="px-4 space-y-8">
-            <section id="details" className="space-y-4 scroll-mt-24">
-                 <h2 className="text-xl font-bold">{service.name}</h2>
-                 <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                    <div className="flex items-center gap-1">
-                        <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
-                        <span className="font-semibold text-foreground">{service.rating}</span>
-                        <span>({service.reviews} reviews)</span>
-                    </div>
-                    <span>&bull;</span>
-                    <span>{service.duration}</span>
-                 </div>
-                 <p className="text-muted-foreground">{service.description}</p>
-            </section>
-            <Separator/>
             <section id="packages" className="scroll-mt-24">
                 <h2 className="text-lg font-semibold text-muted-foreground mb-6">{translations.service.whatsIncluded}</h2>
                 <div className="relative flex flex-col gap-8">
@@ -262,6 +248,20 @@ export default function ServicePage() {
                         </div>
                     ))}
                 </div>
+            </section>
+            <Separator/>
+            <section id="details" className="space-y-4 scroll-mt-24">
+                 <h2 className="text-xl font-bold">{service.name}</h2>
+                 <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                    <div className="flex items-center gap-1">
+                        <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
+                        <span className="font-semibold text-foreground">{service.rating}</span>
+                        <span>({service.reviews} reviews)</span>
+                    </div>
+                    <span>&bull;</span>
+                    <span>{service.duration}</span>
+                 </div>
+                 <p className="text-muted-foreground">{service.description}</p>
             </section>
             <Separator/>
             <section id="offers" className="space-y-4 scroll-mt-24">
