@@ -1,3 +1,4 @@
+
 'use client';
 import { ChevronLeft, Trash2, ShoppingBag, Plus, Minus } from 'lucide-react';
 import Image from 'next/image';

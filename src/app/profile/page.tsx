@@ -109,6 +109,14 @@ export default function ProfilePage() {
                 <div className="w-full flex flex-col items-center mt-4 space-y-2">
                     <Skeleton className="h-8 w-3/4 mx-auto rounded-md bg-gray-600" />
                     <Skeleton className="h-4 w-1/2 mx-auto rounded-md bg-gray-700" />
+                    <div className="flex justify-around w-full max-w-sm mx-auto mt-6">
+                        {profileHeaderLinks.map((item) => (
+                          <div key={item.labelKey} className="flex flex-col items-center gap-2">
+                              <Skeleton className="w-14 h-14 rounded-full bg-gray-700" />
+                              <Skeleton className="h-3 w-16 bg-gray-600" />
+                          </div>
+                        ))}
+                    </div>
                 </div>
             ) : user ? (
                  <div className="mt-4 text-white">
@@ -121,32 +129,20 @@ export default function ProfilePage() {
                     <p className="text-sm text-gray-400">
                       {userProfile?.phoneNumber || user?.phoneNumber || userProfile?.email || user?.email}
                     </p>
+                    <HeaderActionLinks />
                 </div>
             ) : (
-                <div className="mt-6 w-full max-w-xs flex flex-col items-center">
-                    <Link href="/phone-login" passHref className='w-full'>
+                <div className="mt-6 w-full flex flex-col items-center">
+                    <Link href="/phone-login" passHref className='w-full text-center'>
                         <Button className="w-full max-w-[240px] bg-primary text-primary-foreground rounded-full h-12 text-base hover:bg-primary/90">
                            {translations.profile.continue}
                         </Button>
                     </Link>
-                    <p className="text-sm text-gray-400 mt-2 px-4">
+                    <p className="text-sm text-gray-400 mt-2 px-4 text-center max-w-xs">
                         {translations.profile.loginMessage}
                     </p>
+                    <HeaderActionLinks />
                 </div>
-            )}
-
-            {/* Always show header links, whether logged in or not */}
-            {isLoading ? (
-              <div className="flex justify-around w-full max-w-sm mx-auto mt-6">
-                {profileHeaderLinks.map((item) => (
-                  <div key={item.labelKey} className="flex flex-col items-center gap-2">
-                      <Skeleton className="w-14 h-14 rounded-full bg-gray-700" />
-                      <Skeleton className="h-3 w-16 bg-gray-600" />
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <HeaderActionLinks />
             )}
         </div>
       </header>
