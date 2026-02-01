@@ -1,3 +1,4 @@
+
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -19,7 +20,7 @@ service cloud.firestore {
       // or for wallet payments (balance decreases). This rule allows updates if the
       // walletBalance is not being modified, or if it is being decreased.
       allow update: if isOwner(userId) && 
-                    (!('walletBalance' in request.resource.data) || request.resource.data.walletBalance <= resource.data.walletBalance);
+                    (request.resource.data.walletBalance == resource.data.walletBalance || !('walletBalance' in request.resource.data.diff(resource.data)));
     }
     match /users/{userId}/addresses/{addressId} {
       allow read, write: if isOwner(userId);
