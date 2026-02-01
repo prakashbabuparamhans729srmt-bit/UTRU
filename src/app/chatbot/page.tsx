@@ -1,14 +1,16 @@
+
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ChevronLeft, Send, User, Bot, Mic, Loader2 } from 'lucide-react';
+import { ChevronLeft, Send, User, Bot, Mic, Loader2, Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { appChat, type AppChatInput, type AppChatOutput } from '@/ai/flows/app-chatbot';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { useLanguage } from '@/context/LanguageContext';
 import { useVoiceSearch } from '@/context/VoiceSearchContext';
+import { useToast } from '@/hooks/use-toast';
 
 type Message = {
   text: string;
@@ -25,6 +27,7 @@ export default function ChatbotPage() {
   const [isClient, setIsClient] = useState(false);
   const CHAT_HISTORY_KEY = 'chatbot_history';
   const { openModal: openVoiceModal } = useVoiceSearch();
+  const { toast } = useToast();
 
   useEffect(() => {
     setIsClient(true);
@@ -106,26 +109,58 @@ export default function ChatbotPage() {
     }
   };
 
+  const handleClearChat = () => {
+    try {
+        localStorage.removeItem(CHAT_HISTORY_KEY);
+        setMessages([{
+            text: 'Hello! I am your personal assistant. How can I help you learn about this application?',
+            sender: 'bot'
+        }]);
+        toast({
+            title: 'Chat Cleared',
+            description: 'Your conversation history has been cleared.',
+        });
+    } catch (error) {
+        console.error("Failed to clear chat history:", error);
+        toast({
+            variant: 'destructive',
+            title: 'Error',
+            description: 'Could not clear chat history.',
+        });
+    }
+  };
+
   return (
     <div className="flex flex-col h-screen bg-gray-900 text-white">
-      <header className="flex items-center p-4 border-b border-gray-700 bg-gray-800">
-        <Button
-          onClick={() => router.back()}
-          size="icon"
-          variant="ghost"
-          className="rounded-full hover:bg-gray-700"
-        >
-          <ChevronLeft />
-        </Button>
-        <div className="flex items-center gap-3 ml-4">
-            <Avatar>
-                <AvatarFallback className="bg-primary text-primary-foreground"><Bot /></AvatarFallback>
-            </Avatar>
-            <div>
-                <h1 className="text-lg font-semibold">AI Assistant</h1>
-                <p className="text-xs text-green-400">Online</p>
+      <header className="flex items-center justify-between p-4 border-b border-gray-700 bg-gray-800">
+        <div className='flex items-center'>
+            <Button
+            onClick={() => router.back()}
+            size="icon"
+            variant="ghost"
+            className="rounded-full hover:bg-gray-700"
+            >
+            <ChevronLeft />
+            </Button>
+            <div className="flex items-center gap-3 ml-4">
+                <Avatar>
+                    <AvatarFallback className="bg-primary text-primary-foreground"><Bot /></AvatarFallback>
+                </Avatar>
+                <div>
+                    <h1 className="text-lg font-semibold">AI Assistant</h1>
+                    <p className="text-xs text-green-400">Online</p>
+                </div>
             </div>
         </div>
+        <Button
+            onClick={handleClearChat}
+            size="icon"
+            variant="ghost"
+            className="rounded-full hover:bg-gray-700"
+            title="Clear Chat"
+        >
+            <Trash2 className="w-5 h-5"/>
+        </Button>
       </header>
 
       <main className="flex-1 overflow-y-auto p-6 space-y-8">
