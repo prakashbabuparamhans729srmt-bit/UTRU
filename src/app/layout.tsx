@@ -7,6 +7,7 @@ import { ThemeProvider } from '@/context/ThemeContext';
 import { FirebaseClientProvider } from '@/firebase';
 import { AuthUIProvider } from '@/firebase/auth/auth-ui-provider';
 import { CartProvider } from '@/context/CartContext';
+import { VoiceSearchProvider } from '@/context/VoiceSearchContext';
 
 export default function RootLayout({
   children,
@@ -21,14 +22,16 @@ export default function RootLayout({
       <body>
         <ThemeProvider>
           <LanguageProvider>
-            <FirebaseClientProvider>
-              <AuthUIProvider>
-                <CartProvider>
-                  {children}
-                  <Toaster />
-                </CartProvider>
-              </AuthUIProvider>
-            </FirebaseClientProvider>
+            <VoiceSearchProvider>
+              <FirebaseClientProvider>
+                <AuthUIProvider>
+                  <CartProvider>
+                    {children}
+                    <Toaster />
+                  </CartProvider>
+                </AuthUIProvider>
+              </FirebaseClientProvider>
+            </VoiceSearchProvider>
           </LanguageProvider>
         </ThemeProvider>
       </body>

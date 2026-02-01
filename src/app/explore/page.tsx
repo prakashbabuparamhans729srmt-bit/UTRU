@@ -16,13 +16,13 @@ import { locationNavLinks, mainFooterNavLinks } from '@/lib/navigation';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { Card } from '@/components/ui/card';
-import { useSpeechRecognition } from '@/hooks/use-speech-recognition';
+import { useVoiceSearch } from '@/context/VoiceSearchContext';
 
 export default function ExplorePage() {
   const { translations } = useLanguage();
   const pathname = usePathname();
   const [searchQuery, setSearchQuery] = useState('');
-  const { isListening, isMicAvailable, startListening } = useSpeechRecognition(setSearchQuery);
+  const { openModal: openVoiceModal } = useVoiceSearch();
 
   return (
     <div className="bg-background text-foreground min-h-screen flex flex-col">
@@ -39,7 +39,7 @@ export default function ExplorePage() {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
             <input
               type="text"
-              placeholder={isListening ? "Listening..." : translations.location.searchPlaceholder}
+              placeholder={translations.location.searchPlaceholder}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-input rounded-full pl-10 pr-28 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
@@ -52,12 +52,10 @@ export default function ExplorePage() {
                     />
                 )}
                 <div className="w-px h-5 bg-border"></div>
-                {isMicAvailable && (
-                  <Mic
-                    className={cn("w-5 h-5 text-muted-foreground cursor-pointer", isListening && "text-primary animate-pulse")}
-                    onClick={() => startListening()}
-                  />
-                )}
+                <Mic
+                  className="w-5 h-5 text-muted-foreground cursor-pointer"
+                  onClick={openVoiceModal}
+                />
                 <div className="w-px h-5 bg-border"></div>
                 <Link href="/filter">
                   <SlidersHorizontal className="w-5 h-5 text-muted-foreground cursor-pointer" />
