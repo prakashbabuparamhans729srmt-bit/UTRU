@@ -20,17 +20,29 @@ service cloud.firestore {
       // or for wallet payments (balance decreases). This rule allows updates if the
       // walletBalance is not being modified, or if it is being decreased.
       allow update: if isOwner(userId) && 
-                    (request.resource.data.walletBalance == resource.data.walletBalance || !('walletBalance' in request.resource.data.diff(resource.data)));
+                    (request.resource.data.walletBalance == resource.data.walletBalance || request.resource.data.walletBalance < resource.data.walletBalance || !('walletBalance' in request.resource.data));
     }
     match /users/{userId}/addresses/{addressId} {
       allow read, write: if isOwner(userId);
     }
     match /users/{userId}/bookings/{bookingId} {
-      allow read, create: if isOwner(userId);
+      allow read: if isOwner(userId);
+
+      // Allow creation only with valid, user-submitted data
+      allow create: if isOwner(userId)
+              && request.resource.data.userId == userId
+              && request.resource.data.id == bookingId
+              && request.resource.data.status == 'Placed'
+              && request.resource.data.placedAt == request.time
+              && !('rating' in request.resource.data)
+              && !('review' in request.resource.data)
+              && request.resource.data.items.size() > 0;
+              
       // Only allow updating rating and review after completion.
       allow update: if isOwner(userId)
                     && resource.data.status == 'Completed'
                     && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['rating', 'review']);
+
       allow delete: if false;
     }
     match /users/{userId}/walletTransactions/{transactionId} {
@@ -50,7 +62,7 @@ service cloud.firestore {
         (
           request.resource.data.type == 'debit' &&
           request.resource.data.amount < 0 &&
-          request.resource.data.description == 'Booking Payment' &&
+          request.resource.data.description.matches('Payment for Booking #[A-Z0-9]{8}') &&
           request.resource.data.timestamp == request.time &&
           request.resource.data.keys().hasAll(['amount', 'type', 'description', 'timestamp']) &&
           request.resource.data.size() == 4
