@@ -17,9 +17,11 @@ import { useToast } from '@/hooks/use-toast';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
 import { Label } from '@/components/ui/label';
-import { Switch } from '@/components/ui/switch';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { cn } from '@/lib/utils';
+
 
 function CheckoutItemCard({ item }: { item: CartItem }) {
   return (
@@ -56,7 +58,7 @@ export default function CheckoutPage() {
     const firestore = useFirestore();
     const { toast } = useToast();
     const [isPlacingOrder, setIsPlacingOrder] = useState(false);
-    const [useWallet, setUseWallet] = useState(false);
+    const [paymentMethod, setPaymentMethod] = useState<'wallet' | 'cod'>('cod');
 
     const userProfileRef = useMemo(() => {
       if (!user || !firestore) return null;
@@ -85,11 +87,10 @@ export default function CheckoutPage() {
 
         setIsPlacingOrder(true);
 
-        // This creates a reference with a unique ID *before* we write to the database
         const bookingRef = doc(collection(firestore, 'users', user.uid, 'bookings'));
 
         const bookingData = {
-            id: bookingRef.id, // Storing the ID within the document
+            id: bookingRef.id, 
             userId: user.uid,
             items: items.map(item => ({
                 id: item.id,
@@ -109,15 +110,14 @@ export default function CheckoutPage() {
             placedAt: serverTimestamp(),
             deliveryAddress: deliveryAddress,
             status: 'Placed',
+            paymentMethod: paymentMethod,
         };
 
-        if (useWallet && canUseWallet && userProfile) {
+        if (paymentMethod === 'wallet' && canUseWallet && userProfile) {
             const batch = writeBatch(firestore);
             
-            // 1. Set the booking document data
             batch.set(bookingRef, bookingData);
 
-            // 2. Create a wallet transaction with a descriptive message
             const transactionRef = doc(collection(firestore, 'users', user.uid, 'walletTransactions'));
             const transactionData = {
                 amount: -finalTotal,
@@ -127,13 +127,12 @@ export default function CheckoutPage() {
             };
             batch.set(transactionRef, transactionData);
 
-            // 3. Update the user's wallet balance
             const newBalance = userProfile.walletBalance - finalTotal;
             batch.update(userProfileRef, { walletBalance: newBalance });
 
             try {
                 await batch.commit();
-                const url = `/payment-success?amount=${finalTotal}&bookingId=${bookingRef.id.substring(0, 8).toUpperCase()}`;
+                const url = `/payment-success?amount=${finalTotal}&bookingId=${bookingRef.id.substring(0, 8).toUpperCase()}&method=wallet`;
                 router.push(url);
                 clearCart();
             } catch (serverError) {
@@ -152,10 +151,9 @@ export default function CheckoutPage() {
                 setIsPlacingOrder(false);
             }
         } else {
-            // Logic for non-wallet or insufficient balance payment, now using setDoc
             setDoc(bookingRef, bookingData)
               .then(() => {
-                  const url = `/payment-success?amount=${finalTotal}&bookingId=${bookingRef.id.substring(0, 8).toUpperCase()}`;
+                  const url = `/payment-success?amount=${finalTotal}&bookingId=${bookingRef.id.substring(0, 8).toUpperCase()}&method=cod`;
                   router.push(url);
                   clearCart();
               })
@@ -197,7 +195,7 @@ export default function CheckoutPage() {
                     </Button>
                     <h1 className="text-lg font-semibold">Checkout</h1>
                 </div>
-                <Link href="/cart" className="relative">
+                 <Link href="/cart" className="relative">
                     <ShoppingCart className="w-6 h-6" />
                     {items.length > 0 && (
                         <Badge variant="destructive" className="absolute -top-2 -right-2 h-5 w-5 justify-center rounded-full p-0">
@@ -208,7 +206,6 @@ export default function CheckoutPage() {
             </header>
 
             <main className="flex-grow p-4 space-y-6 pb-40">
-                {/* Delivery Address Section */}
                 <Card className="p-4">
                     <div className="flex justify-between items-start">
                         {deliveryAddress ? (
@@ -236,7 +233,6 @@ export default function CheckoutPage() {
                     </div>
                 </Card>
 
-                {/* Order Summary Section */}
                 <Card className="p-4">
                      <h2 className="font-bold mb-2">Order Summary</h2>
                      <div className="divide-y">
@@ -244,35 +240,43 @@ export default function CheckoutPage() {
                      </div>
                 </Card>
                 
-                {/* Payment Method Section */}
                 {user && (
                     <Card className="p-4">
-                        <h2 className="font-bold mb-2">Payment Method</h2>
-                        {isLoading ? (
-                            <Skeleton className="h-10 w-full" />
-                        ) : userProfile && userProfile.walletBalance > 0 ? (
-                            <div className="flex items-center justify-between">
-                                <Label htmlFor="wallet-switch" className="flex flex-col gap-1 cursor-pointer">
-                                    <span className="font-medium">Pay with Wallet</span>
-                                    <span className="text-sm text-muted-foreground">Balance: ₹{userProfile.walletBalance.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+                        <h2 className="font-bold mb-4">Payment Method</h2>
+                        {isLoading ? <Skeleton className="h-24 w-full" /> : (
+                            <RadioGroup value={paymentMethod} onValueChange={(value) => setPaymentMethod(value as 'wallet' | 'cod')} className="space-y-4">
+                                {userProfile && userProfile.walletBalance > 0 && (
+                                    <Label
+                                        htmlFor="wallet"
+                                        className={cn(
+                                            "flex items-start justify-between rounded-lg border p-4 cursor-pointer transition-colors",
+                                            paymentMethod === 'wallet' && "border-primary ring-2 ring-primary",
+                                            !canUseWallet && "cursor-not-allowed opacity-50"
+                                        )}
+                                    >
+                                        <div className="flex flex-col gap-1">
+                                            <span className="font-medium">Pay with Wallet</span>
+                                            <span className="text-sm text-muted-foreground">Balance: ₹{userProfile.walletBalance.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+                                            {!canUseWallet && <p className="text-xs text-destructive mt-1">Insufficient balance.</p>}
+                                        </div>
+                                        <RadioGroupItem value="wallet" id="wallet" disabled={!canUseWallet} />
+                                    </Label>
+                                )}
+                                <Label
+                                    htmlFor="cod"
+                                    className={cn(
+                                        "flex items-center justify-between rounded-lg border p-4 cursor-pointer transition-colors",
+                                        paymentMethod === 'cod' && "border-primary ring-2 ring-primary"
+                                    )}
+                                >
+                                    <span className="font-medium">Pay on Delivery</span>
+                                    <RadioGroupItem value="cod" id="cod" />
                                 </Label>
-                                <Switch
-                                    id="wallet-switch"
-                                    checked={useWallet}
-                                    onCheckedChange={setUseWallet}
-                                    disabled={!canUseWallet}
-                                />
-                            </div>
-                        ) : (
-                            <p className="text-sm text-muted-foreground">You have no wallet balance.</p>
-                        )}
-                        {useWallet && !canUseWallet && (
-                            <p className="text-xs text-destructive mt-2">Insufficient balance to pay with wallet.</p>
+                            </RadioGroup>
                         )}
                     </Card>
                 )}
 
-                {/* Payment Details Section */}
                 <Card className="p-4">
                     <h2 className="font-bold mb-4">Payment Details</h2>
                     <div className="space-y-2 text-sm">
@@ -339,9 +343,9 @@ export default function CheckoutPage() {
                         size="lg" 
                         className="w-full h-12 text-base" 
                         onClick={handlePlaceOrder} 
-                        disabled={isPlacingOrder || !deliveryAddress || (useWallet && !canUseWallet)}
+                        disabled={isPlacingOrder || !deliveryAddress || (paymentMethod === 'wallet' && !canUseWallet)}
                     >
-                        {isPlacingOrder ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : (useWallet ? 'Pay from Wallet' : 'Place Order & Pay')}
+                        {isPlacingOrder ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : (paymentMethod === 'wallet' ? 'Pay from Wallet' : 'Place Order')}
                     </Button>
                 ) : (
                     <Button size="lg" className="w-full h-12 text-base" onClick={() => router.push('/phone-login')}>

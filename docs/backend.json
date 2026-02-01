@@ -93,6 +93,11 @@
                 "deliveryAddress": {
                     "$ref": "#/backend/entities/address"
                 },
+                "paymentMethod": {
+                    "type": "string",
+                    "enum": ["wallet", "cod"],
+                    "description": "The payment method used for the booking."
+                },
                 "status": {
                     "type": "string",
                     "enum": ["Placed", "Confirmed", "In Progress", "Completed", "Cancelled"],

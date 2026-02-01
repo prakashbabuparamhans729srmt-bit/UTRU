@@ -20,7 +20,10 @@ service cloud.firestore {
       // or for wallet payments (balance decreases). This rule allows updates if the
       // walletBalance is not being modified, or if it is being decreased.
       allow update: if isOwner(userId) && 
-                    (request.resource.data.walletBalance == resource.data.walletBalance || request.resource.data.walletBalance < resource.data.walletBalance || !('walletBalance' in request.resource.data));
+                    (
+                      ('walletBalance' in request.resource.data && request.resource.data.walletBalance <= resource.data.walletBalance) 
+                      || !('walletBalance' in request.resource.data)
+                    );
     }
     match /users/{userId}/addresses/{addressId} {
       allow read, write: if isOwner(userId);
@@ -34,6 +37,7 @@ service cloud.firestore {
               && request.resource.data.id == bookingId
               && request.resource.data.status == 'Placed'
               && request.resource.data.placedAt == request.time
+              && request.resource.data.paymentMethod in ['wallet', 'cod']
               && !('rating' in request.resource.data)
               && !('review' in request.resource.data)
               && request.resource.data.items.size() > 0;

@@ -18,7 +18,10 @@ function PaymentSuccessContent() {
 
     const amount = searchParams.get('amount');
     const bookingId = searchParams.get('bookingId');
+    const method = searchParams.get('method');
     
+    const isCod = method === 'cod';
+
     const formattedAmount = amount 
         ? parseFloat(amount).toLocaleString('en-IN', {
             style: 'currency',
@@ -34,7 +37,7 @@ function PaymentSuccessContent() {
                 <Button onClick={() => router.push('/')} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
                     <ChevronLeft />
                 </Button>
-                <h1 className="text-lg font-semibold">Receipt Details</h1>
+                <h1 className="text-lg font-semibold">{isCod ? "Order Placed" : "Receipt Details"}</h1>
             </header>
 
             <main className="p-4">
@@ -43,8 +46,9 @@ function PaymentSuccessContent() {
                         <div className="w-24 h-24 bg-primary rounded-full flex items-center justify-center mb-4">
                             <Check className="w-16 h-16 text-primary-foreground" />
                         </div>
-                        <p className="text-muted-foreground">Transaction Success</p>
+                        <p className="text-muted-foreground">{isCod ? 'Order Placed Successfully!' : 'Transaction Success'}</p>
                         <p className="text-4xl font-bold mt-2">{formattedAmount}</p>
+                         {isCod && <p className="text-sm text-muted-foreground mt-1">To be paid on delivery</p>}
                     </div>
 
                     <Separator className="my-6 bg-border" />
@@ -52,7 +56,7 @@ function PaymentSuccessContent() {
                     <div className="space-y-3 text-sm">
                         <div className="flex justify-between">
                             <span className="text-muted-foreground">Status</span>
-                            <span className="text-primary font-semibold">Completed</span>
+                            <span className="text-primary font-semibold">Placed</span>
                         </div>
                         <div className="flex justify-between">
                             <span className="text-muted-foreground">Booking ID</span>
@@ -60,7 +64,7 @@ function PaymentSuccessContent() {
                         </div>
                          <div className="flex justify-between">
                             <span className="text-muted-foreground">Payment Method</span>
-                            <span className="font-semibold">Online</span>
+                            <span className="font-semibold">{isCod ? 'Pay on Delivery' : 'Wallet'}</span>
                         </div>
                     </div>
 
