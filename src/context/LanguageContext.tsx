@@ -1361,7 +1361,7 @@ const translations: Record<string, Translations> = {
             "change": "সলনি কৰক"
         },
         "cart": {
-            "searchPlaceholder": "সন্ধান কৰক...",
+            "searchPlaceholder": "সন্ধาน কৰক...",
             "blackFriday": "ব্লেক ফ্ৰাইডে",
             "discountsAvailable": "ರಿಯাজ উপলব্ধ",
             "categories": "শ্ৰেণীসমূহ",
@@ -1409,7 +1409,7 @@ const translations: Record<string, Translations> = {
         "location": {
             "selectLocation": "অৱস্থান বাছনি কৰক",
             "man": "মানুহ",
-            "searchPlaceholder": "সন্ধান কৰক...",
+            "searchPlaceholder": "সন্ধาน কৰক...",
             "emergency": "জৰুৰীকালীন",
             "my": "মোৰ",
             "district": "জিলা",
@@ -1516,7 +1516,7 @@ const translations: Record<string, Translations> = {
             "share": "এতিয়াই শ্বেয়াৰ কৰক"
         },
         "search": {
-            "searchPlaceholder": "সন্ধান কৰক...",
+            "searchPlaceholder": "সন্ধาน কৰক...",
             "resultsFor": "ৰ বাবে ফলাফল",
             "noResults": "কোনো ফলাফল পোৱا নগ'ল",
             "tryAgain": "আন কিবা এটা সন্ধান কৰিবলৈ চেষ্টা কৰক।"
@@ -1580,7 +1580,7 @@ const translations: Record<string, Translations> = {
             balance: 'বেলেন্স',
             insufficientBalance: 'অপৰ্যাপ্ত বেলেন্স।',
             payOnDelivery: 'ডেলিভাৰীত পৰিশোধ কৰক',
-            paymentDetails: 'পৰিশোধৰ বিৱৰণ',
+            paymentDetails: 'पৰিশোধৰ বিৱৰণ',
             remove: 'আঁতৰাওক',
             deliverTo: 'লৈ ডেলিভাৰী কৰক',
             inMins: '25-30 মিনিটত',
@@ -2423,7 +2423,7 @@ const translations: Record<string, Translations> = {
             "categories": "શ્રેણીઓ",
             "seeAll": "બધા જુઓ",
             "popularProducts": "લોકપ્રિય ઉત્પાદનો",
-            "yourCart": "તમારી કાર્ટ",
+            "yourCart": "તમારી કાર્ਟ",
             "emptyTitle": "તમારી કાર્ટ ખાલી છે",
             "emptySubtitle": "લાગે છે કે તમે હજી સુધી કોઈ સેવાઓ ઉમેરી નથી.",
             "browseServices": "સેવાઓ બ્રાઉઝ કરો",
@@ -2454,7 +2454,7 @@ const translations: Record<string, Translations> = {
             "painting": "પેઇન્ટિંગ",
             "more": "વધુ",
             "library": "લાઇબ્રેરી",
-            "explore": "અન્વેષણ કરો",
+            "explore": "અન્ਵੇષણ કરો",
             "opinion": "અભિપ્રાય"
         },
         "language": {
@@ -2466,7 +2466,7 @@ const translations: Record<string, Translations> = {
             "selectLocation": "સ્થાન પસંદ કરો",
             "man": "માણસ",
             "searchPlaceholder": "માટે શોધો...",
-            "emergency": "ઇમરજન્સી",
+            "emergency": "ઇમરજન્ਸੀ",
             "my": "મારું",
             "district": "જિલ્લો",
             "state": "રાજ્ય",
@@ -2477,7 +2477,7 @@ const translations: Record<string, Translations> = {
             "seeAll": "બધા જુઓ",
             "home": "હોમ",
             "library": "લાઇબ્રેરી",
-            "explore": "અન્વેષણ કરો",
+            "explore": "અન્ਵੇષણ કરો",
             "opinion": "અભિપ્રાય"
         },
         "login": {
@@ -2505,7 +2505,7 @@ const translations: Record<string, Translations> = {
             "someoneElse": "બીજા કોઈ માટે",
             "home": "ઘર",
             "work": "કામ",
-            "hotel": "હોટેલ",
+            "hotel": "હોટેਲ",
             "other": "અન્ય",
             "name": "નામ",
             "mobile": "મોબાઇલ નં.",
@@ -2606,7 +2606,7 @@ const translations: Record<string, Translations> = {
             "packages": "પેકેજો",
             "offers": "ઓફર્સ",
             "gallery": "ગેલેરી",
-            "whatsIncluded": "શું શામેલ છે",
+            "whatsIncluded": "શું શામેਲ છે",
             "availableOffers": "ઉપલબ્ધ ઓફર્સ",
             "byProServices": "પ્રો સેવાઓ દ્વારા",
             "viewDetails": "વિગતો જુઓ",
@@ -2647,7 +2647,7 @@ const translations: Record<string, Translations> = {
             payFromWallet: 'વોલેટમાંથી ચૂકવણી કરો',
         }
     },
-    'कन्नड़': {
+    'ಕನ್ನಡ': {
         "settings": {
             "title": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು",
             "orderMessages": "ಆರ್ಡರ್ ಸಂಬಂಧಿತ ಸಂದೇಶಗಳು",
@@ -2667,10 +2667,10 @@ const translations: Record<string, Translations> = {
         },
         "about": {
             "title": "ನಮ್ಮ ಬಗ್ಗೆ",
-            "welcome": "ನಮ್ಮ ಅಪ್ಲಿಕೇಶನ್‌ಗೆ ಸುಸ್ವಾಗತ, ಸುಗമ ಅನುಭವಕ್ಕಾಗಿ ನಿಮ್ಮ ಅಂತಿಮ ತಾಣ! ನಾವು ನಿಮಗೆ ಉತ್ತಮ ಸೇವೆಗಳು, ಅಸಾಧಾರಣ ಡೀಲ್‌ಗಳು ಮತ್ತು ಅಪ್ರತಿಮ ಅನುಕೂಲವನ್ನು ತರಲು ವಿನ್ಯಾಸಗೊಳಿಸಲಾದ ಒಂದು ನವೀನ, ಗ್ರಾಹಕ-ಕೇಂದ್ರಿತ ವೇದಿಕೆಯಾಗಿದ್ದೇವೆ — ಎಲ್ಲವೂ ನಿಮ್ಮ ಬೆರಳ ತುದಿಯಲ್ಲಿದೆ.",
+            "welcome": "ನಮ್ಮ ಅಪ್ಲಿಕೇಶನ್‌ಗೆ ಸುಸ್ವಾಗತ, ಸುಗമ ಅನುಭವಕ್ಕಾಗಿ ನಿಮ್ಮ ಅಂತಿమ ತಾಣ! ನಾವು ನಿಮಗೆ ಉತ್ತಮ ಸೇವೆಗಳು, ಅಸಾధారణ ಡೀಲ್‌ಗಳು ಮತ್ತು ಅಪ್ರತಿಮ ಅನುಕೂಲವನ್ನು ತರಲು ವಿನ್ಯಾಸಗೊಳಿಸಲಾದ ಒಂದು ನವೀನ, ಗ್ರಾಹಕ-ಕೇಂದ್ರಿತ ವೇದಿಕೆಯಾಗಿದ್ದೇವೆ — ಎಲ್ಲವೂ ನಿಮ್ಮ ಬೆರಳ ತುದಿಯಲ್ಲಿದೆ.",
             "storyTitle": "ನಮ್ಮ ಕಥೆ",
             "storyP1": "ನಾವು ಒಂದು ಸರಳ ಉಪಾಯದೊಂದಿಗೆ ಪ್ರಾರಂಭಿಸಿದೆವು: ಕೇವಲ ವಿವಿಧ ಸೇವೆಗಳನ್ನು ಒದಗಿಸುವುದಲ್ಲದೆ, ಇಡೀ ಪ್ರಕ್ರಿಯೆಯನ್ನು ಸುಲಭ ಮತ್ತು ಆನಂದದಾಯಕವಾಗಿಸುವ ವೇದಿಕೆಯನ್ನು ಒದಗಿಸುವುದು.",
-            "storyP2": "ವಿನಮ್ರ ಆರಂಭದಿಂದ, ನಾವು ಶೀಘ್ರದಲ್ಲೇ ಅತ್ಯಂತ ವಿಶ್ವಾಸಾರ್ಹ ವೇದಿಕೆಗಳಲ್ಲಿ ಒಂದಾಗಿ ಬೆಳೆದೆವು. ಗ್ರಾಹಕರ ತೃಪ್ತಿ, ಪ್ರವೇಶಸಾಧ್ಯತೆ ಮತ್ತು ನಿರಂತರ ನಾವೀನ್ಯತೆಯ ನಮ್ಮ ಮೂಲ ಮೌಲ್ಯಗಳು ನಮ್ಮ ಕೊಡುಗೆಗಳನ್ನು ವಿಸ್ತರಿಸುವ ಗುರಿಯನ್ನು ಹೊಂದಿರುವಾಗಲೂ ನಮ್ಮನ್ನು ಮುಂದೂಡುತ್ತಲೇ ಇರುತ್ತವೆ."
+            "storyP2": "ವಿನಮ್ರ ಆರಂಭದಿಂದ, ನಾವು ಶೀಘ್ರದಲ್ಲೇ ಅತ್ಯಂತ ವಿಶ್ವಾಸಾರ್ಹ ವೇದಿಕೆಗಳಲ್ಲಿ ಒಂದಾಗಿ ಬೆಳೆದೆವು. ಗ್ರಾಹಕರ ತೃಪ್ತಿ, ಪ್ರವೇಶಸಾಧ್ಯತೆ మరియు ನಿರಂತರ ನಾವೀನ್ಯತೆಯ ನಮ್ಮ ಮೂಲ ಮೌಲ್ಯಗಳು ನಮ್ಮ ಕೊಡುಗೆಗಳನ್ನು ವಿಸ್ತರಿಸುವ ಗುರಿಯನ್ನು ಹೊಂದಿರುವಾಗಲೂ ನಮ್ಮನ್ನು ಮುಂದೂಡುತ್ತಲೇ ಇರುತ್ತವೆ."
         },
         "address": {
             "title": "ನನ್ನ ವಿಳಾಸಗಳು",
@@ -2713,17 +2713,17 @@ const translations: Record<string, Translations> = {
             "home": "ಮುಖಪುಟ",
             "bookings": "ಬುಕಿಂಗ್‌ಗಳು",
             "chat": "ಚಾಟ್",
-            "profile": "ಪ್ರೊಫೈಲ್",
+            "profile": "ಪ್ರೊಫೈల్",
             "car": "ಕಾರು",
             "painting": "ಪೇಂಟಿಂಗ್",
             "more": "ಇನ್ನಷ್ಟು",
             "library": "ಗ್ರಂಥಾಲಯ",
             "explore": "ಅನ್ವೇಷಿಸಿ",
-            "opinion": "ಅಭಿಪ್ರాయ"
+            "opinion": "ಅಭಿಪ್ರಾಯ"
         },
         "language": {
             "title": "ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ",
-            "chooseLanguage": "ನಿಮ್ಮ ಆದ್ಯತೆಯ ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+            "chooseLanguage": "ನಿಮ್ಮ ಆದ್ಯತೆಯ ಭਾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ",
             "update": "ಭಾಷೆಯನ್ನು ನವೀಕರಿಸಿ"
         },
         "location": {
@@ -2742,7 +2742,7 @@ const translations: Record<string, Translations> = {
             "home": "ಮುಖಪುಟ",
             "library": "ಗ್ರಂಥಾಲಯ",
             "explore": "ಅನ್ವೇಷಿಸಿ",
-            "opinion": "ಅಭಿಪ್ರాయ"
+            "opinion": "ಅಭಿಪ್ರಾಯ"
         },
         "login": {
             "continueWithPhone": "ಫೋನ್‌ನೊಂದಿಗೆ ಮುಂದುವರಿಸಿ"
@@ -2769,10 +2769,10 @@ const translations: Record<string, Translations> = {
             "someoneElse": "ಬೇರೆಯವರಿಗಾಗಿ",
             "home": "ಮನೆ",
             "work": "ಕೆಲಸ",
-            "hotel": "ಹೋಟೆల్",
+            "hotel": "ಹೋಟೆಲ್",
             "other": "ಇತರೆ",
             "name": "ಹೆಸರು",
-            "mobile": "ಮೊಬೈಲ್ ಸಂಖ್ಯೆ",
+            "mobile": "ಮೊಬೈల్ ಸಂಖ್ಯೆ",
             "flatHouse": "ಫ್ಲಾಟ್ / ಮನೆ ಸಂಖ್ಯೆ / ಕಟ್ಟಡದ ಹೆಸರು",
             "floor": "ಮಹಡಿ (ಐಚ್ಛಿಕ)",
             "landmark": "ಹತ್ತಿರದ ಹೆಗ್ಗುರುತು (ಐಚ್ಛಿಕ)",
@@ -2813,7 +2813,7 @@ const translations: Record<string, Translations> = {
             "myPlans": "ನನ್ನ ಬುಕಿಂಗ್‌ಗಳು",
             "nativeDevices": "ಸ್ಥಳೀಯ ಸಾಧನಗಳು",
             "addressBook": "ವಿಳಾಸ ಪುಸ್ತಕ",
-            "plusMembership": "ಪ್ಲಸ್ ಸದಸ್ಯತ್ವ",
+            "plusMembership": "ಪ್లಸ್ ಸದಸ್ಯತ್ವ",
             "myRating": "ನನ್ನ ರೇಟಿಂಗ್‌ಗಳು",
             "setting": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು",
             "otherInfo": "ಇತರ ಮಾಹಿತಿ",
@@ -2907,7 +2907,7 @@ const translations: Record<string, Translations> = {
             noAddressSelected: 'ಯಾವುದೇ ವಿಳಾಸವನ್ನು ಆಯ್ಕೆಮಾಡಲಾಗಿಲ್ಲ',
             loading: 'ಲೋಡ್ ಆಗುತ್ತಿದೆ...',
             placeOrder: 'ಆರ್ಡರ್ ಮಾಡಿ',
-            loginToPlaceOrder: 'ಆರ್ಡರ್ ಮಾಡಲು ಲಾಗಿన్ ಮಾಡಿ',
+            loginToPlaceOrder: 'ಆರ್ಡರ್ ಮಾಡಲು ಲಾಗಿನ್ ಮಾಡಿ',
             payFromWallet: 'ವ್ಯಾಲೆಟ್‌ನಿಂದ ಪಾವತಿಸಿ',
         }
     },
@@ -3009,7 +3009,7 @@ const translations: Record<string, Translations> = {
             "opinion": "رائے"
         },
         "login": {
-            "continueWithPhone": "فون سٟتؠ جاری تھاو"
+            "continueWithPhone": "फोन سٟتؠ جاری تھاو"
         },
         "myPlans": {
             "title": "مؠنۍ بکنگ",
@@ -3057,7 +3057,7 @@ const translations: Record<string, Translations> = {
             "amazonPay": "ایمیزون پے بیلنس"
         },
         "phoneLogin": {
-            "title": "فون سٟتؠ لاگ ان کریو",
+            "title": "फोन سٟتؠ لاگ ان کریو",
             "subtitle": "لاگ ان کرنہٕ باپتھ بنہِ پنن نمبر درج کریو۔",
             "placeholder": "توہنٛد فون نمبر...",
             "continue": "جاری تھاو"
@@ -3085,7 +3085,7 @@ const translations: Record<string, Translations> = {
             "aboutUs": "اسہِ بارس منز",
             "logOut": "لاگ آؤٹ کریو",
             "referEarn": "ریفر کریو تہٕ کماو",
-            "referEarnDescription": "ییلہٕ توہنٛد دوست پنن گۄڈنیُک بکنگ مکمل کران، تہٕ ₹100 حاصل کریو۔",
+            "referEarnDescription": "ییلہٕ توہنٛد دوست پنن گۄڈنیُک بکنگ مکمل کران, تہٕ ₹100 حاصل کریو۔",
             "hurryUp": "جلدی کریو",
             "referNow": "وُنِتھ ریفر کریو",
             "lightMode": "لائٹ موڈ",
@@ -3171,7 +3171,7 @@ const translations: Record<string, Translations> = {
             noAddressSelected: 'کانہہ پتہ منتخب کرنہٕ آمت نی',
             loading: 'لوڈ ہو رہا ہے...',
             placeOrder: 'آرڈر دیو',
-            loginToPlaceOrder: 'آرڈر دینے باپتھ لاگ ان کریو',
+            loginToPlaceOrder: 'آرڈر देने باپتھ لاگ ان کریو',
             payFromWallet: 'والیٹ سٟتؠ ادا کریو',
         }
     },
@@ -3682,7 +3682,7 @@ const translations: Record<string, Translations> = {
         },
         checkout: {
             title: 'चेकआउट',
-            deliveringTo: 'केँ डिलीवर भ' रहल अछि',
+            deliveringTo: 'केँ डिलीवर भ\' रहल अछि',
             change: 'बदलू',
             selectAddress: 'कृपया एकटा डिलीवरी पता चुनू',
             selectAddressButton: 'पता चुनू',
@@ -3697,7 +3697,7 @@ const translations: Record<string, Translations> = {
             deliverTo: 'केँ डिलीवर करू',
             inMins: '25-30 मिनट मे',
             noAddressSelected: 'कोनो पता नहि चुनल गेल',
-            loading: 'लोड भ' रहल अछि...',
+            loading: 'लोड भ\' रहल अछि...',
             placeOrder: 'ऑर्डर दियौ',
             loginToPlaceOrder: 'ऑर्डर देबाक लेल लॉगिन करू',
             payFromWallet: 'वॉलेट सँ भुगतान करू',
@@ -4486,7 +4486,7 @@ const translations: Record<string, Translations> = {
             payOnDelivery: 'डेलिभरीमा भुक्तानी गर्नुहोस्',
             paymentDetails: 'भुक्तानी विवरण',
             remove: 'हटाउनुहोस्',
-            deliverTo: 'मा डेलिभर गर्नुहोस्',
+            deliverTo: 'मा डెलिभर गर्नुहोस्',
             inMins: '25-30 मिनेटमा',
             noAddressSelected: 'कुनै ठेगाना चयन गरिएको छैन',
             loading: 'लोड हुँदैछ...',
@@ -4515,7 +4515,7 @@ const translations: Record<string, Translations> = {
         },
         "about": {
             "title": "ଆମ ବିଷୟରେ",
-            "welcome": "ଆମର ଆପକୁ ସ୍ଵାଗତ, ଏକ ସୁଗମ ଅନୁଭୂତି ପାଇଁ ଆପଣଙ୍କର ଚୂଡାନ୍ତ ଗନ୍ତବ୍ୟସ୍ଥଳ! ଆମେ ଏକ ଅଭିନବ, ଗ୍ରାହକ-କେନ୍ଦ୍ରିକ ପ୍ଲାଟଫର୍ମ ଯାହା ଆପଣଙ୍କୁ ସର୍ବୋତ୍ତମ ସେବା, ଅସାଧାରଣ ଡିଲ୍, ଏବଂ ଅପ୍ରତିଦ୍ବନ୍ଦ୍ବୀ ସୁବିଧା ପ୍ରଦାନ କରିବା ପାଇଁ ପରିକଳ୍ପିତ — ସବୁ ଆପଣଙ୍କ ଆଙ୍ଗୁଠି ଟିପରେ।",
+            "welcome": "ଆମର ଆପକୁ ସ୍ଵାଗତ, ଏକ ସୁଗମ ଅନୁଭୂତି ପାଇଁ ଆପଣଙ୍କର ଚୂଡାନ୍ତ ଗନ୍ତବ୍ୟସ୍ଥଳ! ଆମେ ଏକ ଅଭିନବ, ଗ୍ରାହକ-କେନ୍ଦ୍ରିକ ପ୍ଲାଟଫର୍ମ ଯାହା ଆପଣଙ୍କୁ ସର୍ବୋତ୍ତମ ସେବା, ଅସାଧାରଣ ଡିଲ୍, ଏବଂ ଅପ୍ରତିଦ୍ବନ୍ଦ୍ବୀ ସୁବିଧା ପ୍ରଦਾਨ କରିବା ପାଇଁ ପରିକଳ୍ପିତ — ସବୁ ଆପଣଙ୍କ ଆଙ୍ଗୁଠି ଟିପରେ।",
             "storyTitle": "ଆମ କାହାଣୀ",
             "storyP1": "ଆମେ ଏକ ସରଳ ଧାରଣାରୁ ଆରମ୍ଭ କରିଥିଲୁ: ଏକ ଏପରି ପ୍ଲାଟଫର୍ମ ପ୍ରଦାନ କରିବା ଯାହା କେବଳ ବିଭିନ୍ନ ପ୍ରକାରର ସେବା ପ୍ରଦାନ କରେ ନାହିଁ ବରଂ ସମଗ୍ର ପ୍ରକ୍ରିୟାକୁ ସହଜ ଏବଂ ଆନନ୍ଦଦାୟକ କରାଏ।",
             "storyP2": "ସାଧାରଣ ଆରମ୍ଭରୁ, ଆମେ ଶୀଘ୍ର ସବୁଠାରୁ ବିଶ୍ଵସନୀୟ ପ୍ଲାଟଫର୍ମ ମଧ୍ୟରୁ ଗୋଟିଏ ହୋଇଗଲୁ। ଗ୍ରାହକ ସନ୍ତୁଷ୍ଟି, ସୁଲଭତା, ଏବଂ ନିରନ୍ତର ନବୀକରଣର ଆମର ମୂଳ ମୂଲ୍ୟବୋଧ ଆମକୁ ଆଗକୁ ବଢାଇବାରେ ସାହାଯ୍ୟ କରୁଛି କାରଣ ଆମେ ଆମର ଅଫରଗୁଡିକୁ ବିସ୍ତାର କରିବାକୁ ଲକ୍ଷ୍ୟ ରଖିଛୁ।"
@@ -4544,7 +4544,7 @@ const translations: Record<string, Translations> = {
             "deliveryFee": "ବିତରଣ ଶୁଳ୍କ",
             "platformFee": "ପ୍ଲାଟଫର୍ମ ଶୁଳ୍କ",
             "toPay": "ଦେବାକୁ",
-            "checkout": "ଚେକଆଉଟ୍ ପାଇଁ ଆଗକୁ ବଢନ୍ତୁ"
+            "checkout": "ଚେକଆଉਟ୍ ପାଇଁ ଆଗକୁ ବଢନ୍ତୁ"
         },
         "home": {
             "searchPlaceholder": "ସେବା ପାଇଁ ଖୋଜନ୍ତୁ, ଯେପରିକି ପ୍ଲମ୍ବର...",
@@ -5011,7 +5011,7 @@ const translations: Record<string, Translations> = {
             payWithWallet: 'ਵਾਲਿਟ ਨਾਲ ਭੁਗਤਾਨ ਕਰੋ',
             balance: 'ਬਕਾਇਆ',
             insufficientBalance: 'ਨਾਕਾਫ਼ੀ ਬਕਾਇਆ।',
-            payOnDelivery: 'ਡਿਲੀਵਰੀ 'ਤੇ ਭੁਗਤਾਨ ਕਰੋ',
+            payOnDelivery: "ਡਿਲੀਵਰੀ 'ਤੇ ਭੁਗਤਾਨ ਕਰੋ",
             paymentDetails: 'ਭੁਗਤਾਨ ਦੇ ਵੇਰਵੇ',
             remove: 'ਹਟਾਓ',
             deliverTo: 'ਨੂੰ ਡਿਲੀਵਰ ਕਰੋ',
