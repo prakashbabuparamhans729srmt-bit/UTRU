@@ -244,6 +244,28 @@ webLink: string;
         updatedCartTitle: string;
         selectionRequiredTitle: string;
         selectionRequiredDesc: string;
+    },
+    checkout: {
+        title: string;
+        deliveringTo: string;
+        change: string;
+        selectAddress: string;
+        selectAddressButton: string;
+        orderSummary: string;
+        paymentMethod: string;
+        payWithWallet: string;
+        balance: string;
+        insufficientBalance: string;
+        payOnDelivery: string;
+        paymentDetails: string;
+        remove: string;
+        deliverTo: string;
+        inMins: string;
+        noAddressSelected: string;
+        loading: string;
+        placeOrder: string;
+        loginToPlaceOrder: string;
+        payFromWallet: string;
     }
 }
 
@@ -489,6 +511,28 @@ const translations: Record<string, Translations> = {
             updatedCartTitle: 'Cart updated!',
             selectionRequiredTitle: 'Selection required',
             selectionRequiredDesc: 'Please select a date and time slot.',
+        },
+        checkout: {
+            title: 'Checkout',
+            deliveringTo: 'DELIVERING TO',
+            change: 'Change',
+            selectAddress: 'Please select a delivery address',
+            selectAddressButton: 'Select Address',
+            orderSummary: 'Order Summary',
+            paymentMethod: 'Payment Method',
+            payWithWallet: 'Pay with Wallet',
+            balance: 'Balance',
+            insufficientBalance: 'Insufficient balance.',
+            payOnDelivery: 'Pay on Delivery',
+            paymentDetails: 'Payment Details',
+            remove: 'Remove',
+            deliverTo: 'Deliver to',
+            inMins: 'in 25-30 mins',
+            noAddressSelected: 'No address selected',
+            loading: 'Loading...',
+            placeOrder: 'Place Order',
+            loginToPlaceOrder: 'Login to Place Order',
+            payFromWallet: 'Pay from Wallet',
         }
     },
     'हिंदी': {
@@ -731,6 +775,28 @@ const translations: Record<string, Translations> = {
             updatedCartTitle: 'कार्ट अपडेट किया गया!',
             selectionRequiredTitle: 'चयन आवश्यक है',
             selectionRequiredDesc: 'कृपया एक तिथि और समय स्लॉट चुनें।',
+        },
+        checkout: {
+            title: 'चेकआउट',
+            deliveringTo: 'को डिलीवर किया जा रहा है',
+            change: 'बदलें',
+            selectAddress: 'कृपया एक डिलीवरी पता चुनें',
+            selectAddressButton: 'पता चुनें',
+            orderSummary: 'ऑर्डर का सारांश',
+            paymentMethod: 'भुगतान विधि',
+            payWithWallet: 'वॉलेट से भुगतान करें',
+            balance: 'शेष राशि',
+            insufficientBalance: 'अपर्याप्त शेष राशि।',
+            payOnDelivery: 'डिलीवरी पर भुगतान करें',
+            paymentDetails: 'भुगतान का विवरण',
+            remove: 'हटाएं',
+            deliverTo: 'को डिलीवर करें',
+            inMins: '25-30 मिनट में',
+            noAddressSelected: 'कोई पता नहीं चुना गया',
+            loading: 'लोड हो रहा है...',
+            placeOrder: 'ऑर्डर दें',
+            loginToPlaceOrder: 'ऑर्डर देने के लिए लॉगिन करें',
+            payFromWallet: 'वॉलेट से भुगतान करें',
         }
     },
     'Bhojpuri': {
@@ -973,6 +1039,28 @@ const translations: Record<string, Translations> = {
             updatedCartTitle: 'कार्ट अपडेट भईल!',
             selectionRequiredTitle: 'चयन जरूरी बा',
             selectionRequiredDesc: 'कृपया एगो तिथि आ समय स्लॉट चुनीं।',
+        },
+        checkout: {
+            title: 'चेकआउट',
+            deliveringTo: 'के डिलीवर हो रहल बा',
+            change: 'बदलीं',
+            selectAddress: 'कृपया एगो डिलीवरी पता चुनीं',
+            selectAddressButton: 'पता चुनीं',
+            orderSummary: 'ऑर्डर के सारांश',
+            paymentMethod: 'भुगतान विधि',
+            payWithWallet: 'वॉलेट से भुगतान करीं',
+            balance: 'शेष राशि',
+            insufficientBalance: 'अपर्याप्त शेष राशि।',
+            payOnDelivery: 'डिलीवरी पर भुगतान करीं',
+            paymentDetails: 'भुगतान के विवरण',
+            remove: 'हटाईं',
+            deliverTo: 'के डिलीवर करीं',
+            inMins: '25-30 मिनट में',
+            noAddressSelected: 'कवनो पता ना चुनल गइल',
+            loading: 'लोड हो रहल बा...',
+            placeOrder: 'ऑर्डर दीं',
+            loginToPlaceOrder: 'ऑर्डर देवे खातिर लॉगिन करीं',
+            payFromWallet: 'वॉलेट से भुगतान करीं',
         }
     },
     'मराठी': {
@@ -1215,6 +1303,28 @@ const translations: Record<string, Translations> = {
             updatedCartTitle: 'कार्ट अपडेट केले!',
             selectionRequiredTitle: 'निवड आवश्यक आहे',
             selectionRequiredDesc: 'कृपया एक तारीख आणि वेळ स्लॉट निवडा.',
+        },
+        checkout: {
+            title: 'चेकआउट',
+            deliveringTo: 'ला वितरित केले जात आहे',
+            change: 'बदला',
+            selectAddress: 'कृपया एक वितरण पत्ता निवडा',
+            selectAddressButton: 'पत्ता निवडा',
+            orderSummary: 'ऑर्डरचा सारांश',
+            paymentMethod: 'पेमेंट पद्धत',
+            payWithWallet: 'वॉलेटने पैसे द्या',
+            balance: 'शिल्लक',
+            insufficientBalance: 'अपुरी शिल्लक.',
+            payOnDelivery: 'डिलिव्हरीवर पैसे द्या',
+            paymentDetails: 'पेमेंट तपशील',
+            remove: 'काढा',
+            deliverTo: 'ला वितरित करा',
+            inMins: '25-30 मिनिटांत',
+            noAddressSelected: 'कोणताही पत्ता निवडलेला नाही',
+            loading: 'लोड होत आहे...',
+            placeOrder: 'ऑर्डर द्या',
+            loginToPlaceOrder: 'ऑर्डर देण्यासाठी लॉगिन करा',
+            payFromWallet: 'वॉलेटमधून पैसे द्या',
         }
     },
     'असमिया': {
@@ -1408,7 +1518,7 @@ const translations: Record<string, Translations> = {
         "search": {
             "searchPlaceholder": "সন্ধান কৰক...",
             "resultsFor": "ৰ বাবে ফলাফল",
-            "noResults": "কোনো ফলাফল পোৱা নগ'ল",
+            "noResults": "কোনো ফলাফল পোৱا নগ'ল",
             "tryAgain": "আন কিবা এটা সন্ধান কৰিবলৈ চেষ্টা কৰক।"
         },
         "support": {
@@ -1457,6 +1567,28 @@ const translations: Record<string, Translations> = {
             "updatedCartTitle": "কাৰ্ট আপডেট কৰা হ'ল!",
             "selectionRequiredTitle": "বাছনিৰ প্ৰয়োজন",
             "selectionRequiredDesc": "অনুগ্ৰহ কৰি এটা তাৰিখ আৰু সময় স্লট বাছনি কৰক।"
+        },
+        checkout: {
+            title: 'চেকআউট',
+            deliveringTo: 'লৈ ডেলিভাৰী কৰা হৈছে',
+            change: 'সলনি কৰক',
+            selectAddress: 'অনুগ্ৰহ কৰি এটা ডেলিভাৰী ঠিকনা বাছনি কৰক',
+            selectAddressButton: 'ঠিকনা বাছনি কৰক',
+            orderSummary: 'অৰ্ডাৰৰ সাৰাংশ',
+            paymentMethod: 'পৰিশোধ পদ্ধতি',
+            payWithWallet: 'ৱালেটৰ পৰা পৰিশোধ কৰক',
+            balance: 'বেলেন্স',
+            insufficientBalance: 'অপৰ্যাপ্ত বেলেন্স।',
+            payOnDelivery: 'ডেলিভাৰীত পৰিশোধ কৰক',
+            paymentDetails: 'পৰিশোধৰ বিৱৰণ',
+            remove: 'আঁতৰাওক',
+            deliverTo: 'লৈ ডেলিভাৰী কৰক',
+            inMins: '25-30 মিনিটত',
+            noAddressSelected: 'কোনো ঠিকনা বাছনি কৰা হোৱা নাই',
+            loading: 'লোড হৈ আছে...',
+            placeOrder: 'অৰ্ডাৰ দিয়ক',
+            loginToPlaceOrder: 'অৰ্ডাৰ দিবলৈ লগইন কৰক',
+            payFromWallet: 'ৱালেটৰ পৰা পৰিশোধ কৰক',
         }
     },
     'बंगाली': {
@@ -1699,6 +1831,28 @@ const translations: Record<string, Translations> = {
             "updatedCartTitle": "কার্ট আপডেট করা হয়েছে!",
             "selectionRequiredTitle": "নির্বাচন প্রয়োজন",
             "selectionRequiredDesc": "অনুগ্রহ করে একটি তারিখ এবং সময় স্লট নির্বাচন করুন।"
+        },
+        checkout: {
+            title: 'চেকআউট',
+            deliveringTo: 'ডেলিভারি করা হচ্ছে',
+            change: 'পরিবর্তন করুন',
+            selectAddress: 'অনুগ্রহ করে একটি ডেলিভারি ঠিকানা নির্বাচন করুন',
+            selectAddressButton: 'ঠিকানা নির্বাচন করুন',
+            orderSummary: 'অর্ডারের সারাংশ',
+            paymentMethod: 'পেমেন্ট পদ্ধতি',
+            payWithWallet: 'ওয়ালেট দিয়ে পেমেন্ট করুন',
+            balance: 'ব্যালেন্স',
+            insufficientBalance: 'অপর্যাপ্ত ব্যালেন্স।',
+            payOnDelivery: 'ডেলিভারিতে পেমেন্ট করুন',
+            paymentDetails: 'পেমেন্ট বিবরণ',
+            remove: 'সরান',
+            deliverTo: 'ডেলিভারি করুন',
+            inMins: '25-30 মিনিটের মধ্যে',
+            noAddressSelected: 'কোনো ঠিকানা নির্বাচন করা হয়নি',
+            loading: 'লোড হচ্ছে...',
+            placeOrder: 'অর্ডার দিন',
+            loginToPlaceOrder: 'অর্ডার দিতে লগইন করুন',
+            payFromWallet: 'ওয়ালেট থেকে পেমেন্ট করুন',
         }
     },
      'बोडो': {
@@ -1941,6 +2095,28 @@ const translations: Record<string, Translations> = {
             "updatedCartTitle": "कार्ट सोदांबाय!",
             "selectionRequiredTitle": "सायख'नाय गोनां",
             "selectionRequiredDesc": "अननानै मोनसे खालार आरो समनि स्लत सायख'।"
+        },
+        checkout: {
+            title: 'चेकआउट',
+            deliveringTo: 'आव ডেলিভারি खालामदों',
+            change: 'सोलाय',
+            selectAddress: 'अननानै मोनसे ডেলিভারি थिगना सायख',
+            selectAddressButton: 'थिगना सायख',
+            orderSummary: 'अर्डरनि सुंद',
+            paymentMethod: 'पेमेन्टनि राहा',
+            payWithWallet: 'वालेटजों पेमेन्ट खालाम',
+            balance: 'बेलेन्स',
+            insufficientBalance: 'थोजासे बेलेन्स गैया।',
+            payOnDelivery: 'डेलिभारि समाव हो',
+            paymentDetails: 'पेमेन्टनि बिग्राइ',
+            remove: 'लाखो',
+            deliverTo: 'आव ডেলিভারি खालाम',
+            inMins: '25-30 मिनिटआव',
+            noAddressSelected: 'जेबो थिगना सायखआखै',
+            loading: 'लोड जादों...',
+            placeOrder: 'अर्डर हो',
+            loginToPlaceOrder: 'अर्डर होनो थाखाय लगइन खालाम',
+            payFromWallet: 'वालेटनिफ्राय पेमेन्ट खालाम',
         }
     },
     'डोगरी': {
@@ -2183,6 +2359,28 @@ const translations: Record<string, Translations> = {
             "updatedCartTitle": "कार्ट अपडेट कीता गेआ!",
             "selectionRequiredTitle": "चयन जरूरी ऐ",
             "selectionRequiredDesc": "कृपा करियै इक तारीख ते समां स्लाट चुनो।"
+        },
+        checkout: {
+            title: 'चेकआउट',
+            deliveringTo: 'गी डिलीवर कीता जा करदा ऐ',
+            change: 'बदलो',
+            selectAddress: 'कृपा करियै इक डिलीवरी पता चुनो',
+            selectAddressButton: 'पता चुनो',
+            orderSummary: 'आर्डर दा सारांश',
+            paymentMethod: 'भुगतान दी विधि',
+            payWithWallet: 'वॉलेट कन्नै भुगतान करो',
+            balance: 'शेष राशि',
+            insufficientBalance: 'अपर्याप्त शेष राशि।',
+            payOnDelivery: 'डिलीवरी पर भुगतान करो',
+            paymentDetails: 'भुगतान दा विवरण',
+            remove: 'हटाओ',
+            deliverTo: 'गी डिलीवर करो',
+            inMins: '25-30 मिनट च',
+            noAddressSelected: 'कोई पता नेईं चुने दा',
+            loading: 'लोड होई करदा ऐ...',
+            placeOrder: 'आर्डर देओ',
+            loginToPlaceOrder: 'आर्डर देने लेई लागिन करो',
+            payFromWallet: 'वॉलेट थमां भुगतान करो',
         }
     },
     'गुजराती': {
@@ -2424,7 +2622,29 @@ const translations: Record<string, Translations> = {
             "viewCart": "કાર્ટ જુઓ",
             "updatedCartTitle": "કાર્ટ અપડેટ થયું!",
             "selectionRequiredTitle": "પસંદગી જરૂરી છે",
-            "selectionRequiredDesc": "કૃપા કરીને એક તારીખ અને સમય સ્લોટ પસંદ કરો."
+            "selectionRequiredDesc": "કૃપા કરીને એક તારીખ અને સમય સ્લોટ પસંદ કરો।"
+        },
+        checkout: {
+            title: 'ચેકઆઉટ',
+            deliveringTo: 'ને વિતરિત કરવામાં આવી રહ્યું છે',
+            change: 'બદલો',
+            selectAddress: 'કૃપા કરીને એક વિતરણ સરનામું પસંદ કરો',
+            selectAddressButton: 'સરનામું પસંદ કરો',
+            orderSummary: 'ઓર્ડરનો સારાંશ',
+            paymentMethod: 'ચુકવણીની પદ્ધતિ',
+            payWithWallet: 'વોલેટથી ચૂકવણી કરો',
+            balance: 'શેષ',
+            insufficientBalance: 'અપૂરતી શેષ.',
+            payOnDelivery: 'ડિલિવરી પર ચૂકવણી કરો',
+            paymentDetails: 'ચુકવણીની વિગતો',
+            remove: 'દૂર કરો',
+            deliverTo: 'ને વિતરિત કરો',
+            inMins: '25-30 મિનિટમાં',
+            noAddressSelected: 'કોઈ સરનામું પસંદ કરેલ નથી',
+            loading: 'લોડ થઈ રહ્યું છે...',
+            placeOrder: 'ઓર્ડર આપો',
+            loginToPlaceOrder: 'ઓર્ડર આપવા માટે લોગિન કરો',
+            payFromWallet: 'વોલેટમાંથી ચૂકવણી કરો',
         }
     },
     'कन्नड़': {
@@ -2447,7 +2667,7 @@ const translations: Record<string, Translations> = {
         },
         "about": {
             "title": "ನಮ್ಮ ಬಗ್ಗೆ",
-            "welcome": "ನಮ್ಮ ಅಪ್ಲಿಕೇಶನ್‌ಗೆ ಸುಸ್ವಾಗತ, ಸುಗಮ ಅನುಭವಕ್ಕಾಗಿ ನಿಮ್ಮ ಅಂತಿಮ ತಾಣ! ನಾವು ನಿಮಗೆ ಉತ್ತಮ ಸೇವೆಗಳು, ಅಸಾಧಾರಣ ಡೀಲ್‌ಗಳು ಮತ್ತು ಅಪ್ರತಿಮ ಅನುಕೂಲವನ್ನು ತರಲು ವಿನ್ಯಾಸಗೊಳಿಸಲಾದ ಒಂದು ನವೀನ, ಗ್ರಾಹಕ-ಕೇಂದ್ರಿತ ವೇದಿಕೆಯಾಗಿದ್ದೇವೆ — ಎಲ್ಲವೂ ನಿಮ್ಮ ಬೆರಳ ತುದಿಯಲ್ಲಿದೆ.",
+            "welcome": "ನಮ್ಮ ಅಪ್ಲಿಕೇಶನ್‌ಗೆ ಸುಸ್ವಾಗತ, ಸುಗമ ಅನುಭವಕ್ಕಾಗಿ ನಿಮ್ಮ ಅಂತಿಮ ತಾಣ! ನಾವು ನಿಮಗೆ ಉತ್ತಮ ಸೇವೆಗಳು, ಅಸಾಧಾರಣ ಡೀಲ್‌ಗಳು ಮತ್ತು ಅಪ್ರತಿಮ ಅನುಕೂಲವನ್ನು ತರಲು ವಿನ್ಯಾಸಗೊಳಿಸಲಾದ ಒಂದು ನವೀನ, ಗ್ರಾಹಕ-ಕೇಂದ್ರಿತ ವೇದಿಕೆಯಾಗಿದ್ದೇವೆ — ಎಲ್ಲವೂ ನಿಮ್ಮ ಬೆರಳ ತುದಿಯಲ್ಲಿದೆ.",
             "storyTitle": "ನಮ್ಮ ಕಥೆ",
             "storyP1": "ನಾವು ಒಂದು ಸರಳ ಉಪಾಯದೊಂದಿಗೆ ಪ್ರಾರಂಭಿಸಿದೆವು: ಕೇವಲ ವಿವಿಧ ಸೇವೆಗಳನ್ನು ಒದಗಿಸುವುದಲ್ಲದೆ, ಇಡೀ ಪ್ರಕ್ರಿಯೆಯನ್ನು ಸುಲಭ ಮತ್ತು ಆನಂದದಾಯಕವಾಗಿಸುವ ವೇದಿಕೆಯನ್ನು ಒದಗಿಸುವುದು.",
             "storyP2": "ವಿನಮ್ರ ಆರಂಭದಿಂದ, ನಾವು ಶೀಘ್ರದಲ್ಲೇ ಅತ್ಯಂತ ವಿಶ್ವಾಸಾರ್ಹ ವೇದಿಕೆಗಳಲ್ಲಿ ಒಂದಾಗಿ ಬೆಳೆದೆವು. ಗ್ರಾಹಕರ ತೃಪ್ತಿ, ಪ್ರವೇಶಸಾಧ್ಯತೆ ಮತ್ತು ನಿರಂತರ ನಾವೀನ್ಯತೆಯ ನಮ್ಮ ಮೂಲ ಮೌಲ್ಯಗಳು ನಮ್ಮ ಕೊಡುಗೆಗಳನ್ನು ವಿಸ್ತರಿಸುವ ಗುರಿಯನ್ನು ಹೊಂದಿರುವಾಗಲೂ ನಮ್ಮನ್ನು ಮುಂದೂಡುತ್ತಲೇ ಇರುತ್ತವೆ."
@@ -2499,7 +2719,7 @@ const translations: Record<string, Translations> = {
             "more": "ಇನ್ನಷ್ಟು",
             "library": "ಗ್ರಂಥಾಲಯ",
             "explore": "ಅನ್ವೇಷಿಸಿ",
-            "opinion": "ಅಭಿಪ್ರಾಯ"
+            "opinion": "ಅಭಿಪ್ರాయ"
         },
         "language": {
             "title": "ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ",
@@ -2522,7 +2742,7 @@ const translations: Record<string, Translations> = {
             "home": "ಮುಖಪುಟ",
             "library": "ಗ್ರಂಥಾಲಯ",
             "explore": "ಅನ್ವೇಷಿಸಿ",
-            "opinion": "ಅಭಿಪ್ರಾಯ"
+            "opinion": "ಅಭಿಪ್ರాయ"
         },
         "login": {
             "continueWithPhone": "ಫೋನ್‌ನೊಂದಿಗೆ ಮುಂದುವರಿಸಿ"
@@ -2549,7 +2769,7 @@ const translations: Record<string, Translations> = {
             "someoneElse": "ಬೇರೆಯವರಿಗಾಗಿ",
             "home": "ಮನೆ",
             "work": "ಕೆಲಸ",
-            "hotel": "ಹೋಟೆಲ್",
+            "hotel": "ಹೋಟೆల్",
             "other": "ಇತರೆ",
             "name": "ಹೆಸರು",
             "mobile": "ಮೊಬೈಲ್ ಸಂಖ್ಯೆ",
@@ -2666,14 +2886,36 @@ const translations: Record<string, Translations> = {
             "viewCart": "ಕಾರ್ಟ್ ವೀಕ್ಷಿಸಿ",
             "updatedCartTitle": "ಕಾರ್ಟ್ ನವೀಕರಿಸಲಾಗಿದೆ!",
             "selectionRequiredTitle": "ಆಯ್ಕೆ ಅಗತ್ಯವಿದೆ",
-            "selectionRequiredDesc": "ದಯವಿಟ್ಟು ದಿನಾಂಕ ಮತ್ತು ಸಮಯ ಸ್ಲಾಟ್ ಆಯ್ಕೆಮಾಡಿ."
+            "selectionRequiredDesc": "ದಯವಿಟ್ಟು ದಿನಾಂಕ ಮತ್ತು ಸಮಯ ಸ್ಲಾಟ್ ಆಯ್ಕೆಮಾಡಿ।"
+        },
+        checkout: {
+            title: 'ಚೆಕ್‌ಔಟ್',
+            deliveringTo: 'ಗೆ ತಲುಪಿಸಲಾಗುತ್ತಿದೆ',
+            change: 'ಬದಲಾಯಿಸಿ',
+            selectAddress: 'ದಯವಿಟ್ಟು ಒಂದು ವಿತರಣಾ ವಿಳಾಸವನ್ನು ಆಯ್ಕೆಮಾಡಿ',
+            selectAddressButton: 'ವಿಳಾಸವನ್ನು ಆಯ್ಕೆಮಾಡಿ',
+            orderSummary: 'ಆರ್ಡರ್ ಸಾರಾಂಶ',
+            paymentMethod: 'ಪಾವತಿ ವಿಧಾನ',
+            payWithWallet: 'ವ್ಯಾಲೆಟ್‌ನಿಂದ ಪಾವತಿಸಿ',
+            balance: 'ಬಾಕಿ',
+            insufficientBalance: 'ಅಪૂરતી ಬಾಕಿ.',
+            payOnDelivery: 'ವಿತರಣೆಯ ಮೇಲೆ ಪಾವತಿಸಿ',
+            paymentDetails: 'ಪಾವತಿ ವಿವರಗಳು',
+            remove: 'ತೆಗೆದುಹಾಕಿ',
+            deliverTo: 'ಗೆ ತಲುಪಿಸಿ',
+            inMins: '25-30 ನಿಮಿಷಗಳಲ್ಲಿ',
+            noAddressSelected: 'ಯಾವುದೇ ವಿಳಾಸವನ್ನು ಆಯ್ಕೆಮಾಡಲಾಗಿಲ್ಲ',
+            loading: 'ಲೋಡ್ ಆಗುತ್ತಿದೆ...',
+            placeOrder: 'ಆರ್ಡರ್ ಮಾಡಿ',
+            loginToPlaceOrder: 'ಆರ್ಡರ್ ಮಾಡಲು ಲಾಗಿన్ ಮಾಡಿ',
+            payFromWallet: 'ವ್ಯಾಲೆಟ್‌ನಿಂದ ಪಾವತಿಸಿ',
         }
     },
     'कश्मीरी': {
         "settings": {
             "title": "سیٹنگز",
-            "orderMessages": "آرڈر सۭन्बनधि संदेश",
-            "orderMessagesDescription": "آرڈر सۭन्बनधि संदेश बंद करنہٕ یوان کینہہ کیازِ تم چھِ خدمت تجربس باپتھ ضروری۔",
+            "orderMessages": "آرڈر سۭन्बनधि संदेश",
+            "orderMessagesDescription": "آرڈر سۭन्बनधि संदेश बंद करنہٕ یوان کینہہ کیازِ تم چھِ خدمت تجربس باپتھ ضروری۔",
             "language": "زبان",
             "change": "بدلاو",
             "notificationsAndReminders": "نوٹیفکیشن تہٕ یاد دِلاونہٕ",
@@ -2908,7 +3150,29 @@ const translations: Record<string, Translations> = {
             "viewCart": "کارٹ وچھو",
             "updatedCartTitle": "کارٹ اپ ڈیٹ کرنہٕ آمت!",
             "selectionRequiredTitle": "انتخاب ضروری",
-            "selectionRequiredDesc": "مہربانی کرِتھ اَکھ تاریخ تہٕ وقت سلاٹس منتخب کریو۔"
+            "selectionRequiredDesc": "مہربانی کرِتھ اَکھ تاریخ تہٕ وقت سلاٹس منتخب کریو।"
+        },
+        checkout: {
+            title: 'چیک آؤٹ',
+            deliveringTo: 'پہنچایا جا رہا ہے',
+            change: 'بدلاو',
+            selectAddress: 'مہربانی کرِتھ اَکھ ڈیلیوری پتہ منتخب کریو',
+            selectAddressButton: 'پتہ منتخب کریو',
+            orderSummary: 'آرڈر کا خلاصہ',
+            paymentMethod: 'ادائیگی کا طریقہ',
+            payWithWallet: 'والیٹ سٟتؠ ادا کریو',
+            balance: 'بیلنس',
+            insufficientBalance: 'ناکافی بیلنس۔',
+            payOnDelivery: 'ڈیلیوری پؠٹھ ادا کریو',
+            paymentDetails: 'ادائیگی کی تفصیلات',
+            remove: 'ہٹاو',
+            deliverTo: 'پہنچاو',
+            inMins: '25-30 منٹ منز',
+            noAddressSelected: 'کانہہ پتہ منتخب کرنہٕ آمت نی',
+            loading: 'لوڈ ہو رہا ہے...',
+            placeOrder: 'آرڈر دیو',
+            loginToPlaceOrder: 'آرڈر دینے باپتھ لاگ ان کریو',
+            payFromWallet: 'والیٹ سٟتؠ ادا کریو',
         }
     },
     'कोंकणी': {
@@ -3151,6 +3415,28 @@ const translations: Record<string, Translations> = {
             "updatedCartTitle": "कार्ट अपडेट जाली!",
             "selectionRequiredTitle": "निवड गरजेची",
             "selectionRequiredDesc": "कृपा करून एक तारीख आनी वेळ स्लॉट निवडात।"
+        },
+        checkout: {
+            title: 'चेकआउट',
+            deliveringTo: 'क पावता',
+            change: 'बदल',
+            selectAddress: 'कृपा करून एक वितरण पत्तो निवडात',
+            selectAddressButton: 'पत्तो निवडात',
+            orderSummary: 'ऑर्डराचो सारांश',
+            paymentMethod: 'पेमेंट पद्धत',
+            payWithWallet: 'वॉलेटान फारीक करात',
+            balance: 'शिल्लक',
+            insufficientBalance: 'अपुरी शिल्लक.',
+            payOnDelivery: 'डिलिव्हरीच्या वेळार फारीक करात',
+            paymentDetails: 'पेमेंट तपशील',
+            remove: 'काडात',
+            deliverTo: 'क वितरित करात',
+            inMins: '25-30 मिनटांनी',
+            noAddressSelected: 'खंयचोच पत्तो निवडूंक ना',
+            loading: 'लोड जाता...',
+            placeOrder: 'ऑर्डर करात',
+            loginToPlaceOrder: 'ऑर्डर करपाक लॉगिन करात',
+            payFromWallet: 'वॉलेटातल्यान फारीक करात',
         }
     },
     'मैथिली': {
@@ -3393,6 +3679,28 @@ const translations: Record<string, Translations> = {
             "updatedCartTitle": "कार्ट अपडेट भ' गेल!",
             "selectionRequiredTitle": "चयन आवश्यक अछि",
             "selectionRequiredDesc": "कृपया एकटा तिथि आ समय स्लॉट चुनू।"
+        },
+        checkout: {
+            title: 'चेकआउट',
+            deliveringTo: 'केँ डिलीवर भ' रहल अछि',
+            change: 'बदलू',
+            selectAddress: 'कृपया एकटा डिलीवरी पता चुनू',
+            selectAddressButton: 'पता चुनू',
+            orderSummary: 'ऑर्डरक सारांश',
+            paymentMethod: 'भुगतान विधि',
+            payWithWallet: 'वॉलेट सँ भुगतान करू',
+            balance: 'शेष राशि',
+            insufficientBalance: 'अपर्याप्त शेष राशि।',
+            payOnDelivery: 'डिलिवरी पर भुगतान करू',
+            paymentDetails: 'भुगतानक विवरण',
+            remove: 'हटाउ',
+            deliverTo: 'केँ डिलीवर करू',
+            inMins: '25-30 मिनट मे',
+            noAddressSelected: 'कोनो पता नहि चुनल गेल',
+            loading: 'लोड भ' रहल अछि...',
+            placeOrder: 'ऑर्डर दियौ',
+            loginToPlaceOrder: 'ऑर्डर देबाक लेल लॉगिन करू',
+            payFromWallet: 'वॉलेट सँ भुगतान करू',
         }
     },
     'मलयालम': {
@@ -3634,7 +3942,29 @@ const translations: Record<string, Translations> = {
             "viewCart": "കാർട്ട് കാണുക",
             "updatedCartTitle": "കാർട്ട് അപ്ഡേറ്റ് ചെയ്തു!",
             "selectionRequiredTitle": "തിരഞ്ഞെടുപ്പ് ആവശ്യമാണ്",
-            "selectionRequiredDesc": "ദയവായി ഒരു തീയതിയും സമയ സ്ലോട്ടും തിരഞ്ഞെടുക്കുക."
+            "selectionRequiredDesc": "ദയവായി ഒരു തീയതിയും സമയ സ്ലോട്ടും തിരഞ്ഞെടുക്കുക।"
+        },
+        checkout: {
+            title: 'ചെക്ക്ഔട്ട്',
+            deliveringTo: 'ലേക്ക് ഡെലിവറി ചെയ്യുന്നു',
+            change: 'മാറ്റുക',
+            selectAddress: 'ദയവായി ഒരു ഡെലിവറി വിലാസം തിരഞ്ഞെടുക്കുക',
+            selectAddressButton: 'വിലാസം തിരഞ്ഞെടുക്കുക',
+            orderSummary: 'ഓർഡർ സംഗ്രഹം',
+            paymentMethod: 'പേയ്‌മെന്റ് രീതി',
+            payWithWallet: 'വാലറ്റ് ഉപയോഗിച്ച് പണമടയ്ക്കുക',
+            balance: 'ബാലൻസ്',
+            insufficientBalance: 'അപര്യാപ്തമായ ബാലൻസ്.',
+            payOnDelivery: 'ഡെലിവറിയിൽ പണമടയ്ക്കുക',
+            paymentDetails: 'പേയ്‌മെന്റ് വിശദാംശങ്ങൾ',
+            remove: 'നീക്കം ചെയ്യുക',
+            deliverTo: 'ലേക്ക് ഡെലിവറി ചെയ്യുക',
+            inMins: '25-30 മിനിറ്റിനുള്ളിൽ',
+            noAddressSelected: 'വിലാസം തിരഞ്ഞെടുത്തിട്ടില്ല',
+            loading: 'ലോഡ് ചെയ്യുന്നു...',
+            placeOrder: 'ഓർഡർ നൽകുക',
+            loginToPlaceOrder: 'ഓർഡർ നൽകാൻ ലോഗിൻ ചെയ്യുക',
+            payFromWallet: 'വാലറ്റിൽ നിന്ന് പണമടയ്ക്കുക',
         }
     },
     'मणिपुरी': {
@@ -3826,7 +4156,7 @@ const translations: Record<string, Translations> = {
             "share": "হৌজিক শেয়ার তৌবীয়ু"
         },
         "search": {
-            "searchPlaceholder": "থিরকপা...",
+            "searchPlaceholder": "थিরকপা...",
             "resultsFor": "কীদমক ফলাফলশিং",
             "noResults": "করিগুম্বা ফলাফল ফংখিদ্রে",
             "tryAgain": "করিগুম্বা অতৈ থিবা হোৎনবীয়ু।"
@@ -3877,6 +4207,28 @@ const translations: Record<string, Translations> = {
             "updatedCartTitle": "কার্ট আপডেট তৌখ্রে!",
             "selectionRequiredTitle": "सिलेক্সন মথৌ তাই",
             "selectionRequiredDesc": "প্লিজ অমা নুমিৎ অমসুং মতমগী স্লট খনবীয়ু।"
+        },
+        checkout: {
+            title: 'চেকআউট',
+            deliveringTo: 'দা ডেলিভারি তৌরি',
+            change: 'ওন্থোকপা',
+            selectAddress: 'প্লিজ অমা ডেলিভারি ঠিকানা খনবীয়ু',
+            selectAddressButton: 'ঠিকানা খনবীয়ু',
+            orderSummary: 'অর্ডারগী সামারি',
+            paymentMethod: 'পেমেন্টগী পদ্ধতি',
+            payWithWallet: 'ওয়ালেটনা পেমেন্ট তৌবীয়ু',
+            balance: 'ব্যালেন্স',
+            insufficientBalance: 'অহোবা ব্যালেন্স।',
+            payOnDelivery: 'ডেলিভারিদা পেমেন্ট তৌবীয়ু',
+            paymentDetails: 'পেমেন্টগী ডিটেলশিং',
+            remove: 'লোকথোকপা',
+            deliverTo: 'দা ডেলিভারি তৌবীয়ু',
+            inMins: '25-30 মিনিটতা',
+            noAddressSelected: 'করিগুম্বা ঠিকানা খল্লোই',
+            loading: 'লোড তৌরি...',
+            placeOrder: 'অর্ডার তৌবীয়ু',
+            loginToPlaceOrder: 'অর্ডার তৌনবা লগইন তৌবীয়ু',
+            payFromWallet: 'ওয়ালেটতগী পেমেন্ট তৌবীয়ু',
         }
     },
     'नेपाली': {
@@ -4119,6 +4471,28 @@ const translations: Record<string, Translations> = {
             "updatedCartTitle": "कार्ट अपडेट भयो!",
             "selectionRequiredTitle": "चयन आवश्यक छ",
             "selectionRequiredDesc": "कृपया एक मिति र समय स्लट चयन गर्नुहोस्।"
+        },
+        checkout: {
+            title: 'चेकआउट',
+            deliveringTo: 'मा डेलिभरि गरिँदै',
+            change: 'परिवर्तन गर्नुहोस्',
+            selectAddress: 'कृपया एक डेलिभरी ठेगाना चयन गर्नुहोस्',
+            selectAddressButton: 'ठेगाना चयन गर्नुहोस्',
+            orderSummary: 'अर्डर सारांश',
+            paymentMethod: 'भुक्तानी विधि',
+            payWithWallet: 'वालेटबाट भुक्तानी गर्नुहोस्',
+            balance: 'ब्यालेन्स',
+            insufficientBalance: 'अपर्याप्त ब्यालेन्स।',
+            payOnDelivery: 'डेलिभरीमा भुक्तानी गर्नुहोस्',
+            paymentDetails: 'भुक्तानी विवरण',
+            remove: 'हटाउनुहोस्',
+            deliverTo: 'मा डेलिभर गर्नुहोस्',
+            inMins: '25-30 मिनेटमा',
+            noAddressSelected: 'कुनै ठेगाना चयन गरिएको छैन',
+            loading: 'लोड हुँदैछ...',
+            placeOrder: 'अर्डर गर्नुहोस्',
+            loginToPlaceOrder: 'अर्डर गर्न लगइन गर्नुहोस्',
+            payFromWallet: 'वालेटबाट भुक्तानी गर्नुहोस्',
         }
     },
     'ଓଡିଆ': {
@@ -4313,7 +4687,7 @@ const translations: Record<string, Translations> = {
             "searchPlaceholder": "ଖୋଜନ୍ତୁ...",
             "resultsFor": "ପାଇଁ ଫଳାଫଳ",
             "noResults": "କୌଣସି ଫଳାଫଳ ମିଳିଲା ନାହିଁ",
-            "tryAgain": "କିଛି ଅଲଗା ଖୋଜିବାକୁ ଚେଷ୍ଟା କରନ୍ତୁ।"
+            "tryAgain": "କିଛି ଅଲଗା ଖୋଜିବାକୁ ଚେଷ୍ଟా କରନ୍ତୁ।"
         },
         "support": {
             "title": "ସମର୍ଥନ",
@@ -4361,6 +4735,28 @@ const translations: Record<string, Translations> = {
             "updatedCartTitle": "କାର୍ଟ ଅପଡେଟ୍ ହେଲା!",
             "selectionRequiredTitle": "ବାଛିବା ଆବଶ୍ୟକ",
             "selectionRequiredDesc": "ଦୟାକରି ଏକ ତାରିଖ ଏବଂ ସମୟ ସ୍ଲଟ୍ ବାଛନ୍ତୁ।"
+        },
+        checkout: {
+            title: 'ଚେକଆଉଟ୍',
+            deliveringTo: 'କୁ ବିତରଣ କରାଯାଉଛି',
+            change: 'ପରିବର୍ତ୍ତନ କରନ୍ତୁ',
+            selectAddress: 'ଦୟାକରି ଏକ ବିତରଣ ଠିକଣା ବାଛନ୍ତୁ',
+            selectAddressButton: 'ଠିକଣା ବାଛନ୍ତୁ',
+            orderSummary: 'ଅର୍ଡର ସାରାଂଶ',
+            paymentMethod: 'ପେମେଣ୍ଟ ପଦ୍ଧତି',
+            payWithWallet: 'ୱାଲେଟ୍ ସହିତ ପେମେଣ୍ଟ କରନ୍ତୁ',
+            balance: 'ବାଲାନ୍ସ',
+            insufficientBalance: 'ଅପର୍ଯ୍ୟାପ୍ତ ବାଲାନ୍ସ।',
+            payOnDelivery: 'ଡେଲିଭରୀରେ ପେମେଣ୍ଟ କରନ୍ତୁ',
+            paymentDetails: 'ପେମେଣ୍ଟ ବିବରଣୀ',
+            remove: 'କାଢିଦିଅନ୍ତୁ',
+            deliverTo: 'କୁ ବିତରଣ କରନ୍ତୁ',
+            inMins: '25-30 ମିନିଟରେ',
+            noAddressSelected: 'କୌଣସି ଠିକଣା ବଛାଯାଇନାହିଁ',
+            loading: 'ଲୋଡ୍ ହେଉଛି...',
+            placeOrder: 'ଅର୍ଡର ଦିଅନ୍ତୁ',
+            loginToPlaceOrder: 'ଅର୍ଡର ଦେବାକୁ ଲଗଇନ୍ କରନ୍ତୁ',
+            payFromWallet: 'ୱାଲେଟ୍‌ରୁ ପେମେଣ୍ଟ କରନ୍ତୁ',
         }
     },
     'पंजाबी': {
@@ -4603,6 +4999,28 @@ const translations: Record<string, Translations> = {
             "updatedCartTitle": "ਕਾਰਟ ਅੱਪਡੇਟ ਕੀਤਾ ਗਿਆ!",
             "selectionRequiredTitle": "ਚੋਣ ਦੀ ਲੋੜ ਹੈ",
             "selectionRequiredDesc": "ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ ਮਿਤੀ ਅਤੇ ਸਮਾਂ ਸਲਾਟ ਚੁਣੋ।"
+        },
+        checkout: {
+            title: 'ਚੈੱਕਆਉਟ',
+            deliveringTo: 'ਨੂੰ ਡਿਲੀਵਰ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ',
+            change: 'ਬਦਲੋ',
+            selectAddress: 'ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ ਡਿਲੀਵਰੀ ਪਤਾ ਚੁਣੋ',
+            selectAddressButton: 'ਪਤਾ ਚੁਣੋ',
+            orderSummary: 'ਆਰਡਰ ਦਾ ਸਾਰਾਂਸ਼',
+            paymentMethod: 'ਭੁਗਤਾਨ ਵਿਧੀ',
+            payWithWallet: 'ਵਾਲਿਟ ਨਾਲ ਭੁਗਤਾਨ ਕਰੋ',
+            balance: 'ਬਕਾਇਆ',
+            insufficientBalance: 'ਨਾਕਾਫ਼ੀ ਬਕਾਇਆ।',
+            payOnDelivery: 'ਡਿਲੀਵਰੀ 'ਤੇ ਭੁਗਤਾਨ ਕਰੋ',
+            paymentDetails: 'ਭੁਗਤਾਨ ਦੇ ਵੇਰਵੇ',
+            remove: 'ਹਟਾਓ',
+            deliverTo: 'ਨੂੰ ਡਿਲੀਵਰ ਕਰੋ',
+            inMins: '25-30 ਮਿੰਟਾਂ ਵਿੱਚ',
+            noAddressSelected: 'ਕੋਈ ਪਤਾ ਨਹੀਂ ਚੁਣਿਆ ਗਿਆ',
+            loading: 'ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ...',
+            placeOrder: 'ਆਰਡਰ ਦਿਓ',
+            loginToPlaceOrder: 'ਆਰਡਰ ਦੇਣ ਲਈ ਲੌਗਇਨ ਕਰੋ',
+            payFromWallet: 'ਵਾਲਿਟ ਤੋਂ ਭੁਗਤਾਨ ਕਰੋ',
         }
     },
     'संस्कृत': {
@@ -4845,11 +5263,33 @@ const translations: Record<string, Translations> = {
             "updatedCartTitle": "शकटम् अद्यतनं कृतम्!",
             "selectionRequiredTitle": "चयनम् आवश्यकम्",
             "selectionRequiredDesc": "कृपया दिनाङ्कं समयस्लॉटं च चिनोतु।"
+        },
+        checkout: {
+            title: 'चेकआउट्',
+            deliveringTo: 'इति प्रति प्रेष्यमाणम्',
+            change: 'परिवर्तयतु',
+            selectAddress: 'कृपया एकं वितरणसङ्केतं चिनोतु',
+            selectAddressButton: 'सङ्केतं चिनोतु',
+            orderSummary: 'आदेशसारः',
+            paymentMethod: 'भुगतानविधिः',
+            payWithWallet: 'वॉलेट् द्वारा भुगतानं करोतु',
+            balance: 'शेषः',
+            insufficientBalance: 'अपर्याप्तः शेषः।',
+            payOnDelivery: 'वितरणे भुगतानं करोतु',
+            paymentDetails: 'भुगतानविवरणानि',
+            remove: 'निष्कासयतु',
+            deliverTo: 'इति प्रति प्रेषयतु',
+            inMins: '25-30 निमेषेषु',
+            noAddressSelected: 'कोऽपि सङ्केतः न चयनितः',
+            loading: 'लोड् भवति...',
+            placeOrder: 'आदेशं ददातु',
+            loginToPlaceOrder: 'आदेशं दातुं लॉगिनं करोतु',
+            payFromWallet: 'वॉलेट्तः भुगतानं करोतु',
         }
     },
     'संथाली': {
         "settings": {
-            "title": "সেটিংস",
+            "title": "সেটিংসমূহ",
             "orderMessages": "অর্ডার સંબંધিত বার্তা",
             "orderMessagesDescription": "অর্ডার સંબંધিত বার্তাগুলি বন্ধ করা যাবে না কারণ সেগুলি পরিষেবা تجربার জন্য গুরুত্বপূর্ণ।",
             "language": "ভাষা",
@@ -5087,6 +5527,28 @@ const translations: Record<string, Translations> = {
             "updatedCartTitle": "কার্ট আপডেট করা হয়েছে!",
             "selectionRequiredTitle": "নির্বাচন প্রয়োজন",
             "selectionRequiredDesc": "অনুগ্রহ করে একটি তারিখ এবং সময় স্লট নির্বাচন করুন।"
+        },
+        checkout: {
+            title: 'চেকআউট',
+            deliveringTo: 'ডেলিভারি করা হচ্ছে',
+            change: 'পরিবর্তন করুন',
+            selectAddress: 'অনুগ্রহ করে একটি ডেলিভারি ঠিকানা নির্বাচন করুন',
+            selectAddressButton: 'ঠিকানা নির্বাচন করুন',
+            orderSummary: 'অর্ডারের সারাংশ',
+            paymentMethod: 'পেমেন্ট পদ্ধতি',
+            payWithWallet: 'ওয়ালেট দিয়ে পেমেন্ট করুন',
+            balance: 'ব্যালেন্স',
+            insufficientBalance: 'অপর্যাপ্ত ব্যালেন্স।',
+            payOnDelivery: 'ডেলিভারিতে পেমেন্ট করুন',
+            paymentDetails: 'পেমেন্ট বিবরণ',
+            remove: 'সরান',
+            deliverTo: 'ডেলিভারি করুন',
+            inMins: '25-30 মিনিটের মধ্যে',
+            noAddressSelected: 'কোনো ঠিকানা নির্বাচন করা হয়নি',
+            loading: 'লোড হচ্ছে...',
+            placeOrder: 'অর্ডার দিন',
+            loginToPlaceOrder: 'অর্ডার দিতে লগইন করুন',
+            payFromWallet: 'ওয়ালেট থেকে পেমেন্ট করুন',
         }
     },
     'सिंधी': {
@@ -5328,7 +5790,29 @@ const translations: Record<string, Translations> = {
             "viewCart": "ڪارٽ ڏسو",
             "updatedCartTitle": "ڪارٽ اپڊيٽ ڪئي وئي!",
             "selectionRequiredTitle": "چونڊ گهربل آهي",
-            "selectionRequiredDesc": "مهرباني ڪري هڪ تاريخ ۽ وقت سلاٽ چونڊيو."
+            "selectionRequiredDesc": "مهرباني ڪري هڪ تاريخ ۽ وقت سلاٽ چونڊيو।"
+        },
+        checkout: {
+            title: 'چيڪ آئوٽ',
+            deliveringTo: 'ڏانهن پهچايو پيو وڃي',
+            change: 'تبديل ڪريو',
+            selectAddress: 'مهرباني ڪري هڪ پهچائڻ جو پتو چونڊيو',
+            selectAddressButton: 'پتو چونڊيو',
+            orderSummary: 'آرڊر جو خلاصو',
+            paymentMethod: 'ادائيگي جو طريقو',
+            payWithWallet: 'والٽ سان ادا ڪريو',
+            balance: 'بيلنس',
+            insufficientBalance: 'ناکافي بيلنس.',
+            payOnDelivery: 'پهچائڻ تي ادا ڪريو',
+            paymentDetails: 'ادائيگي جا تفصيل',
+            remove: 'هٽايو',
+            deliverTo: 'ڏانهن پهچايو',
+            inMins: '25-30 منٽن ۾',
+            noAddressSelected: 'ڪو به پتو نه چونڊيو ويو',
+            loading: 'لوڊ ٿي رهيو آهي...',
+            placeOrder: 'آرڊر ڏيو',
+            loginToPlaceOrder: 'آرڊر ڏيڻ لاءِ لاگ ان ڪريو',
+            payFromWallet: 'والٽ مان ادا ڪريو',
         }
     },
     'தமிழ்': {
@@ -5570,7 +6054,29 @@ const translations: Record<string, Translations> = {
             "viewCart": "கூடையைக் காண்க",
             "updatedCartTitle": "கூடை புதுப்பிக்கப்பட்டது!",
             "selectionRequiredTitle": "தேர்வு தேவை",
-            "selectionRequiredDesc": "தயவுசெய்து ஒரு தேதி மற்றும் நேர இடத்தைத் தேர்ந்தெடுக்கவும்."
+            "selectionRequiredDesc": "தயவுசெய்து ஒரு தேதி மற்றும் நேர இடத்தைத் தேர்ந்தெடுக்கவும்।"
+        },
+        checkout: {
+            title: 'செக் அவுட்',
+            deliveringTo: 'க்கு வழங்கப்படுகிறது',
+            change: 'மாற்று',
+            selectAddress: 'தயவுசெய்து ஒரு விநியோக முகவரியைத் தேர்ந்தெடுக்கவும்',
+            selectAddressButton: 'முகவரியைத் தேர்ந்தெடுக்கவும்',
+            orderSummary: 'ஆர்டர் சுருக்கம்',
+            paymentMethod: 'பணம் செலுத்தும் முறை',
+            payWithWallet: 'வாலட் மூலம் பணம் செலுத்துங்கள்',
+            balance: 'இருப்பு',
+            insufficientBalance: 'போதுமான இருப்பு இல்லை.',
+            payOnDelivery: 'டெலிவரியில் பணம் செலுத்துங்கள்',
+            paymentDetails: 'கட்டண விவரங்கள்',
+            remove: 'நீக்கு',
+            deliverTo: 'க்கு வழங்கவும்',
+            inMins: '25-30 நிமிடங்களில்',
+            noAddressSelected: 'முகவரி எதுவும் தேர்ந்தெடுக்கப்படவில்லை',
+            loading: ' ஏற்றப்படுகிறது...',
+            placeOrder: 'ஆர்டர் செய்',
+            loginToPlaceOrder: 'ஆர்டர் செய்ய உள்நுழைக',
+            payFromWallet: 'வாலட்டிலிருந்து பணம் செலுத்துங்கள்',
         }
     },
     'తెలుగు': {
@@ -5812,7 +6318,29 @@ const translations: Record<string, Translations> = {
             "viewCart": "కార్ట్‌ను చూడండి",
             "updatedCartTitle": "కార్ట్ నవీకరించబడింది!",
             "selectionRequiredTitle": "ఎంపిక అవసరం",
-            "selectionRequiredDesc": "దయచేసి తేదీ మరియు సమయ స్లాట్‌ను ఎంచుకోండి."
+            "selectionRequiredDesc": "దయచేసి తేదీ మరియు సమయ స్లాట్‌ను ఎంచుకోండి।"
+        },
+        checkout: {
+            title: 'చెక్అవుట్',
+            deliveringTo: 'కు డెలివరీ చేయబడుతోంది',
+            change: 'మార్చు',
+            selectAddress: 'దయచేసి ఒక డెలివరీ చిరునామాను ఎంచుకోండి',
+            selectAddressButton: 'చిరునామాను ఎంచుకోండి',
+            orderSummary: 'ఆర్డర్ సారాంశం',
+            paymentMethod: 'చెల్లింపు పద్ధతి',
+            payWithWallet: 'వాలెట్‌తో చెల్లించండి',
+            balance: 'బ్యాలెన్స్',
+            insufficientBalance: 'తగినంత బ్యాలెన్స్ లేదు.',
+            payOnDelivery: 'డెలివరీపై చెల్లించండి',
+            paymentDetails: 'చెల్లింపు వివరాలు',
+            remove: 'తీసివేయండి',
+            deliverTo: 'కు డెలివరీ చేయండి',
+            inMins: '25-30 నిమిషాల్లో',
+            noAddressSelected: 'చిరునామా ఏదీ ఎంచుకోబడలేదు',
+            loading: 'లోడ్ అవుతోంది...',
+            placeOrder: 'ఆర్డర్ చేయండి',
+            loginToPlaceOrder: 'ఆర్డర్ చేయడానికి లాగిన్ చేయండి',
+            payFromWallet: 'వాలెట్ నుండి చెల్లించండి',
         }
     }
 };

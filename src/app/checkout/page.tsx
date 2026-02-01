@@ -193,7 +193,7 @@ export default function CheckoutPage() {
                     <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
                         <ChevronLeft />
                     </Button>
-                    <h1 className="text-lg font-semibold">Checkout</h1>
+                    <h1 className="text-lg font-semibold">{translations.checkout.title}</h1>
                 </div>
                  <Link href="/cart" className="relative">
                     <ShoppingCart className="w-6 h-6" />
@@ -211,7 +211,7 @@ export default function CheckoutPage() {
                         {deliveryAddress ? (
                             <>
                                 <div>
-                                    <p className="text-muted-foreground text-sm font-semibold mb-2">DELIVERING TO</p>
+                                    <p className="text-muted-foreground text-sm font-semibold mb-2">{translations.checkout.deliveringTo}</p>
                                     <div className="flex items-center gap-3">
                                         <div className="w-10 h-10 bg-muted rounded-full flex items-center justify-center">
                                             <Home className="w-5 h-5 text-primary" />
@@ -222,19 +222,19 @@ export default function CheckoutPage() {
                                         </div>
                                     </div>
                                 </div>
-                                <Button variant="outline" size="sm" className="rounded-full border-primary text-primary" onClick={() => router.push('/address')}>Change</Button>
+                                <Button variant="outline" size="sm" className="rounded-full border-primary text-primary" onClick={() => router.push('/address')}>{translations.checkout.change}</Button>
                             </>
                         ) : (
                             <div className='w-full flex flex-col items-center text-center gap-2 py-4'>
-                                <p className='font-semibold'>Please select a delivery address</p>
-                                <Button onClick={() => router.push('/address')}>Select Address</Button>
+                                <p className='font-semibold'>{translations.checkout.selectAddress}</p>
+                                <Button onClick={() => router.push('/address')}>{translations.checkout.selectAddressButton}</Button>
                             </div>
                         )}
                     </div>
                 </Card>
 
                 <Card className="p-4">
-                     <h2 className="font-bold mb-2">Order Summary</h2>
+                     <h2 className="font-bold mb-2">{translations.checkout.orderSummary}</h2>
                      <div className="divide-y">
                         {items.map(item => <CheckoutItemCard key={item.cartItemId} item={item} />)}
                      </div>
@@ -242,7 +242,7 @@ export default function CheckoutPage() {
                 
                 {user && (
                     <Card className="p-4">
-                        <h2 className="font-bold mb-4">Payment Method</h2>
+                        <h2 className="font-bold mb-4">{translations.checkout.paymentMethod}</h2>
                         {isLoading ? <Skeleton className="h-24 w-full" /> : (
                             <RadioGroup value={paymentMethod} onValueChange={(value) => setPaymentMethod(value as 'wallet' | 'cod')} className="space-y-4">
                                 {userProfile && userProfile.walletBalance > 0 && (
@@ -255,9 +255,9 @@ export default function CheckoutPage() {
                                         )}
                                     >
                                         <div className="flex flex-col gap-1">
-                                            <span className="font-medium">Pay with Wallet</span>
-                                            <span className="text-sm text-muted-foreground">Balance: ₹{userProfile.walletBalance.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
-                                            {!canUseWallet && <p className="text-xs text-destructive mt-1">Insufficient balance.</p>}
+                                            <span className="font-medium">{translations.checkout.payWithWallet}</span>
+                                            <span className="text-sm text-muted-foreground">{translations.checkout.balance}: ₹{userProfile.walletBalance.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+                                            {!canUseWallet && <p className="text-xs text-destructive mt-1">{translations.checkout.insufficientBalance}</p>}
                                         </div>
                                         <RadioGroupItem value="wallet" id="wallet" disabled={!canUseWallet} />
                                     </Label>
@@ -269,7 +269,7 @@ export default function CheckoutPage() {
                                         paymentMethod === 'cod' && "border-primary ring-2 ring-primary"
                                     )}
                                 >
-                                    <span className="font-medium">Pay on Delivery</span>
+                                    <span className="font-medium">{translations.checkout.payOnDelivery}</span>
                                     <RadioGroupItem value="cod" id="cod" />
                                 </Label>
                             </RadioGroup>
@@ -278,32 +278,32 @@ export default function CheckoutPage() {
                 )}
 
                 <Card className="p-4">
-                    <h2 className="font-bold mb-4">Payment Details</h2>
+                    <h2 className="font-bold mb-4">{translations.checkout.paymentDetails}</h2>
                     <div className="space-y-2 text-sm">
                         <div className="flex justify-between">
-                            <span className="text-muted-foreground">Item Total</span>
+                            <span className="text-muted-foreground">{translations.cart.itemTotal}</span>
                             <span>₹{total.toLocaleString()}</span>
                         </div>
                         <div className="flex justify-between">
-                            <span className="text-muted-foreground">Delivery Fee</span>
+                            <span className="text-muted-foreground">{translations.cart.deliveryFee}</span>
                             <span>₹{deliveryFee.toLocaleString()}</span>
                         </div>
                          <div className="flex justify-between">
-                            <span className="text-muted-foreground">Platform Fee</span>
+                            <span className="text-muted-foreground">{translations.cart.platformFee}</span>
                             <span>₹{platformFee.toLocaleString()}</span>
                         </div>
                         {discount > 0 && (
                             <div className="flex justify-between items-center text-green-600 dark:text-green-400">
                                 <div className="flex items-center gap-1">
                                      <span>Discount ({couponCode})</span>
-                                     <Button variant="ghost" size="sm" onClick={handleRemoveCoupon} className="text-green-700 dark:text-green-300 h-auto py-0.5 px-1.5 text-xs font-normal">Remove</Button>
+                                     <Button variant="ghost" size="sm" onClick={handleRemoveCoupon} className="text-green-700 dark:text-green-300 h-auto py-0.5 px-1.5 text-xs font-normal">{translations.checkout.remove}</Button>
                                 </div>
                                 <span>- ₹{discount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                             </div>
                         )}
                         <Separator className="my-2"/>
                          <div className="flex justify-between font-bold text-base">
-                            <span>To Pay</span>
+                            <span>{translations.cart.toPay}</span>
                             <span>₹{finalTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                         </div>
                     </div>
@@ -318,12 +318,12 @@ export default function CheckoutPage() {
                             <>
                                 <MapPin className="w-5 h-5 text-primary" />
                                 <div>
-                                    <p className="text-sm">Deliver to <span className='font-bold'>{deliveryAddress.type}</span></p>
-                                    <p className="text-xs text-muted-foreground">in 25-30 mins</p>
+                                    <p className="text-sm">{translations.checkout.deliverTo} <span className='font-bold'>{deliveryAddress.type}</span></p>
+                                    <p className="text-xs text-muted-foreground">{translations.checkout.inMins}</p>
                                 </div>
                             </>
                         ) : (
-                            <p className="text-sm text-muted-foreground">No address selected</p>
+                            <p className="text-sm text-muted-foreground">{translations.checkout.noAddressSelected}</p>
                         )}
                      </div>
                      <div className='flex items-center gap-2'>
@@ -336,7 +336,7 @@ export default function CheckoutPage() {
                 {isLoading ? (
                     <Button disabled size="lg" className="w-full h-12 text-base">
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Loading...
+                        {translations.checkout.loading}
                     </Button>
                 ) : user ? (
                     <Button 
@@ -345,11 +345,11 @@ export default function CheckoutPage() {
                         onClick={handlePlaceOrder} 
                         disabled={isPlacingOrder || !deliveryAddress || (paymentMethod === 'wallet' && !canUseWallet)}
                     >
-                        {isPlacingOrder ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : (paymentMethod === 'wallet' ? 'Pay from Wallet' : 'Place Order')}
+                        {isPlacingOrder ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : (paymentMethod === 'wallet' ? translations.checkout.payFromWallet : translations.checkout.placeOrder)}
                     </Button>
                 ) : (
                     <Button size="lg" className="w-full h-12 text-base" onClick={() => router.push('/phone-login')}>
-                        Login to Place Order
+                        {translations.checkout.loginToPlaceOrder}
                     </Button>
                 )}
             </footer>
