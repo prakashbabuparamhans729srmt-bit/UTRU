@@ -1,5 +1,5 @@
 'use client';
-import { ChevronLeft, Trash2, ShoppingBag, Plus, Minus, Sparkles, Brush, Wrench, Car } from 'lucide-react';
+import { ChevronLeft, Trash2, ShoppingBag, Plus, Minus, Sparkles, Brush, Wrench, Car, Tag, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -15,6 +15,7 @@ import { Input } from '@/components/ui/input';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import { servicesData, type Service } from '@/lib/services';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 
 function CartItemCard({ item }: { item: CartItem }) {
@@ -104,19 +105,34 @@ export default function CartPage() {
   const { translations } = useLanguage();
   const { toast } = useToast();
   const [couponInput, setCouponInput] = useState('');
+  const [isCouponDialogOpen, setIsCouponDialogOpen] = useState(false);
 
   const relatedServices = servicesData.filter(s => ['cleaning-deep-cleaning', 'beauty-salon', 'electronics-ac-repair', 'car-full-service'].includes(s.id));
+
+  const VALID_COUPONS: { [key: string]: { description: string } } = {
+    'UCLAP10': { description: 'Get 10% OFF on your entire order.' },
+    'UCLAP50': { description: 'Get a flat ₹50 discount.' },
+  };
 
   const handleApplyCoupon = () => {
     if (!couponInput.trim()) return;
     const success = applyCoupon(couponInput);
     if (success) {
         toast({ title: 'Coupon applied!', description: `You've received a discount!` });
+        setIsCouponDialogOpen(false);
     } else {
         toast({ variant: 'destructive', title: 'Invalid Coupon', description: 'The coupon code you entered is not valid.' });
     }
     setCouponInput('');
   };
+
+  const handleCouponClick = (code: string) => {
+    const success = applyCoupon(code);
+    if (success) {
+        toast({ title: 'Coupon applied!', description: `You've received a discount!` });
+        setIsCouponDialogOpen(false);
+    }
+  }
   
   const handleRemoveCoupon = () => {
     removeCoupon();
@@ -179,25 +195,58 @@ export default function CartPage() {
       
       <footer className="fixed bottom-0 left-0 right-0 bg-transparent p-4 z-10">
         <div className="bg-gray-900 text-white rounded-3xl p-6 space-y-4 shadow-lg border border-gray-700">
-            {!couponCode ? (
-            <div className="flex gap-2">
-                <Input
-                placeholder="Enter coupon code"
-                value={couponInput}
-                onChange={(e) => setCouponInput(e.target.value)}
-                className="bg-gray-800 border-gray-700 text-white placeholder-gray-400 focus:ring-primary rounded-lg"
-                onKeyPress={(e) => e.key === 'Enter' && handleApplyCoupon()}
-                />
-                <Button onClick={handleApplyCoupon} disabled={!couponInput.trim()} className="rounded-lg">Apply</Button>
-            </div>
-            ) : (
-            <div className="flex justify-between items-center bg-green-900/50 p-3 rounded-lg text-sm">
-                <p className="font-semibold text-green-300">
-                Coupon <span className="font-bold">{couponCode}</span> applied!
-                </p>
-                <Button variant="ghost" size="sm" onClick={handleRemoveCoupon} className="text-green-300 h-auto py-1">Remove</Button>
-            </div>
-            )}
+            <Dialog open={isCouponDialogOpen} onOpenChange={setIsCouponDialogOpen}>
+              {!couponCode ? (
+                  <DialogTrigger asChild>
+                      <div className="flex justify-between items-center bg-gray-800 p-3 rounded-lg cursor-pointer hover:bg-gray-700 transition-colors">
+                          <div className="flex items-center gap-3">
+                              <Tag className="w-5 h-5 text-primary"/>
+                              <p className="font-semibold text-white">Apply Coupon</p>
+                          </div>
+                          <ChevronRight className="w-5 h-5 text-gray-400" />
+                      </div>
+                  </DialogTrigger>
+              ) : (
+                  <div className="flex justify-between items-center bg-green-900/50 p-3 rounded-lg text-sm">
+                      <p className="font-semibold text-green-300">
+                          Coupon <span className="font-bold">{couponCode}</span> applied!
+                      </p>
+                      <Button variant="ghost" size="sm" onClick={handleRemoveCoupon} className="text-green-300 h-auto py-1">Remove</Button>
+                  </div>
+              )}
+              <DialogContent className="sm:max-w-md bg-gray-900 border-gray-700 text-white">
+                  <DialogHeader>
+                      <DialogTitle>Apply Coupon</DialogTitle>
+                  </DialogHeader>
+                  <div className="flex items-center space-x-2">
+                      <Input
+                          placeholder="Enter coupon code"
+                          value={couponInput}
+                          onChange={(e) => setCouponInput(e.target.value)}
+                          className="bg-gray-800 border-gray-600 focus:ring-primary"
+                          onKeyPress={(e) => e.key === 'Enter' && handleApplyCoupon()}
+                      />
+                      <Button type="submit" onClick={handleApplyCoupon} disabled={!couponInput.trim()}>
+                          Apply
+                      </Button>
+                  </div>
+                  <Separator className="bg-gray-700" />
+                  <div className="space-y-3">
+                      <h4 className="font-semibold text-gray-300">Available Coupons</h4>
+                      {Object.entries(VALID_COUPONS).map(([code, { description }]) => (
+                          <div key={code} className="flex justify-between items-center bg-gray-800/50 p-3 rounded-lg">
+                              <div>
+                                  <p className="font-bold text-primary tracking-wider">{code}</p>
+                                  <p className="text-xs text-gray-400">{description}</p>
+                              </div>
+                              <Button variant="ghost" size="sm" className="text-primary h-auto py-1" onClick={() => handleCouponClick(code)}>
+                                  Apply
+                              </Button>
+                          </div>
+                      ))}
+                  </div>
+              </DialogContent>
+            </Dialog>
 
             <h2 className="text-xl font-bold text-center pt-2">Bill Details</h2>
             <div className="space-y-3 text-base">
