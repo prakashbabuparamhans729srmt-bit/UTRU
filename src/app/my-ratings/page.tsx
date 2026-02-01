@@ -22,6 +22,7 @@ interface Booking {
   id: string;
   items: { name: string }[];
   placedAt: { seconds: number; nanoseconds: number; }; // Firestore timestamp
+  status?: 'Placed' | 'Confirmed' | 'In Progress' | 'Completed' | 'Cancelled';
   rating?: number;
   review?: string;
 }
@@ -138,9 +139,8 @@ export default function MyRatingsPage() {
     let totalRating = 0;
     
     bookings.forEach(booking => {
-      // Only consider past bookings for rating
-      const bookingDate = new Date(booking.placedAt.seconds * 1000);
-      if (bookingDate < new Date()) {
+      // A booking can be rated only if it's completed.
+      if (booking.status === 'Completed') {
           if (booking.rating) {
             rated.push(booking);
             totalRating += booking.rating;
