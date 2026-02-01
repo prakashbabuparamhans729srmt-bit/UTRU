@@ -56,11 +56,16 @@ export default function Home() {
     }
   };
 
+  const adImages = PlaceHolderImages.filter((img) => img.id.startsWith('ad-hero'));
   const carouselImages = PlaceHolderImages.filter(img => 
     img.id === 'city-night' || img.id === 'product-collage'
   );
   
-  const plugin = React.useRef(
+  const adPlugin = React.useRef(
+    Autoplay({ delay: 3000, stopOnInteraction: true })
+  );
+  
+  const servicePlugin = React.useRef(
     Autoplay({ delay: 4000, stopOnInteraction: true })
   );
 
@@ -147,13 +152,39 @@ export default function Home() {
         </Tabs>
       </header>
 
-      <main className="flex-grow pb-32">
+      <main className="flex-grow pb-32 pt-4 space-y-6">
         <Carousel 
-          className="w-full my-4" 
+          className="w-full" 
           opts={{ loop: true }}
-          plugins={[plugin.current]}
-          onMouseEnter={plugin.current.stop}
-          onMouseLeave={plugin.current.reset}
+          plugins={[adPlugin.current]}
+          onMouseEnter={adPlugin.current.stop}
+          onMouseLeave={adPlugin.current.reset}
+        >
+          <CarouselContent>
+            {adImages.map((image, index) => (
+              <CarouselItem key={image.id}>
+                <div className="px-4">
+                  <Image
+                    src={image.imageUrl}
+                    alt={image.description}
+                    width={600}
+                    height={300}
+                    className="rounded-lg object-cover w-full aspect-[2/1]"
+                    data-ai-hint={image.imageHint}
+                    priority={index === 0}
+                  />
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+
+        <Carousel 
+          className="w-full" 
+          opts={{ loop: true }}
+          plugins={[servicePlugin.current]}
+          onMouseEnter={servicePlugin.current.stop}
+          onMouseLeave={servicePlugin.current.reset}
         >
           <CarouselContent>
             {carouselImages.map((image, index) => (
@@ -174,7 +205,7 @@ export default function Home() {
           </CarouselContent>
         </Carousel>
         
-        <div className="px-4 mb-6 flex justify-around">
+        <div className="px-4 flex justify-around">
             <Link href="/search">
               <Button variant="outline" className="rounded-full">
                   <ShoppingCart className="w-4 h-4 mr-2"/>
@@ -187,7 +218,7 @@ export default function Home() {
             </Button>
         </div>
 
-        <div className="px-4 mb-4">
+        <div className="px-4">
           <h2 className="text-xl font-bold">Featured Services</h2>
         </div>
 
