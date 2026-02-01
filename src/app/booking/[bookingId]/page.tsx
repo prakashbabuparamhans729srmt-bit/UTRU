@@ -9,11 +9,16 @@ import Link from 'next/link';
 import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { format } from 'date-fns';
-import { useMemo } from 'react';
-import { doc } from 'firebase/firestore';
+import { useMemo, useState } from 'react';
+import { doc, updateDoc } from 'firebase/firestore';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
+import { useToast } from '@/hooks/use-toast';
+import { Textarea } from '@/components/ui/textarea';
+import { errorEmitter } from '@/firebase/error-emitter';
+import { FirestorePermissionError } from '@/firebase/errors';
+
 
 // Types copied from my-plans page, with Address added from CartContext
 interface BookingItem {
@@ -36,6 +41,7 @@ interface Address {
 }
 interface Booking {
   id: string;
+  userId: string;
   items: BookingItem[];
   finalTotal: number;
   total: number;
@@ -111,6 +117,82 @@ function BookingStatusTracker({ status }: { status: string }) {
     );
 }
 
+function RatingStars({ rating, onRate, interactive = false }: { rating: number; onRate?: (r: number) => void; interactive?: boolean }) {
+    return (
+        <div className="flex gap-1">
+            {[1, 2, 3, 4, 5].map((star) => (
+                <Star
+                    key={star}
+                    className={`w-6 h-6 ${
+                        star <= rating
+                            ? 'text-amber-400 fill-amber-400'
+                            : 'text-gray-300'
+                    } ${interactive ? 'cursor-pointer transition-transform hover:scale-125' : ''}`}
+                    onClick={() => interactive && onRate?.(star)}
+                />
+            ))}
+        </div>
+    );
+}
+
+function RateBookingForm({ booking }: { booking: Booking }) {
+    const { user } = useUser();
+    const firestore = useFirestore();
+    const { toast } = useToast();
+    const [rating, setRating] = useState(0);
+    const [review, setReview] = useState('');
+    const [isSaving, setIsSaving] = useState(false);
+
+    const handleSubmitRating = async () => {
+        if (rating === 0) {
+            toast({ variant: 'destructive', title: 'Please select a rating' });
+            return;
+        }
+        if (!user || !firestore) return;
+
+        setIsSaving(true);
+        const bookingRef = doc(firestore, 'users', user.uid, 'bookings', booking.id);
+        const updateData = { rating, review };
+
+        updateDoc(bookingRef, updateData)
+            .then(() => {
+                toast({ title: 'Rating submitted!', description: 'Thank you for your feedback.' });
+                // The useDoc hook will handle the re-render automatically.
+            })
+            .catch((err) => {
+                const permissionError = new FirestorePermissionError({
+                    path: bookingRef.path,
+                    operation: 'update',
+                    requestResourceData: updateData,
+                });
+                errorEmitter.emit('permission-error', permissionError);
+                toast({ variant: 'destructive', title: 'Failed to submit rating' });
+            })
+            .finally(() => {
+                setIsSaving(false);
+            });
+    };
+
+    return (
+        <Card className="p-4">
+            <h2 className="font-bold text-center mb-2">How was your experience?</h2>
+            <div className="flex justify-center mb-4">
+                 <RatingStars rating={rating} onRate={setRating} interactive={true} />
+            </div>
+            <Textarea 
+                placeholder="Write a review (optional)..."
+                value={review}
+                onChange={(e) => setReview(e.target.value)}
+                className="mb-4 bg-muted"
+            />
+            <Button onClick={handleSubmitRating} className="w-full" disabled={rating === 0 || isSaving}>
+                {isSaving ? <Loader2 className="animate-spin" /> : 'Submit Rating'}
+            </Button>
+        </Card>
+    );
+}
+
+
 export default function BookingDetailPage() {
     const router = useRouter();
     const params = useParams();
@@ -152,6 +234,25 @@ export default function BookingDetailPage() {
         notFound();
     }
 
+    const renderRatingSection = () => {
+        if (booking.status !== 'Completed') return null;
+
+        if (booking.rating) {
+            return (
+                <Card className="p-4">
+                    <h2 className="font-bold mb-2">Your Rating</h2>
+                    <div className="flex items-center gap-2">
+                        <RatingStars rating={booking.rating} />
+                        <span className="font-bold">{booking.rating}/5</span>
+                    </div>
+                    {booking.review && <p className="text-muted-foreground mt-2 italic">"{booking.review}"</p>}
+                </Card>
+            )
+        }
+
+        return <RateBookingForm booking={booking} />;
+    }
+
     return (
         <div className="bg-background text-foreground min-h-screen flex flex-col">
             <header className="p-4 flex items-center gap-4 border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
@@ -164,7 +265,7 @@ export default function BookingDetailPage() {
                 </div>
             </header>
 
-            <main className="flex-grow p-4 space-y-4 pb-24">
+            <main className="flex-grow p-4 space-y-4 pb-8">
                 {booking.status && <BookingStatusTracker status={booking.status} />}
                 
                 <Card className="p-4">
@@ -243,19 +344,9 @@ export default function BookingDetailPage() {
                         </div>
                     </div>
                 </Card>
-            </main>
 
-            {booking.status === 'Completed' && !booking.rating && (
-                 <footer className="fixed bottom-0 left-0 right-0 bg-card border-t p-4 z-10">
-                    <Button 
-                        className="w-full h-12 text-base"
-                        onClick={() => router.push('/my-ratings')}
-                    >
-                        <Star className="w-5 h-5 mr-2" />
-                        Rate Your Experience
-                    </Button>
-                </footer>
-            )}
+                {renderRatingSection()}
+            </main>
         </div>
     )
 }
