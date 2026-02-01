@@ -1,4 +1,3 @@
-
 'use client';
 
 import { ChevronLeft } from 'lucide-react';
@@ -27,9 +26,14 @@ export default function ElectronicsPage() {
   const heroImages = PlaceHolderImages.filter(
     (img) => img.id.startsWith('electronics-hero')
   );
+  const adImages = PlaceHolderImages.filter((img) => img.id.startsWith('ad-hero'));
   
-  const plugin = React.useRef(
-    Autoplay({ delay: 4000, stopOnInteraction: true })
+  const adPlugin = React.useRef(
+    Autoplay({ delay: 3000, stopOnInteraction: true })
+  );
+
+  const servicePlugin = React.useRef(
+    Autoplay({ delay: 5000, stopOnInteraction: true })
   );
 
   return (
@@ -40,13 +44,38 @@ export default function ElectronicsPage() {
         </Button>
         <h1 className="text-lg font-semibold">Electronics</h1>
       </header>
-      <main className="pb-8">
+      <main className="pb-8 pt-6 space-y-6">
         <Carousel 
-            className="w-full mb-6" 
+            className="w-full" 
             opts={{ loop: true }}
-            plugins={[plugin.current]}
-            onMouseEnter={plugin.current.stop}
-            onMouseLeave={plugin.current.reset}
+            plugins={[adPlugin.current]}
+            onMouseEnter={adPlugin.current.stop}
+            onMouseLeave={adPlugin.current.reset}
+        >
+          <CarouselContent>
+            {adImages.map((image, index) => (
+              <CarouselItem key={image.id}>
+                <div className="px-4">
+                  <Image
+                    src={image.imageUrl}
+                    alt={image.description}
+                    width={600}
+                    height={300}
+                    className="rounded-lg object-cover w-full aspect-[2/1]"
+                    data-ai-hint={image.imageHint}
+                    priority={index === 0}
+                  />
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+        <Carousel 
+            className="w-full" 
+            opts={{ loop: true }}
+            plugins={[servicePlugin.current]}
+            onMouseEnter={servicePlugin.current.stop}
+            onMouseLeave={servicePlugin.current.reset}
         >
           <CarouselContent>
             {heroImages.map((image) => (
@@ -59,7 +88,7 @@ export default function ElectronicsPage() {
                     height={300}
                     className="rounded-lg object-cover w-full aspect-[2/1]"
                     data-ai-hint={image.imageHint}
-                    priority={heroImages.indexOf(image) === 0}
+                    priority={false}
                   />
                 </div>
               </CarouselItem>

@@ -545,6 +545,36 @@
       "description": "A person cleaning the filters of a window AC unit.",
       "imageUrl": "https://images.unsplash.com/photo-1633633215535-37f032223846?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhYyUyMGNsZWFuaW5nfGVufDB8fHx8fDE3NjgzMzM1Njh8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "ac cleaning"
+    },
+    {
+      "id": "ad-hero-1",
+      "description": "Advertisement for a 50% off sale",
+      "imageUrl": "https://images.unsplash.com/photo-1767580737456-ccaa37023040?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxzYWxlJTIwYWR2ZXJ0aXNlbWVudHxlbnwwfHx8fDE3Njk5MjQyNzV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "sale advertisement"
+    },
+    {
+      "id": "ad-hero-2",
+      "description": "Advertisement for a new product launch",
+      "imageUrl": "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcm9kdWN0JTIwbGF1bmNofGVufDB8fHx8MTc2OTg2MjYzNnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "product launch"
+    },
+    {
+      "id": "ad-hero-3",
+      "description": "Advertisement for a special offer",
+      "imageUrl": "https://images.unsplash.com/photo-1758795679604-5f9ffcadc030?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzcGVjaWFsJTIwb2ZmZXJ8ZW58MHx8fHwxNzY5OTA5NDM1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "special offer"
+    },
+    {
+      "id": "ad-hero-4",
+      "description": "Advertisement for free delivery",
+      "imageUrl": "https://images.unsplash.com/photo-1584824388178-1defc3484ce3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmcmVlJTIwZGVsaXZlcnl8ZW58MHx8fHwxNzY5OTI0Mjc1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "free delivery"
+    },
+    {
+      "id": "ad-hero-5",
+      "description": "Join our membership advertisement",
+      "imageUrl": "https://images.unsplash.com/photo-1587653268955-e43185e9d156?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxqb2luJTIwbWVtYmVyc2hpcHxlbnwwfHx8fDE3Njk5MjQyNzV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "join membership"
     }
   ]
 }
