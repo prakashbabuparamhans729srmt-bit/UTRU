@@ -1,4 +1,3 @@
-
 'use client';
 
 import { ChevronLeft, User, PlusCircle } from 'lucide-react';
@@ -52,7 +51,7 @@ export default function AddressPage() {
     return collection(firestore, 'users', user.uid, 'addresses');
   }, [user, firestore]);
 
-  const { data: addresses, loading: addressesLoading } = useCollection<Address>(addressesQuery);
+  const { data: addresses, loading: addressesLoading, error: addressesError } = useCollection<Address>(addressesQuery);
 
   const handleSelectAddress = (address: Address) => {
       setDeliveryAddress(address);
@@ -109,7 +108,14 @@ export default function AddressPage() {
             </Card>
         ))}
 
-        {!isLoading && addresses && addresses.length > 0 && (
+        {!isLoading && addressesError && (
+            <div className="text-center text-destructive p-10">
+                <h2 className="text-2xl font-bold">Error Loading Addresses</h2>
+                <p>There was a problem fetching your saved addresses. Please try again later.</p>
+            </div>
+        )}
+
+        {!isLoading && !addressesError && addresses && addresses.length > 0 && (
           addresses.map(address => (
             <AddressCard 
               key={address.id} 
@@ -120,7 +126,7 @@ export default function AddressPage() {
           ))
         )}
 
-        {!isLoading && (!addresses || addresses.length === 0) && (
+        {!isLoading && !addressesError && (!addresses || addresses.length === 0) && (
             <div className="flex-grow flex flex-col justify-center items-center text-center p-10">
                 <h2 className="text-2xl font-bold">{translations.address.nothingHere}</h2>
                 <p className="text-muted-foreground mb-6">
