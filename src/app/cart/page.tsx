@@ -9,7 +9,7 @@ import { format } from 'date-fns';
 import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { Input } from '@/components/ui/input';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
@@ -107,7 +107,29 @@ export default function CartPage() {
   const [couponInput, setCouponInput] = useState('');
   const [isCouponDialogOpen, setIsCouponDialogOpen] = useState(false);
 
-  const relatedServices = servicesData.filter(s => ['cleaning-deep-cleaning', 'beauty-salon', 'electronics-ac-repair', 'car-full-service'].includes(s.id));
+  const relatedServices = useMemo(() => {
+    if (items.length === 0) {
+      // Fallback to featured services if cart is empty (though the page redirects)
+      return servicesData.filter(s => ['cleaning-deep-cleaning', 'beauty-salon', 'electronics-ac-repair', 'car-full-service'].includes(s.id));
+    }
+
+    const cartItemIds = new Set(items.map(item => item.id));
+    const cartCategories = new Set(items.map(item => item.category));
+
+    const recommended = servicesData.filter(service => 
+      !cartItemIds.has(service.id) && cartCategories.has(service.category)
+    );
+
+    if (recommended.length > 0) {
+      // Return up to 4 recommendations
+      return recommended.slice(0, 4);
+    }
+
+    // If no related services found in the same category, fallback to featured services
+    return servicesData.filter(s => 
+      !cartItemIds.has(s.id) && ['cleaning-deep-cleaning', 'beauty-salon', 'electronics-ac-repair', 'car-full-service'].includes(s.id)
+    ).slice(0, 4);
+  }, [items]);
 
   const VALID_COUPONS: { [key: string]: { description: string } } = {
     'UCLAP10': { description: 'Get 10% OFF on your entire order.' },
