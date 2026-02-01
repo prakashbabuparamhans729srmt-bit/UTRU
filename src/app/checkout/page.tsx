@@ -12,7 +12,7 @@ import { Separator } from '@/components/ui/separator';
 import { format } from 'date-fns';
 import { useUser, useFirestore, useDoc } from '@/firebase';
 import { useState, useMemo } from 'react';
-import { addDoc, collection, doc, serverTimestamp, writeBatch } from 'firebase/firestore';
+import { addDoc, collection, doc, serverTimestamp, writeBatch, setDoc } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
@@ -85,7 +85,11 @@ export default function CheckoutPage() {
 
         setIsPlacingOrder(true);
 
+        // This creates a reference with a unique ID *before* we write to the database
+        const bookingRef = doc(collection(firestore, 'users', user.uid, 'bookings'));
+
         const bookingData = {
+            id: bookingRef.id, // Storing the ID within the document
             userId: user.uid,
             items: items.map(item => ({
                 id: item.id,
@@ -110,16 +114,15 @@ export default function CheckoutPage() {
         if (useWallet && canUseWallet && userProfile) {
             const batch = writeBatch(firestore);
             
-            // 1. Create the new booking document
-            const bookingRef = doc(collection(firestore, 'users', user.uid, 'bookings'));
+            // 1. Set the booking document data
             batch.set(bookingRef, bookingData);
 
-            // 2. Create a wallet transaction for the debit
+            // 2. Create a wallet transaction with a descriptive message
             const transactionRef = doc(collection(firestore, 'users', user.uid, 'walletTransactions'));
             const transactionData = {
                 amount: -finalTotal,
                 type: 'debit',
-                description: 'Booking Payment',
+                description: `Payment for Booking #${bookingRef.id.substring(0, 8).toUpperCase()}`,
                 timestamp: serverTimestamp(),
             };
             batch.set(transactionRef, transactionData);
@@ -149,11 +152,10 @@ export default function CheckoutPage() {
                 setIsPlacingOrder(false);
             }
         } else {
-            // Original logic for non-wallet or insufficient balance payment
-            const bookingsCol = collection(firestore, 'users', user.uid, 'bookings');
-            addDoc(bookingsCol, bookingData)
-              .then((docRef) => {
-                  const url = `/payment-success?amount=${finalTotal}&bookingId=${docRef.id.substring(0, 8).toUpperCase()}`;
+            // Logic for non-wallet or insufficient balance payment, now using setDoc
+            setDoc(bookingRef, bookingData)
+              .then(() => {
+                  const url = `/payment-success?amount=${finalTotal}&bookingId=${bookingRef.id.substring(0, 8).toUpperCase()}`;
                   router.push(url);
                   clearCart();
               })
