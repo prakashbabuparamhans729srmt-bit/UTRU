@@ -112,6 +112,7 @@ interface Translations {
         pastBookings: string;
         noBookingsYet: string;
         browseServicesPrompt: string;
+        noPastBookings: string;
     },
     nativeDevices: {
         title: string;
@@ -391,6 +392,7 @@ const translations: Record<string, Translations> = {
             pastBookings: 'Past Bookings',
             noBookingsYet: 'No Bookings Yet',
             browseServicesPrompt: 'Book a service to see your plan here.',
+            noPastBookings: 'Your past bookings will appear here once completed.',
         },
         nativeDevices: {
             title: 'Native Devices',
@@ -667,6 +669,7 @@ const translations: Record<string, Translations> = {
             pastBookings: 'पिछली बुकिंग',
             noBookingsYet: 'अभी तक कोई बुकिंग नहीं',
             browseServicesPrompt: 'अपनी योजना यहाँ देखने के लिए एक सेवा बुक करें।',
+            noPastBookings: 'आपकी पिछली बुकिंग पूरी होने के बाद यहां दिखाई देगी।',
         },
         nativeDevices: {
             title: 'देशी डिवाइस',
@@ -943,6 +946,7 @@ const translations: Record<string, Translations> = {
             pastBookings: 'पिछला बुकिंग',
             noBookingsYet: 'अबही तक कवनो बुकिंग नइखे',
             browseServicesPrompt: 'आपन योजना इहाँ देखे खातिर एगो सेवा बुक करीं।',
+            noPastBookings: 'रउआ पिछला बुकिंग पूरा भइला के बाद इहाँ लउकी।',
         },
         nativeDevices: {
             title: 'देशी डिवाइस',
@@ -1219,6 +1223,7 @@ const translations: Record<string, Translations> = {
             pastBookings: 'मागील बुकिंग',
             noBookingsYet: 'अद्याप कोणतीही बुकिंग नाही',
             browseServicesPrompt: 'तुमची योजना येथे पाहण्यासाठी एक सेवा बुक करा.',
+            noPastBookings: 'तुमची मागील बुकिंग पूर्ण झाल्यावर येथे दिसेल.',
         },
         nativeDevices: {
             title: 'नेटिव्ह डिव्हाइस',
@@ -1341,28 +1346,28 @@ const translations: Record<string, Translations> = {
             valuedCustomer: 'मौल्यवान ग्राहक',
             toBePaidOnDelivery: 'डिलिव्हरीवर पैसे द्यायचे आहेत',
         },
-        service: {
-            details: 'तपशील',
-            packages: 'पॅकेजेस',
-            offers: 'ऑफर्स',
-            gallery: 'गॅलरी',
-            whatsIncluded: 'काय समाविष्ट आहे',
-            availableOffers: 'उपलब्ध ऑफर्स',
-            byProServices: 'प्रो सर्व्हिसेसद्वारे',
-            viewDetails: 'तपशील पहा',
-            addToCart: 'कार्टमध्ये जोडा',
-            selectDateTime: 'तारीख आणि वेळ निवडा',
-            selected: 'निवडलेले:',
-            noDate: 'तारीख नाही',
-            noTime: 'वेळ नाही',
-            availableSlots: 'उपलब्ध स्लॉट्स',
-            quantity: 'प्रमाण',
-            confirmAndAddToCart: 'निश्चित करा आणि कार्टमध्ये जोडा',
-            addedToCartTitle: 'सेवा कार्टमध्ये जोडली!',
-            viewCart: 'कार्ट पहा',
-            updatedCartTitle: 'कार्ट अपडेट केले!',
-            selectionRequiredTitle: 'निवड आवश्यक आहे',
-            selectionRequiredDesc: 'कृपया एक तारीख आणि वेळ स्लॉट निवडा.',
+        "service": {
+            "details": "तपशील",
+            "packages": "पॅकेजेस",
+            "offers": "ऑफर्स",
+            "gallery": "गॅलरी",
+            "whatsIncluded": "काय समाविष्ट आहे",
+            "availableOffers": "उपलब्ध ऑफर्स",
+            "byProServices": "प्रो सर्व्हिसेसद्वारे",
+            "viewDetails": "तपशील पहा",
+            "addToCart": "कार्टमध्ये जोडा",
+            "selectDateTime": "तारीख आणि वेळ निवडा",
+            "selected": "निवडलेले:",
+            "noDate": "तारीख नाही",
+            "noTime": "वेळ नाही",
+            "availableSlots": "उपलब्ध स्लॉट्स",
+            "quantity": "प्रमाण",
+            "confirmAndAddToCart": "निश्चित करा आणि कार्टमध्ये जोडा",
+            "addedToCartTitle": "सेवा कार्टमध्ये जोडली!",
+            "viewCart": "कार्ट पहा",
+            "updatedCartTitle": "कार्ट अपडेट केले!",
+            "selectionRequiredTitle": "निवड आवश्यक आहे",
+            "selectionRequiredDesc": "कृपया एक तारीख आणि वेळ स्लॉट निवडा।"
         },
         checkout: {
             title: 'चेकआउट',
@@ -1494,7 +1499,8 @@ const translations: Record<string, Translations> = {
             "bookings": "বুকিং",
             "pastBookings": "পূৰ্বৰ বুকিং",
             "noBookingsYet": "এতিয়াও কোনো বুকিং নাই",
-            "browseServicesPrompt": "আপোনাৰ পৰিকল্পনা ইয়াত চাবলৈ এটা সেৱা বুক কৰক।"
+            "browseServicesPrompt": "আপোনাৰ পৰিকল্পনা ইয়াত চাবলৈ এটা সেৱা বুক কৰক。",
+            "noPastBookings": "আপোনাৰ পূৰ্বৰ বুকিং সম্পূৰ্ণ হোৱাৰ পিছত ইয়াত দেখা যাব।",
         },
         "nativeDevices": {
             "title": "নেটিভ ডিভাইচ",
@@ -1770,7 +1776,8 @@ const translations: Record<string, Translations> = {
             "bookings": "বুকিং",
             "pastBookings": "অতীতের বুকিং",
             "noBookingsYet": "এখনো কোনো বুকিং নেই",
-            "browseServicesPrompt": "আপনার পরিকল্পনা এখানে দেখতে একটি পরিষেবা বুক করুন।"
+            "browseServicesPrompt": "আপনার পরিকল্পনা এখানে দেখতে একটি পরিষেবা বুক করুন。",
+            "noPastBookings": "আপনার অতীতের বুকিংগুলি সম্পূর্ণ হলে এখানে প্রদর্শিত হবে।",
         },
         "nativeDevices": {
             "title": "নেটিভ ডিভাইস",
@@ -2046,7 +2053,8 @@ const translations: Record<string, Translations> = {
             "bookings": "बुकिंफोर",
             "pastBookings": "थांनाय बुकिंफोर",
             "noBookingsYet": "दासिम जेबो बुकिं गैया",
-            "browseServicesPrompt": "नोंनि प्लानखौ नुनो थाखाय मोनसे सेवा बुक खालाम।"
+            "browseServicesPrompt": "नोंनि प्लानखौ नुनो थाखाय मोनसे सेवा बुक खालाम।",
+            "noPastBookings": "नोंनि थांनाय बुकिंफोरा फोजोबनायनि उनाव बेयाव नुजागोन।",
         },
         "nativeDevices": {
             "title": "गावनि डिभाइसफोर",
@@ -2322,7 +2330,8 @@ const translations: Record<string, Translations> = {
             "bookings": "बुकिंग",
             "pastBookings": "पिछली बुकिंग",
             "noBookingsYet": "अजे तगर कोई बुकिंग नेईं ऐ",
-            "browseServicesPrompt": "अपनी योजना इत्थें देखने लेई इक सेवा बुक करो।"
+            "browseServicesPrompt": "अपनी योजना इत्थें देखने लेई इक सेवा बुक करो।",
+            "noPastBookings": "तुंदी पिछली बुकिंग पूरी होने पर इत्थें दिक्खने गी मिलग।",
         },
         "nativeDevices": {
             "title": "देसी डिवाइस",
@@ -2598,7 +2607,8 @@ const translations: Record<string, Translations> = {
             "bookings": "બુકિંગ",
             "pastBookings": "ભૂતકાળના બુકિંગ",
             "noBookingsYet": "હજી સુધી કોઈ બુકિંગ નથી",
-            "browseServicesPrompt": "તમારી યોજના અહીં જોવા માટે એક સેવા બુક કરો."
+            "browseServicesPrompt": "તમારી યોજના અહીં જોવા માટે એક સેવા બુક કરો.",
+            "noPastBookings": "તમારી ભૂતકાળની બુકિંગ પૂર્ણ થયા પછી અહીં દેખાશે।",
         },
         "nativeDevices": {
             "title": "મૂળ ઉપકરણો",
@@ -2774,7 +2784,7 @@ const translations: Record<string, Translations> = {
             "orderMessagesDescription": "ಸೇವಾ ಅನುಭವಕ್ಕಾಗಿ ಆರ್ಡರ್ ಸಂಬಂಧಿತ ಸಂದೇಶಗಳನ್ನು ಆಫ್ ಮಾಡಲಾಗುವುದಿಲ್ಲ ಏಕೆಂದರೆ ಅವು ಮುಖ್ಯವಾಗಿವೆ.",
             "language": "ಭಾಷೆ",
             "change": "ಬದಲಾಯಿಸಿ",
-            "notificationsAndReminders": "ಅಧಿಸೂಚನೆಗಳು ಮತ್ತು ಜ್ಞಾಪನೆಗಳು",
+            "notificationsAndReminders": "ಅಧಿಸೂಚನೆಗಳು ಮತ್ತು ಜ್ಞਾਪನೆಗಳು",
             "whatsapp": "ವಾಟ್ಸಾಪ್",
             "sms": "ಎಸ್‌ಎಂಎಸ್",
             "email": "ಇಮೇಲ್",
@@ -2797,7 +2807,7 @@ const translations: Record<string, Translations> = {
             "nothingHere": "ಇಲ್ಲಿ ಇನ್ನೂ ಏನೂ ಇಲ್ಲ",
             "deliveryMessage": "ನಿಮ್ಮ ಆರ್ಡರ್‌ಗಳನ್ನು ಎಲ್ಲಿಗೆ ತಲುಪಿಸಬೇಕೆಂದು ನಮಗೆ ತಿಳಿಸಿ",
             "addNew": "ಹೊಸ ವಿಳಾಸವನ್ನು ಸೇರಿಸಿ",
-            "currentLocation": "ಪ್ರಸ್ತುತ ಸ್ಥಳವನ್ನು ಬಳಸಿ",
+            "currentLocation": "ಪ್ರಸ್ತುਤ ಸ್ಥಳವನ್ನು ಬಳಸಿ",
             "change": "ಬದಲಾಯಿಸಿ"
         },
         "cart": {
@@ -2839,7 +2849,7 @@ const translations: Record<string, Translations> = {
             "more": "ಇನ್ನಷ್ಟು",
             "library": "ಗ್ರಂಥಾಲಯ",
             "explore": "ಅನ್ವೇಷಿಸಿ",
-            "opinion": "ಅಭಿಪ್ರಾಯ"
+            "opinion": "ಅಭಿಪ್ರాయ"
         },
         "language": {
             "title": "ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ",
@@ -2874,7 +2884,8 @@ const translations: Record<string, Translations> = {
             "bookings": "ಬುಕಿಂಗ್‌ಗಳು",
             "pastBookings": "ಹಿಂದಿನ ಬುಕಿಂಗ್‌ಗಳು",
             "noBookingsYet": "ಇನ್ನೂ ಯಾವುದೇ ಬುಕಿಂಗ್‌ಗಳಿಲ್ಲ",
-            "browseServicesPrompt": "ನಿಮ್ಮ ಯೋಜನೆಯನ್ನು ಇಲ್ಲಿ ನೋಡಲು ಒಂದು ಸೇವೆಯನ್ನು ಬುಕ್ ಮಾಡಿ."
+            "browseServicesPrompt": "ನಿಮ್ಮ ಯೋಜನೆಯನ್ನು ಇಲ್ಲಿ ನೋಡಲು ಒಂದು ಸೇವೆಯನ್ನು ಬುಕ್ ಮಾಡಿ.",
+            "noPastBookings": "ನಿಮ್ಮ ಹಿಂದಿನ ಬುಕಿಂಗ್‌ಗಳು ಪೂರ್ಣಗೊಂಡ ನಂತರ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತವೆ।",
         },
         "nativeDevices": {
             "title": "ಸ್ಥಳೀಯ ಸಾಧನಗಳು",
@@ -2889,7 +2900,7 @@ const translations: Record<string, Translations> = {
             "someoneElse": "ಬೇರೆಯವರಿಗಾಗಿ",
             "home": "ಮನೆ",
             "work": "ಕೆಲಸ",
-            "hotel": "ಹೋಟೆಲ್",
+            "hotel": "ಹೋಟೆల్",
             "other": "ಇತರೆ",
             "name": "ಹೆಸರು",
             "mobile": "ಮೊಬೈಲ್ ಸಂಖ್ಯೆ",
@@ -2914,7 +2925,7 @@ const translations: Record<string, Translations> = {
         },
         "phoneLogin": {
             "title": "ಫೋನ್‌ನೊಂದಿಗೆ ಲಾಗಿನ್ ಮಾಡಿ",
-            "subtitle": "ಲಾಗಿన్ ಮಾಡಲು ಕೆಳಗೆ ನಿಮ್ಮ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ.",
+            "subtitle": "ಲಾಗಿನ್ ಮಾಡಲು ಕೆಳಗೆ ನಿಮ್ಮ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ.",
             "placeholder": "ನಿಮ್ಮ ಫೋನ್ ಸಂಖ್ಯೆ...",
             "continue": "ಮುಂದುವರಿಸಿ"
         },
@@ -3150,7 +3161,8 @@ const translations: Record<string, Translations> = {
             "bookings": "بکنگ",
             "pastBookings": "گزشتہ بکنگ",
             "noBookingsYet": "وُنِتھ تام کانہہ بکنگ چھےٚ نٕہ",
-            "browseServicesPrompt": "پنن منصوبہ یتہِ وچھنہٕ باپتھ اَکھ خدمت بک کریو۔"
+            "browseServicesPrompt": "پنن منصوبہ یتہِ وچھنہٕ باپتھ اَکھ خدمت بک کریو।",
+            "noPastBookings": "توہنٛد پتمۍ بکنگ مکمل گژھنہٕ پتہٕ ییھن ییھ نظر۔",
         },
         "nativeDevices": {
             "title": "مقامی ڈیوائس",
@@ -3426,7 +3438,8 @@ const translations: Record<string, Translations> = {
             "bookings": "बुकिंग",
             "pastBookings": "फाटलीं बुकिंग",
             "noBookingsYet": "अजून खंयचीच बुकिंग ना",
-            "browseServicesPrompt": "तुमची येवजण हांगा पळोवपाक एक सेवा बुक करात।"
+            "browseServicesPrompt": "तुमची येवजण हांगा पळोवपाक एक सेवा बुक करात।",
+            "noPastBookings": "तुमची फाटलीं बुकिंग पुराय जाल्यार हांगा दिसतीत।",
         },
         "nativeDevices": {
             "title": "मूळ डिव्हाइस",
@@ -3702,7 +3715,8 @@ const translations: Record<string, Translations> = {
             "bookings": "बुकिंग",
             "pastBookings": "पिछला बुकिंग",
             "noBookingsYet": "एखन धरि कोनो बुकिंग नहि",
-            "browseServicesPrompt": "अपन योजना एत' देखबाक लेल एकटा सेवा बुक करू।"
+            "browseServicesPrompt": "अपन योजना एत' देखबाक लेल एकटा सेवा बुक करू।",
+            "noPastBookings": "अहाँक पिछला बुकिंग पूरा भेला के बाद एत' देखाइ पड़त।",
         },
         "nativeDevices": {
             "title": "देशी डिवाइस",
@@ -3978,7 +3992,8 @@ const translations: Record<string, Translations> = {
             "bookings": "ബുക്കിംഗുകൾ",
             "pastBookings": "കഴിഞ്ഞ ബുക്കിംഗുകൾ",
             "noBookingsYet": "ഇതുവരെ ബുക്കിംഗുകൾ ഒന്നുമില്ല",
-            "browseServicesPrompt": "നിങ്ങളുടെ പ്ലാൻ ഇവിടെ കാണാൻ ഒരു സേവനം ബുക്ക് ചെയ്യുക."
+            "browseServicesPrompt": "നിങ്ങളുടെ പ്ലാൻ ഇവിടെ കാണാൻ ഒരു സേവനം ബുക്ക് ചെയ്യുക.",
+            "noPastBookings": "നിങ്ങളുടെ മുൻകാല ബുക്കിംഗുകൾ പൂർത്തിയായിക്കഴിഞ്ഞാൽ ഇവിടെ ദൃശ്യമാകും.",
         },
         "nativeDevices": {
             "title": "നേറ്റീവ് ഉപകരണങ്ങൾ",
@@ -4254,7 +4269,8 @@ const translations: Record<string, Translations> = {
             "bookings": "বুকিংসমূহ",
             "pastBookings": "হোংখ্রবা বুকিংসমূহ",
             "noBookingsYet": "হৌজিক ফাওবদা করিগুম্বা বুকিং লৈতে",
-            "browseServicesPrompt": "অদোমগী প্লান মসিমদা উনবা অমা সার্ভিস বুক তৌবীয়ু।"
+            "browseServicesPrompt": "অদোমগী প্লান মসিমদা উনবা অমা সার্ভিস বুক তৌবীয়ু।",
+            "noPastBookings": "অদোমগী হোংখ্রবা বুকিংসমূহ মপুং ফাখ্রবা মতমদা মসিমদা উগনি।",
         },
         "nativeDevices": {
             "title": "নেটিভ ডিভাইসশিং",
@@ -4285,7 +4301,7 @@ const translations: Record<string, Translations> = {
             "sliceUpi": "স্লাইস ইউপিআই",
             "pluxee": "প্লক্সি",
             "netbanking": "নেটব্যাঙ্কিং",
-            "add": "হাপচিনবা",
+            "add": "হাপচินবা",
             "payOnDelivery": "ডেলিভারিদা পেমেন্ট তৌবীয়ু",
             "wallets": "ওয়ালেটসমূহ",
             "googlePay": "গুগল পে ইউপিআই",
@@ -4393,7 +4409,7 @@ const translations: Record<string, Translations> = {
             "noTime": "মতম লৈতে",
             "availableSlots": "ফংলিবা স্লটসমূহ",
             "quantity": "কোয়ান্টিটি",
-            "confirmAndAddToCart": "কনফার্ম তৌদুনা কার্টতা হাপচিনবীয়ু",
+            "confirmAndAddToCart": "কনফার্ম তৌদুনা কার্টতা হাপচินবীয়ু",
             "addedToCartTitle": "সার্ভিস কার্টতা হাপচিনখ্রে!",
             "viewCart": "কার্ট উবা",
             "updatedCartTitle": "কার্ট আপডেট তৌখ্রে!",
@@ -4530,7 +4546,8 @@ const translations: Record<string, Translations> = {
             "bookings": "बुकिङहरू",
             "pastBookings": "विगतका बुकिङहरू",
             "noBookingsYet": "अझै कुनै बुकिङहरू छैनन्",
-            "browseServicesPrompt": "आफ्नो योजना यहाँ हेर्नको लागि एक सेवा बुक गर्नुहोस्।"
+            "browseServicesPrompt": "आफ्नो योजना यहाँ हेर्नको लागि एक सेवा बुक गर्नुहोस्।",
+            "noPastBookings": "तपाईंका विगतका बुकिङहरू पूरा भएपछि यहाँ देखिनेछन्।",
         },
         "nativeDevices": {
             "title": "नेटिभ उपकरणहरू",
@@ -4806,7 +4823,8 @@ const translations: Record<string, Translations> = {
             "bookings": "ବୁକିଂ",
             "pastBookings": "ଅତୀତର ବୁକିଂ",
             "noBookingsYet": "ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି ବୁକିଂ ନାହିଁ",
-            "browseServicesPrompt": "ଆପଣଙ୍କର ଯୋଜନା ଏଠାରେ ଦେଖିବା ପାଇଁ ଏକ ସେବା ବୁକ୍ କରନ୍ତୁ।"
+            "browseServicesPrompt": "ଆପଣଙ୍କର ଯୋଜନା ଏଠାରେ ଦେଖିବା ପାଇଁ ଏକ ସେବା ବୁକ୍ କରନ୍ତୁ।",
+            "noPastBookings": "ଆପଣଙ୍କର ଅତୀତର ବୁକିଂ ସମ୍ପୂର୍ଣ୍ଣ ହେବା ପରେ ଏଠାରେ ଦେଖାଯିବ।",
         },
         "nativeDevices": {
             "title": "ଦେଶୀ ଉପକରଣ",
@@ -4891,7 +4909,7 @@ const translations: Record<string, Translations> = {
             "searchPlaceholder": "ଖୋଜନ୍ତୁ...",
             "resultsFor": "ପାଇଁ ଫଳାଫଳ",
             "noResults": "କୌଣସି ଫଳାଫଳ ମିଳିଲା ନାହିଁ",
-            "tryAgain": "କିଛି ଅଲଗା ଖୋଜିବାକୁ ଚେଷ୍ଟା କରନ୍ତୁ।"
+            "tryAgain": "କିଛି ଅଲଗା ଖୋଜିବାକୁ ଚେଷ୍ଟా କରନ୍ତୁ।"
         },
         "support": {
             "title": "ସମର୍ଥନ",
@@ -5082,7 +5100,8 @@ const translations: Record<string, Translations> = {
             "bookings": "ਬੁਕਿੰਗਾਂ",
             "pastBookings": "ਪਿਛਲੀਆਂ ਬੁਕਿੰਗਾਂ",
             "noBookingsYet": "ਅਜੇ ਤੱਕ ਕੋਈ ਬੁਕਿੰਗ ਨਹੀਂ ਹੈ",
-            "browseServicesPrompt": "ਆਪਣੀ ਯੋਜਨਾ ਇੱਥੇ ਦੇਖਣ ਲਈ ਇੱਕ ਸੇਵਾ ਬੁੱਕ ਕਰੋ।"
+            "browseServicesPrompt": "ਆਪਣੀ ਯੋਜਨਾ ਇੱਥੇ ਦੇਖਣ ਲਈ ਇੱਕ ਸੇਵਾ ਬੁੱਕ ਕਰੋ।",
+            "noPastBookings": "ਤੁਹਾਡੀਆਂ ਪਿਛਲੀਆਂ ਬੁਕਿੰਗਾਂ ਪੂਰੀਆਂ ਹੋਣ ਤੋਂ ਬਾਅਦ ਇੱਥੇ ਦਿਖਾਈ ਦੇਣਗੀਆਂ।",
         },
         "nativeDevices": {
             "title": "ਦੇਸੀ ਉਪਕਰਣ",
@@ -5199,11 +5218,11 @@ const translations: Record<string, Translations> = {
             placed: 'ਦਿੱਤਾ ਗਿਆ',
             bookingId: 'ਬੁਕਿੰਗ ਆਈਡੀ',
             paymentMethod: 'ਭੁਗਤਾਨ ਵਿਧੀ',
-            payOnDelivery: 'ਡਿਲਿਵਰੀ \'ਤੇ ਭੁਗਤਾਨ ਕਰੋ',
+            payOnDelivery: "ਡਿਲਿਵਰੀ 'ਤੇ ਭੁਗਤਾਨ ਕਰੋ",
             wallet: 'ਵਾਲਿਟ',
             recipient: 'ਪ੍ਰਾਪਤਕਰਤਾ',
             valuedCustomer: 'ਕੀਮਤੀ ਗਾਹਕ',
-            toBePaidOnDelivery: 'ਡਿਲੀਵਰੀ \'ਤੇ ਭੁਗਤਾਨ ਕਰਨਾ ਹੋਵੇਗਾ',
+            toBePaidOnDelivery: "ਡਿਲੀਵਰੀ 'ਤੇ ਭੁਗਤਾਨ ਕਰਨਾ ਹੋਵੇਗਾ",
         },
         "service": {
             "details": "ਵੇਰਵੇ",
@@ -5358,7 +5377,8 @@ const translations: Record<string, Translations> = {
             "bookings": "बुकिङ्ग्स्",
             "pastBookings": "अतीताः बुकिङ्ग्स्",
             "noBookingsYet": "अद्यापि कोऽपि बुकिङ्ग्स् नास्ति",
-            "browseServicesPrompt": "अत्र भवतः योजनां द्रष्टुं सेवां बुक् करोतु।"
+            "browseServicesPrompt": "अत्र भवतः योजनां द्रष्टुं सेवां बुक् करोतु।",
+            "noPastBookings": "भवतः अतीताः बुकिङ्ग्स् सम्पूर्णे सति अत्र दृश्यन्ते।",
         },
         "nativeDevices": {
             "title": "देशीयानि उपकरणानि",
@@ -5634,7 +5654,8 @@ const translations: Record<string, Translations> = {
             "bookings": "বুকিং",
             "pastBookings": "অতীতের বুকিং",
             "noBookingsYet": "এখনো কোনো বুকিং নেই",
-            "browseServicesPrompt": "আপনার পরিকল্পনা এখানে দেখতে একটি পরিষেবা বুক করুন।"
+            "browseServicesPrompt": "আপনার পরিকল্পনা এখানে দেখতে একটি পরিষেবা বুক করুন।",
+            "noPastBookings": "আপনার অতীতের বুকিংগুলি সম্পূর্ণ হলে এখানে প্রদর্শিত হবে।",
         },
         "nativeDevices": {
             "title": "নেটিভ ডিভাইস",
@@ -5910,7 +5931,8 @@ const translations: Record<string, Translations> = {
             "bookings": "بڪنگون",
             "pastBookings": "گذريل بڪنگون",
             "noBookingsYet": "اڃا تائين ڪا به بڪنگ ناهي",
-            "browseServicesPrompt": "پنهنجو منصوبو هتي ڏسڻ لاءِ هڪ خدمت بڪ ڪريو."
+            "browseServicesPrompt": "پنهنجو منصوبو هتي ڏسڻ لاءِ هڪ خدمت بڪ ڪريو.",
+            "noPastBookings": "توهان جي گذريل بڪنگون مڪمل ٿيڻ کان پوءِ هتي ظاهر ٿينديون.",
         },
         "nativeDevices": {
             "title": "ڏيهي ڊوائيس",
@@ -6186,7 +6208,8 @@ const translations: Record<string, Translations> = {
             "bookings": "பதிவுகள்",
             "pastBookings": "கடந்த பதிவுகள்",
             "noBookingsYet": "இன்னும் பதிவுகள் எதுவும் இல்லை",
-            "browseServicesPrompt": "உங்கள் திட்டத்தை இங்கே காண ஒரு சேவையைப் பதிவு செய்யவும்."
+            "browseServicesPrompt": "உங்கள் திட்டத்தை இங்கே காண ஒரு சேவையைப் பதிவு செய்யவும்.",
+            "noPastBookings": "உங்கள் கடந்தகால முன்பதிவுகள் முடிந்ததும் இங்கே தோன்றும்.",
         },
         "nativeDevices": {
             "title": "சொந்த சாதனங்கள்",
@@ -6462,7 +6485,8 @@ const translations: Record<string, Translations> = {
             "bookings": "బుకింగ్‌లు",
             "pastBookings": "గత బుకింగ్‌లు",
             "noBookingsYet": "ఇంకా బుకింగ్‌లు ఏవీ లేవు",
-            "browseServicesPrompt": "మీ ప్లాన్‌ను ఇక్కడ చూడటానికి ఒక సేవను బుక్ చేసుకోండి."
+            "browseServicesPrompt": "మీ ప్లాన్‌ను ఇక్కడ చూడటానికి ఒక సేవను బుక్ చేసుకోండి.",
+            "noPastBookings": "మీ గత బుకింగ్‌లు పూర్తయిన తర్వాత ఇక్కడ కనిపిస్తాయి.",
         },
         "nativeDevices": {
             "title": "స్థానిక పరికరాలు",

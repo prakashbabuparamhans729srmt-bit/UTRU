@@ -246,6 +246,12 @@ export default function MyPlansPage() {
                     </section>
                 )}
 
+                {pastBookings.length === 0 && upcomingBookings.length > 0 && (
+                    <div className="text-center py-10">
+                        <p className="text-muted-foreground">{translations.myPlans.noPastBookings}</p>
+                    </div>
+                )}
+
                 {upcomingBookings.length === 0 && pastBookings.length > 0 && (
                     <div className="text-center py-10">
                         <p className="text-muted-foreground">{translations.myPlans.noActivePlans}</p>
