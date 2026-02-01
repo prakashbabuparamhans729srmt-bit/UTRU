@@ -97,9 +97,10 @@ export default function CheckoutPage() {
         const bookingsCol = collection(firestore, 'users', user.uid, 'bookings');
         
         addDoc(bookingsCol, bookingData)
-          .then(() => {
+          .then((docRef) => {
+              const url = `/payment-success?amount=${finalTotal}&bookingId=${docRef.id.substring(0, 8).toUpperCase()}`;
+              router.push(url);
               clearCart();
-              router.push('/payment-success');
           })
           .catch((serverError) => {
             const permissionError = new FirestorePermissionError({
