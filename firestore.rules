@@ -16,9 +16,10 @@ service cloud.firestore {
                     && request.resource.data.size() == 6;
       
       // Allow users to update their own document for profile changes (balance unchanged)
-      // or for wallet payments (balance decreases). This is not perfectly secure on its own
-      // but works with client-side batch writes to prevent fraudulent balance increases.
-      allow update: if isOwner(userId) && request.resource.data.walletBalance <= resource.data.walletBalance;
+      // or for wallet payments (balance decreases). This rule allows updates if the
+      // walletBalance is not being modified, or if it is being decreased.
+      allow update: if isOwner(userId) && 
+                    (!('walletBalance' in request.resource.data) || request.resource.data.walletBalance <= resource.data.walletBalance);
     }
     match /users/{userId}/addresses/{addressId} {
       allow read, write: if isOwner(userId);
