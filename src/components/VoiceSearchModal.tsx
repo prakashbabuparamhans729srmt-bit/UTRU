@@ -10,8 +10,27 @@ import { useLanguage } from '@/context/LanguageContext';
 const languageCodeMap: { [key: string]: string } = {
   'English': 'en-US',
   'हिंदी': 'hi-IN',
-  'मराठी': 'mr-IN',
+  'असमिया': 'as-IN',
   'Bhojpuri': 'bho-IN',
+  'बंगाली': 'bn-IN',
+  'बोडो': 'brx-IN',
+  'डोगरी': 'doi-IN',
+  'गुजराती': 'gu-IN',
+  'कन्नड़': 'kn-IN',
+  'कश्मीरी': 'ks-IN',
+  'कोंकणी': 'kok-IN',
+  'मैथिली': 'mai-IN',
+  'मलयालम': 'ml-IN',
+  'मणिपुरी': 'mni-IN',
+  'मराठी': 'mr-IN',
+  'नेपाली': 'ne-NP',
+  'ओडिया': 'or-IN',
+  'पंजाबी': 'pa-IN',
+  'संस्कृत': 'sa-IN',
+  'संथाली': 'sat-IN',
+  'सिंधी': 'sd-IN',
+  'தமிழ்': 'ta-IN',
+  'తెలుగు': 'te-IN'
 };
 
 interface VoiceSearchModalProps {
