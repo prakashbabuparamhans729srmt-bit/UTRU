@@ -1,7 +1,6 @@
-
 'use client';
 
-import { ChevronLeft, Loader2, User } from 'lucide-react';
+import { ChevronLeft, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -88,6 +87,8 @@ export default function EditProfilePage() {
   
   const isLoading = userLoading || profileLoading;
 
+  const fallbackInitial = displayName?.charAt(0).toUpperCase() || user?.email?.charAt(0).toUpperCase() || 'U';
+
   return (
     <div className="bg-background text-foreground min-h-screen flex flex-col">
       <header className="p-4 flex items-center gap-4 border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
@@ -115,7 +116,7 @@ export default function EditProfilePage() {
                 <div className="flex flex-col items-center space-y-4">
                      <Avatar className="w-24 h-24 border-4 border-primary">
                         <AvatarImage src={photoURL || "https://picsum.photos/seed/user-profile/100/100"} alt={displayName} />
-                        <AvatarFallback className='text-4xl'><User /></AvatarFallback>
+                        <AvatarFallback className='text-4xl'>{fallbackInitial}</AvatarFallback>
                     </Avatar>
                 </div>
                 <div className="space-y-4">
