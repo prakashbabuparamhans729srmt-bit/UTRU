@@ -6,6 +6,7 @@ import { Mic, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useLanguage } from '@/context/LanguageContext';
+import { useToast } from '@/hooks/use-toast';
 
 const languageCodeMap: { [key: string]: string } = {
   'English': 'en-US',
@@ -40,7 +41,8 @@ interface VoiceSearchModalProps {
 
 export default function VoiceSearchModal({ isOpen, onClose }: VoiceSearchModalProps) {
   const router = useRouter();
-  const { language } = useLanguage();
+  const { language, translations } = useLanguage();
+  const { toast } = useToast();
   const [transcript, setTranscript] = useState('');
   const [isListening, setIsListening] = useState(false);
   const recognitionRef = useRef<any>(null);
@@ -97,7 +99,15 @@ export default function VoiceSearchModal({ isOpen, onClose }: VoiceSearchModalPr
     };
 
     recognition.onerror = (event: any) => {
-      console.error('Speech recognition error:', event.error);
+      if (event.error === 'not-allowed') {
+          toast({
+              variant: 'destructive',
+              title: translations.toasts.micAccessDenied,
+              description: translations.toasts.micAccessDeniedDesc,
+          });
+      } else {
+        console.error('Speech recognition error:', event.error);
+      }
       setIsListening(false);
       onClose();
     };
@@ -134,8 +144,7 @@ export default function VoiceSearchModal({ isOpen, onClose }: VoiceSearchModalPr
       }
     };
     
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen]);
+  }, [isOpen, stopListening, language, handleSearch, transcript, toast, translations, onClose]);
 
   if (!isOpen) return null;
 

@@ -333,6 +333,8 @@ webLink: string;
         otpSendFailedDesc: string;
         addressSaved: string;
         addressSavedDesc: string;
+        micAccessDenied: string;
+        micAccessDeniedDesc: string;
     }
 }
 
@@ -666,7 +668,9 @@ const translations: Record<string, Translations> = {
             otpSendFailed: "Failed to send OTP",
             otpSendFailedDesc: "An unexpected error occurred. Please try again.",
             addressSaved: "Address Saved!",
-            addressSavedDesc: "Your new address has been saved."
+            addressSavedDesc: "Your new address has been saved.",
+            micAccessDenied: 'Microphone Access Denied',
+            micAccessDeniedDesc: 'Please enable microphone access in your browser settings to use voice search.',
         }
     },
     'हिंदी': {
@@ -997,7 +1001,9 @@ const translations: Record<string, Translations> = {
             otpSendFailed: "ओटीपी भेजने में विफल",
             otpSendFailedDesc: "एक अप्रत्याशित त्रुटि हुई। कृपया पुनः प्रयास करें।",
             addressSaved: "पता सहेजा गया!",
-            addressSavedDesc: "आपका नया पता सहेज लिया गया है।"
+            addressSavedDesc: "आपका नया पता सहेज लिया गया है।",
+            micAccessDenied: 'माइक्रोफ़ोन एक्सेस अस्वीकृत',
+            micAccessDeniedDesc: 'वॉइस सर्च का उपयोग करने के लिए कृपया अपनी ब्राउज़र सेटिंग्स में माइक्रोफ़ोन एक्सेस सक्षम करें।',
         }
     },
     'Bhojpuri': {
@@ -1328,7 +1334,9 @@ const translations: Record<string, Translations> = {
             otpSendFailed: "ओटीपी भेजे में विफल",
             otpSendFailedDesc: "एगो अप्रत्याशित त्रुटि भईल। कृपया फेर से कोशिश करीं।",
             addressSaved: "पता सहेजल गईल!",
-            addressSavedDesc: "रउआ नया पता सहेज लिहल गईल बा।"
+            addressSavedDesc: "रउआ नया पता सहेज लिहल गईल बा।",
+            micAccessDenied: 'माइक्रोफोन एक्सेस अस्वीकार कइल गइल',
+            micAccessDeniedDesc: 'आवाज खोज के उपयोग करे खातिर कृपया आपन ब्राउज़र सेटिंग में माइक्रोफोन एक्सेस सक्षम करीं।',
         }
     },
     'मराठी': {
@@ -1439,7 +1447,7 @@ const translations: Record<string, Translations> = {
             pastBookings: 'मागील बुकिंग',
             noBookingsYet: 'अद्याप कोणतीही बुकिंग नाही',
             browseServicesPrompt: 'तुमची योजना येथे पाहण्यासाठी एक सेवा बुक करा.',
-            noPastBookings: 'तुमची मागील बुकिंग पूर्ण झाल्यावर येथे दिसेल.',
+            noPastBookings: 'तुमची मागील बुकिंग पूर्ण झाल्यावर येथे दिसेल।',
         },
         nativeDevices: {
             title: 'नेटिव्ह डिव्हाइस',
@@ -1506,7 +1514,7 @@ const translations: Record<string, Translations> = {
             aboutUs: 'आमच्याबद्दल',
             logOut: 'लॉग आउट करा',
             referEarn: 'रेफर करा आणि कमवा',
-            referEarnDescription: 'तुमचा मित्र त्याचे पहिले बुकिंग पूर्ण केल्यावर ₹100 मिळवा.',
+            referEarnDescription: 'तुमचा मित्र त्याचे पहिले बुकिंग पूर्ण केल्यावर ₹100 मिळवा।',
             hurryUp: 'त्वरा करा',
             referNow: 'आता रेफर करा',
             lightMode: 'लाइट मोड',
@@ -1546,7 +1554,7 @@ const translations: Record<string, Translations> = {
         },
         paymentSuccess: {
             title: 'ऑर्डर यशस्वीरित्या पूर्ण झाले!',
-            subtitle: 'तुमची बुकिंग निश्चित झाली आहे. तुम्ही तुमच्या बुकिंगची स्थिती \'माझे बुकिंग\' विभागात तपासू शकता.',
+            subtitle: 'तुमची बुकिंग निश्चित झाली आहे। तुम्ही तुमच्या बुकिंगची स्थिती \'माझे बुकिंग\' विभागात तपासू शकता।',
             viewBookings: 'बुकिंग पहा',
             continueShopping: 'खरेदी सुरू ठेवा',
             receiptDetails: 'पावती तपशील',
@@ -1591,7 +1599,7 @@ const translations: Record<string, Translations> = {
             paymentMethod: 'पेमेंट पद्धत',
             payWithWallet: 'वॉलेटने पैसे द्या',
             balance: 'शिल्लक',
-            insufficientBalance: 'अपुरी शिल्लक.',
+            insufficientBalance: 'अपुरी शिल्लक।',
             payOnDelivery: 'डिलिव्हरीवर पैसे द्या',
             paymentDetails: 'पेमेंट तपशील',
             remove: 'काढा',
@@ -1659,7 +1667,9 @@ const translations: Record<string, Translations> = {
             otpSendFailed: "ओटीपी पाठवण्यात अयशस्वी",
             otpSendFailedDesc: "एक अनपेक्षित त्रुटी आली. कृपया पुन्हा प्रयत्न करा.",
             addressSaved: "पत्ता जतन केला!",
-            addressSavedDesc: "तुमचा नवीन पत्ता जतन केला आहे."
+            addressSavedDesc: "तुमचा नवीन पत्ता जतन केला आहे।",
+            micAccessDenied: 'मायक्रोफोन प्रवेश नाकारला',
+            micAccessDeniedDesc: 'व्हॉइस शोध वापरण्यासाठी कृपया तुमच्या ब्राउझर सेटिंग्जमध्ये मायक्रोफोन प्रवेश सक्षम करा.',
         }
     },
     'असमिया': {
@@ -1682,7 +1692,7 @@ const translations: Record<string, Translations> = {
         },
         "about": {
             "title": "আমাৰ বিষয়ে",
-            "welcome": "আমাৰ এপলৈ আপোনাক স্বাগতম, এক নিৰৱচ্ছিন্ন অভিজ্ঞতাৰ বাবে আপোনাৰ চূড়ান্ত গন্তব্য! আমি এক অভিনৱ, গ্ৰাহক-কেন্দ্ৰিক প্লেটফৰ্ম যি আপোনাক শ্ৰেষ্ঠ সেৱা, ব্যতিক্ৰমী চুক্তি, আৰু অতুলনীয় সুবিধা প্ৰদান কৰিবলৈ ডিজাইন কৰা হৈছে — সকলো আপোনাৰ আঙুলিৰ মূৰত।",
+            "welcome": "আমাৰ এপলৈ আপোনাক স্বাগতম, এক নিৰৱচ্ছিন্ন অভিজ্ঞতাৰ বাবে আপোনাৰ চূড়ান্ত گন্তব্য! আমি এক অভিনৱ, গ্ৰাহক-কেন্দ্ৰিক প্লেটফৰ্ম যি আপোনাক শ্ৰেষ্ঠ সেৱা, ব্যতিক্ৰমী চুক্তি, আৰু অতুলনীয় সুবিধা প্ৰদান কৰিবলৈ ডিজাইন কৰা হৈছে — সকলো আপোনাৰ আঙুলিৰ মূৰত।",
             "storyTitle": "আমাৰ কাহিনী",
             "storyP1": "আমি এক সৰল ধাৰণাৰে আৰম্ভ কৰিছিলো: এনে এক প্লেটফৰ্ম প্ৰদান কৰা যি কেৱল বিভিন্ন ধৰণৰ সেৱাই প্ৰদান নকৰে, বৰঞ্চ সমগ্ৰ প্ৰক্ৰিয়াটো সহজ আৰু আনন্দদায়ক কৰি তোলে।",
             "storyP2": "নম্ৰ আৰম্ভণিৰ পৰা, আমি সোনকালেই আটাইতকৈ বিশ্বাসযোগ্য প্লেটফৰ্মবোৰৰ ভিতৰত অন্যতম হৈ পৰিলোঁ। গ্ৰাহকৰ সন্তুষ্টি, সহজলভ্যতা, আৰু নিৰন্তৰ উদ্ভাৱনৰ আমাৰ মূল মূল্যবোধে আমাক আগুৱাই লৈ গৈ আছে কাৰণ আমি আমাৰ প্ৰস্তাৱসমূহ সম্প্ৰসাৰিত কৰাৰ লক্ষ্য ৰাখিছো।"
@@ -1696,7 +1706,7 @@ const translations: Record<string, Translations> = {
             "change": "সলনি কৰক"
         },
         "cart": {
-            "searchPlaceholder": "সন্ধান কৰক...",
+            "searchPlaceholder": "সন্ধาน কৰক...",
             "blackFriday": "ব্লেক ফ্ৰাইডে",
             "discountsAvailable": "ರಿಯাজ উপলব্ধ",
             "categories": "শ্ৰেণীসমূহ",
@@ -1983,14 +1993,16 @@ const translations: Record<string, Translations> = {
             verificationFailedDesc: "অ'টিপি ভুল। অনুগ্ৰহ কৰি পুনৰ চেষ্টা কৰক।",
             otpResent: "অ'টিপি পুনৰ প্ৰেৰণ কৰা হ'ল",
             otpResentDesc: "আপোনাৰ ফোনলৈ এটা নতুন অ'টিপি প্ৰেৰণ কৰা হৈছে।",
-            otpResentFailed: "অ'টিপি পুনৰ প্ৰেৰণ কৰাত విఫలమైంది",
+            otpResentFailed: "অ'টিপি পুনৰ প্ৰეৰণ কৰাত విఫలమైంది",
             otpResendFailedDesc: "অনুগ্ৰহ কৰি পিছত পুনৰ চেষ্টা কৰক।",
             invalidPhone: "অবৈধ ফোন নম্বৰ",
             invalidPhoneDesc: "অনুগ্ৰহ কৰি এটা বৈধ ১০-অংকৰ ভাৰতীয় মোবাইল নম্বৰ প্ৰৱেশ কৰক।",
-            otpSendFailed: "অ'টিপি প্ৰেৰণ কৰাত విఫలమైంది",
-            otpSendFailedDesc: "এটা অপ্ৰত্যাশিত ত্ৰুটি হৈছে। অনুগ্ৰহ কৰি পুনৰ চেষ্টা কৰক।",
+            otpSendFailed: "অ'টিপি প্ৰეৰণ কৰাত విఫలమైంది",
+            otpSendFailedDesc: "এটা অপ্ৰत्याশিত ত্ৰুটি হৈছে। অনুগ্ৰহ কৰি পুনৰ চেষ্টা কৰক।",
             addressSaved: "ঠিকনা সংৰক্ষণ কৰা হ'ল!",
-            addressSavedDesc: "আপোনাৰ নতুন ঠিকনা সংৰক্ষণ কৰা হৈছে।"
+            addressSavedDesc: "আপোনাৰ নতুন ঠিকনা সংৰক্ষণ কৰা হৈছে।",
+            micAccessDenied: "মাইক্ৰ'ফ'ন এক্সেছ অস্বীকাৰ কৰা হ'ল",
+            micAccessDeniedDesc: "ভইচ চাৰ্চ ব্যৱহাৰ কৰিবলৈ অনুগ্ৰহ কৰি আপোনাৰ ব্ৰাউজাৰ ছেটিংছত মাইক্ৰ'ফ'ন এক্সেছ সক্ষম কৰক।",
         }
     },
     'बंगाली': {
@@ -2321,7 +2333,9 @@ const translations: Record<string, Translations> = {
             otpSendFailed: "ওটিপি পাঠাতে ব্যর্থ হয়েছে",
             otpSendFailedDesc: "একটি অপ্রত্যাশিত ত্রুটি ঘটেছে। অনুগ্রহ করে আবার চেষ্টা করুন।",
             addressSaved: "ঠিকানা সংরক্ষিত!",
-            addressSavedDesc: "আপনার নতুন ঠিকানা সংরক্ষিত হয়েছে।"
+            addressSavedDesc: "আপনার নতুন ঠিকানা সংরক্ষিত হয়েছে।",
+            micAccessDenied: 'মাইক্রোফোন অ্যাক্সেস প্রত্যাখ্যান করা হয়েছে',
+            micAccessDeniedDesc: 'ভয়েস অনুসন্ধান ব্যবহার করতে আপনার ব্রাউজার সেটিংসে মাইক্রোফোন অ্যাক্সেস সক্ষম করুন।',
         }
     },
      'बोडो': {
@@ -2652,7 +2666,9 @@ const translations: Record<string, Translations> = {
             otpSendFailed: "अटिपि होनो हायासै",
             otpSendFailedDesc: "मोनसे गिनाय गोरोन्थि जादों। अननानै फिन नाजा।",
             addressSaved: "थिगना लाखिबाय!",
-            addressSavedDesc: "नोंनि गोदान थिगनाखौ लाखिबाय।"
+            addressSavedDesc: "नोंनि गोदान थिगनाखौ लाखिबाय।",
+            micAccessDenied: 'माइक्रोफोन एक्सेस अस्वीकार खालामबाय',
+            micAccessDeniedDesc: 'आवाज नागिरनाय बाहायनो थाखाय अननानै नोंनि ब्राउजर सेटिंआव माइक्रोफोन एक्सेसखौ अन खालाम।',
         }
     },
     'डोगरी': {
@@ -2983,7 +2999,9 @@ const translations: Record<string, Translations> = {
             otpSendFailed: "ओटीपी भेजने च विफल",
             otpSendFailedDesc: "इक अप्रत्याशित त्रुटि होई। कृपा करियै फिरी कोशिश करो।",
             addressSaved: "पता बचाया गेआ!",
-            addressSavedDesc: "तुंदा नमां पता बचाया गेआ ऐ।"
+            addressSavedDesc: "तुंदा नमां पता बचाया गेआ ऐ।",
+            micAccessDenied: 'माइक्रोफोन पहुंच अस्वीकार कीती गेई',
+            micAccessDeniedDesc: 'आवाज खोज दा इस्तेमाल करने लेई कृपा करियै अपने ब्राउज़र सेटिंग्स च माइक्रोफोन पहुंच सक्षम करो।',
         }
     },
     'गुजराती': {
@@ -3032,7 +3050,7 @@ const translations: Record<string, Translations> = {
             "browseServices": "સેવાઓ બ્રાઉઝ કરો",
             "paymentSummary": "ચુકવણી સારાંશ",
             "itemTotal": "કુલ આઇટમ",
-            "deliveryFee": "ડિલિવરી ફી",
+            "deliveryFee": "ડિલિવਰੀ ફી",
             "platformFee": "પ્લેટફોર્મ ફી",
             "toPay": "ચૂકવવા માટે",
             "checkout": "ચેકઆઉટ પર આગળ વધો"
@@ -3080,7 +3098,7 @@ const translations: Record<string, Translations> = {
             "seeAll": "બધા જુઓ",
             "home": "હોમ",
             "library": "લાઇબ્રેરી",
-            "explore": "અન્વેષણ કરો",
+            "explore": "અન્ਵੇષણ કરો",
             "opinion": "અભિપ્રાય"
         },
         "login": {
@@ -3103,7 +3121,7 @@ const translations: Record<string, Translations> = {
         },
         "newAddress": {
             "title": "નવું સરનામું",
-            "completeAddress": "સંપૂર્ણ સરનામું દાખલ કરો",
+            "completeAddress": "સંપૂર્ણ સરનામું દાખਲ કરો",
             "orderingFor": "તમે કોના માટે ઓર્ડર કરી રહ્યા છો?",
             "myself": "મારા માટે",
             "someoneElse": "બીજા કોઈ માટે",
@@ -3314,21 +3332,23 @@ const translations: Record<string, Translations> = {
             otpSendFailed: "ઓટીપી મોકલવામાં નિષ્ફળ",
             otpSendFailedDesc: "એક અનપેક્ષિત ભૂલ આવી. કૃપા કરીને ફરી પ્રયાસ કરો.",
             addressSaved: "સરનામું સાચવ્યું!",
-            addressSavedDesc: "તમારું નવું સરનામું સાચવવામાં આવ્યું છે."
+            addressSavedDesc: "તમારું નવું સરનામું સાચવવામાં આવ્યું છે।",
+            micAccessDenied: 'માઇક્રોફોન ઍક્સેસ નકારવામાં આવ્યો',
+            micAccessDeniedDesc: 'વૉઇસ શોધનો ઉપયોગ કરવા માટે કૃપા કરીને તમારા બ્રાઉઝર સેટિંગ્સમાં માઇક્રોફોન ઍક્સેસ સક્ષમ કરો।',
         }
     },
     'ಕನ್ನಡ': {
         "settings": {
             "title": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು",
             "orderMessages": "ಆರ್ಡರ್ ಸಂಬಂಧಿತ ಸಂದేశಗಳು",
-            "orderMessagesDescription": "ಸೇವಾ ಅನುಭವಕ್ಕಾಗಿ ಆರ್ಡರ್ ಸಂಬಂಧಿತ ಸಂದೇಶಗಳನ್ನು ಆಫ್ ಮಾಡಲಾಗುವುದಿಲ್ಲ ಏಕೆಂದರೆ ಅವು ಮುಖ್ಯವಾಗಿವೆ.",
+            "orderMessagesDescription": "ಸೇವಾ ಅನುಭವಕ್ಕಾಗಿ ಆರ್ಡರ್ ಸಂಬಂಧಿತ ಸಂದేశಗಳನ್ನು ಆಫ್ ಮಾಡಲಾಗುವುದಿಲ್ಲ ಏಕೆಂದರೆ ಅವು ಮುಖ್ಯವಾಗಿವೆ.",
             "language": "ಭಾಷೆ",
             "change": "ಬದಲಾಯಿಸಿ",
             "notificationsAndReminders": "ಅಧಿಸೂಚನೆಗಳು ಮತ್ತು ಜ್ಞಾਪನೆಗಳು",
             "whatsapp": "ವಾಟ್ಸಾಪ್",
             "sms": "ಎಸ್‌ಎಂಎಸ್",
-            "email": "ಇಮೇల్",
-            "pushNotification": "ಪುಶ್ ಅಧಿಸೂಚನೆ",
+            "email": "ಇಮೇಲ್",
+            "pushNotification": "ಪುಶ್ ಅಧಿಸੂಚನೆ",
             "voiceCalls": "ಧ್ವನಿ ಕರೆಗಳು",
             "privacyAndData": "ಗೌಪ್ಯತೆ ಮತ್ತು ಡೇಟಾ",
             "admin": "ನಿರ್ವಾಹಕ",
@@ -3337,7 +3357,7 @@ const translations: Record<string, Translations> = {
         },
         "about": {
             "title": "ನಮ್ಮ ಬಗ್ಗೆ",
-            "welcome": "ನಮ್ಮ ಅಪ್ಲಿಕೇಶನ್‌ಗೆ ಸುಸ್ವಾಗತ, ಸುಗമ ಅನುಭವಕ್ಕಾಗಿ ನಿಮ್ಮ ಅಂತಿమ ತಾಣ! ನಾವು ನಿಮಗೆ ಉತ್ತಮ ಸೇವೆಗಳು, ಅಸಾధారణ ಡೀಲ್‌ಗಳು ಮತ್ತು ಅಪ್ರತಿಮ ಅನುಕೂಲವನ್ನು ತರಲು ವಿನ್ಯಾಸಗೊಳಿಸಲಾದ ಒಂದು ನವೀನ, ಗ್ರಾಹಕ-ಕೇಂದ್ರಿತ ವೇದಿಕೆಯಾಗಿದ್ದೇವೆ — ಎಲ್ಲವೂ ನಿಮ್ಮ ಬೆರಳ ತುದಿಯಲ್ಲಿದೆ.",
+            "welcome": "ನಮ್ಮ ಅಪ್ಲಿಕೇಶನ್‌ಗೆ ಸುಸ್ವಾಗತ, ಸುಗമ ಅನುಭವಕ್ಕಾಗಿ ನಿಮ್ಮ ಅಂತಿమ ತಾಣ! ನಾವು ನಿಮಗೆ ಉತ್ತಮ ಸೇವೆಗಳು, ಅಸಾధారణ ಡೀಲ್‌ಗಳು ಮತ್ತು ಅಪ್ರತಿಮ ಅನುಕೂలವನ್ನು ತರಲು ವಿನ್ಯಾಸಗೊಳಿಸಲಾದ ಒಂದು ನವೀನ, ಗ್ರಾಹಕ-ಕೇಂದ್ರಿತ ವೇದಿಕೆಯಾಗಿದ್ದೇವೆ — ಎಲ್ಲವೂ ನಿಮ್ಮ ಬೆರಳ ತುದಿಯಲ್ಲಿದೆ.",
             "storyTitle": "ನಮ್ಮ ಕಥೆ",
             "storyP1": "ನಾವು ಒಂದು ಸರಳ ಉಪಾಯದೊಂದಿಗೆ ಪ್ರಾರಂಭಿಸಿದೆವು: ಕೇವಲ ವಿವಿಧ ಸೇವೆಗಳನ್ನು ಒದಗಿಸುವುದಲ್ಲದೆ, ಇಡೀ ಪ್ರಕ್ರಿಯೆಯನ್ನು ಸುಲಭ ಮತ್ತು ಆನಂದದಾಯಕವಾಗಿಸುವ ವೇದಿಕೆಯನ್ನು ಒದಗಿಸುವುದು.",
             "storyP2": "ವಿನಮ್ರ ಆರಂಭದಿಂದ, ನಾವು ಶೀಘ್ರದಲ್ಲೇ ಅತ್ಯಂತ ವಿಶ್ವಾಸಾರ್ಹ ವೇದಿಕೆಗಳಲ್ಲಿ ಒಂದಾಗಿ ಬೆಳೆದೆವು. ಗ್ರಾಹಕರ ತೃಪ್ತಿ, ಪ್ರವೇಶಸಾಧ್ಯತೆ మరియు ನಿರಂತರ ನಾವೀನ್ಯತೆಯ ನಮ್ಮ ಮೂಲ ಮೌಲ್ಯಗಳು ನಮ್ಮ ಕೊಡುಗೆಗಳನ್ನು ವಿಸ್ತರಿಸುವ ಗುರಿಯನ್ನು ಹೊಂದಿರುವಾಗಲೂ ನಮ್ಮನ್ನು ಮುಂದೂಡುತ್ತಲೇ ಇರುತ್ತವೆ."
@@ -3364,7 +3384,7 @@ const translations: Record<string, Translations> = {
             "paymentSummary": "ಪಾವತಿ ಸಾರಾಂಶ",
             "itemTotal": "ಒಟ್ಟು ಐಟಂ",
             "deliveryFee": "ಡೆಲಿವರಿ ಶುಲ್ಕ",
-            "platformFee": "ವೇದಿಕೆ ಶುಲ್ಕ",
+            "platformFee": "ವೇದಿಕೆ ಶುಲ್క",
             "toPay": "ಪಾವತಿಸಲು",
             "checkout": "ಚೆಕ್‌ಔಟ್‌ಗೆ ಮುಂದುವರಿಯಿರಿ"
         },
@@ -3450,7 +3470,7 @@ const translations: Record<string, Translations> = {
             "save": "ವಿಳಾಸವನ್ನು ಉಳಿಸಿ"
         },
         "paymentSettings": {
-            "title": "ಪಾವತಿ ಸೆಟ್ಟಿಂಗ್‌ಗಳು",
+            "title": "ಪಾವತಿ ಸೆట్టిಂಗ್‌ಗಳು",
             "cards": "ಕಾರ್ಡ್‌ಗಳು",
             "creditDebit": "ಕ್ರೆಡಿಟ್/ಡೆಬಿಟ್ ಕಾರ್ಡ್",
             "sliceUpi": "ಸ್ಲೈಸ್ ಯುಪಿಐ",
@@ -3600,7 +3620,7 @@ const translations: Record<string, Translations> = {
             cartUpdated: "ಕಾರ್ಟ್ ನವೀಕರಿಸಲಾಗಿದೆ!",
             cartUpdatedDesc: "ಪ್ರಮಾಣವನ್ನು ನವೀಕರಿಸಲಾಗಿದೆ.",
             selectionRequired: "ಆಯ್ಕೆ ಅಗತ್ಯವಿದೆ",
-            selectionRequiredDesc: "ದಯವಿಟ್ಟು ದಿನಾಂಕ ಮತ್ತು ಸಮಯ ಸ್ಲಾಟ್ ಆಯ್ಕೆಮಾಡಿ.",
+            selectionRequiredDesc: "ದಯವಿಟ್ಟು ದಿನಾಂక ಮತ್ತು ಸಮಯ ಸ್ಲಾಟ್ ಆಯ್ಕೆಮಾಡಿ.",
             error: "ದೋಷ",
             notLoggedIn: "ಬಳಕೆದಾರರು ಲಾಗಿನ್ ಆಗಿಲ್ಲ ಅಥವಾ ಫೈರ್‌ಸ್ಟೋರ್ ಲಭ್ಯವಿಲ್ಲ.",
             addressMissing: "ವಿಳಾಸ ಕಾಣೆಯಾಗಿದೆ",
@@ -3609,7 +3629,7 @@ const translations: Record<string, Translations> = {
             orderFailedDescWallet: "ನಿಮ್ಮ ವ್ಯಾಲೆಟ್ ಪಾವತಿಯನ್ನು ಪ್ರಕ್ರಿಯೆಗೊಳಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
             orderFailedDescCod: "ನಿಮ್ಮ ಬುಕಿಂಗ್ ಅನ್ನು ಉಳಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
             missingFields: "ಕ್ಷೇತ್ರಗಳು ಕಾಣೆಯಾಗಿವೆ",
-            missingFieldsDesc: "ದಯವಿಟ್ಟು ನಿಮ್ಮ ಹೆಸರು, ಮೊಬೈల్ ಮತ್ತು ವಿಳಾಸವನ್ನು ಭರ್ತಿ ಮಾಡಿ.",
+            missingFieldsDesc: "ದಯವಿಟ್ಟು ನಿಮ್ಮ ಹೆಸರು, ಮೊಬైಲ್ ಮತ್ತು ವಿಳಾಸವನ್ನು ಭರ್ತಿ ಮಾಡಿ.",
             notLoggedInSave: "ಲಾಗಿನ್ ಆಗಿಲ್ಲ",
             notLoggedInSaveDesc: "ವಿಳಾಸವನ್ನು ಉಳಿಸಲು ನೀವು ಲಾಗಿನ್ ಆಗಿರಬೇಕು.",
             saveFailed: "ಉಳಿಸಲು ವಿಫಲವಾಗಿದೆ",
@@ -3617,7 +3637,7 @@ const translations: Record<string, Translations> = {
             profileUpdated: "ಪ್ರೊಫೈಲ್ ನವೀಕರಿಸಲಾಗಿದೆ!",
             profileUpdatedDesc: "ನಿಮ್ಮ ಬದಲಾವಣೆಗಳನ್ನು ಉಳಿಸಲಾಗಿದೆ.",
             updateFailed: "ನವೀಕರಿಸಲು ವಿಫಲವಾಗಿದೆ",
-            updateFailedDesc: "ನಿಮ್ಮ ಪ್ರೊಫೈಲ್ ಅನ್ನು ಉಳಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
+            updateFailedDesc: "ನಿಮ್ಮ ಪ್ರೊಫೈల్ ಅನ್ನು ಉಳಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
             ratingSubmitted: "ರೇಟಿಂಗ್ ಸಲ್ಲಿಸಲಾಗಿದೆ!",
             ratingSubmittedDesc: "ನಿಮ್ಮ ಪ್ರತಿಕ್ರಿಯೆಗೆ ಧನ್ಯವಾದಗಳು.",
             pleaseSelectRating: "ದಯವಿಟ್ಟು ರೇಟಿಂಗ್ ಆಯ್ಕೆಮಾಡಿ",
@@ -3625,7 +3645,7 @@ const translations: Record<string, Translations> = {
             copied: "ನಕಲಿಸಲಾಗಿದೆ!",
             copiedDesc: "ರೆಫರಲ್ ಕೋಡ್ ಅನ್ನು ಕ್ಲಿಪ್‌ಬೋರ್ಡ್‌ಗೆ ನಕಲಿಸಲಾಗಿದೆ.",
             chatCleared: "ಚಾಟ್ ತೆರವುಗೊಳಿಸಲಾಗಿದೆ",
-            chatClearedDesc: "ನಿಮ್ಮ ಸಂഭാಷಣೆ ಇತಿಹಾಸವನ್ನು ತೆರವುಗೊಳಿಸಲಾಗಿದೆ.",
+            chatClearedDesc: "ನಿಮ್ಮ ಸಂಭಾಷಣೆ ಇತಿಹಾಸವನ್ನು ತೆರವುಗೊಳಿಸಲಾಗಿದೆ.",
             errorClearingChat: "ದೋಷ",
             errorClearingChatDesc: "ಚಾಟ್ ಇತಿಹಾಸವನ್ನು ತೆರವುಗೊಳಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.",
             verificationError: "ಪರಿಶೀಲನಾ ದೋಷ",
@@ -3645,7 +3665,9 @@ const translations: Record<string, Translations> = {
             otpSendFailed: "OTP ಕಳುಹಿಸಲು ವಿಫಲವಾಗಿದೆ",
             otpSendFailedDesc: "ಅನಿರೀಕ್ಷಿತ ದೋಷ ಸಂಭವಿಸಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
             addressSaved: "ವಿಳಾಸ ಉಳಿಸಲಾಗಿದೆ!",
-            addressSavedDesc: "ನಿಮ್ಮ ಹೊಸ ವಿಳಾಸವನ್ನು ಉಳಿಸಲಾಗಿದೆ."
+            addressSavedDesc: "ನಿಮ್ಮ ಹೊಸ ವಿಳಾಸವನ್ನು ಉಳಿಸಲಾಗಿದೆ.",
+            micAccessDenied: 'ಮೈಕ್ರೊಫೋನ್ ಪ್ರವೇಶವನ್ನು ನಿರಾಕರಿಸಲಾಗಿದೆ',
+            micAccessDeniedDesc: 'ಧ್ವನಿ ಹುಡುಕಾಟವನ್ನು ಬಳಸಲು ದಯವಿಟ್ಟು ನಿಮ್ಮ ಬ್ರೌಸರ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಮೈಕ್ರೊಫೋನ್ ಪ್ರವೇಶವನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ.',
         }
     },
     'कश्मीरी': {
@@ -3671,7 +3693,7 @@ const translations: Record<string, Translations> = {
             "welcome": "اسہِ ایپ منز چھُ توحید स्वागत، اَکہِ ہموار تجربس باپتھ توحید آخری منزل! اسہِ چھُ اَکھ جدید، گاہک-مرکوز پلیٹ فارم یُس توحید بہترین خدمات، غیر معمولی ڈیل، تہٕ بے مثال سہولت فراہم کرنہٕ باپتھ ڈیزائن کرنہٕ آمت چھُ — سٲری توحید انگلین پؠٹھ۔",
             "storyTitle": "اسہِ کہانی",
             "storyP1": "اسہِ اَکہِ سادٕ خیال سٟتؠ شروٗع کعر: اَکھ یُتھی پلیٹ فارم فراہم کرن یُس نہ صرف مختلف قسمن ہنٛز خدمات پیش کران چھُ بلکہ ساری عملس آسان تہٕ خوشگوار बनाوان چھُ۔",
-            "storyP2": "معمولی شروعات پیٹھہٕ، اسہِ جلدی ساروٕی کھوتہٕ زیٛادٕ قابل اعتماد پلیٹ فارمن منز اَکھ بنیوو۔ گاہک اطمینان، رسائی، تہٕ مسلسل جدت طرازی ہنٛد اسہِ بنیادی اقدار چھِ اسہِ حوصلہ افزائی کران روزان کیازِ اسہِ مقصد چھُ پنن پیشکش وسیع کرن۔"
+            "storyP2": "معمولی شروعات پیٹھہٕ، اسہِ جلدی ساروٕی کھوتہٕ زیٛادٕ قابل اعتماد پلیٹ فارمن منز اَکھ بنیوو۔ گاہک اطمینান، رسائی، تہٕ مسلسل جدت طرازی ہنٛد اسہِ بنیادی اقدار چھِ اسہِ حوصلہ افزائی کران روزان کیازِ اسہِ مقصد چھُ پنن پیشکش وسیع کرن۔"
         },
         "address": {
             "title": "مؠون پتہ",
@@ -3752,11 +3774,11 @@ const translations: Record<string, Translations> = {
             "title": "مؠنۍ بکنگ",
             "activePlans": "آنے والی بکنگ",
             "noActivePlans": "توہہِ چھُنہٕ کانہہ آنے والی بکنگ۔",
-            "bookings": "بکنگ",
+            "bookings": "बکنگ",
             "pastBookings": "گزشتہ بکنگ",
             "noBookingsYet": "وُنِتھ تام کانہہ بکنگ چھےٚ نٕہ",
             "browseServicesPrompt": "پنن منصوبہ یتہِ وچھنہٕ باپتھ اَکھ خدمت بک کریو।",
-            "noPastBookings": "توہنٛد پتمۍ بکنگ مکمل گژھنہٕ پتہٕ ییھن ییھ نظر۔",
+            "noPastBookings": "توہنٛد پتمۍ بکنگ مکمل گژھنہٕ پتہٕ ییھن ییھ نظر।",
         },
         "nativeDevices": {
             "title": "مقامی ڈیوائس",
@@ -3908,7 +3930,7 @@ const translations: Record<string, Translations> = {
             paymentMethod: 'ادائیگی کا طریقہ',
             payWithWallet: 'والیٹ سٟتؠ ادا کریو',
             balance: 'بیلنس',
-            insufficientBalance: 'ناکافی بیلنس۔',
+            insufficientBalance: 'ناکافی بیلنس।',
             payOnDelivery: 'ڈیلیوری پؠٹھ ادا کریو',
             paymentDetails: 'ادائیگی کی تفصیلات',
             remove: 'ہٹاو',
@@ -3917,7 +3939,7 @@ const translations: Record<string, Translations> = {
             noAddressSelected: 'کانہہ پتہ منتخب کرنہٕ آمت نی',
             loading: 'لوڈ ہو رہا ہے...',
             placeOrder: 'آرڈر دیو',
-            loginToPlaceOrder: 'آرڈر देने باپتھ لاگ ان کریو',
+            loginToPlaceOrder: 'آর்டர் देने باپتھ لاگ ان کریو',
             payFromWallet: 'والیٹ سٟتؠ ادا کریو',
         },
         toasts: {
@@ -3976,7 +3998,9 @@ const translations: Record<string, Translations> = {
             otpSendFailed: "ओटीपी भेजने में विफल",
             otpSendFailedDesc: "एक अप्रत्याशित त्रुटि हुई। कृपया पुनः प्रयास करें।",
             addressSaved: "पता सहेजा गया!",
-            addressSavedDesc: "आपका नया पता सहेज लिया गया है।"
+            addressSavedDesc: "आपका नया पता सहेज लिया गया है।",
+            micAccessDenied: 'مائیکروفون رسائی نامنظور',
+            micAccessDeniedDesc: 'آواز تلاش استعمال کرنہٕ باپتھ مہربانی کرِتھ پنن برائوزر سیٹنگز منز مائیکروفون رسائی فعال کریو۔',
         }
     },
     'कोंकणी': {
@@ -4288,8 +4312,8 @@ const translations: Record<string, Translations> = {
             copiedDesc: "रेफरल कोड क्लिपबोर्डवर कॉपी केला.",
             chatCleared: "चॅट साफ केले",
             chatClearedDesc: "तुमचा संभाषण इतिहास साफ केला आहे.",
-            errorClearingChat: "त्रुटी",
-            errorClearingChatDesc: "चॅट इतिहास साफ करू शकलो नाही.",
+            errorClearingChat: "त्रुटि",
+            errorClearingChatDesc: "चॅਟ इतिहास साफ करू शकलो नाही.",
             verificationError: "सत्यापन त्रुटी",
             verificationErrorDesc: "कृपया लॉगिन प्रक्रिया पुन्हा सुरू करा.",
             invalidOtp: "अवैध ओटीपी",
@@ -4307,7 +4331,9 @@ const translations: Record<string, Translations> = {
             otpSendFailed: "ओटीपी पाठवण्यात अयशस्वी",
             otpSendFailedDesc: "एक अनपेक्षित त्रुटी आली. कृपया पुन्हा प्रयत्न करा.",
             addressSaved: "पत्ता जतन केला!",
-            addressSavedDesc: "तुमचा नवीन पत्ता जतन केला आहे।"
+            addressSavedDesc: "तुमचा नवीन पत्ता जतन केला आहे।",
+            micAccessDenied: 'मायक्रोफोन प्रवेश नाकारला',
+            micAccessDeniedDesc: 'आवाज शोध वापरण्यासाठी कृपया तुमच्या ब्राउझर सेटिंग्जमध्ये मायक्रोफोन प्रवेश सक्षम करा।',
         }
     },
     'मैथिली': {
@@ -4638,7 +4664,9 @@ const translations: Record<string, Translations> = {
             otpSendFailed: "ओटीपी भेजबा मे विफल",
             otpSendFailedDesc: "एकटा अप्रत्याशित त्रुटि भेल। कृपया फेर सँ प्रयास करू।",
             addressSaved: "पता सहेजल गेल!",
-            addressSavedDesc: "अहाँक नवका पता सहेज लेल गेल अछि।"
+            addressSavedDesc: "अहाँक नवका पता सहेज लेल गेल अछि।",
+            micAccessDenied: 'माइक्रोफोन एक्सेस अस्वीकार कएल गेल',
+            micAccessDeniedDesc: 'आवाज खोज के उपयोग करबाक लेल कृपया अपन ब्राउज़र सेटिंग मे माइक्रोफोन एक्सेस सक्षम करू।',
         }
     },
     'मलयालम': {
@@ -4969,7 +4997,9 @@ const translations: Record<string, Translations> = {
             otpSendFailed: "OTP അയക്കുന്നതിൽ പരാജയപ്പെട്ടു",
             otpSendFailedDesc: "അപ്രതീക്ഷിതമായ പിശക് സംഭവിച്ചു. ദയവായി വീണ്ടും ശ്രമിക്കുക.",
             addressSaved: "വിലാസം സംരക്ഷിച്ചു!",
-            addressSavedDesc: "നിങ്ങളുടെ പുതിയ വിലാസം സംരക്ഷിച്ചു."
+            addressSavedDesc: "നിങ്ങളുടെ പുതിയ വിലാസം സംരക്ഷിച്ചു.",
+            micAccessDenied: 'മൈക്രോഫോൺ ആക്സസ് നിഷേധിച്ചു',
+            micAccessDeniedDesc: 'വോയിസ് സെർച്ച് ഉപയോഗിക്കാൻ നിങ്ങളുടെ ബ്രൗസർ ക്രമീകരണങ്ങളിൽ മൈക്രോഫോൺ ആക്സസ് പ്രവർത്തനക്ഷമമാക്കുക.',
         }
     },
     'मणिपुरी': {
@@ -5272,17 +5302,17 @@ const translations: Record<string, Translations> = {
             profileUpdated: "প্রোফাইল অপডেট তৌখ্রে!",
             profileUpdatedDesc: "অদোমগী ওন্থোকপশিং সেভ তৌখ্রে।",
             updateFailed: "অপডেট মায় পাকখিদ্রে",
-            updateFailedDesc: "অদোমগী প্রোফাইল সেভ তৌবা ঙমখিদ্রে। প্লিজ অমুক হন্না হোৎনবীয়ু।",
+            updateFailedDesc: "অদোমগী প্রোফাইল সেভ তৌবা ঙমखিদ্রে। প্লিজ অমুক হন্না হোৎনবীয়ু।",
             ratingSubmitted: "রেটিং পীশিনখ্রে!",
             ratingSubmittedDesc: "অদোমগী অপাম্বগীদমক ধন্যবাদ।",
             pleaseSelectRating: "প্লিজ অমা রেটিং খনবীয়ু",
-            ratingFailed: "রেটিং পীশিনবদা মায় পাকখিদ্রে",
+            ratingFailed: "রেটিং পীশินবদা মায় পাকখিদ্রে",
             copied: "কপি তৌখ্রে!",
             copiedDesc: "রেফরেল কোড ক্লিপবোর্ডদা কপি তৌখ্রে।",
-            chatCleared: "চ্যাট লোইশিনখ্রে",
-            chatClearedDesc: "অদোমগী ৱারীগী ইতিহাস লোইশিনখ্রে।",
+            chatCleared: "চ্যাট লোইশินখ্রে",
+            chatClearedDesc: "অদোমগী ৱারীগী ইতিহাস লোইশินখ্রে।",
             errorClearingChat: "অসোয়বা",
-            errorClearingChatDesc: "চ্যাট ইতিহাস লোইশিনবা ঙমখিদ্রে।",
+            errorClearingChatDesc: "চ্যাট ইতিহাস লোইশินবা ঙমখিদ্রে।",
             verificationError: "ভেরিফিকেশনগী অসোয়বা",
             verificationErrorDesc: "প্লিজ লগইন প্রক্রিয়া অমুক হন্না হৌদোকপীয়ু।",
             invalidOtp: "অ मान्य ওটিপি",
@@ -5300,7 +5330,9 @@ const translations: Record<string, Translations> = {
             otpSendFailed: "ওটিপি থাবদা মায় পাকখিদ্রে",
             otpSendFailedDesc: "অঙকপা অসোয়বা থোকখ্রে। প্লিজ অমুক হন্না হোৎনবীয়ু।",
             addressSaved: "ঠিকানা সেভ তৌখ্রে!",
-            addressSavedDesc: "অদোমগী অনৌবা ঠিকানা সেভ তৌখ্রে।"
+            addressSavedDesc: "অদোমগী অনৌবা ঠিকানা সেভ তৌখ্রে।",
+            micAccessDenied: 'মাইক্রোফোন এক্সেস পিখিদ্রে',
+            micAccessDeniedDesc: 'ভয়েস সার্চ শিজিন্ননবা অদোমগী ব্রাউজার সেটিংদা মাইক্রোফোন এক্সেস অদু অন তৌবীয়ু।',
         }
     },
     'नेपाली': {
@@ -5631,7 +5663,9 @@ const translations: Record<string, Translations> = {
             otpSendFailed: "OTP पठाउन असफल भयो",
             otpSendFailedDesc: "एक अप्रत्याशित त्रुटि भयो। कृपया फेरि प्रयास गर्नुहोस्।",
             addressSaved: "ठेगाना सुरक्षित गरियो!",
-            addressSavedDesc: "तपाईंको नयाँ ठेगाना सुरक्षित गरिएको छ।"
+            addressSavedDesc: "तपाईंको नयाँ ठेगाना सुरक्षित गरिएको छ।",
+            micAccessDenied: 'माइक्रोफोन पहुँच अस्वीकृत गरियो',
+            micAccessDeniedDesc: 'भ्वाइस खोज प्रयोग गर्न कृपया आफ्नो ब्राउजर सेटिङहरूमा माइक्रोफोन पहुँच सक्षम गर्नुहोस्।',
         }
     },
     'ଓଡିଆ': {
@@ -5654,7 +5688,7 @@ const translations: Record<string, Translations> = {
         },
         "about": {
             "title": "ଆମ ବିଷୟରେ",
-            "welcome": "ଆମର ଆପକୁ ସ୍ଵାଗତ, ଏକ ସୁଗମ ଅନୁଭୂତି ପାଇଁ ଆପଣଙ୍କର ଚୂଡାନ୍ତ ଗନ୍ତବ୍ୟସ୍ଥଳ! ଆମେ ଏକ ଅଭିନବ, ଗ୍ରାହକ-କେନ୍ଦ୍ରିକ ପ୍ଲାଟଫର୍ମ ଯାହା ଆପଣଙ୍କୁ ସର୍ବୋତ୍ତମ ସେବା, ଅସାଧାରଣ ଡିଲ୍, ଏବଂ ଅପ୍ରତିଦ୍ବନ୍ଦ୍ବୀ ସୁବିଧା ପ୍ରଦਾਨ କରିବା ପାଇଁ ପରିକଳ୍ਪିତ — ସବୁ ଆପଣଙ୍କ ଆଙ୍ଗୁଠି ଟିପରେ।",
+            "welcome": "ଆମର ଆପକୁ ସ୍ଵାଗତ, ଏକ ସୁଗମ ଅନୁଭୂତି ପାଇଁ ଆପଣଙ୍କର ଚୂଡାନ୍ତ ଗନ୍ତବ୍ୟସ୍ଥଳ! ଆମେ ଏକ ଅଭିନବ, ଗ୍ରାହକ-କେନ୍ଦ୍ରିକ ପ୍ଲାଟଫର୍ମ ଯାହା ଆପଣଙ୍କୁ ସର୍ବୋତ୍ତମ ସେବା, ଅସାଧାରଣ ଡିଲ୍, ଏବଂ ଅପ୍ରତିଦ୍ବନ୍ଦ୍ବୀ ସୁବିଧା ପ୍ରଦାନ କରିବା ପାଇଁ ପରିକଳ୍ਪିତ — ସବୁ ଆପଣଙ୍କ ଆଙ୍ଗୁଠି ଟିପରେ।",
             "storyTitle": "ଆମ କାହାଣୀ",
             "storyP1": "ଆମେ ଏକ ସରଳ ଧାରଣାରୁ ଆରମ୍ଭ କରିଥିଲୁ: ଏକ ଏପରି ପ୍ଲାଟଫର୍ମ ପ୍ରଦାନ କରିବା ଯାହା କେବଳ ବିଭିନ୍ନ ପ୍ରକାରର ସେବା ପ୍ରଦାନ କରେ ନାହିଁ ବରଂ ସମଗ୍ର ପ୍ରକ୍ରିୟାକୁ ସହଜ ଏବଂ ଆନନ୍ଦଦାୟକ କରାଏ।",
             "storyP2": "ସାଧାରଣ ଆରମ୍ଭରୁ, ଆମେ ଶୀଘ୍ର ସବୁଠାରୁ ବିଶ୍ଵସନୀୟ ପ୍ଲାଟଫର୍ମ ମଧ୍ୟରୁ ଗୋଟିଏ ହୋଇଗଲୁ। ଗ୍ରାହକ ସନ୍ତୁଷ୍ଟି, ସୁଲଭତା, ଏବଂ ନିରନ୍ତର ନବୀକରଣର ଆମର ମୂଳ ମୂଲ୍ୟବୋଧ ଆମକୁ ଆଗକୁ ବଢାଇବାରେ ସାହାଯ୍ୟ କରୁଛି କାରଣ ଆମେ ଆମର ଅଫରଗୁଡିକୁ ବିସ୍ତାର କରିବାକୁ ଲକ୍ଷ୍ୟ ରଖିଛୁ।"
@@ -5812,22 +5846,22 @@ const translations: Record<string, Translations> = {
             "referEarnDescription": "ଯେତେବେଳେ ଆପଣଙ୍କ ସାଙ୍ଗ ତାଙ୍କର ପ୍ରଥମ ବୁକିଂ ସମ୍ପୂର୍ଣ୍ଣ କରନ୍ତି, ₹100 ପାଆନ୍ତୁ।",
             "hurryUp": "ଶୀଘ୍ର କରନ୍ତୁ",
             "referNow": "ବର୍ତ୍ତମାନ ରେଫର୍ କରନ୍ତୁ",
-            "lightMode": "ଲାଇଟ୍ ମୋଡ୍",
-            "darkMode": "ଡାର୍କ ମୋଡ୍",
+            "lightMode": "ଲାଇਟ୍ ମୋଡ୍",
+            "darkMode": "ଡାର୍କ ମୋడ్",
             "appVersions": "ଆପ୍ ସଂସ୍କରଣ",
-            "masterAdminPanel": "ମାଷ୍ଟର ଆଡମିନ୍ ପ୍ୟାନେଲ୍"
+            "masterAdminPanel": "ମାଷ୍ଟର ଆଡମିନ୍ ପ୍ୟାନେਲ୍"
         },
         "refer": {
             "title": "ରେଫର୍ କରନ୍ତୁ ଏବଂ ରୋଜଗାର କରନ୍ତୁ",
             "subtitle": "ଆପଣଙ୍କ କୋଡ୍ ସାଙ୍ଗମାନଙ୍କ ସହିତ ସେୟାର କରନ୍ତୁ ଏବଂ ପୁରସ୍କାର ପାଆନ୍ତୁ!",
-            "code": "ଆପଣଙ୍କ କୋଡ୍",
+            "code": "ଆପଣଙ୍କ କୋడ్",
             "share": "ବର୍ତ୍ତମାନ ସେୟାର କରନ୍ତୁ"
         },
         "search": {
             "searchPlaceholder": "ଖୋଜନ୍ତୁ...",
             "resultsFor": "ପାଇଁ ଫଳାଫଳ",
             "noResults": "କୌଣସି ଫଳାଫଳ ମିଳିଲା ନାହିଁ",
-            "tryAgain": "କିଛି ଅଲଗା ଖୋଜିବାକୁ ଚେଷ୍ଟା କରନ୍ତୁ।"
+            "tryAgain": "କିଛି ଅଲଗା ଖୋଜିବାକୁ ଚେଷ୍ଟా କରନ୍ତୁ।"
         },
         "support": {
             "title": "ସମର୍ଥନ",
@@ -5842,7 +5876,7 @@ const translations: Record<string, Translations> = {
             "resendCode": "କୋଡ୍ ପୁଣି ପଠାନ୍ତୁ"
         },
         "wallet": {
-            "title": "ମୋର ୱାଲେଟ୍",
+            "title": "ମୋର ୱାଲେਟ୍",
             "availableBalance": "ଉପଲବ୍ଧ ବାଲାନ୍ସ",
             "transitionHistory": "କାରବାର ଇତିହାସ",
             "refund": "ଫେରସ୍ତ"
@@ -5860,7 +5894,7 @@ const translations: Record<string, Translations> = {
             bookingId: 'ବୁକିଂ ଆଇଡି',
             paymentMethod: 'ପେମେଣ୍ଟ ପଦ୍ଧତି',
             payOnDelivery: 'ଡେଲିଭରୀରେ ପେମେଣ୍ଟ କରନ୍ତୁ',
-            wallet: 'ୱାଲେଟ୍',
+            wallet: 'ୱାଲେਟ୍',
             recipient: 'ପ୍ରାପ୍ତକର୍ତ୍ତା',
             valuedCustomer: 'ମୂଲ୍ୟବାନ ଗ୍ରାହକ',
             toBePaidOnDelivery: 'ଡେଲିଭରୀରେ ପେମେଣ୍ଟ କରାଯିବ',
@@ -5901,7 +5935,7 @@ const translations: Record<string, Translations> = {
             deliverTo: 'କୁ ବିତରଣ କରନ୍ତୁ',
             inMins: '25-30 ମିନିଟରେ',
             noAddressSelected: 'କୌଣସି ଠିକଣା ବଛାଯାଇନାହିଁ',
-            loading: 'ଲୋଡ୍ ହେଉଛି...',
+            loading: 'ଲୋడ్ ହେଉଛି...',
             placeOrder: 'ଅର୍ଡର ଦିଅନ୍ତୁ',
             loginToPlaceOrder: 'ଅର୍ଡର ଦେବାକୁ ଲଗଇନ୍ କରନ୍ତୁ',
             payFromWallet: 'ୱାଲେଟ୍‌ରୁ ପେମେଣ୍ଟ କରନ୍ତୁ',
@@ -5912,12 +5946,12 @@ const translations: Record<string, Translations> = {
             invalidCoupon: "ଅବୈଧ କୁପନ୍",
             invalidCouponDesc: "ଆପଣ ପ୍ରବେଶ କରିଥିବା କୁପନ୍ କୋଡ୍ ବୈଧ ନୁହେଁ।",
             couponRemoved: "କୁପନ୍ ଅପସାରିତ",
-            couponRemovedDesc: "ଆପଣଙ୍କ କାର୍ଟର ମୋଟ୍ ଅପଡେଟ୍ ହୋଇଛି।",
-            serviceAddedToCart: "ସେବା କାର୍ଟରେ ଯୋଡାଗଲା!",
-            cartUpdated: "କାର୍ଟ ଅପଡେଟ୍ ହେଲା!",
+            couponRemovedDesc: "ଆପଣଙ୍କ କାର୍ਟର ମୋਟ୍ ଅପଡେଟ୍ ହୋଇଛି।",
+            serviceAddedToCart: "ସେବା କାର୍ਟରେ ଯୋଡାଗଲା!",
+            cartUpdated: "କାର୍ਟ ଅପଡେਟ୍ ହେଲା!",
             cartUpdatedDesc: "ପରିମାଣ ଅପଡେଟ୍ ହୋଇଛି।",
-            selectionRequired: "ଚୟନ ଆବଶ୍ୟକ",
-            selectionRequiredDesc: "ଦୟାକରି ଏକ ତାରିଖ ଏବଂ ସମୟ ସ୍ଲଟ୍ ବାଛନ୍ତୁ।",
+            selectionRequired: "ଚୟନ ଆବଶ్యକ",
+            selectionRequiredDesc: "ଦୟାକରି ଏକ ତାରିଖ ଏବଂ ସମୟ ସ୍ਲଟ୍ ବାଛନ୍ତୁ।",
             error: "ତ୍ରୁଟି",
             notLoggedIn: "ଉପଭୋକ୍ତା ଲଗ୍ ଇନ୍ କରିନାହାଁନ୍ତି କିମ୍ବା ଫାୟାରଷ୍ଟୋର୍ ଉପଲବ୍ଧ ନାହିଁ।",
             addressMissing: "ଠିକଣା ନିଖୋଜ",
@@ -5925,16 +5959,16 @@ const translations: Record<string, Translations> = {
             orderFailed: "ଅର୍ଡର ବିଫଳ",
             orderFailedDescWallet: "ଆପଣଙ୍କ ୱାଲେଟ୍ ପେମେଣ୍ଟ୍ ପ୍ରକ୍ରିୟାକରଣ ହୋଇପାରିଲା ନାହିଁ। ଦୟାକରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
             orderFailedDescCod: "ଆପଣଙ୍କ ବୁକିଂ ସଞ୍ଚୟ ହୋଇପାରିଲା ନାହିଁ। ଦୟାକରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
-            missingFields: "ଆବଶ୍ୟକୀୟ ଫିଲ୍ଡ ନିଖୋଜ",
-            missingFieldsDesc: "ଦୟାକରି ଆପଣଙ୍କ ନାମ, ମୋବାଇଲ୍, ଏବଂ ଠିକଣା ପୂରଣ କରନ୍ତୁ।",
+            missingFields: "ଆବଶ్యକୀୟ ଫିਲ୍ଡ ନିଖୋଜ",
+            missingFieldsDesc: "ଦୟାକରି ଆପଣଙ୍କ ନାମ, ମୋବାଇਲ୍, ଏବଂ ଠିକଣା ପୂରଣ କରନ୍ତୁ।",
             notLoggedInSave: "ଲଗ୍ ଇନ୍ ହୋଇନାହିଁ",
-            notLoggedInSaveDesc: "ଏକ ଠିକଣା ସଞ୍ଚୟ କରିବାକୁ ଆପଣ ଲଗ୍ ଇନ୍ କରିବା ଆବଶ୍ୟକ।",
-            saveFailed: "ସଞ୍ଚୟ ବିଫଳ",
-            saveFailedDesc: "ଆପଣଙ୍କ ଠିକଣା ସଞ୍ଚୟ ହୋଇପାରିଲା ନାହିଁ। ଦୟାକରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
-            profileUpdated: "ପ୍ରୋଫାଇଲ୍ ଅପଡେଟ୍ ହେଲା!",
+            notLoggedInSaveDesc: "ଏକ ଠିକଣା ସଞ୍ਚୟ କରିବାକୁ ଆପଣ ଲଗ୍ ଇନ୍ କରିବା ଆବଶ్యକ।",
+            saveFailed: "ସଞ୍ਚୟ ବିଫଳ",
+            saveFailedDesc: "ଆପଣଙ୍କ ଠିକଣା ସଞ୍ਚୟ ହୋଇପାରିଲା ନାହିଁ। ଦୟାକରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
+            profileUpdated: "ପ୍ରୋଫାଇଲ୍ ଅପଡେਟ୍ ହେଲା!",
             profileUpdatedDesc: "ଆପଣଙ୍କ ପରିବର୍ତ୍ତନ ସଞ୍ଚୟ ହୋଇଛି।",
-            updateFailed: "ଅପଡେଟ୍ ବିଫଳ",
-            updateFailedDesc: "ଆପଣଙ୍କ ପ୍ରୋଫାଇଲ୍ ସଞ୍ଚୟ ହୋଇପାରିଲା ନାହିଁ। ଦୟାକରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
+            updateFailed: "ଅପଡେਟ୍ ବିଫଳ",
+            updateFailedDesc: "ଆପଣଙ୍କ ପ୍ରୋଫାଇਲ୍ ସଞ୍ଚୟ ହୋଇପାରିଲା ନାହିଁ। ଦୟାକରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
             ratingSubmitted: "ରେଟିଂ ଦାଖଲ କରାଗଲା!",
             ratingSubmittedDesc: "ଆପଣଙ୍କ ମତାମତ ପାଇଁ ଧନ୍ୟବାଦ।",
             pleaseSelectRating: "ଦୟାକରି ଏକ ରେଟିଂ ବାଛନ୍ତୁ",
@@ -5958,231 +5992,233 @@ const translations: Record<string, Translations> = {
             otpResentFailed: "OTP ପୁଣି ପଠାଇବାରେ ବିଫଳ",
             otpResendFailedDesc: "ଦୟାକରି ପରେ ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
             invalidPhone: "ଅବୈଧ ଫୋନ୍ ନମ୍ବର",
-            invalidPhoneDesc: "ଦୟାକରି ଏକ ବୈଧ 10-ଅଙ୍କ ବିଶିଷ୍ଟ ଭାରତୀୟ ମୋବାଇଲ୍ ନମ୍ବର ପ୍ରବେଶ କରନ୍ତୁ।",
+            invalidPhoneDesc: "ଦୟାକରି ଏକ ବୈଧ 10-ଅଙ୍କ ବିଶିଷ୍ଟ ଭାରତୀୟ ମୋବାଇਲ୍ ନମ୍ବର ପ୍ରବେଶ କରନ୍ତୁ।",
             otpSendFailed: "OTP ପଠାଇବାରେ ବିଫଳ",
-            otpSendFailedDesc: "ଏକ ଅପ୍ରତ୍ୟାଶିତ ତ୍ରୁଟି ଘଟିଲା। ଦୟାକରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
-            addressSaved: "ଠିକଣା ସଞ୍ଚୟ ହେଲା!",
-            addressSavedDesc: "ଆପଣଙ୍କ ନୂଆ ଠିକଣା ସଞ୍ଚୟ ହୋଇଛି।"
+            otpSendFailedDesc: "ଏକ ଅପ୍ରत्याଶିତ ତ୍ରୁଟି ଘଟିଲା। ଦୟାକରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
+            addressSaved: "ଠିକଣା ସଞ୍ਚୟ ହେଲା!",
+            addressSavedDesc: "ଆପଣଙ୍କ ନୂଆ ଠିକଣା ସଞ୍ਚୟ ହୋଇଛି।",
+            micAccessDenied: 'ମାଇକ୍ରୋଫୋନ୍ ପ୍ରବେଶ ଅସ୍ଵୀକାର କରାଗଲା',
+            micAccessDeniedDesc: 'ଭଏସ୍ ସର୍ଚ୍ଚ ବ୍ୟବହାର କରିବାକୁ ଦୟାକରି ଆପଣଙ୍କ ବ୍ରାଉଜର୍ ସେଟିଂସରେ ମାଇକ୍ରୋଫୋନ୍ ପ୍ରବେଶ ସକ୍ଷମ କରନ୍ତୁ।',
         }
     },
     'पंजाबी': {
-        "settings": {
-            "title": "ਸੈਟਿੰਗਾਂ",
-            "orderMessages": "ਆਰਡਰ ਸੰਬੰਧੀ ਸੁਨੇਹੇ",
-            "orderMessagesDescription": "ਆਰਡਰ ਸੰਬੰਧੀ ਸੁਨੇਹੇ ਬੰਦ ਨਹੀਂ ਕੀਤੇ ਜਾ ਸਕਦੇ ਕਿਉਂਕਿ ਉਹ ਸੇਵਾ ਅਨੁਭਵ ਲਈ ਮਹੱਤਵਪੂਰਨ ਹਨ।",
-            "language": "ਭਾਸ਼ਾ",
-            "change": "ਬਦਲੋ",
-            "notificationsAndReminders": "ਸੂਚਨਾਵਾਂ ਅਤੇ ਯਾਦ-ਦਹਾਨੀਆਂ",
-            "whatsapp": "ਵਟਸਐਪ",
-            "sms": "ਐਸਐਮਐਸ",
-            "email": "ਈਮੇਲ",
-            "pushNotification": "ਪੁਸ਼ ਸੂਚਨਾ",
-            "voiceCalls": "ਵੌਇਸ ਕਾਲਾਂ",
-            "privacyAndData": "ਗੋਪਨੀਯਤਾ ਅਤੇ ਡੇਟਾ",
-            "admin": "ਐਡਮਿਨ",
-            "masterAdminPanel": "ਮਾਸਟਰ ਐਡਮਿਨ ਪੈਨਲ",
-            "open": "ਖੋਲ੍ਹੋ"
+        settings: {
+            title: 'ਸੈਟਿੰਗਾਂ',
+            orderMessages: 'ਆਰਡਰ ਸੰਬੰਧੀ ਸੁਨੇਹੇ',
+            orderMessagesDescription: "ਆਰਡਰ ਸੰਬੰਧੀ ਸੁਨੇਹੇ ਬੰਦ ਨਹੀਂ ਕੀਤੇ ਜਾ ਸਕਦੇ ਕਿਉਂਕਿ ਉਹ ਸੇਵਾ ਅਨੁਭਵ ਲਈ ਮਹੱਤਵਪੂਰਨ ਹਨ।",
+            language: 'ਭਾਸ਼ਾ',
+            change: 'ਬਦਲੋ',
+            notificationsAndReminders: 'ਸੂਚਨਾਵਾਂ ਅਤੇ ਯਾਦ-ਦਹਾਨੀਆਂ',
+            whatsapp: 'ਵਟਸਐਪ',
+            sms: 'ਐਸਐਮਐਸ',
+            email: 'ਈਮੇਲ',
+            pushNotification: 'ਪੁਸ਼ ਸੂਚਨਾ',
+            voiceCalls: 'ਵੌਇਸ ਕਾਲਾਂ',
+            privacyAndData: 'ਗੋਪਨੀਯਤਾ ਅਤੇ ਡੇਟਾ',
+            admin: 'ਐਡਮਿਨ',
+            masterAdminPanel: 'ਮਾਸਟਰ ਐਡਮਿਨ ਪੈਨਲ',
+            open: 'ਖੋਲ੍ਹੋ',
         },
-        "about": {
-            "title": "ਸਾਡੇ ਬਾਰੇ",
-            "welcome": "ਸਾਡੀ ਐਪ ਵਿੱਚ ਤੁਹਾਡਾ ਸੁਆਗਤ ਹੈ, ਇੱਕ ਸਹਿਜ ਅਨੁਭਵ ਲਈ ਤੁਹਾਡਾ ਅੰਤਮ ਮੰਜ਼ਿਲ! ਅਸੀਂ ਇੱਕ ਨਵੀਨਤਾਕਾਰੀ, ਗਾਹਕ-ਕੇਂਦ੍ਰਿਤ ਪਲੇਟਫਾਰਮ ਹਾਂ ਜੋ ਤੁਹਾਨੂੰ ਸਭ ਤੋਂ ਵਧੀਆ ਸੇਵਾਵਾਂ, ਬੇਮਿਸਾਲ ਸੌਦੇ, ਅਤੇ ਬੇਮਿਸਾਲ ਸਹੂਲਤ ਪ੍ਰਦਾਨ ਕਰਨ ਲਈ ਤਿਆਰ ਕੀਤਾ ਗਿਆ ਹੈ — ਸਭ ਤੁਹਾਡੀਆਂ ਉਂਗਲਾਂ 'ਤੇ।",
-            "storyTitle": "ਸਾਡੀ ਕਹਾਣੀ",
-            "storyP1": "ਅਸੀਂ ਇੱਕ ਸਧਾਰਨ ਵਿਚਾਰ ਨਾਲ ਸ਼ੁਰੂ ਕੀਤਾ: ਇੱਕ ਅਜਿਹਾ ਪਲੇਟਫਾਰਮ ਪ੍ਰਦਾਨ ਕਰਨਾ ਜੋ ਨਾ ਸਿਰਫ਼ ਵੱਖ-ਵੱਖ ਕਿਸਮਾਂ ਦੀਆਂ ਸੇਵਾਵਾਂ ਦੀ ਪੇਸ਼ਕਸ਼ ਕਰਦਾ ਹੈ ਬਲਕਿ ਪੂਰੀ ਪ੍ਰਕਿਰਿਆ ਨੂੰ ਆਸਾਨ ਅਤੇ ਮਜ਼ੇਦਾਰ ਬਣਾਉਂਦਾ ਹੈ।",
-            "storyP2": "ਮਾਮੂਲੀ ਸ਼ੁਰੂਆਤ ਤੋਂ, ਅਸੀਂ ਜਲਦੀ ਹੀ ਸਭ ਤੋਂ ਭਰੋਸੇਮੰਦ ਪਲੇਟਫਾਰਮਾਂ ਵਿੱਚੋਂ ਇੱਕ ਬਣ ਗਏ। ਗਾਹਕਾਂ ਦੀ ਸੰਤੁਸ਼ਟੀ, ਪਹੁੰਚਯੋਗਤਾ, ਅਤੇ ਨਿਰੰਤਰ ਨਵੀਨਤਾ ਦੇ ਸਾਡੇ ਮੂਲ ਮੁੱਲ ਸਾਨੂੰ ਅੱਗੇ ਵਧਾਉਂਦੇ ਰਹਿੰਦੇ ਹਨ ਕਿਉਂਕਿ ਸਾਡਾ ਉਦੇਸ਼ ਸਾਡੀਆਂ ਪੇਸ਼ਕਸ਼ਾਂ ਦਾ ਵਿਸਥਾਰ ਕਰਨਾ ਹੈ।"
+        about: {
+            title: 'ਸਾਡੇ ਬਾਰੇ',
+            welcome: 'ਸਾਡੀ ਐਪ ਵਿੱਚ ਤੁਹਾਡਾ ਸੁਆਗਤ ਹੈ, ਇੱਕ ਸਹਿਜ ਅਨੁਭਵ ਲਈ ਤੁਹਾਡਾ ਅੰਤਮ ਮੰਜ਼ਿਲ! ਅਸੀਂ ਇੱਕ ਨਵੀਨਤਾਕਾਰੀ, ਗਾਹਕ-ਕੇਂਦ੍ਰਿਤ ਪਲੇਟਫਾਰਮ ਹਾਂ ਜੋ ਤੁਹਾਨੂੰ ਸਭ ਤੋਂ ਵਧੀਆ ਸੇਵਾਵਾਂ, ਬੇਮਿਸਾਲ ਸੌਦੇ, ਅਤੇ ਬੇਮਿਸਾਲ ਸਹੂਲਤ ਪ੍ਰਦਾਨ ਕਰਨ ਲਈ ਤਿਆਰ ਕੀਤਾ ਗਿਆ ਹੈ — ਸਭ ਤੁਹਾਡੀਆਂ ਉਂਗਲਾਂ \'ਤੇ।',
+            storyTitle: 'ਸਾਡੀ ਕਹਾਣੀ',
+            storyP1: 'ਅਸੀਂ ਇੱਕ ਸਧਾਰਨ ਵਿਚਾਰ ਨਾਲ ਸ਼ੁਰੂ ਕੀਤਾ: ਇੱਕ ਅਜਿਹਾ ਪਲੇਟਫਾਰਮ ਪ੍ਰਦਾਨ ਕਰਨਾ ਜੋ ਨਾ ਸਿਰਫ਼ ਵੱਖ-ਵੱਖ ਕਿਸਮਾਂ ਦੀਆਂ ਸੇਵਾਵਾਂ ਦੀ ਪੇਸ਼ਕਸ਼ ਕਰਦਾ ਹੈ ਬਲਕਿ ਪੂਰੀ ਪ੍ਰਕਿਰਿਆ ਨੂੰ ਆਸਾਨ ਅਤੇ ਮਜ਼ੇਦਾਰ ਬਣਾਉਂਦਾ ਹੈ।',
+            storyP2: 'ਮਾਮੂਲੀ ਸ਼ੁਰੂਆਤ ਤੋਂ, ਅਸੀਂ ਜਲਦੀ ਹੀ ਸਭ ਤੋਂ ਭਰੋਸੇਮੰਦ ਪਲੇਟਫਾਰਮਾਂ ਵਿੱਚੋਂ ਇੱਕ ਬਣ ਗਏ। ਗਾਹਕਾਂ ਦੀ ਸੰਤੁਸ਼ਟੀ, ਪਹੁੰਚਯੋਗਤਾ, ਅਤੇ ਨਿਰੰਤਰ ਨਵੀਨਤਾ ਦੇ ਸਾਡੇ ਮੂਲ ਮੁੱਲ ਸਾਨੂੰ ਅੱਗੇ ਵਧਾਉਂਦੇ ਰਹਿੰਦੇ ਹਨ ਕਿਉਂਕਿ ਸਾਡਾ ਉਦੇਸ਼ ਸਾਡੀਆਂ ਪੇਸ਼ਕਸ਼ਾਂ ਦਾ ਵਿਸਥਾਰ ਕਰਨਾ ਹੈ।',
         },
-        "address": {
-            "title": "ਮੇਰੇ ਪਤੇ",
-            "nothingHere": "ਇੱਥੇ ਅਜੇ ਕੁਝ ਨਹੀਂ ਹੈ",
-            "deliveryMessage": "ਸਾਨੂੰ ਦੱਸੋ ਕਿ ਤੁਸੀਂ ਆਪਣੇ ਆਰਡਰ ਕਿੱਥੇ ਡਿਲੀਵਰ ਕਰਵਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ",
-            "addNew": "ਨਵਾਂ ਪਤਾ ਸ਼ਾਮਲ ਕਰੋ",
-            "currentLocation": "ਮੌਜੂਦਾ ਸਥਾਨ ਦੀ ਵਰਤੋਂ ਕਰੋ",
-            "change": "ਬਦਲੋ"
+        address: {
+            title: 'ਮੇਰੇ ਪਤੇ',
+            nothingHere: 'ਇੱਥੇ ਅਜੇ ਕੁਝ ਨਹੀਂ ਹੈ',
+            deliveryMessage: 'ਸਾਨੂੰ ਦੱਸੋ ਕਿ ਤੁਸੀਂ ਆਪਣੇ ਆਰਡਰ ਕਿੱਥੇ ਡਿਲੀਵਰ ਕਰਵਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ',
+            addNew: 'ਨਵਾਂ ਪਤਾ ਸ਼ਾਮਲ ਕਰੋ',
+            currentLocation: 'ਮੌਜੂਦਾ ਸਥਾਨ ਦੀ ਵਰਤੋਂ ਕਰੋ',
+            change: 'ਬਦਲੋ',
         },
-        "cart": {
-            "searchPlaceholder": "ਖੋਜੋ...",
-            "blackFriday": "ਬਲੈਕ ਫਰਾਈਡੇ",
-            "discountsAvailable": "ਛੋਟਾਂ ਉਪਲਬਧ ਹਨ",
-            "categories": "ਸ਼੍ਰੇਣੀਆਂ",
-            "seeAll": "ਸਾਰੇ ਦੇਖੋ",
-            "popularProducts": "ਪ੍ਰਸਿੱਧ ਉਤਪਾਦ",
-            "yourCart": "ਤੁਹਾਡੀ ਕਾਰਟ",
-            "emptyTitle": "ਤੁਹਾਡੀ ਕਾਰਟ ਖਾਲੀ ਹੈ",
-            "emptySubtitle": "ਲੱਗਦਾ ਹੈ ਕਿ ਤੁਸੀਂ ਅਜੇ ਤੱਕ ਕੋਈ ਸੇਵਾ ਸ਼ਾਮਲ ਨਹੀਂ ਕੀਤੀ ਹੈ।",
-            "browseServices": "ਸੇਵਾਵਾਂ ਬ੍ਰਾਊਜ਼ ਕਰੋ",
-            "paymentSummary": "ਭੁਗਤਾਨ ਸਾਰਾਂਸ਼",
-            "itemTotal": "ਕੁੱਲ ਆਈਟਮ",
-            "deliveryFee": "ਡਿਲੀਵਰੀ ਫੀਸ",
-            "platformFee": "ਪਲੇਟਫਾਰਮ ਫੀਸ",
-            "toPay": "ਭੁਗਤਾਨ ਕਰਨ ਲਈ",
-            "checkout": "ਚੈੱਕਆਉਟ ਲਈ ਅੱਗੇ ਵਧੋ"
+        cart: {
+            searchPlaceholder: 'ਖੋਜੋ...',
+            blackFriday: 'ਬਲੈਕ ਫਰਾਈਡੇ',
+            discountsAvailable: 'ਛੋਟਾਂ ਉਪਲਬਧ ਹਨ',
+            categories: 'ਸ਼੍ਰੇਣੀਆਂ',
+            seeAll: 'ਸਾਰੇ ਦੇਖੋ',
+            popularProducts: 'ਪ੍ਰਸਿੱਧ ਉਤਪਾਦ',
+            yourCart: 'ਤੁਹਾਡੀ ਕਾਰਟ',
+            emptyTitle: 'ਤੁਹਾਡੀ ਕਾਰਟ ਖਾਲੀ ਹੈ',
+            emptySubtitle: 'ਲੱਗਦਾ ਹੈ ਕਿ ਤੁਸੀਂ ਅਜੇ ਤੱਕ ਕੋਈ ਸੇਵਾ ਸ਼ਾਮਲ ਨਹੀਂ ਕੀਤੀ ਹੈ।',
+            browseServices: 'ਸੇਵਾਵਾਂ ਬ੍ਰਾਊਜ਼ ਕਰੋ',
+            paymentSummary: 'ਭੁਗਤਾਨ ਸਾਰਾਂਸ਼',
+            itemTotal: 'ਕੁੱਲ ਆਈਟਮ',
+            deliveryFee: 'ਡਿਲੀਵਰੀ ਫੀਸ',
+            platformFee: 'ਪਲੇਟਫਾਰਮ ਫੀਸ',
+            toPay: 'ਭੁਗਤਾਨ ਕਰਨ ਲਈ',
+            checkout: 'ਚੈੱਕਆਉਟ ਲਈ ਅੱਗੇ ਵਧੋ',
         },
-        "home": {
-            "searchPlaceholder": "ਸੇਵਾਵਾਂ ਲਈ ਖੋਜ ਕਰੋ, ਜਿਵੇਂ ਕਿ ਪਲੰਬਰ...",
-            "locationLabel": "ਸਥਾਨ",
-            "all": "ਸਾਰੇ",
-            "electronics": "ਇਲੈਕਟ੍ਰਾਨਿਕਸ",
-            "beauty": "ਸੁੰਦਰਤਾ",
-            "kids": "ਬੱਚੇ",
-            "gifting": "ਤੋਹਫ਼ੇ",
-            "premium": "ਸਫਾਈ",
-            "productBuy": "ਉਤਪਾਦ ਖਰੀਦੋ",
-            "category": "ਸ਼੍ਰੇਣੀ",
-            "popularProducts": "ਪ੍ਰਸਿੱਧ ਉਤਪਾਦ",
-            "home": "ਘਰ",
-            "bookings": "ਬੁਕਿੰਗਾਂ",
-            "chat": "ਗੱਲਬਾਤ",
-            "profile": "ਪ੍ਰੋਫਾਈਲ",
-            "car": "ਕਾਰ",
-            "painting": "ਪੇਂਟਿੰਗ",
-            "more": "ਹੋਰ",
-            "library": "ਲਾਇਬ੍ਰੇਰੀ",
-            "explore": "ਪੜਚੋਲ ਕਰੋ",
-            "opinion": "ਰਾਏ"
+        home: {
+            searchPlaceholder: 'ਸੇਵਾਵਾਂ ਲਈ ਖੋਜ ਕਰੋ, ਜਿਵੇਂ ਕਿ ਪਲੰਬਰ...',
+            locationLabel: 'ਸਥਾਨ',
+            all: 'ਸਾਰੇ',
+            electronics: 'ਇਲੈਕਟ੍ਰਾਨਿਕਸ',
+            beauty: 'ਸੁੰਦਰਤਾ',
+            kids: 'ਬੱਚੇ',
+            gifting: 'ਤੋਹਫ਼ੇ',
+            premium: 'ਸਫਾਈ',
+            productBuy: 'ਉਤਪਾਦ ਖਰੀਦੋ',
+            category: 'ਸ਼੍ਰੇਣੀ',
+            popularProducts: 'ਪ੍ਰਸਿੱਧ ਉਤਪਾਦ',
+            home: 'ਘਰ',
+            bookings: 'ਬੁਕਿੰਗਾਂ',
+            chat: 'ਗੱਲਬਾਤ',
+            profile: 'ਪ੍ਰੋਫਾਈਲ',
+            car: 'ਕਾਰ',
+            painting: 'ਪੇਂਟਿੰਗ',
+            more: 'ਹੋਰ',
+            library: 'ਲਾਇਬ੍ਰੇਰੀ',
+            explore: 'ਪੜਚੋਲ ਕਰੋ',
+            opinion: 'ਰਾਏ',
         },
-        "language": {
-            "title": "ਭਾਸ਼ਾ ਚੁਣੋ",
-            "chooseLanguage": "ਆਪਣੀ ਪਸੰਦੀਦਾ ਭਾਸ਼ਾ ਚੁਣੋ",
-            "update": "ਭਾਸ਼ਾ ਅੱਪਡੇਟ ਕਰੋ"
+        language: {
+            title: 'ਭਾਸ਼ਾ ਚੁਣੋ',
+            chooseLanguage: 'ਆਪਣੀ ਪਸੰਦੀਦਾ ਭਾਸ਼ਾ ਚੁਣੋ',
+            update: 'ਭਾਸ਼ਾ ਅੱਪਡੇਟ ਕਰੋ',
         },
-        "location": {
-            "selectLocation": "ਸਥਾਨ ਚੁਣੋ",
-            "man": "ਆਦਮੀ",
-            "searchPlaceholder": "ਖੋਜੋ...",
-            "emergency": "ਐਮਰਜੈਂਸੀ",
-            "my": "ਮੇਰਾ",
-            "district": "ਜ਼ਿਲ੍ਹਾ",
-            "state": "ਰਾਜ",
-            "bharat": "ਭਾਰਤ",
-            "blackFriday": "ਬਲੈਕ ਫਰਾਈਡੇ",
-            "discountsAvailable": "ਛੋਟਾਂ ਉਪਲਬਧ ਹਨ",
-            "whatElsePopular": "ਹੋਰ ਕੀ ਪ੍ਰਸਿੱਧ ਹੈ",
-            "seeAll": "ਸਾਰੇ ਦੇਖੋ",
-            "home": "ਘਰ",
-            "library": "ਲਾਇਬ੍ਰੇਰੀ",
-            "explore": "ਪੜਚੋਲ ਕਰੋ",
-            "opinion": "ਰਾਏ"
+        location: {
+            selectLocation: 'ਸਥਾਨ ਚੁਣੋ',
+            man: 'ਆਦਮੀ',
+            searchPlaceholder: 'ਖੋਜੋ...',
+            emergency: 'ਐਮਰਜੈਂਸੀ',
+            my: 'ਮੇਰਾ',
+            district: 'ਜ਼ਿਲ੍ਹਾ',
+            state: 'ਰਾਜ',
+            bharat: 'ਭਾਰਤ',
+            blackFriday: 'ਬਲੈਕ ਫਰਾਈਡੇ',
+            discountsAvailable: 'ਛੋਟਾਂ ਉਪਲਬਧ ਹਨ',
+            whatElsePopular: 'ਹੋਰ ਕੀ ਪ੍ਰਸਿੱਧ ਹੈ',
+            seeAll: 'ਸਾਰੇ ਦੇਖੋ',
+            home: 'ਘਰ',
+            library: 'ਲਾਇਬ੍ਰੇਰੀ',
+            explore: 'ਪੜਚੋਲ ਕਰੋ',
+            opinion: 'ਰਾਏ',
         },
-        "login": {
-            "continueWithPhone": "ਫੋਨ ਨਾਲ ਜਾਰੀ ਰੱਖੋ"
+        login: {
+            continueWithPhone: 'ਫੋਨ ਨਾਲ ਜਾਰੀ ਰੱਖੋ',
         },
-        "myPlans": {
-            "title": "ਮੇਰੀਆਂ ਬੁਕਿੰਗਾਂ",
-            "activePlans": "ਆਗਾਮੀ ਬੁਕਿੰਗਾਂ",
-            "noActivePlans": "ਤੁਹਾਡੇ ਕੋਲ ਕੋਈ ਆਗਾਮੀ ਬੁਕਿੰਗ ਨਹੀਂ ਹੈ।",
-            "bookings": "ਬੁਕਿੰਗਾਂ",
-            "pastBookings": "ਪਿਛਲੀਆਂ ਬੁਕਿੰਗਾਂ",
-            "noBookingsYet": "ਅਜੇ ਤੱਕ ਕੋਈ ਬੁਕਿੰਗ ਨਹੀਂ ਹੈ",
-            "browseServicesPrompt": "ਆਪਣੀ ਯੋਜਨਾ ਇੱਥੇ ਦੇਖਣ ਲਈ ਇੱਕ ਸੇਵਾ ਬੁੱਕ ਕਰੋ।",
-            "noPastBookings": "ਤੁਹਾਡੀਆਂ ਪਿਛਲੀਆਂ ਬੁਕਿੰਗਾਂ ਪੂਰੀਆਂ ਹੋਣ ਤੋਂ ਬਾਅਦ ਇੱਥੇ ਦਿਖਾਈ ਦੇਣਗੀਆਂ।",
+        myPlans: {
+            title: 'ਮੇਰੀਆਂ ਬੁਕਿੰਗਾਂ',
+            activePlans: 'ਆਗਾਮੀ ਬੁਕਿੰਗਾਂ',
+            noActivePlans: 'ਤੁਹਾਡੇ ਕੋਲ ਕੋਈ ਆਗਾਮੀ ਬੁਕਿੰਗ ਨਹੀਂ ਹੈ।',
+            bookings: 'ਬੁਕਿੰਗਾਂ',
+            pastBookings: 'ਪਿਛਲੀਆਂ ਬੁਕਿੰਗਾਂ',
+            noBookingsYet: 'ਅਜੇ ਤੱਕ ਕੋਈ ਬੁਕਿੰਗ ਨਹੀਂ ਹੈ',
+            browseServicesPrompt: 'ਆਪਣੀ ਯੋਜਨਾ ਇੱਥੇ ਦੇਖਣ ਲਈ ਇੱਕ ਸੇਵਾ ਬੁੱਕ ਕਰੋ।',
+            noPastBookings: 'ਤੁਹਾਡੀਆਂ ਪਿਛਲੀਆਂ ਬੁਕਿੰਗਾਂ ਪੂਰੀਆਂ ਹੋਣ ਤੋਂ ਬਾਅਦ ਇੱਥੇ ਦਿਖਾਈ ਦੇਣਗੀਆਂ।',
         },
-        "nativeDevices": {
-            "title": "ਦੇਸੀ ਉਪਕਰਣ",
-            "oops": "ਓਹੋ, ਤੁਸੀਂ ਅਜੇ ਤੱਕ ਆਰਡਰ ਨਹੀਂ ਦਿੱਤਾ ਹੈ",
-            "textWidget": "[ਟੈਕਸਟ ਵਿਜੇਟ]"
+        nativeDevices: {
+            title: 'ਦੇਸੀ ਉਪਕਰਣ',
+            oops: 'ਓਹੋ, ਤੁਸੀਂ ਅਜੇ ਤੱਕ ਆਰਡਰ ਨਹੀਂ ਦਿੱਤਾ ਹੈ',
+            textWidget: '[ਟੈਕਸਟ ਵਿਜੇਟ]',
         },
-        "newAddress": {
-            "title": "ਨਵਾਂ ਪਤਾ",
-            "completeAddress": "ਪੂਰਾ ਪਤਾ ਦਰਜ ਕਰੋ",
-            "orderingFor": "ਤੁਸੀਂ ਕਿਸ ਲਈ ਆਰਡਰ ਕਰ ਰਹੇ ਹੋ?",
-            "myself": "ਮੇਰੇ ਲਈ",
-            "someoneElse": "ਕਿਸੇ ਹੋਰ ਲਈ",
-            "home": "ਘਰ",
-            "work": "ਕੰਮ",
-            "hotel": "ਹੋਟਲ",
-            "other": "ਹੋਰ",
-            "name": "ਨਾਮ",
-            "mobile": "ਮੋਬਾਈਲ ਨੰਬਰ",
-            "flatHouse": "ਫਲੈਟ / ਘਰ ਨੰਬਰ / ਇਮਾਰਤ ਦਾ ਨਾਮ",
-            "floor": "ਮੰਜ਼ਿਲ (ਵਿਕਲਪਿਕ)",
-            "landmark": "ਨੇੜਲੇ ਲੈਂਡਮਾਰਕ (ਵਿਕਲਪਿਕ)",
-            "save": "ਪਤਾ ਸੁਰੱਖਿਅਤ ਕਰੋ"
+        newAddress: {
+            title: 'ਨਵਾਂ ਪਤਾ',
+            completeAddress: 'ਪੂਰਾ ਪਤਾ ਦਰਜ ਕਰੋ',
+            orderingFor: 'ਤੁਸੀਂ ਕਿਸ ਲਈ ਆਰਡਰ ਕਰ ਰਹੇ ਹੋ?',
+            myself: 'ਮੇਰੇ ਲਈ',
+            someoneElse: 'ਕਿਸੇ ਹੋਰ ਲਈ',
+            home: 'ਘਰ',
+            work: 'ਕੰਮ',
+            hotel: 'ਹੋਟਲ',
+            other: 'ਹੋਰ',
+            name: 'ਨਾਮ',
+            mobile: 'ਮੋਬਾਈਲ ਨੰਬਰ',
+            flatHouse: 'ਫਲੈਟ / ਘਰ ਨੰਬਰ / ਇਮਾਰਤ ਦਾ ਨਾਮ',
+            floor: 'ਮੰਜ਼ਿਲ (ਵਿਕਲਪਿਕ)',
+            landmark: 'ਨੇੜਲੇ ਲੈਂਡਮਾਰਕ (ਵਿਕਲਪਿਕ)',
+            save: 'ਪਤਾ ਸੁਰੱਖਿਅਤ ਕਰੋ',
         },
-        "paymentSettings": {
-            "title": "ਭੁਗਤਾਨ ਸੈਟਿੰਗਾਂ",
-            "cards": "ਕਾਰਡ",
-            "creditDebit": "ਕ੍ਰੈਡਿਟ/ਡੈਬਿਟ ਕਾਰਡ",
-            "sliceUpi": "ਸਲਾਈਸ ਯੂਪੀਆਈ",
-            "pluxee": "ਪਲਕਸੀ",
-            "netbanking": "ਨੈੱਟਬੈਂਕਿੰਗ",
-            "add": "ਸ਼ਾਮਲ ਕਰੋ",
-            "payOnDelivery": "ਡਿਲੀਵਰੀ 'ਤੇ ਭੁਗਤਾਨ ਕਰੋ",
-            "wallets": "ਵਾਲਿਟ",
-            "googlePay": "ਗੂਗਲ ਪੇ ਯੂਪੀਆਈ",
-            "link": "ਲਿੰਕ ਕਰੋ",
-            "amazonPay": "ਐਮਾਜ਼ਾਨ ਪੇ ਬੈਲੇਂਸ"
+        paymentSettings: {
+            title: 'ਭੁਗਤਾਨ ਸੈਟਿੰਗਾਂ',
+            cards: 'ਕਾਰਡ',
+            creditDebit: 'ਕ੍ਰੈਡਿਟ/ਡੈਬਿਟ ਕਾਰਡ',
+            sliceUpi: 'ਸਲਾਈਸ ਯੂਪੀਆਈ',
+            pluxee: 'ਪਲਕਸੀ',
+            netbanking: 'ਨੈੱਟਬੈਂਕਿੰਗ',
+            add: 'ਸ਼ਾਮਲ ਕਰੋ',
+            payOnDelivery: "ਡਿਲੀਵਰੀ 'ਤੇ ਭੁਗਤਾਨ ਕਰੋ",
+            wallets: 'ਵਾਲਿਟ',
+            googlePay: 'ਗੂਗਲ ਪੇ ਯੂਪੀਆਈ',
+            link: 'ਲਿੰਕ ਕਰੋ',
+            amazonPay: 'ਐਮਾਜ਼ਾਨ ਪੇ ਬੈਲੇਂਸ',
         },
-        "phoneLogin": {
-            "title": "ਫੋਨ ਨਾਲ ਲੌਗਇਨ ਕਰੋ",
-            "subtitle": "ਲੌਗਇਨ ਕਰਨ ਲਈ ਹੇਠਾਂ ਆਪਣਾ ਨੰਬਰ ਦਰਜ ਕਰੋ।",
-            "placeholder": "ਤੁਹਾਡਾ ਫੋਨ ਨੰਬਰ...",
-            "continue": "ਜਾਰੀ ਰੱਖੋ"
+        phoneLogin: {
+            title: 'ਫੋਨ ਨਾਲ ਲੌਗਇਨ ਕਰੋ',
+            subtitle: 'ਲੌਗਇਨ ਕਰਨ ਲਈ ਹੇਠਾਂ ਆਪਣਾ ਨੰਬਰ ਦਰਜ ਕਰੋ।',
+            placeholder: 'ਤੁਹਾਡਾ ਫੋਨ ਨੰਬਰ...',
+            continue: 'ਜਾਰੀ ਰੱਖੋ',
         },
-        "plusMembership": {
-            "title": "ਪਲੱਸ ਮੈਂਬਰਸ਼ਿਪ",
-            "oops": "ਓਹੋ, ਤੁਸੀਂ ਅਜੇ ਤੱਕ ਆਰਡਰ ਨਹੀਂ ਦਿੱਤਾ ਹੈ",
-            "textWidget": "[ਟੈਕਸਟ ਵਿਜੇਟ]"
+        plusMembership: {
+            title: 'ਪਲੱਸ ਮੈਂਬਰਸ਼ਿਪ',
+            oops: 'ਓਹੋ, ਤੁਸੀਂ ਅਜੇ ਤੱਕ ਆਰਡਰ ਨਹੀਂ ਦਿੱਤਾ ਹੈ',
+            textWidget: '[ਟੈਕਸਟ ਵਿਜੇਟ]',
         },
-        "profile": {
-            "title": "ਪ੍ਰੋਫਾਈਲ",
-            "continue": "ਜਾਰੀ ਰੱਖੋ",
-            "loginMessage": "ਆਪਣੀ ਪੂਰੀ ਪ੍ਰੋਫਾਈਲ ਦੇਖਣ ਲਈ ਲੌਗਇਨ ਜਾਂ ਸਾਈਨ ਅੱਪ ਕਰੋ",
-            "payments": "ਮੇਰੇ ਭੁਗਤਾਨ",
-            "support": "ਮਦਦ ਅਤੇ ਸਹਾਇਤਾ",
-            "wallet": "ਮੇਰਾ ਵਾਲਿਟ",
-            "myPlans": "ਮੇਰੀਆਂ ਬੁਕਿੰਗਾਂ",
-            "nativeDevices": "ਦੇਸੀ ਉਪਕਰਣ",
-            "addressBook": "ਪਤਾ ਕਿਤਾਬ",
-            "plusMembership": "ਪਲੱਸ ਮੈਂਬਰਸ਼ਿਪ",
-            "myRating": "ਮੇਰੀਆਂ ਰੇਟਿੰਗਾਂ",
-            "setting": "ਸੈਟਿੰਗਾਂ",
-            "otherInfo": "ਹੋਰ ਜਾਣਕਾਰੀ",
-            "shareApp": "ਐਪ ਸਾਂਝਾ ਕਰੋ",
-            "aboutUs": "ਸਾਡੇ ਬਾਰੇ",
-            "logOut": "ਲੌਗ ਆਊਟ ਕਰੋ",
-            "referEarn": "ਹਵਾਲਾ ਦਿਓ ਅਤੇ ਕਮਾਓ",
-            "referEarnDescription": "ਜਦੋਂ ਤੁਹਾਡਾ ਦੋਸਤ ਆਪਣੀ ਪਹਿਲੀ ਬੁਕਿੰਗ ਪੂਰੀ ਕਰਦਾ ਹੈ ਤਾਂ ₹100 ਪ੍ਰਾਪਤ ਕਰੋ।",
-            "hurryUp": "ਜਲਦੀ ਕਰੋ",
-            "referNow": "ਹੁਣੇ ਹਵਾਲਾ ਦਿਓ",
-            "lightMode": "ਲਾਈਟ ਮੋਡ",
-            "darkMode": "ਡਾਰਕ ਮੋਡ",
-            "appVersions": "ਐਪ ਸੰਸਕਰਣ",
-            "masterAdminPanel": "ਮਾਸਟਰ ਐਡਮਿਨ ਪੈਨਲ"
+        profile: {
+            title: 'ਪ੍ਰੋਫਾਈਲ',
+            continue: 'ਜਾਰੀ ਰੱਖੋ',
+            loginMessage: 'ਆਪਣੀ ਪੂਰੀ ਪ੍ਰੋਫਾਈਲ ਦੇਖਣ ਲਈ ਲੌਗਇਨ ਜਾਂ ਸਾਈਨ ਅੱਪ ਕਰੋ',
+            payments: 'ਮੇਰੇ ਭੁਗਤਾਨ',
+            support: 'ਮਦਦ ਅਤੇ ਸਹਾਇਤਾ',
+            wallet: 'ਮੇਰਾ ਵਾਲਿਟ',
+            myPlans: 'ਮੇਰੀਆਂ ਬੁਕਿੰਗਾਂ',
+            nativeDevices: 'ਦੇਸੀ ਉਪਕਰਣ',
+            addressBook: 'ਪਤਾ ਕਿਤਾਬ',
+            plusMembership: 'ਪਲੱਸ ਮੈਂਬਰਸ਼ਿਪ',
+            myRating: 'ਮੇਰੀਆਂ ਰੇਟਿੰਗਾਂ',
+            setting: 'ਸੈਟਿੰਗਾਂ',
+            otherInfo: 'ਹੋਰ ਜਾਣਕਾਰੀ',
+            shareApp: 'ਐਪ ਸਾਂਝਾ ਕਰੋ',
+            aboutUs: 'ਸਾਡੇ ਬਾਰੇ',
+            logOut: 'ਲੌਗ ਆਊਟ ਕਰੋ',
+            referEarn: 'ਹਵਾਲਾ ਦਿਓ ਅਤੇ ਕਮਾਓ',
+            referEarnDescription: 'ਜਦੋਂ ਤੁਹਾਡਾ ਦੋਸਤ ਆਪਣੀ ਪਹਿਲੀ ਬੁਕਿੰਗ ਪੂਰੀ ਕਰਦਾ ਹੈ ਤਾਂ ₹100 ਪ੍ਰਾਪਤ ਕਰੋ।',
+            hurryUp: 'ਜਲਦੀ ਕਰੋ',
+            referNow: 'ਹੁਣੇ ਹਵਾਲਾ ਦਿਓ',
+            lightMode: 'ਲਾਈਟ ਮੋਡ',
+            darkMode: 'ਡਾਰਕ ਮੋਡ',
+            appVersions: 'ਐਪ ਸੰਸਕਰਣ',
+            masterAdminPanel: 'ਮਾਸਟਰ ਐਡਮਿਨ ਪੈਨਲ',
         },
-        "refer": {
-            "title": "ਹਵਾਲਾ ਦਿਓ ਅਤੇ ਕਮਾਓ",
-            "subtitle": "ਆਪਣਾ ਕੋਡ ਦੋਸਤਾਂ ਨਾਲ ਸਾਂਝਾ ਕਰੋ ਅਤੇ ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰੋ!",
-            "code": "ਤੁਹਾਡਾ ਕੋਡ",
-            "share": "ਹੁਣੇ ਸਾਂਝਾ ਕਰੋ"
+        refer: {
+            title: 'ਹਵਾਲਾ ਦਿਓ ਅਤੇ ਕਮਾਓ',
+            subtitle: 'ਆਪਣਾ ਕੋਡ ਦੋਸਤਾਂ ਨਾਲ ਸਾਂਝਾ ਕਰੋ ਅਤੇ ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰੋ!',
+            code: 'ਤੁਹਾਡਾ ਕੋਡ',
+            share: 'ਹੁਣੇ ਸਾਂਝਾ ਕਰੋ',
         },
-        "search": {
-            "searchPlaceholder": "ਖੋਜੋ...",
-            "resultsFor": "ਲਈ ਨਤੀਜੇ",
-            "noResults": "ਕੋਈ ਨਤੀਜਾ ਨਹੀਂ ਮਿਲਿਆ",
-            "tryAgain": "ਕੁਝ ਹੋਰ ਖੋਜਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
+        search: {
+            searchPlaceholder: 'ਖੋਜੋ...',
+            resultsFor: 'ਲਈ ਨਤੀਜੇ',
+            noResults: 'ਕੋਈ ਨਤੀਜਾ ਨਹੀਂ ਮਿਲਿਆ',
+            tryAgain: 'ਕੁਝ ਹੋਰ ਖੋਜਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ।',
         },
-        "support": {
-            "title": "ਸਹਾਇਤਾ",
-            "aiChatbot": "ਏਆਈ ਚੈਟਬੋਟ",
-            "webLink": "ਵੈੱਬ ਲਿੰਕ"
+        support: {
+            title: 'ਸਹਾਇਤਾ',
+            aiChatbot: 'ਏਆਈ ਚੈਟਬੋਟ',
+            webLink: 'ਵੈੱਬ ਲਿੰਕ',
         },
-        "verifyPhone": {
-            "title": "ਪ੍ਰਮਾਣਿਕਤਾ ਕੋਡ",
-            "subtitle": "ਤੁਹਾਨੂੰ ਪ੍ਰਾਪਤ ਹੋਇਆ 6-ਅੰਕਾਂ ਦਾ ਕੋਡ ਦਾਖਲ ਕਰੋ:",
-            "changeNumber": "ਨੰਬਰ ਬਦਲੋ?",
-            "verifyCode": "ਕੋਡ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ",
-            "resendCode": "ਕੋਡ ਦੁਬਾਰਾ ਭੇਜੋ"
+        verifyPhone: {
+            title: 'ਪ੍ਰਮਾਣਿਕਤਾ ਕੋਡ',
+            subtitle: 'ਤੁਹਾਨੂੰ ਪ੍ਰਾਪਤ ਹੋਇਆ 6-ਅੰਕਾਂ ਦਾ ਕੋਡ ਦਾਖਲ ਕਰੋ:',
+            changeNumber: 'ਨੰਬਰ ਬਦਲੋ?',
+            verifyCode: 'ਕੋਡ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ',
+            resendCode: 'ਕੋਡ ਦੁਬਾਰਾ ਭੇਜੋ',
         },
-        "wallet": {
-            "title": "ਮੇਰਾ ਵਾਲਿਟ",
-            "availableBalance": "ਉਪਲਬਧ ਬਕਾਇਆ",
-            "transitionHistory": "ਲੈਣ-ਦੇਣ ਦਾ ਇਤਿਹਾਸ",
-            "refund": "ਵਾਪਸੀ"
+        wallet: {
+            title: 'ਮੇਰਾ ਵਾਲਿਟ',
+            availableBalance: 'ਉਪਲਬਧ ਬਕਾਇਆ',
+            transitionHistory: 'ਲੈਣ-ਦੇਣ ਦਾ ਇਤਿਹਾਸ',
+            refund: 'ਵਾਪਸੀ',
         },
-        "paymentSuccess": {
-            "title": "ਆਰਡਰ ਸਫਲਤਾਪੂਰਵਕ ਦਿੱਤਾ ਗਿਆ!",
-            "subtitle": "ਤੁਹਾਡੀ ਬੁਕਿੰਗ ਦੀ ਪੁਸ਼ਟੀ ਹੋ ਗਈ ਹੈ। ਤੁਸੀਂ 'ਮੇਰੀਆਂ ਬੁਕਿੰਗਾਂ' ਭਾਗ ਵਿੱਚ ਆਪਣੀ ਬੁਕਿੰਗ ਦੀ ਸਥਿਤੀ ਦੀ ਜਾਂਚ ਕਰ ਸਕਦੇ ਹੋ।",
-            "viewBookings": "ਬੁਕਿੰਗਾਂ ਦੇਖੋ",
-            "continueShopping": "ਖਰੀਦਦਾਰੀ ਜਾਰੀ ਰੱਖੋ",
+        paymentSuccess: {
+            title: 'ਆਰਡਰ ਸਫਲਤਾਪੂਰਵਕ ਦਿੱਤਾ ਗਿਆ!',
+            subtitle: 'ਤੁਹਾਡੀ ਬੁਕਿੰਗ ਦੀ ਪੁਸ਼ਟੀ ਹੋ ਗਈ ਹੈ। ਤੁਸੀਂ \'ਮੇਰੀਆਂ ਬੁਕਿੰਗਾਂ\' ਭਾਗ ਵਿੱਚ ਆਪਣੀ ਬੁਕਿੰਗ ਦੀ ਸਥਿਤੀ ਦੀ ਜਾਂਚ ਕਰ ਸਕਦੇ ਹੋ।',
+            viewBookings: 'ਬੁਕਿੰਗਾਂ ਦੇਖੋ',
+            continueShopping: 'ਖਰੀਦਦਾਰੀ ਜਾਰੀ ਰੱਖੋ',
             receiptDetails: 'ਰਸੀਦ ਦੇ ਵੇਰਵੇ',
             orderPlaced: 'ਆਰਡਰ ਦਿੱਤਾ ਗਿਆ',
             transactionSuccess: 'ਲੈਣ-ਦੇਣ ਸਫਲ',
@@ -6190,7 +6226,7 @@ const translations: Record<string, Translations> = {
             placed: 'ਦਿੱਤਾ ਗਿਆ',
             bookingId: 'ਬੁਕਿੰਗ ਆਈਡੀ',
             paymentMethod: 'ਭੁਗਤਾਨ ਵਿਧੀ',
-            payOnDelivery: "ਡਿਲਿਵਰੀ 'ਤੇ ਭੁਗਤਾਨ ਕਰੋ",
+            payOnDelivery: "ਡਿਲੀਵਰੀ 'ਤੇ ਭੁਗਤਾਨ ਕਰੋ",
             wallet: 'ਵਾਲਿਟ',
             recipient: 'ਪ੍ਰਾਪਤਕਰਤਾ',
             valuedCustomer: 'ਕੀਮਤੀ ਗਾਹਕ',
@@ -6293,7 +6329,9 @@ const translations: Record<string, Translations> = {
             otpSendFailed: "OTP ਭੇਜਣ ਵਿੱਚ ਅਸਫਲ",
             otpSendFailedDesc: "ਇੱਕ ਅਚਾਨਕ ਗਲਤੀ ਆਈ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
             addressSaved: "ਪਤਾ ਸੁਰੱਖਿਅਤ ਕੀਤਾ ਗਿਆ!",
-            addressSavedDesc: "ਤੁਹਾਡਾ ਨਵਾਂ ਪਤਾ ਸੁਰੱਖਿਅਤ ਕੀਤਾ ਗਿਆ ਹੈ।"
+            addressSavedDesc: "ਤੁਹਾਡਾ ਨਵਾਂ ਪਤਾ ਸੁਰੱਖਿਅਤ ਕੀਤਾ ਗਿਆ ਹੈ।",
+            micAccessDenied: 'ਮਾਈਕ੍ਰੋਫੋਨ ਪਹੁੰਚ ਤੋਂ ਇਨਕਾਰ ਕੀਤਾ ਗਿਆ',
+            micAccessDeniedDesc: 'ਵੌਇਸ ਖੋਜ ਦੀ ਵਰਤੋਂ ਕਰਨ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਬ੍ਰਾਊਜ਼ਰ ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਮਾਈਕ੍ਰੋਫੋਨ ਪਹੁੰਚ ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ।',
         }
     },
     'संस्कृत': {
@@ -6624,12 +6662,14 @@ const translations: Record<string, Translations> = {
             otpSendFailed: "OTP प्रेषयितुं विफलः",
             otpSendFailedDesc: "एकः अप्रत्याशितः त्रुटिः अभवत्। कृपया पुनः प्रयतस्व।",
             addressSaved: "सङ्केतः रक्षितः!",
-            addressSavedDesc: "भवतः नूतनः सङ्केतः रक्षितः।"
+            addressSavedDesc: "भवतः नूतनः सङ्केतः रक्षितः।",
+            micAccessDenied: 'माइक्रोफोनस्य प्रवेशः अस्वीकृतः',
+            micAccessDeniedDesc: 'ध्वनिना अन्वेषणं कर्तुं कृपया भवतः ब्राउजरस्य सेटिङ्ग्स् मध्ये माइक्रोफोनस्य प्रवेशं सक्षमीकरोतु।',
         }
     },
     'संथाली': {
         "settings": {
-            "title": "सेटिंगসমূহ",
+            "title": "সেটিংসমূহ",
             "orderMessages": "অর্ডার સંબંધিত বার্তা",
             "orderMessagesDescription": "অর্ডার સંબંધিত বার্তাগুলি বন্ধ করা যাবে না কারণ সেগুলি পরিষেবা تجربার জন্য গুরুত্বপূর্ণ।",
             "language": "ভাষা",
@@ -6955,7 +6995,9 @@ const translations: Record<string, Translations> = {
             otpSendFailed: "ওটিপি পাঠাতে ব্যর্থ হয়েছে",
             otpSendFailedDesc: "একটি অপ্রত্যাশিত ত্রুটি ঘটেছে। অনুগ্রহ করে আবার চেষ্টা করুন।",
             addressSaved: "ঠিকানা সংরক্ষিত!",
-            addressSavedDesc: "আপনার নতুন ঠিকানা সংরক্ষিত হয়েছে।"
+            addressSavedDesc: "আপনার নতুন ঠিকানা সংরক্ষিত হয়েছে।",
+            micAccessDenied: 'মাইক্রোফোন অ্যাক্সেস প্রত্যাখ্যান করা হয়েছে',
+            micAccessDeniedDesc: 'ভয়েস অনুসন্ধান ব্যবহার করতে আপনার ব্রাউজার সেটিংসে মাইক্রোফোন অ্যাক্সেস সক্ষম করুন।',
         }
     },
     'सिंधी': {
@@ -7020,7 +7062,7 @@ const translations: Record<string, Translations> = {
             "premium": "صفائي",
             "productBuy": "پراڊڪٽ خريد ڪريو",
             "category": "زمرو",
-            "popularProducts": "مشهور پراڊڪٽس",
+            "popularProducts": "مشهور پراڊਕਟਸ",
             "home": "گهر",
             "bookings": "بڪنگون",
             "chat": "چيٽ",
@@ -7172,13 +7214,13 @@ const translations: Record<string, Translations> = {
             "refund": "واپسي"
         },
         "paymentSuccess": {
-            "title": "آرڊر ڪاميابي سان ڏنو ويو!",
-            "subtitle": "توهان جي بڪنگ جي تصديق ڪئي وئي آهي. توهان 'منهنجون بڪنگون' سيڪشن ۾ پنهنجي بڪنگ جي حالت چيڪ ڪري سگهو ٿا.",
+            "title": "آਰਡਰ ڪاميابي سان ڏنو ويو!",
+            "subtitle": "توهان جي بڪنگ جي تصديق ڪئي وئي آهي. توهان 'منهنجون بڪنگون' سيڪਸ਼ਨ ۾ پنهنجي بڪنگ جي حالت چيڪ ڪري سگهو ٿا.",
             "viewBookings": "بڪنگون ڏسو",
             "continueShopping": "خريداري جاري رکو",
             receiptDetails: 'رسيد جا تفصيل',
-            orderPlaced: 'آرڊر ڏنو ويو',
-            transactionSuccess: 'ٽرانزيڪشن ڪامياب',
+            orderPlaced: 'آਰਡਰ ڏنو ويو',
+            transactionSuccess: 'ٽرانزيڪਸ਼ਨ ڪامياب',
             status: 'حالت',
             placed: 'ڏنو ويو',
             bookingId: 'بڪنگ آئي ڊي',
@@ -7214,7 +7256,7 @@ const translations: Record<string, Translations> = {
             change: 'تبديل ڪريو',
             selectAddress: 'مهرباني ڪري هڪ پهچائڻ جو پتو چونڊيو',
             selectAddressButton: 'پتو چونڊيو',
-            orderSummary: 'آرڊر جو خلاصو',
+            orderSummary: 'آਰਡਰ جو خلاصو',
             paymentMethod: 'ادائيگي جو طريقو',
             payWithWallet: 'والٽ سان ادا ڪريو',
             balance: 'بيلنس',
@@ -7226,8 +7268,8 @@ const translations: Record<string, Translations> = {
             inMins: '25-30 منٽن ۾',
             noAddressSelected: 'ڪو به پتو نه چونڊيو ويو',
             loading: 'لوڊ ٿي رهيو آهي...',
-            placeOrder: 'آرڊر ڏيو',
-            loginToPlaceOrder: 'آرڊر ڏيڻ لاءِ لاگ ان ڪريو',
+            placeOrder: 'آਰਡਰ ڏيو',
+            loginToPlaceOrder: 'آਰਡਰ ڏيڻ لاءِ لاگ ان ڪريو',
             payFromWallet: 'والٽ مان ادا ڪريو',
         },
         toasts: {
@@ -7246,7 +7288,7 @@ const translations: Record<string, Translations> = {
             notLoggedIn: "صارف لاگ ان نه آهي يا فائر اسٽور دستياب ناهي.",
             addressMissing: "پتو غائب آهي",
             addressMissingDesc: "مهرباني ڪري هڪ پهچائڻ جو پتو چونڊيو.",
-            orderFailed: "آرڊر ناڪام ٿيو",
+            orderFailed: "آਰਡਰ ناڪام ٿيو",
             orderFailedDescWallet: "توهان جي والٽ جي ادائيگي کي پروسيس نه ڪري سگهيو. مهرباني ڪري ٻيهر ڪوشش ڪريو.",
             orderFailedDescCod: "توهان جي بڪنگ محفوظ نه ٿي سگهي. مهرباني ڪري ٻيهر ڪوشش ڪريو.",
             missingFields: "غائب فيلڊز",
@@ -7286,7 +7328,9 @@ const translations: Record<string, Translations> = {
             otpSendFailed: "OTP موڪلڻ ۾ ناڪام",
             otpSendFailedDesc: "هڪ اڻڄاتل غلطي ٿي. مهرباني ڪري ٻيهر ڪوشش ڪريو.",
             addressSaved: "پتو محفوظ ڪيو ويو!",
-            addressSavedDesc: "توهان جو نئون پتو محفوظ ڪيو ويو آهي."
+            addressSavedDesc: "توهان جو نئون پتو محفوظ ڪيو ويو آهي.",
+            micAccessDenied: 'مائڪروفون رسائي رد ڪئي وئي',
+            micAccessDeniedDesc: 'آواز جي ڳولا استعمال ڪرڻ لاءِ مهرباني ڪري پنهنجي برائوزر سيٽنگن ۾ مائڪروفون رسائي کي فعال ڪريو।',
         }
     },
     'தமிழ்': {
@@ -7617,7 +7661,9 @@ const translations: Record<string, Translations> = {
             otpSendFailed: "OTP அனுப்ப முடியவில்லை",
             otpSendFailedDesc: "ஒரு எதிர்பாராத பிழை ஏற்பட்டது. தயவுசெய்து மீண்டும் முயற்சிக்கவும்.",
             addressSaved: "முகவரி சேமிக்கப்பட்டது!",
-            addressSavedDesc: "உங்கள் புதிய முகவரி சேமிக்கப்பட்டது."
+            addressSavedDesc: "உங்கள் புதிய முகவரி சேமிக்கப்பட்டது.",
+            micAccessDenied: 'மைக்ரோஃபோன் அணுகல் மறுக்கப்பட்டது',
+            micAccessDeniedDesc: 'குரல் தேடலைப் பயன்படுத்த உங்கள் உலாவி அமைப்புகளில் மைக்ரோஃபோன் அணுகலை இயக்கவும்.',
         }
     },
     'తెలుగు': {
@@ -7948,7 +7994,9 @@ const translations: Record<string, Translations> = {
             otpSendFailed: "OTP పంపడంలో విఫలమైంది",
             otpSendFailedDesc: "అనూహ్య లోపం సంభవించింది. దయచేసి మళ్లీ ప్రయత్నించండి.",
             addressSaved: "చిరునామా సేవ్ చేయబడింది!",
-            addressSavedDesc: "మీ కొత్త చిరునామా సేవ్ చేయబడింది."
+            addressSavedDesc: "మీ కొత్త చిరునామా సేవ్ చేయబడింది.",
+            micAccessDenied: 'మైక్రోఫోన్ యాక్సెస్ నిరాకరించబడింది',
+            micAccessDeniedDesc: 'వాయిస్ శోధనను ఉపయోగించడానికి దయచేసి మీ బ్రౌజర్ సెట్టింగ్‌లలో మైక్రోఫోన్ యాక్సెస్‌ను ప్రారంభించండి.',
         }
     }
 };
