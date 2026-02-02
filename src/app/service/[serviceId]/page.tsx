@@ -42,11 +42,8 @@ export default function ServicePage() {
     { key: "gallery", label: translations.service.gallery }
   ];
   
-  const [isClient, setIsClient] = useState(false);
-  useEffect(() => setIsClient(true), []);
-
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
-  const [selectedTime, setSelectedTime] = useState<string | null>(timeSlots[1]);
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>();
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [activeFilter, setActiveFilter] = useState('packages');
   const mainContainerRef = useRef<HTMLDivElement>(null);
@@ -54,6 +51,12 @@ export default function ServicePage() {
 
   const { addToCart, items: cartItems } = useCart();
   const { toast } = useToast();
+
+  useEffect(() => {
+    // Set initial date and time on the client to avoid hydration mismatch
+    setSelectedDate(new Date());
+    setSelectedTime(timeSlots[1]);
+  }, []);
 
   useEffect(() => {
     if (selectedDate && selectedTime && service) {
@@ -156,10 +159,6 @@ export default function ServicePage() {
       });
     }
   };
-  
-  if (!isClient) {
-      return null;
-  }
 
   return (
     <div className="min-h-screen bg-background text-foreground" ref={mainContainerRef}>
