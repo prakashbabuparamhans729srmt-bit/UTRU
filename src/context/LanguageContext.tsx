@@ -5,6 +5,9 @@ import React, { useState, createContext, useContext, useEffect } from 'react';
 
 // Define the shape of your translations
 interface Translations {
+    entry: {
+        signUp: string;
+    };
     settings: {
         title: string;
         orderMessages: string;
@@ -353,6 +356,7 @@ webLink: string;
 // Define the translations for each language
 const translations: Record<string, Translations> = {
     English: {
+        entry: { signUp: 'Sign Up' },
         settings: {
             title: 'Settings',
             orderMessages: 'Order related messages',
@@ -583,24 +587,24 @@ const translations: Record<string, Translations> = {
             valuedCustomer: 'Valued Customer',
             toBePaidOnDelivery: 'To be paid on delivery',
         },
-        service: {
-            details: 'Details',
-            packages: 'Packages',
-            offers: 'Offers',
-            gallery: 'Gallery',
-            whatsIncluded: "What's Included",
-            availableOffers: 'Available Offers',
-            byProServices: 'By Pro Services',
-            viewDetails: 'View details',
-            addToCart: 'Add to Cart',
-            selectDateTime: 'Select Date & Time',
-            viewCart: 'View Cart',
-            selected: 'Selected:',
-            noDate: 'No date',
-            noTime: 'No time',
-            availableSlots: 'Available Slots',
-            quantity: 'Quantity',
-            confirmAndAddToCart: 'Confirm & Add to Cart',
+        "service": {
+            "details": "Details",
+            "packages": "Packages",
+            "offers": "Offers",
+            "gallery": "Gallery",
+            "whatsIncluded": "What's Included",
+            "availableOffers": "Available Offers",
+            "byProServices": "By Pro Services",
+            "viewDetails": "View details",
+            "addToCart": "Add to Cart",
+            "selectDateTime": "Select Date & Time",
+            "viewCart": "View Cart",
+            "selected": "Selected:",
+            "noDate": "No date",
+            "noTime": "No time",
+            "availableSlots": "Available Slots",
+            "quantity": "Quantity",
+            "confirmAndAddToCart": "Confirm & Add to Cart",
         },
         checkout: {
             title: 'Checkout',
@@ -681,8 +685,8 @@ const translations: Record<string, Translations> = {
             otpSendFailedDesc: "An unexpected error occurred. Please try again.",
             addressSaved: "Address Saved!",
             addressSavedDesc: "Your new address has been saved.",
-            micAccessDenied: 'Microphone Access Denied',
-            micAccessDeniedDesc: 'Please enable microphone access in your browser settings to use voice search.',
+            micAccessDenied: "Microphone Access Denied",
+            micAccessDeniedDesc: "Please enable microphone access in your browser settings to use voice search.",
             addressDeleted: "Address Deleted",
             addressDeletedDesc: "The address has been successfully removed.",
             deleteAddressFailed: "Error Deleting Address",
@@ -698,6 +702,7 @@ const translations: Record<string, Translations> = {
         },
     },
     'हिंदी': {
+        entry: { signUp: 'साइन अप करें' },
         settings: {
             title: 'सेटिंग्स',
             orderMessages: 'ऑर्डर संबंधित संदेश',
@@ -1043,6 +1048,7 @@ const translations: Record<string, Translations> = {
         },
     },
     'Bhojpuri': {
+        entry: { signUp: 'साइन अप करीं' },
         settings: {
             title: 'सेटिंग्स',
             orderMessages: 'ऑर्डर संबंधित संदेश',
@@ -1063,6 +1069,8 @@ const translations: Record<string, Translations> = {
         about: {
             title: 'हमनी के बारे में',
             welcome: 'हमनी के ऐप में रउआ स्वागत बा, एक सहज अनुभव खातिर रउआ अंतिम गंतव्य! हमनी के एगो अभिनव, ग्राहक-केंद्रित प्लेटफॉर्म हईं जवन रउआ के बेहतरीन सेवा, असाधारण सौदा, आ बेजोड़ सुविधा देवे खातिर डिजाइन कइल गइल बा - सब रउआ अंगुरी पर।',
+            storyP1: "हमनी के एगो सरल विचार से शुरू कइनी: एगो अइसन प्लेटफॉर्म दिहल जवन खाली विभिन्न किसिम के सेवा ना देवेला बल्कि पूरा प्रक्रिया के सहज आ मनोरंजक भी बनावेला।",
+            storyP2: "मामूली शुरुआत से, हमनी के जल्दीए सबसे भरोसेमंद प्लेटफॉर्म में से एक बन गइनी। ग्राहक संतुष्टि, पहुंच, आ निरंतर नवाचार के हमनी के मूल मूल्य हमनी के आगे बढ़ावत रहेला काहेकि हमनी के लक्ष्य आपन प्रस्ताव के विस्तार करे के बा।"
         },
         address: {
             title: 'हमरा पता',
@@ -1383,10 +1391,9 @@ const translations: Record<string, Translations> = {
             confirm: "हटाईं",
             cancel: "रद्द करीं",
         },
-        storyP1: "हमनी के एगो सरल विचार से शुरू कइनी: एगो अइसन प्लेटफॉर्म दिहल जवन खाली विभिन्न किसिम के सेवा ना देवेला बल्कि पूरा प्रक्रिया के सहज आ मनोरंजक भी बनावेला।",
-        storyP2: "मामूली शुरुआत से, हमनी के जल्दीए सबसे भरोसेमंद प्लेटफॉर्म में से एक बन गइनी। ग्राहक संतुष्टि, पहुंच, आ निरंतर नवाचार के हमनी के मूल मूल्य हमनी के आगे बढ़ावत रहेला काहेकि हमनी के लक्ष्य आपन प्रस्ताव के विस्तार करे के बा।"
     },
     'मराठी': {
+        entry: { signUp: 'साइन अप करा' },
         settings: {
             title: 'सेटिंग्ज',
             orderMessages: 'ऑर्डर संबंधित संदेश',
@@ -1406,10 +1413,10 @@ const translations: Record<string, Translations> = {
         },
         about: {
             title: 'आमच्याबद्दल',
-            welcome: 'आमच्या अॅपमध्ये आपले स्वागत आहे, अखंड अनुभवासाठी आपले अंतिम गंतव्य! आम्ही एक नाविन्यपूर्ण, ग्राहक-केंद्रित प्लॅटफॉर्म आहोत जे तुम्हाला सर्वोत्तम सेवा, अपवादात्मक सौदे आणि अतुलनीय सोय देण्यासाठी डिझाइन केलेले आहे - सर्व काही तुमच्या बोटांच्या टोकावर.',
+            welcome: 'आमच्या अॅपमध्ये आपले स्वागत आहे, अखंड अनुभवासाठी आपले अंतिम गंतव्य! आम्ही एक नाविन्यपूर्ण, ग्राहक-केंद्रित प्लॅटफॉर्म आहोत जे तुम्हाला सर्वोत्तम सेवा, अपवादात्मक सौदे आणि अतुलनीय सोय देण्यासाठी डिझाइन केलेले आहे - सर्व काही तुमच्या बोटांच्या टोकावर।',
             storyTitle: 'आमची कहाणी',
-            storyP1: 'आम्ही एका साध्या कल्पनेने सुरुवात केली: एक प्लॅटफॉर्म प्रदान करणे जे केवळ विविध प्रकारच्या सेवा देत नाही तर संपूर्ण प्रक्रिया सहज आणि आनंददायक बनवते.',
-            storyP2: 'विनम्र सुरुवातीपासून, आम्ही त्वरीत सर्वात विश्वसनीय प्लॅटफॉर्मपैकी एक बनलो. ग्राहक समाधान, सुलभता आणि सतत नवनवीनतेची आमची मुख्य मूल्ये आम्हाला पुढे नेत राहतात कारण आमचे ध्येय आमच्या ऑफरिंगचा विस्तार करणे आहे.',
+            storyP1: 'आम्ही एका साध्या कल्पनेने सुरुवात केली: एक प्लॅटफॉर्म प्रदान करणे जे केवळ विविध प्रकारच्या सेवा देत नाही तर संपूर्ण प्रक्रिया सहज आणि आनंददायक बनवते।',
+            storyP2: 'विनम्र सुरुवातीपासून, आम्ही त्वरीत सर्वात विश्वसनीय प्लॅटफॉर्मपैकी एक बनलो. ग्राहक समाधान, सुलभता आणि सतत नवनवीनतेची आमची मुख्य मूल्ये आम्हाला पुढे नेत राहतात कारण आमचे ध्येय आमच्या ऑफरिंगचा विस्तार करणे आहे।',
         },
         address: {
             title: 'माझे पत्ते',
@@ -1428,7 +1435,7 @@ const translations: Record<string, Translations> = {
             popularProducts: 'लोकप्रिय उत्पादने',
             yourCart: 'तुमची कार्ट',
             emptyTitle: 'तुमची कार्ट रिकामी आहे',
-            emptySubtitle: 'असे दिसते की तुम्ही अद्याप कोणत्याही सेवा जोडलेल्या नाहीत.',
+            emptySubtitle: 'असे दिसते की तुम्ही अद्याप कोणत्याही सेवा जोडलेल्या नाहीत।',
             browseServices: 'सेवा ब्राउझ करा',
             paymentSummary: 'पेमेंट सारांश',
             itemTotal: 'एकूण आयटम',
@@ -1474,7 +1481,7 @@ const translations: Record<string, Translations> = {
             district: 'जिल्हा',
             state: 'राज्य',
             bharat: 'भारत',
-            blackFriday: 'ब्लॅक फ्रायडे',
+            blackFriday: 'ब्लॅक फ्राइडे',
             discountsAvailable: 'सवलत उपलब्ध आहे',
             whatElsePopular: 'आणखी काय लोकप्रिय आहे',
             seeAll: 'सर्व पहा',
@@ -1489,11 +1496,11 @@ const translations: Record<string, Translations> = {
         myPlans: {
             title: 'माझे बुकिंग',
             activePlans: 'आगामी बुकिंग',
-            noActivePlans: 'तुमच्याकडे कोणतीही आगामी बुकिंग नाही.',
+            noActivePlans: 'तुमच्याकडे कोणतीही आगामी बुकिंग नाही।',
             bookings: 'बुकिंग',
             pastBookings: 'मागील बुकिंग',
             noBookingsYet: 'अद्याप कोणतीही बुकिंग नाही',
-            browseServicesPrompt: 'तुमची योजना येथे पाहण्यासाठी एक सेवा बुक करा.',
+            browseServicesPrompt: 'तुमची योजना येथे पाहण्यासाठी एक सेवा बुक करा।',
             noPastBookings: 'तुमची मागील बुकिंग पूर्ण झाल्यावर येथे दिसेल।',
         },
         nativeDevices: {
@@ -1534,7 +1541,7 @@ const translations: Record<string, Translations> = {
         },
         phoneLogin: {
             title: 'फोनने लॉगिन करा',
-            subtitle: 'लॉगिन करण्यासाठी खाली तुमचा नंबर टाका.',
+            subtitle: 'लॉगिन करण्यासाठी खाली तुमचा नंबर टाका।',
             placeholder: 'तुमचा फोन नंबर...',
             continue: 'सुरू ठेवा',
         },
@@ -1579,7 +1586,7 @@ const translations: Record<string, Translations> = {
             searchPlaceholder: 'साठी शोधा...',
             resultsFor: 'साठी निकाल',
             noResults: 'कोणतेही निकाल आढळले नाहीत',
-            tryAgain: 'दुसरे काहीतरी शोधण्याचा प्रयत्न करा.',
+            tryAgain: 'दुसरे काहीतरी शोधण्याचा प्रयत्न करा।',
         },
         support: {
             title: 'समर्थन',
@@ -1696,7 +1703,7 @@ const translations: Record<string, Translations> = {
             chatCleared: "चॅट साफ केले",
             chatClearedDesc: "तुमचा संभाषण इतिहास साफ केला आहे.",
             errorClearingChat: "त्रुटि",
-            errorClearingChatDesc: "चॅਟ इतिहास साफ करू शकलो नाही.",
+            errorClearingChatDesc: "चॅਟ ইতিহাস साफ करू शकलो नाही.",
             verificationError: "सत्यापन त्रुटी",
             verificationErrorDesc: "कृपया लॉगिन प्रक्रिया पुन्हा सुरू करा.",
             invalidOtp: "अवैध ओटीपी",
@@ -1732,6 +1739,7 @@ const translations: Record<string, Translations> = {
         },
     },
     'असमिया': {
+        entry: { signUp: 'ছাইন আপ কৰক' },
         "settings": {
             "title": "ছেটিংছ",
             "orderMessages": "অৰ্ডাৰ সম্পৰ্কীয় বাৰ্তা",
@@ -1921,7 +1929,7 @@ const translations: Record<string, Translations> = {
             "share": "এতিয়াই শ্বেয়াৰ কৰক"
         },
         "search": {
-            "searchPlaceholder": "সন্ধান কৰক...",
+            "searchPlaceholder": "সন্ধาน কৰক...",
             "resultsFor": "ৰ বাবে ফলাফল",
             "noResults": "কোনো ফলাফল পোৱা নগ'ল",
             "tryAgain": "আন কিবা এটা সন্ধান কৰিবলৈ চেষ্টা কৰক।"
@@ -1936,7 +1944,7 @@ const translations: Record<string, Translations> = {
             "subtitle": "আপুনি পোৱা ৬ অংকৰ কোডটো প্ৰৱেশ কৰক:",
             "changeNumber": "নম্বৰ সলনি কৰিবনে?",
             "verifyCode": "কোড সত্যাপন কৰক",
-            "resendCode": "কোড পুনৰ প্ৰেৰণ কৰক"
+            "resendCode": "কোড পুনৰ প্ৰეৰণ কৰক"
         },
         "wallet": {
             "title": "মোৰ ৱালেট",
@@ -2077,10 +2085,11 @@ const translations: Record<string, Translations> = {
         },
     },
     'बंगाली': {
+        entry: { signUp: 'সাইন আপ করুন' },
         "settings": {
             "title": "সেটিংস",
             "orderMessages": "অর্ডার সম্পর্কিত বার্তা",
-            "orderMessagesDescription": "অর্ডার সম্পর্কিত বার্তাগুলি বন্ধ করা যাবে না কারণ সেগুলি পরিষেবা অভিজ্ঞতার জন্য গুরুত্বপূর্ণ।",
+            "orderMessagesDescription": "অর্ডার সম্পর্কিত বার্তাগুলি বন্ধ করা যাবে না কারণ সেগুলি পরিষেবা تجربার জন্য গুরুত্বপূর্ণ।",
             "language": "ভাষা",
             "change": "পরিবর্তন করুন",
             "notificationsAndReminders": "বিজ্ঞপ্তি এবং অনুস্মারক",
@@ -2096,10 +2105,10 @@ const translations: Record<string, Translations> = {
         },
         "about": {
             "title": "আমাদের সম্পর্কে",
-            "welcome": "আমাদের অ্যাপে আপনাকে স্বাগতম, একটি নির্বিঘ্ন অভিজ্ঞতার জন্য আপনার চূড়ান্ত গন্তব্য! আমরা একটি উদ্ভাবনী, গ্রাহক-কেন্দ্রিক প্ল্যাটফর্ম যা আপনাকে সেরা পরিষেবা, ব্যতিক্রমী ডিল এবং অতুলনীয় সুবিধা প্রদান করার জন্য ডিজাইন করা হয়েছে — সবকিছু আপনার হাতের মুঠোয়।",
+            "welcome": "আমাদের অ্যাপে আপনাকে স্বাগতম, একটি নির্বিঘ্ন تجربার জন্য আপনার চূড়ান্ত গন্তব্য! আমরা একটি উদ্ভাবনী, গ্রাহক-কেন্দ্রিক প্ল্যাটফর্ম যা আপনাকে সেরা পরিষেবা, ব্যতিক্রমী ডিল, এবং অতুলনীয় সুবিধা প্রদান করার জন্য ডিজাইন করা হয়েছে — সবকিছু আপনার হাতের মুঠোয়।",
             "storyTitle": "আমাদের গল্প",
             "storyP1": "আমরা একটি সাধারণ ধারণা দিয়ে শুরু করেছি: এমন একটি প্ল্যাটফর্ম সরবরাহ করা যা কেবল বিভিন্ন ধরণের পরিষেবা সরবরাহ করে না বরং পুরো প্রক্রিয়াটিকে সহজ এবং আনন্দদায়ক করে তোলে।",
-            "storyP2": "নম্র শুরু থেকে, আমরা দ্রুত সবচেয়ে বিশ্বস্ত প্ল্যাটফর্মগুলির মধ্যে একটি হয়ে উঠি। গ্রাহক সন্তুষ্টি, অ্যাক্সেসযোগ্যতা এবং ধ্রুবক উদ্ভাবনের আমাদের মূল মানগুলি আমাদের অফারগুলিকে প্রসারিত করার লক্ষ্যে আমাদের চালিত করে চলেছে।"
+            "storyP2": "নম্র শুরু থেকে, আমরা দ্রুত সবচেয়ে বিশ্বস্ত প্ল্যাটফর্মগুলির মধ্যে একটি হয়ে উঠি। গ্রাহক সন্তুষ্টি, অ্যাক্সেসযোগ্যতা, এবং ধ্রুবক উদ্ভাবনের আমাদের মূল মানগুলি আমাদের অফারগুলিকে প্রসারিত করার লক্ষ্যে আমাদের চালিত করে চলেছে।"
         },
         "address": {
             "title": "আমার ঠিকানা",
@@ -2422,6 +2431,7 @@ const translations: Record<string, Translations> = {
         },
     },
      'बोडो': {
+        entry: { signUp: 'साइन आप खालाम' },
         "settings": {
             "title": "सेटिंफोर",
             "orderMessages": "अर्डरनि सोमोन्दै खौरां",
@@ -2511,7 +2521,7 @@ const translations: Record<string, Translations> = {
             "bharat": "भारत",
             "blackFriday": "ब्लेक फ्राइडे",
             "discountsAvailable": "डिस्काउन्ट दङ",
-            "whatElsePopular": "आरो मा जोबोर मोसौ",
+            "whatElsePopular": "आरो मा जोबोर মোसौ",
             "seeAll": "गासैबो नाय",
             "home": "न'",
             "library": "लाइब्रेरि",
@@ -2717,11 +2727,11 @@ const translations: Record<string, Translations> = {
             notLoggedInSave: "लगइन जायाखै",
             notLoggedInSaveDesc: "मोनसे थिगना लाखिनो थाखाय नों लगइन जानो नांगोन।",
             saveFailed: "लाखिनो हायासै",
-            saveFailedDesc: "नोंनि थिगनाखौ लाखिनो हायासै। अननानै फिन नाजा।",
+            saveFailedDesc: "नोंनि थिगनाखौ लाखिनो हायासै। अननानै फिन নাজা।",
             profileUpdated: "प्रफाइल सोदांबाय!",
             profileUpdatedDesc: "नोंनि सोलायनायखौ लाखिबाय।",
             updateFailed: "सोदांनो हायासै",
-            updateFailedDesc: "नोंनि प्रफाइलखौ लाखिनो हायासै। अननानै फिन नाजा।",
+            updateFailedDesc: "नोंनि प्रफाइलखौ लाखिनो हायासै। अननानै फिन নাজা।",
             ratingSubmitted: "रेटिं होबाय!",
             ratingSubmittedDesc: "नोंनि मोनदांथिनि थाखाय साबायखर।",
             pleaseSelectRating: "अननानै मोनसे रेटिं सायख'",
@@ -2747,11 +2757,11 @@ const translations: Record<string, Translations> = {
             invalidPhone: "गोरोन्थि फोन नम्बर",
             invalidPhoneDesc: "अननानै मोनसे मोजां 10-डिजिटनि भारतारि मोबाइल नम्बर हो।",
             otpSendFailed: "अटिपि होनो हायासै",
-            otpSendFailedDesc: "मोनसे गिनाय गोरोन्थि जादों। अननानै फिन नाजा।",
+            otpSendFailedDesc: "मोनसे गिनाय गोरोन्थि जादों। अननानै फिन নাজা।",
             addressSaved: "थिगना लाखिबाय!",
             addressSavedDesc: "नोंनि गोदान थिगनाखौ लाखिबाय।",
-            micAccessDenied: 'माइक्रोफोन एक्सेस अस्वीकार खालामबाय',
-            micAccessDeniedDesc: 'आवाज नागिरनाय बाहायनो थाखाय अननानै नोंनि ब्राउजर सेटिंआव माइक्रोफोन एक्सेसखौ अन खालाम।',
+            micAccessDenied: "माइक्रोफोन एक्सेस अस्वीकार खालामबाय",
+            micAccessDeniedDesc: "आवाज नागिरनाय बाहायनो थाखाय अननानै नोंनि ब्राउजर सेटिंआव माइक्रोफोन एक्सेसखौ अन खालाम।",
             addressDeleted: "थिगना दिन्थिबाय",
             addressDeletedDesc: "थिगनाखौ मोजाङै दिन्थिबाय।",
             deleteAddressFailed: "थिगना दिन्थिबायनो गोरोन्थि",
@@ -2767,6 +2777,7 @@ const translations: Record<string, Translations> = {
         },
     },
     'डोगरी': {
+        entry: { signUp: 'साइन अप करो' },
         "settings": {
             "title": "सेटिंग्स",
             "orderMessages": "आर्डर कन्नै जुड़े दे संदेश",
@@ -3112,6 +3123,7 @@ const translations: Record<string, Translations> = {
         },
     },
     'गुजराती': {
+        entry: { signUp: 'સાઇન અપ કરો' },
         "settings": {
             "title": "સેટિંગ્સ",
             "orderMessages": "ઓર્ડર સંબંધિત સંદેશાઓ",
@@ -3235,7 +3247,7 @@ const translations: Record<string, Translations> = {
             "home": "ઘર",
             "work": "કામ",
             "hotel": "હોટેਲ",
-            "other": "અન्य",
+            "other": "અન્ય",
             "name": "નામ",
             "mobile": "મોબાઇલ નં.",
             "flatHouse": "ફ્લેટ / મકાન નં. / બિલ્ડિંગનું નામ",
@@ -3251,7 +3263,7 @@ const translations: Record<string, Translations> = {
             "pluxee": "પ્લક્સી",
             "netbanking": "નેટબેંકિંગ",
             "add": "ઉમેરો",
-            "payOnDelivery": "ડિલિવरी પર ચૂકવણી કરો",
+            "payOnDelivery": "ડિલિવરી પર ચૂકવણી કરો",
             "wallets": "વોલેટ્સ",
             "googlePay": "ગૂગલ પે યુપીઆઈ",
             "link": "લિંક કરો",
@@ -3457,6 +3469,7 @@ const translations: Record<string, Translations> = {
         },
     },
     'ಕನ್ನಡ': {
+        entry: { signUp: 'ಸೈನ್ ಅಪ್ ಮಾಡಿ' },
         "settings": {
             "title": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು",
             "orderMessages": "ಆರ್ಡರ್ ಸಂಬಂಧಿತ ಸಂದేశಗಳು",
@@ -3532,7 +3545,7 @@ const translations: Record<string, Translations> = {
         },
         "language": {
             "title": "ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ",
-            "chooseLanguage": "ನಿಮ್ಮ ಆದ್ಯತೆಯ ಭਾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+            "chooseLanguage": "ನಿಮ್ಮ ಆದ్యತೆಯ ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ",
             "update": "ಭಾಷೆಯನ್ನು ನವೀಕರಿಸಿ"
         },
         "location": {
@@ -3582,7 +3595,7 @@ const translations: Record<string, Translations> = {
             "hotel": "ಹೋಟೆల్",
             "other": "ಇತರೆ",
             "name": "ಹೆಸರು",
-            "mobile": "ಮೊಬೈಲ್ ಸಂಖ್ಯೆ",
+            "mobile": "ಮೊಬೈల్ ಸಂಖ್ಯೆ",
             "flatHouse": "ಫ್ಲಾಟ್ / ಮನೆ ಸಂಖ್ಯೆ / ಕಟ್ಟಡದ ಹೆಸರು",
             "floor": "ಮಹಡಿ (ಐಚ್ಛಿಕ)",
             "landmark": "ಹತ್ತಿರದ ಹೆಗ್ಗುರುತು (ಐಚ್ಛಿಕ)",
@@ -3604,19 +3617,19 @@ const translations: Record<string, Translations> = {
         },
         "phoneLogin": {
             "title": "ಫೋನ್‌ನೊಂದಿಗೆ ಲಾಗಿನ್ ಮಾಡಿ",
-            "subtitle": "ಲಾಗಿನ್ ಮಾಡಲು ಕೆಳಗೆ ನಿಮ್ಮ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ.",
+            "subtitle": "ಲಾಗಿన్ ಮಾಡಲು ಕೆಳಗೆ ನಿಮ್ಮ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ.",
             "placeholder": "ನಿಮ್ಮ ಫೋನ್ ಸಂಖ್ಯೆ...",
             "continue": "ಮುಂದುವರಿಸಿ"
         },
         "plusMembership": {
-            "title": "ಪ್ಲಸ್ ಸದಸ್ಯತ್ವ",
+            "title": "ಪ್లಸ್ ಸದಸ್ಯತ್ವ",
             "oops": "ಅಯ್ಯೋ, ನೀವು ಇನ್ನೂ ಆರ್ಡರ್ ಮಾಡಿಲ್ಲ",
             "textWidget": "[ಪಠ್ಯ ವಿಜೆಟ್]"
         },
         "profile": {
             "title": "ಪ್ರೊಫೈಲ್",
             "continue": "ಮುಂದುವರಿಸಿ",
-            "loginMessage": "ನಿಮ್ಮ ಸಂಪೂರ್ಣ ಪ್ರೊಫೈಲ್ ವೀಕ್ಷಿಸಲು ಲಾಗಿನ್ ಮಾಡಿ ಅಥವಾ ಸೈನ್ ಅಪ್ ಮಾಡಿ",
+            "loginMessage": "ನಿಮ್ಮ ಸಂಪೂರ್ಣ ಪ್ರೊಫೈల్ ವೀಕ್ಷಿಸಲು ಲಾಗಿನ್ ಮಾಡಿ ಅಥವಾ ಸೈನ್ ಅಪ್ ಮಾಡಿ",
             "payments": "ನನ್ನ ಪಾವತಿಗಳು",
             "support": "ಸಹಾಯ ಮತ್ತು ಬೆಂಬಲ",
             "wallet": "ನನ್ನ ವ್ಯಾಲೆట్",
@@ -3625,9 +3638,9 @@ const translations: Record<string, Translations> = {
             "addressBook": "ವಿಳಾಸ ಪುಸ್ತಕ",
             "plusMembership": "ಪ್లಸ್ ಸದಸ್ಯತ್ವ",
             "myRating": "ನನ್ನ ರೇಟಿಂಗ್‌ಗಳು",
-            "setting": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು",
+            "setting": "ಸೆట్టిಂಗ್‌ಗಳು",
             "otherInfo": "ಇತರ ಮಾಹಿತಿ",
-            "shareApp": "ಅಪ್ಲಿಕೇಶನ್ ಹಂಚಿಕೊಳ್ಳಿ",
+            "shareApp": "ಅಪ್ಲಿಕೇಶన్ ಹಂಚಿಕೊಳ್ಳಿ",
             "aboutUs": "ನಮ್ಮ ಬಗ್ಗೆ",
             "logOut": "ಲಾಗ್ ಔಟ್ ಮಾಡಿ",
             "referEarn": "ರೆಫರ್ ಮಾಡಿ ಮತ್ತು ಗಳಿಸಿ",
@@ -3636,7 +3649,7 @@ const translations: Record<string, Translations> = {
             "referNow": "ಈಗಲೇ ರೆಫರ್ ಮಾಡಿ",
             "lightMode": "ಲೈಟ್ ಮೋಡ್",
             "darkMode": "ಡಾರ್ಕ್ ಮೋಡ್",
-            "appVersions": "ಅಪ್ಲಿಕೇಶನ್ ಆವೃತ್ತಿಗಳು",
+            "appVersions": "ಅಪ್ಲಿಕೇಶన్ ಆವೃತ್ತಿಗಳು",
             "masterAdminPanel": "ಮಾಸ್ಟರ್ ನಿರ್ವಾಹಕ ಫಲಕ"
         },
         "refer": {
@@ -3689,7 +3702,7 @@ const translations: Record<string, Translations> = {
         },
         "service": {
             "details": "ವಿವರಗಳು",
-            "packages": "ಪ్యాಕೇಜುಗಳು",
+            "packages": "ಪ್ಯಾಕೇಜುಗಳು",
             "offers": "ಕೊಡುಗೆಗಳು",
             "gallery": "ಗ್ಯಾಲರಿ",
             "whatsIncluded": "ಏನು ಒಳಗೊಂಡಿದೆ",
@@ -3750,7 +3763,7 @@ const translations: Record<string, Translations> = {
             missingFields: "ಕ್ಷೇತ್ರಗಳು ಕಾಣೆಯಾಗಿವೆ",
             missingFieldsDesc: "ದಯವಿಟ್ಟು ನಿಮ್ಮ ಹೆಸರು, ಮೊಬైల్ ಮತ್ತು ವಿಳಾಸವನ್ನು ಭರ್ತಿ ಮಾಡಿ.",
             notLoggedInSave: "ಲಾಗಿನ್ ಆಗಿಲ್ಲ",
-            notLoggedInSaveDesc: "ವಿಳಾಸವನ್ನು ಉಳಿಸಲು ನೀವು ಲಾಗಿನ್ ಆಗಿರಬೇಕು.",
+            notLoggedInSaveDesc: "ವಿಳಾಸವನ್ನು ಉಳಿಸಲು ನೀವು ಲಾಗಿన్ ಆಗಿರಬೇಕು.",
             saveFailed: "ಉಳಿಸಲು ವಿಫಲವಾಗಿದೆ",
             saveFailedDesc: "ನಿಮ್ಮ ವಿಳಾಸವನ್ನು ಉಳಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
             profileUpdated: "ಪ್ರೊಫೈಲ್ ನವೀಕರಿಸಲಾಗಿದೆ!",
@@ -3772,7 +3785,7 @@ const translations: Record<string, Translations> = {
             invalidOtp: "ಅಮಾನ್ಯ OTP",
             invalidOtpDesc: "ದಯವಿಟ್ಟು ಎಲ್ಲಾ 6 ಅಂಕೆಗಳನ್ನು ನಮೂದಿಸಿ.",
             loginSuccess: "ಲಾಗಿನ್!",
-            loginSuccessDesc: "ನೀವು ಯಶಸ್ವಿಯಾಗಿ ಲಾಗಿನ್ ಆಗಿದ್ದೀರಿ.",
+            loginSuccessDesc: "ನೀವು ಯಶಸ್ವಿಯಾಗಿ ಲಾಗಿన్ ಆಗಿದ್ದೀರಿ.",
             verificationFailed: "ಪರಿಶೀಲನೆ ವಿಫಲವಾಗಿದೆ",
             verificationFailedDesc: "OTP ತಪ್ಪಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
             otpResent: "OTP ಮರುಕಳುಹಿಸಲಾಗಿದೆ",
@@ -3802,10 +3815,11 @@ const translations: Record<string, Translations> = {
         },
     },
     'कश्मीरी': {
+        entry: { signUp: 'साइन अप करिव' },
         "settings": {
             "title": "سیٹنگز",
             "orderMessages": "آرڈر سۭन्बनधि संदेश",
-            "orderMessagesDescription": "آرڈر سۭन्बनधि संदेश बंद करنہٕ یوان کینہہ کیازِ تم چھِ خدمت تجربس باپتھ ضروری۔",
+            "orderMessagesDescription": "آرڈر سۭन्बनधि संदेश बंद करنہٕ यवान कینہہ کیازِ تم چھِ خدمت تجربس باپتھ ضروری۔",
             "language": "زبان",
             "change": "بدلاو",
             "notificationsAndReminders": "نوٹیفکیشن تہٕ یاد دِلاونہٕ",
@@ -3824,7 +3838,7 @@ const translations: Record<string, Translations> = {
             "welcome": "اسہِ ایپ منز چھُ توحید स्वागत، اَکہِ ہموار تجربس باپتھ توحید آخری منزل! اسہِ چھُ اَکھ جدید، گاہک-مرکوز پلیٹ فارم یُس توحید بہترین خدمات، غیر معمولی ڈیل، تہٕ بے مثال سہولت فراہم کرنہٕ باپتھ ڈیزائن کرنہٕ آمت چھُ — سٲری توحید انگلین پؠٹھ۔",
             "storyTitle": "اسہِ کہانی",
             "storyP1": "اسہِ اَکہِ سادٕ خیال سٟتؠ شروٗع کعر: اَکھ یُتھی پلیٹ فارم فراہم کرن یُس نہ صرف مختلف قسمن ہنٛز خدمات پیش کران چھُ بلکہ ساری عملس آسان تہٕ خوشگوار बनावान چھُ۔",
-            "storyP2": "معمولی شروعات پیٹھہٕ، اسہِ جلدی ساروٕی کھوتہٕ زیٛادٕ قابل اعتماد پلیٹ فارمن منز اَکھ بنیوو۔ گاہک اطمینান، رسائی، تہٕ مسلسل جدت طرازی ہنٛد اسہِ بنیادی اقدار چھِ اسہِ حوصلہ افزائی کران روزان کیازِ اسہِ مقصد چھُ پنن پیشکش وسیع کرن۔"
+            "storyP2": "معمولی شروعات پیٹھہٕ، اسہِ جلدی ساروٕی کھوتہٕ زیٛادٕ قابل اعتماد پلیٹ فارمن منز اَکھ بنیوو۔ گاہک اطمینان، رسائی، تہٕ مسلسل جدت طرازی ہنٛد اسہِ بنیادی اقدار چھِ اسہِ حوصلہ افزائی کران روزان کیازِ اسہِ مقصد چھُ پنن پیشکش وسیع کرن۔"
         },
         "address": {
             "title": "مؠون پتہ",
@@ -3899,7 +3913,7 @@ const translations: Record<string, Translations> = {
             "opinion": "رائے"
         },
         "login": {
-            "continueWithPhone": "फोन سٟتؠ جاری تھاو"
+            "continueWithPhone": "फोन سٟتؠ जारी تھاو"
         },
         "myPlans": {
             "title": "مؠنۍ بکنگ",
@@ -4141,12 +4155,13 @@ const translations: Record<string, Translations> = {
             deleteTitle: "کیا توہہِ یقین چھِو؟",
             deleteCartItemMessage: "یہٕ توہندِ کارٹ پیٹھہٕ یہٕ آئٹم مستقل طور پأٹھؠ ہٹاو۔",
             deleteChatMessage: "یہٕ توہندِ چیٹ ہسٹری مستقل طور پأٹھؠ صاف کرِ۔",
-            deleteAddressMessage: "یہٕ یہٕ پتہٕ مستقل طور پأٹھؠ حذف کرِ۔",
-            confirm: "خارج کریو",
+            deleteAddressMessage: "یہٕ यहٕ پتہٕ مستقل طور پأٹھؠ حذف کرِ۔",
+            confirm: "खارج کریو",
             cancel: "منسوخ کریو",
         },
     },
     'कोंकणी': {
+        entry: { signUp: 'साइन अप करात' },
         "settings": {
             "title": "सेटिंग्ज",
             "orderMessages": "ऑर्डर संबंदी संदेश",
@@ -4492,6 +4507,7 @@ const translations: Record<string, Translations> = {
         },
     },
     'मैथिली': {
+        entry: { signUp: 'साइन अप करू' },
         "settings": {
             "title": "सेटिंग्स",
             "orderMessages": "ऑर्डर सँ संबंधित संदेश",
@@ -4837,6 +4853,7 @@ const translations: Record<string, Translations> = {
         },
     },
     'മലയാളം': {
+        entry: { signUp: 'സൈൻ അപ്പ് ചെയ്യുക' },
         "settings": {
             "title": "ക്രമീകരണങ്ങൾ",
             "orderMessages": "ഓർഡർ സംബന്ധമായ സന്ദേശങ്ങൾ",
@@ -5182,6 +5199,7 @@ const translations: Record<string, Translations> = {
         },
     },
     'मणिपुरी': {
+        entry: { signUp: 'সাইন আপ তৌবীয়ু' },
         "settings": {
             "title": "সেটিংসমূহ",
             "orderMessages": "অর্ডারগী মরী লৈনবা পাওসমূহ",
@@ -5527,6 +5545,7 @@ const translations: Record<string, Translations> = {
         },
     },
     'नेपाली': {
+        entry: { signUp: 'साइन अप गर्नुहोस्' },
         "settings": {
             "title": "सेटिङहरू",
             "orderMessages": "अर्डर सम्बन्धी सन्देशहरू",
@@ -5872,6 +5891,7 @@ const translations: Record<string, Translations> = {
         },
     },
     'ଓଡିଆ': {
+        entry: { signUp: 'ସାଇନ୍ ଅପ୍ କରନ୍ତୁ' },
         "settings": {
             "title": "ସେଟିଂସ",
             "orderMessages": "ଅର୍ଡର ସମ୍ବନ୍ଧୀୟ ସନ୍ଦେଶ",
@@ -5886,12 +5906,12 @@ const translations: Record<string, Translations> = {
             "voiceCalls": "ଭଏସ୍ କଲ୍",
             "privacyAndData": "ଗୋପନୀୟତା ଏବଂ ତଥ୍ୟ",
             "admin": "ଆଡମିନ୍",
-            "masterAdminPanel": "ମାଷ୍ଟର ଆଡମିନ୍ ପ୍ୟାନେଲ୍",
+            "masterAdminPanel": "ମାଷ୍ଟର ଆଡମିନ୍ ପ୍ୟାନେਲ୍",
             "open": "ଖୋଲନ୍ତୁ"
         },
         "about": {
             "title": "ଆମ ବିଷୟରେ",
-            "welcome": "ଆମର ଆପକୁ ସ୍ଵାଗତ, ଏକ ସୁଗମ ଅନୁଭୂତି ପାଇଁ ଆପଣଙ୍କର ଚୂଡାନ୍ତ ଗନ୍ତବ୍ୟସ୍ଥଳ! ଆମେ ଏକ ଅଭିନବ, ଗ୍ରାହକ-କେନ୍ଦ୍ରିକ ପ୍ଲାਟଫର୍ମ ଯାହା ଆପଣଙ୍କୁ ସର୍ବୋତ୍ତମ ସେବା, ଅସାଧାରଣ ଡିଲ୍, ଏବଂ ଅପ୍ରତିଦ୍ବନ୍ଦ୍ବୀ ସୁବିଧା ପ୍ରଦାନ କରିବା ପାଇଁ ପରିକଳ୍ਪିତ — ସବୁ ଆପଣଙ୍କ ଆଙ୍ଗୁଠି ଟିପରେ।",
+            "welcome": "ଆମର ଆପକୁ ସ୍ଵାଗତ, ଏକ ସୁଗମ ଅନୁଭୂତି ପାଇଁ ଆପଣଙ୍କର ଚୂଡାନ୍ତ ଗନ୍ତବ୍ୟସ୍ଥଳ! ଆମେ ଏକ ଅଭିନବ, ଗ୍ରାହକ-କେନ୍ଦ୍ରିକ ପ୍ଲାਟଫର୍ମ ଯାହା ଆପଣଙ୍କୁ ସର୍ବୋତ୍ତମ ସେବା, ଅସାଧାରଣ ଡିଲ୍, ଏବଂ ଅପ୍ରତିଦ୍ବନ୍ଦ୍ବୀ ସୁବିଧା ପ୍ରଦାନ କରିବା ପାଇଁ ପରିକଳ୍ପିତ — ସବୁ ଆପଣଙ୍କ ଆଙ୍ଗୁଠି ଟିପରେ।",
             "storyTitle": "ଆମ କାହାଣୀ",
             "storyP1": "ଆମେ ଏକ ସରଳ ଧାରଣାରୁ ଆରମ୍ଭ କରିଥିଲୁ: ଏକ ଏପରି ପ୍ଲାਟਫର୍ମ ପ୍ରଦାନ କରିବା ଯାହା କେବଳ ବିଭିନ୍ନ ପ୍ରକାରର ସେବା ପ୍ରଦାନ କରେ ନାହିଁ ବରଂ ସମଗ୍ର ପ୍ରକ୍ରିୟାକୁ ସହଜ ଏବଂ ଆନନ୍ଦଦାୟକ କରାଏ।",
             "storyP2": "ସାଧାରଣ ଆରମ୍ଭରୁ, ଆମେ ଶୀଘ୍ର ସବୁଠାରୁ ବିଶ୍ଵସନୀୟ ପ୍ଲାਟਫର୍ମ ମଧ୍ୟରୁ ଗୋଟିଏ ହୋଇଗଲୁ। ଗ୍ରାହକ ସନ୍ତୁଷ୍ଟି, ସୁଲଭତା, ଏବଂ ନିରନ୍ତର ନବୀକରଣର ଆମର ମୂଳ ମୂଲ୍ୟବୋଧ ଆମକୁ ଆଗକୁ ବଢାଇବାରେ ସାହାଯ୍ୟ କରୁଛି କାରଣ ଆମେ ଆମର ଅଫରଗୁଡିକୁ ବିସ୍ତାର କରିବାକୁ ଲକ୍ଷ୍ୟ ରଖିଛୁ।"
@@ -6152,7 +6172,7 @@ const translations: Record<string, Translations> = {
             couponRemovedDesc: "ଆପଣଙ୍କ କାର୍ਟର ମୋਟ୍ ଅପଡେଟ୍ ହୋଇଛି।",
             serviceAddedToCart: "ସେବା କାର୍ਟରେ ଯୋଡାଗଲା!",
             cartUpdated: "କାର୍ਟ ଅପଡେਟ୍ ହେଲା!",
-            cartUpdatedDesc: "ପରିମାଣ ଅପଡେଟ୍ ହୋଇଛି।",
+            cartUpdatedDesc: "ପରିମାଣ ଅପଡେਟ୍ ହୋଇଛି।",
             selectionRequired: "ଚୟନ ଆବଶ్యକ",
             selectionRequiredDesc: "ଦୟାକରି ଏକ ତାରିଖ ଏବଂ ସମୟ ସ୍ਲଟ୍ ବାଛନ୍ତୁ।",
             error: "ତ୍ରୁଟି",
@@ -6178,7 +6198,7 @@ const translations: Record<string, Translations> = {
             ratingFailed: "ରେଟିଂ ଦାଖଲ କରିବାରେ ବିଫଳ",
             copied: "କପି କରାଗଲା!",
             copiedDesc: "ରେଫରାଲ୍ କୋଡ୍ କ୍ଲିପବୋର୍ଡକୁ କପି କରାଯାଇଛି।",
-            chatCleared: "ଚାଟ୍ ପରିଷ୍କାର କରାଗଲା",
+            chatCleared: "ଚାਟ୍ ପରିଷ୍କାର କରାଗଲା",
             chatClearedDesc: "ଆପଣଙ୍କ ଆଲୋଚନା ଇତିହାସ ପରିଷ୍କାର କରାଯାଇଛି।",
             errorClearingChat: "ତ୍ରୁଟି",
             errorClearingChatDesc: "ଚାਟ୍ ଇତିହାସ ପରିଷ୍କାର କରାଯାଇପାରିଲା ନାହିଁ।",
@@ -6208,15 +6228,16 @@ const translations: Record<string, Translations> = {
             deleteAddressFailedDesc: "ଆପଣଙ୍କ ଠିକଣା ଡିଲିଟ୍ କରିବାରେ ଏକ ସମସ୍ୟା ହେଲା।",
         },
         dialogs: {
-            deleteTitle: "ଆପଣ ନିଶ୍ଚିତ କି?",
+            deleteTitle: "ଆପଣ ନିଶ୍ਚିତ କି?",
             deleteCartItemMessage: "ଏହା ଆପଣଙ୍କ କାର୍ଟରୁ ଏହି ଆଇଟମକୁ ସ୍ଥାୟୀ ଭାବରେ ଅପସାରଣ କରିବ।",
-            deleteChatMessage: "ଏହା ଆପଣଙ୍କ ଚାଟ୍ ଇତିହାସକୁ ସ୍ଥାୟୀ ଭାବରେ ସଫା କରିବ।",
+            deleteChatMessage: "ଏହା ଆପଣଙ୍କ ଚାਟ୍ ଇତିହାସକୁ ସ୍ଥାୟୀ ଭାବରେ ସଫା କରିବ।",
             deleteAddressMessage: "ଏହା ଏହି ଠିକଣାକୁ ସ୍ଥାୟୀ ଭାବରେ ଡିଲିଟ୍ କରିବ।",
             confirm: "ଅପସାରଣ କରନ୍ତୁ",
             cancel: "ବାତିଲ କରନ୍ତୁ",
         },
     },
     'पंजाबी': {
+        entry: { signUp: 'ਸਾਈਨ ਅੱਪ ਕਰੋ' },
         settings: {
             title: 'ਸੈਟਿੰਗਾਂ',
             orderMessages: 'ਆਰਡਰ ਸੰਬੰਧੀ ਸੁਨੇਹੇ',
@@ -6562,6 +6583,7 @@ const translations: Record<string, Translations> = {
         },
     },
     'संस्कृत': {
+        entry: { signUp: 'पञ्जीकरणं करोतु' },
         "settings": {
             "title": "विन्यासाः",
             "orderMessages": "आदेशसम्बद्धाः सन्देशाः",
@@ -6907,6 +6929,7 @@ const translations: Record<string, Translations> = {
         },
     },
     'संथाली': {
+        entry: { signUp: ' साइन अप गर्नुहोस्' },
         "settings": {
             "title": "সেটিংসমূহ",
             "orderMessages": "অর্ডার সম্পর্কিত বার্তা",
@@ -7205,7 +7228,7 @@ const translations: Record<string, Translations> = {
             saveFailedDesc: "আপনার ঠিকানা সংরক্ষণ করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।",
             profileUpdated: "প্রোফাইল আপডেট করা হয়েছে!",
             profileUpdatedDesc: "আপনার পরিবর্তনগুলি সংরক্ষণ করা হয়েছে।",
-            updateFailed: "আপডেট ব্যর্থ হয়েছে",
+            updateFailed: "अपডেট ব্যর্থ হয়েছে",
             updateFailedDesc: "আপনার প্রোফাইল সংরক্ষণ করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।",
             ratingSubmitted: "রেটিং জমা দেওয়া হয়েছে!",
             ratingSubmittedDesc: "আপনার প্রতিক্রিয়ার জন্য ধন্যবাদ।",
@@ -7252,6 +7275,7 @@ const translations: Record<string, Translations> = {
         },
     },
     'सिंधी': {
+        entry: { signUp: 'سائن اپ ڪريو' },
         "settings": {
             "title": "سيٽنگون",
             "orderMessages": "آرڊر سان لاڳاپيل پيغام",
@@ -7279,7 +7303,7 @@ const translations: Record<string, Translations> = {
         "address": {
             "title": "منهنجا پتا",
             "nothingHere": "هتي اڃا تائين ڪجهه به ناهي",
-            "deliveryMessage": "اسان کي ٻڌايو ته توهان پنهنجا آرڊر ڪٿي پهچائڻ چاهيو ٿا",
+            "deliveryMessage": "اسان کي ٻڌايو ته توهان پنهنجا آرਡਰ ڪٿي پهچائڻ چاهيو ٿا",
             "addNew": "نئون پتو شامل ڪريو",
             "currentLocation": "موجوده جڳهه استعمال ڪريو",
             "change": "تبديل ڪريو"
@@ -7363,7 +7387,7 @@ const translations: Record<string, Translations> = {
         },
         "nativeDevices": {
             "title": "ڏيهي ڊوائيس",
-            "oops": "افسوس، توهان اڃا تائين آرڊر نه ڪيو آهي",
+            "oops": "افسوس، توهان اڃا تائين آرਡਰ نه ڪيو آهي",
             "textWidget": "[ٽيਕਸਟ ويجٽ]"
         },
         "newAddress": {
@@ -7429,7 +7453,7 @@ const translations: Record<string, Translations> = {
             "referEarnDescription": "جڏهن توهان جو دوست پنهنجي پهرين بڪنگ مڪمل ڪري ته ₹100 حاصل ڪريو.",
             "hurryUp": "جلدي ڪريو",
             "referNow": "هاڻي حوالو ڏيو",
-            "lightMode": "لائيٽ موڊ",
+            "lightMode": "لائيٽ موਡ",
             "darkMode": "ڊارڪ موਡ",
             "appVersions": "ايپ ورجن",
             "masterAdminPanel": "ماسٽਰ ਐਡਮਿਨ ਪੈਨਲ"
@@ -7597,6 +7621,7 @@ const translations: Record<string, Translations> = {
         },
     },
     'தமிழ்': {
+        entry: { signUp: 'பதிவு செய்க' },
         "settings": {
             "title": "அமைப்புகள்",
             "orderMessages": "ஆர்டர் தொடர்பான செய்திகள்",
@@ -7942,6 +7967,7 @@ const translations: Record<string, Translations> = {
         },
     },
     'తెలుగు': {
+        entry: { signUp: 'సైన్ అప్ చేయండి' },
         "settings": {
             "title": "సెట్టింగ్‌లు",
             "orderMessages": "ఆర్డర్ సంబంధిత సందేశాలు",

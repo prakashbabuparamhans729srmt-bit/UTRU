@@ -611,6 +611,42 @@
       "description": "Gummy jelly candies in the shape of cherries.",
       "imageUrl": "https://images.unsplash.com/photo-1610971514758-5544605e5d36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxqZWxseSUyMGNoZXJyaWVzfGVufDB8fHx8MTc3MDA4MjM5MHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "jelly cherries"
+    },
+    {
+      "id": "entry-hero-1",
+      "description": "A person in blue gloves cleaning a window with a squeegee",
+      "imageUrl": "https://images.unsplash.com/photo-1600585152225-357918c41cb3?q=80&w=600&h=900&fit=crop",
+      "imageHint": "cleaning service"
+    },
+    {
+      "id": "entry-hero-2",
+      "description": "A technician repairing an air conditioner unit on a wall",
+      "imageUrl": "https://images.unsplash.com/photo-1533390079636-1e5510a417b1?w=600&h=900&fit=crop&q=80",
+      "imageHint": "repair service"
+    },
+    {
+      "id": "entry-hero-3",
+      "description": "A person applying a face mask at a spa",
+      "imageUrl": "https://images.unsplash.com/photo-1515377905703-c478cb85c9d8?w=600&h=900&fit=crop&q=80",
+      "imageHint": "beauty service"
+    },
+    {
+      "id": "entry-hero-4",
+      "description": "A delivery person in a red uniform holding a package",
+      "imageUrl": "https://images.unsplash.com/photo-1591953606626-4d2a75a7a726?w=600&h=900&fit=crop&q=80",
+      "imageHint": "delivery person"
+    },
+    {
+      "id": "entry-hero-5",
+      "description": "A person washing a car with a high-pressure water gun",
+      "imageUrl": "https://images.unsplash.com/photo-1616422285854-3a759082352b?w=600&h=900&fit=crop&q=80",
+      "imageHint": "car wash"
+    },
+    {
+      "id": "entry-hero-6",
+      "description": "A pizza delivery being handed over",
+      "imageUrl": "https://images.unsplash.com/photo-1594107124376-72879555230c?w=600&h=900&fit=crop&q=80",
+      "imageHint": "food delivery"
     }
   ]
 }
