@@ -1,10 +1,9 @@
-
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { MessageCircle, ShoppingCart, ClipboardList, Search } from 'lucide-react';
+import { MessageCircle, ShoppingCart, ClipboardList, Search, LayoutGrid } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function FloatingActionButton() {
@@ -163,6 +162,14 @@ export default function FloatingActionButton() {
             <Button
               size="icon"
               className={subButtonClasses}
+              onClick={() => handleSubMenuClick('/search')}
+              aria-label="Search"
+            >
+              <Search className="w-5 h-5" />
+            </Button>
+            <Button
+              size="icon"
+              className={subButtonClasses}
               onClick={() => handleSubMenuClick('/my-plans')}
               aria-label="Bookings"
             >
@@ -192,7 +199,7 @@ export default function FloatingActionButton() {
           aria-expanded={isOpen}
           aria-label={isOpen ? "Close actions menu" : "Open actions menu"}
         >
-          <Search className="w-7 h-7" />
+          <LayoutGrid className="w-7 h-7" />
         </div>
       </div>
     </div>
