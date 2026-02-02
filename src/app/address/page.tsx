@@ -1,22 +1,38 @@
 'use client';
 
-import { ChevronLeft, User, PlusCircle } from 'lucide-react';
+import { ChevronLeft, User, PlusCircle, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
 import { useUser, useFirestore, useCollection } from '@/firebase';
 import { useCart, type Address } from '@/context/CartContext';
-import { collection } from 'firebase/firestore';
+import { collection, doc, deleteDoc } from 'firebase/firestore';
 import { useMemo } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { addressTypes } from '@/lib/navigation';
 import Link from 'next/link';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { useToast } from '@/hooks/use-toast';
+import { errorEmitter } from '@/firebase/error-emitter';
+import { FirestorePermissionError } from '@/firebase/errors';
 
 
-function AddressCard({ address, onSelect, isSelected }: { address: Address, onSelect: (address: Address) => void, isSelected: boolean }) {
+function AddressCard({ address, onSelect, isSelected, onDelete }: { address: Address, onSelect: (address: Address) => void, isSelected: boolean, onDelete: (addressId: string) => void }) {
   const Icon = addressTypes.find(t => t.labelKey.toLowerCase() === address.type.toLowerCase())?.icon || User;
+  const { translations } = useLanguage();
+
   return (
     <Card className={cn("p-4", isSelected && "border-primary ring-2 ring-primary")}>
         <div className="flex items-center justify-between">
@@ -31,9 +47,32 @@ function AddressCard({ address, onSelect, isSelected }: { address: Address, onSe
                 <p className="text-sm text-muted-foreground mt-1 font-semibold">{address.mobile}</p>
               </div>
             </div>
-            <Button variant={isSelected ? "default" : "outline"} className="rounded-full border-primary text-primary" onClick={() => onSelect(address)}>
-              {isSelected ? "Selected" : "Select"}
-            </Button>
+            <div className="flex items-center gap-2">
+                <Button variant={isSelected ? "default" : "outline"} className="rounded-full border-primary text-primary" onClick={() => onSelect(address)}>
+                {isSelected ? "Selected" : "Select"}
+                </Button>
+                <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                        <Button variant="ghost" size="icon" className="text-destructive">
+                            <Trash2 className="w-5 h-5" />
+                        </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>{(translations as any).dialogs.deleteTitle}</AlertDialogTitle>
+                            <AlertDialogDescription>
+                                {(translations as any).dialogs.deleteAddressMessage}
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel>{(translations as any).dialogs.cancel}</AlertDialogCancel>
+                            <AlertDialogAction className="bg-destructive hover:bg-destructive/90" onClick={() => onDelete(address.id)}>
+                                {(translations as any).dialogs.confirm}
+                            </AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
+            </div>
         </div>
     </Card>
   )
@@ -45,6 +84,7 @@ export default function AddressPage() {
   const { user, loading: userLoading } = useUser();
   const firestore = useFirestore();
   const { deliveryAddress, setDeliveryAddress } = useCart();
+  const { toast } = useToast();
 
   const addressesQuery = useMemo(() => {
     if (!user || !firestore) return null;
@@ -56,6 +96,35 @@ export default function AddressPage() {
   const handleSelectAddress = (address: Address) => {
       setDeliveryAddress(address);
       router.back();
+  };
+
+  const handleDeleteAddress = (addressId: string) => {
+    if (!user || !firestore) return;
+
+    const addressRef = doc(firestore, 'users', user.uid, 'addresses', addressId);
+
+    deleteDoc(addressRef)
+      .then(() => {
+        if (deliveryAddress?.id === addressId) {
+          setDeliveryAddress(null);
+        }
+        toast({
+          title: (translations as any).toasts.addressDeleted,
+          description: (translations as any).toasts.addressDeletedDesc,
+        });
+      })
+      .catch((serverError) => {
+        const permissionError = new FirestorePermissionError({
+          path: addressRef.path,
+          operation: 'delete',
+        });
+        errorEmitter.emit('permission-error', permissionError);
+        toast({
+          variant: 'destructive',
+          title: (translations as any).toasts.deleteAddressFailed,
+          description: (translations as any).toasts.deleteAddressFailedDesc,
+        });
+      });
   };
   
   const isLoading = userLoading || addressesLoading;
@@ -122,6 +191,7 @@ export default function AddressPage() {
               address={address} 
               onSelect={handleSelectAddress}
               isSelected={deliveryAddress?.id === address.id}
+              onDelete={handleDeleteAddress}
             />
           ))
         )}
