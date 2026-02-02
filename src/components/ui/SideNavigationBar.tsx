@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { useUser, useFirestore, useDoc } from '@/firebase';
 import { useAuthUI } from '@/firebase/auth/use-auth-ui';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { LogOut, X } from 'lucide-react';
+import { LogOut, X, User } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { sideNavLinks } from '@/lib/navigation';
 import { useLanguage } from '@/context/LanguageContext';
@@ -64,11 +64,17 @@ export default function SideNavigationBar({ isOpen, setIsOpen }: SideNavigationB
         <div className="flex items-center gap-4 user-info">
           <Avatar className="w-12 h-12">
             {isLoading ? (
-                <Skeleton className="w-full h-full rounded-full" />
-            ) : (
+              <Skeleton className="w-full h-full rounded-full" />
+            ) : user ? (
+              <>
                 <AvatarImage src={userProfile?.photoURL || user?.photoURL || "https://picsum.photos/seed/avatar/100/100"} />
+                <AvatarFallback>{userProfile?.displayName?.charAt(0) || user?.displayName?.charAt(0) || user?.email?.charAt(0) || 'U'}</AvatarFallback>
+              </>
+            ) : (
+              <AvatarFallback>
+                <User className="w-6 h-6" />
+              </AvatarFallback>
             )}
-            <AvatarFallback>{userProfile?.displayName?.charAt(0) || user?.displayName?.charAt(0) || user?.email?.charAt(0) || 'U'}</AvatarFallback>
           </Avatar>
           <div>
              {isLoading ? (
@@ -82,11 +88,9 @@ export default function SideNavigationBar({ isOpen, setIsOpen }: SideNavigationB
                     <p className="text-sm text-gray-400 user-name">{userProfile?.phoneNumber || user?.phoneNumber || userProfile?.email || user?.email}</p>
                 </>
             ) : (
-                 <div>
-                    <p className="font-semibold text-lg user-name">Guest User</p>
+                 <div className="nav-text">
                      <Button
-                        variant="link"
-                        className="p-0 h-auto text-primary nav-text"
+                        size="sm"
                         onClick={() => {
                             router.push('/phone-login');
                             setIsOpen(false);
