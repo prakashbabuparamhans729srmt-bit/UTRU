@@ -11,14 +11,7 @@ import { useLanguage } from '@/context/LanguageContext';
 
 export default function LanguagePage() {
   const router = useRouter();
-  const { language, setLanguage, translations } = useLanguage();
-
-  const languages = [
-    'English', 'हिंदी', 'असमिया', 'Bhojpuri', 'बंगाली', 'बोडो', 'डोगरी',
-    'गुजराती', 'कन्नड़', 'कश्मीरी', 'कोंकणी', 'मैथिली', 'मलयालम',
-    'मणिपुरी', 'मराठी', 'नेपाली', 'ओडिया', 'पंजाबी', 'संस्कृत',
-    'संथाली', 'सिंधी', 'तमिल', 'तेलुगु'
-  ];
+  const { language, setLanguage, translations, availableLanguages } = useLanguage();
 
   return (
     <div className="bg-background text-foreground min-h-screen">
@@ -37,7 +30,7 @@ export default function LanguagePage() {
           <CardContent>
             <RadioGroup value={language} onValueChange={setLanguage}>
               <div className="grid grid-cols-2 gap-4">
-                {languages.map((lang) => (
+                {availableLanguages.map((lang) => (
                   <Label
                     key={lang}
                     htmlFor={`lang-${lang}`}
@@ -65,5 +58,3 @@ export default function LanguagePage() {
     </div>
   );
 }
-
-    
