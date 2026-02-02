@@ -246,13 +246,13 @@ webLink: string;
         viewDetails: string;
         addToCart: string;
         selectDateTime: string;
+        viewCart: string;
         selected: string;
         noDate: string;
         noTime: string;
         availableSlots: string;
         quantity: string;
         confirmAndAddToCart: string;
-        viewCart: string;
     },
     checkout: {
         title: string;
@@ -335,7 +335,14 @@ webLink: string;
         addressSavedDesc: string;
         micAccessDenied: string;
         micAccessDeniedDesc: string;
-    }
+    },
+    dialogs: {
+        deleteTitle: string;
+        deleteCartItemMessage: string;
+        deleteChatMessage: string;
+        confirm: string;
+        cancel: string;
+    };
 }
 
 // Define the translations for each language
@@ -582,13 +589,13 @@ const translations: Record<string, Translations> = {
             viewDetails: 'View details',
             addToCart: 'Add to Cart',
             selectDateTime: 'Select Date & Time',
+            viewCart: 'View Cart',
             selected: 'Selected:',
             noDate: 'No date',
             noTime: 'No time',
             availableSlots: 'Available Slots',
             quantity: 'Quantity',
             confirmAndAddToCart: 'Confirm & Add to Cart',
-            viewCart: 'View Cart',
         },
         checkout: {
             title: 'Checkout',
@@ -671,7 +678,14 @@ const translations: Record<string, Translations> = {
             addressSavedDesc: "Your new address has been saved.",
             micAccessDenied: 'Microphone Access Denied',
             micAccessDeniedDesc: 'Please enable microphone access in your browser settings to use voice search.',
-        }
+        },
+        dialogs: {
+            deleteTitle: "Are you sure?",
+            deleteCartItemMessage: "This will permanently remove this item from your cart.",
+            deleteChatMessage: "This will permanently clear your chat history.",
+            confirm: "Delete",
+            cancel: "Cancel",
+        },
     },
     'हिंदी': {
         settings: {
@@ -904,24 +918,24 @@ const translations: Record<string, Translations> = {
             valuedCustomer: 'मूल्यवान ग्राहक',
             toBePaidOnDelivery: 'डिलीवरी पर भुगतान किया जाना है',
         },
-        service: {
-            details: 'विवरण',
-            packages: 'पैकेज',
-            offers: 'ऑफर',
-            gallery: 'गैलरी',
-            whatsIncluded: 'क्या-क्या शामिल है',
-            availableOffers: 'उपलब्ध ऑफर',
-            byProServices: 'प्रो सर्विसेज द्वारा',
-            viewDetails: 'विवरण देखें',
-            addToCart: 'कार्ट में जोड़ें',
-            selectDateTime: 'तिथि और समय चुनें',
-            viewCart: 'कार्ट देखें',
-            selected: 'चयनित:',
-            noDate: 'कोई तिथि नहीं',
-            noTime: 'कोई समय नहीं',
-            availableSlots: 'उपलब्ध स्लॉट',
-            quantity: 'मात्रा',
-            confirmAndAddToCart: 'पुष्टि करें और कार्ट में जोड़ें',
+        "service": {
+            "details": "विवरण",
+            "packages": "पैकेज",
+            "offers": "ऑफर",
+            "gallery": "गैलरी",
+            "whatsIncluded": "क्या-क्या शामिल है",
+            "availableOffers": "उपलब्ध ऑफर",
+            "byProServices": "प्रो सर्विसेज द्वारा",
+            "viewDetails": "विवरण देखें",
+            "addToCart": "कार्ट में जोड़ें",
+            "selectDateTime": "तिथि और समय चुनें",
+            "viewCart": "कार्ट देखें",
+            "selected": "चयनित:",
+            "noDate": "कोई तिथि नहीं",
+            "noTime": "कोई समय नहीं",
+            "availableSlots": "उपलब्ध स्लॉट",
+            "quantity": "मात्रा",
+            "confirmAndAddToCart": "पुष्टि करें और कार्ट में जोड़ें",
         },
         checkout: {
             title: 'चेकआउट',
@@ -1004,7 +1018,14 @@ const translations: Record<string, Translations> = {
             addressSavedDesc: "आपका नया पता सहेज लिया गया है।",
             micAccessDenied: 'माइक्रोफ़ोन एक्सेस अस्वीकृत',
             micAccessDeniedDesc: 'वॉइस सर्च का उपयोग करने के लिए कृपया अपनी ब्राउज़र सेटिंग्स में माइक्रोफ़ोन एक्सेस सक्षम करें।',
-        }
+        },
+        dialogs: {
+            deleteTitle: "क्या आप निश्चित हैं?",
+            deleteCartItemMessage: "यह इस आइटम को आपकी कार्ट से स्थायी रूप से हटा देगा।",
+            deleteChatMessage: "यह आपकी चैट हिस्ट्री को स्थायी रूप से साफ़ कर देगा।",
+            confirm: "हटाएं",
+            cancel: "रद्द करें",
+        },
     },
     'Bhojpuri': {
         settings: {
@@ -1027,9 +1048,6 @@ const translations: Record<string, Translations> = {
         about: {
             title: 'हमनी के बारे में',
             welcome: 'हमनी के ऐप में रउआ स्वागत बा, एक सहज अनुभव खातिर रउआ अंतिम गंतव्य! हमनी के एगो अभिनव, ग्राहक-केंद्रित प्लेटफॉर्म हईं जवन रउआ के बेहतरीन सेवा, असाधारण सौदा, आ बेजोड़ सुविधा देवे खातिर डिजाइन कइल गइल बा - सब रउआ अंगुरी पर।',
-            storyTitle: 'हमनी के कहानी',
-            storyP1: 'हमनी के एगो सरल विचार से शुरू कइनी: एगो अइसन प्लेटफॉर्म दिहल जवन खाली विभिन्न किसिम के सेवा ना देवेला बल्कि पूरा प्रक्रिया के सहज आ मनोरंजक भी बनावेला।',
-            storyP2: 'मामूली शुरुआत से, हमनी के जल्दीए सबसे भरोसेमंद प्लेटफॉर्म में से एक बन गइनी। ग्राहक संतुष्टि, पहुंच, आ निरंतर नवाचार के हमनी के मूल मूल्य हमनी के आगे बढ़ावत रहेला काहेकि हमनी के लक्ष्य आपन प्रस्ताव के विस्तार करे के बा।',
         },
         address: {
             title: 'हमरा पता',
@@ -1237,24 +1255,24 @@ const translations: Record<string, Translations> = {
             valuedCustomer: 'मूल्यवान ग्राहक',
             toBePaidOnDelivery: 'डिलीवरी पर भुगतान करे के बा',
         },
-        service: {
-            details: 'विवरण',
-            packages: 'पैकेज',
-            offers: 'ऑफर',
-            gallery: 'गैलरी',
-            whatsIncluded: 'का-का शामिल बा',
-            availableOffers: 'उपलब्ध ऑफर',
-            byProServices: 'प्रो सर्विसेज द्वारा',
-            viewDetails: 'विवरण देखीं',
-            addToCart: 'कार्ट में जोड़ीं',
-            selectDateTime: 'तिथि आ समय चुनीं',
-            viewCart: 'कार्ट देखीं',
-            selected: 'चयनित:',
-            noDate: 'कवनो तिथि नइखे',
-            noTime: 'कवनो समय नइखे',
-            availableSlots: 'उपलब्ध स्लॉट',
-            quantity: 'मात्रा',
-            confirmAndAddToCart: 'पुष्टि करीं आ कार्ट में जोड़ीं',
+        "service": {
+            "details": "विवरण",
+            "packages": "पैकेज",
+            "offers": "ऑफर",
+            "gallery": "गैलरी",
+            "whatsIncluded": "का-का शामिल बा",
+            "availableOffers": "उपलब्ध ऑफर",
+            "byProServices": "प्रो सर्विसेज द्वारा",
+            "viewDetails": "विवरण देखीं",
+            "addToCart": "कार्ट में जोड़ीं",
+            "selectDateTime": "तिथि आ समय चुनीं",
+            "viewCart": "कार्ट देखीं",
+            "selected": "चयनित:",
+            "noDate": "कवनो तिथि नइखे",
+            "noTime": "कवनो समय नइखे",
+            "availableSlots": "उपलब्ध स्लॉट",
+            "quantity": "मात्रा",
+            "confirmAndAddToCart": "पुष्टि करीं आ कार्ट में जोड़ीं",
         },
         checkout: {
             title: 'चेकआउट',
@@ -1337,7 +1355,16 @@ const translations: Record<string, Translations> = {
             addressSavedDesc: "रउआ नया पता सहेज लिहल गईल बा।",
             micAccessDenied: 'माइक्रोफोन एक्सेस अस्वीकार कइल गइल',
             micAccessDeniedDesc: 'आवाज खोज के उपयोग करे खातिर कृपया आपन ब्राउज़र सेटिंग में माइक्रोफोन एक्सेस सक्षम करीं।',
-        }
+        },
+        dialogs: {
+            deleteTitle: "का रउआ निश्चित बानी?",
+            deleteCartItemMessage: "ई आइटम के रउआ कार्ट से स्थायी रूप से हटा दिहल जाई।",
+            deleteChatMessage: "ई रउआ चैट हिस्ट्री के स्थायी रूप से साफ क' दिहल जाई।",
+            confirm: "हटाईं",
+            cancel: "रद्द करीं",
+        },
+        storyP1: "हमनी के एगो सरल विचार से शुरू कइनी: एगो अइसन प्लेटफॉर्म दिहल जवन खाली विभिन्न किसिम के सेवा ना देवेला बल्कि पूरा प्रक्रिया के सहज आ मनोरंजक भी बनावेला।",
+        storyP2: "मामूली शुरुआत से, हमनी के जल्दीए सबसे भरोसेमंद प्लेटफॉर्म में से एक बन गइनी। ग्राहक संतुष्टि, पहुंच, आ निरंतर नवाचार के हमनी के मूल मूल्य हमनी के आगे बढ़ावत रहेला काहेकि हमनी के लक्ष्य आपन प्रस्ताव के विस्तार करे के बा।"
     },
     'मराठी': {
         settings: {
@@ -1362,7 +1389,7 @@ const translations: Record<string, Translations> = {
             welcome: 'आमच्या अॅपमध्ये आपले स्वागत आहे, अखंड अनुभवासाठी आपले अंतिम गंतव्य! आम्ही एक नाविन्यपूर्ण, ग्राहक-केंद्रित प्लॅटफॉर्म आहोत जे तुम्हाला सर्वोत्तम सेवा, अपवादात्मक सौदे आणि अतुलनीय सोय देण्यासाठी डिझाइन केलेले आहे - सर्व काही तुमच्या बोटांच्या टोकावर.',
             storyTitle: 'आमची कहाणी',
             storyP1: 'आम्ही एका साध्या कल्पनेने सुरुवात केली: एक प्लॅटफॉर्म प्रदान करणे जे केवळ विविध प्रकारच्या सेवा देत नाही तर संपूर्ण प्रक्रिया सहज आणि आनंददायक बनवते.',
-            storyP2: 'विनम्र सुरुवातीपासून, आम्ही त्वरीत सर्वात विश्वसनीय प्लॅटफॉर्मपैकी एक बनलो. ग्राहक समाधान, सुलभता आणि सतत नवनवीनतेची आमची मुख्य मूल्ये आम्हाला पुढे नेत राहतात कारण आमचे ध्येय आमच्या ऑफरिंगचा विस्तार करणे आहे.',
+            storyP2: 'विनम्र सुरुवातीपासून, आम्ही त्वरीत सर्वात विश्वसनीय प्लॅטफॉर्मपैकी एक बनलो. ग्राहक समाधान, सुलभता आणि सतत नवनवीनतेची आमची मुख्य मूल्ये आम्हाला पुढे नेत राहतात कारण आमचे ध्येय आमच्या ऑफरिंगचा विस्तार करणे आहे.',
         },
         address: {
             title: 'माझे पत्ते',
@@ -1669,8 +1696,15 @@ const translations: Record<string, Translations> = {
             addressSaved: "पत्ता जतन केला!",
             addressSavedDesc: "तुमचा नवीन पत्ता जतन केला आहे।",
             micAccessDenied: 'मायक्रोफोन प्रवेश नाकारला',
-            micAccessDeniedDesc: 'व्हॉइस शोध वापरण्यासाठी कृपया तुमच्या ब्राउझर सेटिंग्जमध्ये मायक्रोफोन प्रवेश सक्षम करा.',
-        }
+            micAccessDeniedDesc: 'व्हॉइस शोध वापरण्यासाठी कृपया तुमच्या ब्राउझर सेटिंग्जमध्ये मायक्रोफोन प्रवेश सक्षम करा।',
+        },
+        dialogs: {
+            deleteTitle: "तुम्ही नक्की आहात का?",
+            deleteCartItemMessage: "हे तुमच्या कार्टमधून हे आयटम कायमचे काढून टाकेल.",
+            deleteChatMessage: "हे तुमचा चॅट इतिहास कायमचा साफ करेल.",
+            confirm: "हटवा",
+            cancel: "रद्द करा",
+        },
     },
     'असमिया': {
         "settings": {
@@ -1706,7 +1740,7 @@ const translations: Record<string, Translations> = {
             "change": "সলনি কৰক"
         },
         "cart": {
-            "searchPlaceholder": "সন্ধาน কৰক...",
+            "searchPlaceholder": "সন্ধান কৰক...",
             "blackFriday": "ব্লেক ফ্ৰাইডে",
             "discountsAvailable": "ರಿಯাজ উপলব্ধ",
             "categories": "শ্ৰেণীসমূহ",
@@ -1754,7 +1788,7 @@ const translations: Record<string, Translations> = {
         "location": {
             "selectLocation": "অৱস্থান বাছনি কৰক",
             "man": "মানুহ",
-            "searchPlaceholder": "সন্ধาน কৰক...",
+            "searchPlaceholder": "সন্ধান কৰক...",
             "emergency": "জৰুৰীকালীন",
             "my": "মোৰ",
             "district": "জিলা",
@@ -1862,7 +1896,7 @@ const translations: Record<string, Translations> = {
             "share": "এতিয়াই শ্বেয়াৰ কৰক"
         },
         "search": {
-            "searchPlaceholder": "সন্ধาน কৰক...",
+            "searchPlaceholder": "সন্ধান কৰক...",
             "resultsFor": "ৰ বাবে ফলাফল",
             "noResults": "কোনো ফলাফল পোৱা নগ'ল",
             "tryAgain": "আন কিবা এটা সন্ধান কৰিবলৈ চেষ্টা কৰক।"
@@ -1991,8 +2025,8 @@ const translations: Record<string, Translations> = {
             loginSuccessDesc: "আপুনি সফলতাৰে লগইন কৰিছে।",
             verificationFailed: "সত্যাপন విఫలమైంది",
             verificationFailedDesc: "অ'টিপি ভুল। অনুগ্ৰহ কৰি পুনৰ চেষ্টা কৰক।",
-            otpResent: "অ'টিপি পুনৰ প্ৰেৰণ কৰা হ'ল",
-            otpResentDesc: "আপোনাৰ ফোনলৈ এটা নতুন অ'টিপি প্ৰেৰণ কৰা হৈছে।",
+            otpResent: "অ'টিপি পুনৰ প্ৰეৰণ কৰা হ'ল",
+            otpResentDesc: "আপোনাৰ ফোনলৈ এটা নতুন অ'টিপি প্ৰეৰণ কৰা হৈছে।",
             otpResentFailed: "অ'টিপি পুনৰ প্ৰეৰণ কৰাত విఫలమైంది",
             otpResendFailedDesc: "অনুগ্ৰহ কৰি পিছত পুনৰ চেষ্টা কৰক।",
             invalidPhone: "অবৈধ ফোন নম্বৰ",
@@ -2003,7 +2037,14 @@ const translations: Record<string, Translations> = {
             addressSavedDesc: "আপোনাৰ নতুন ঠিকনা সংৰক্ষণ কৰা হৈছে।",
             micAccessDenied: "মাইক্ৰ'ফ'ন এক্সেছ অস্বীকাৰ কৰা হ'ল",
             micAccessDeniedDesc: "ভইচ চাৰ্চ ব্যৱহাৰ কৰিবলৈ অনুগ্ৰহ কৰি আপোনাৰ ব্ৰাউজাৰ ছেটিংছত মাইক্ৰ'ফ'ন এক্সেছ সক্ষম কৰক।",
-        }
+        },
+        dialogs: {
+            deleteTitle: "আপুনি নিশ্চিতনে?",
+            deleteCartItemMessage: "ই আপোনাৰ কাৰ্টৰ পৰা এই বস্তুটো স্থায়ীভাৱে আঁতৰাই পেলাব।",
+            deleteChatMessage: "ই আপোনাৰ চেট ইতিহাস স্থায়ীভাৱে পৰিষ্কাৰ কৰিব।",
+            confirm: "মচি পেলাওক",
+            cancel: "বাতিল কৰক",
+        },
     },
     'बंगाली': {
         "settings": {
@@ -2336,7 +2377,14 @@ const translations: Record<string, Translations> = {
             addressSavedDesc: "আপনার নতুন ঠিকানা সংরক্ষিত হয়েছে।",
             micAccessDenied: 'মাইক্রোফোন অ্যাক্সেস প্রত্যাখ্যান করা হয়েছে',
             micAccessDeniedDesc: 'ভয়েস অনুসন্ধান ব্যবহার করতে আপনার ব্রাউজার সেটিংসে মাইক্রোফোন অ্যাক্সেস সক্ষম করুন।',
-        }
+        },
+        dialogs: {
+            deleteTitle: "আপনি কি নিশ্চিত?",
+            deleteCartItemMessage: "এটি আপনার কার্ট থেকে এই আইটেমটি স্থায়ীভাবে সরিয়ে ফেলবে।",
+            deleteChatMessage: "এটি আপনার চ্যাট ইতিহাস স্থায়ীভাবে পরিষ্কার করবে।",
+            confirm: "মুছে ফেলুন",
+            cancel: "বাতিল করুন",
+        },
     },
      'बोडो': {
         "settings": {
@@ -2492,7 +2540,7 @@ const translations: Record<string, Translations> = {
         },
         "plusMembership": {
             "title": "प्लास सदस्यथाइ",
-            "oops": "माफ खालाम, नों दासिम जेबो अर्डर होआखै",
+            "oops": "माफ खालाम, नों दासिм जेबो अर्डर होआखै",
             "textWidget": "[टेक्स्ट विजेट]"
         },
         "profile": {
@@ -2669,7 +2717,14 @@ const translations: Record<string, Translations> = {
             addressSavedDesc: "नोंनि गोदान थिगनाखौ लाखिबाय।",
             micAccessDenied: 'माइक्रोफोन एक्सेस अस्वीकार खालामबाय',
             micAccessDeniedDesc: 'आवाज नागिरनाय बाहायनो थाखाय अननानै नोंनि ब्राउजर सेटिंआव माइक्रोफोन एक्सेसखौ अन खालाम।',
-        }
+        },
+        dialogs: {
+            deleteTitle: "नोंथाङा थारैनो?",
+            deleteCartItemMessage: "बेयो नोंथांनि कार्टनिफ्राय बे आइटেমखौ स्थायी भाबे बोखारगोन।",
+            deleteChatMessage: "बेयो नोंथांनि च्याट हिस्ट्रीखौ स्थायी भाबे क्लियार खालामगोन।",
+            confirm: "मेटाइ",
+            cancel: "केन्सल",
+        },
     },
     'डोगरी': {
         "settings": {
@@ -3002,7 +3057,14 @@ const translations: Record<string, Translations> = {
             addressSavedDesc: "तुंदा नमां पता बचाया गेआ ऐ।",
             micAccessDenied: 'माइक्रोफोन पहुंच अस्वीकार कीती गेई',
             micAccessDeniedDesc: 'आवाज खोज दा इस्तेमाल करने लेई कृपा करियै अपने ब्राउज़र सेटिंग्स च माइक्रोफोन पहुंच सक्षम करो।',
-        }
+        },
+        dialogs: {
+            deleteTitle: "क्या तुस पक्का ओ?",
+            deleteCartItemMessage: "इस कन्नै एह् आइटम तुंदी कार्ट थमां हमेशा लेई हटाई दित्ता जाग।",
+            deleteChatMessage: "इस कन्नै तुंदा चैट इतिहास हमेशा लेई साफ करी दित्ता जाग।",
+            confirm: "हटाओ",
+            cancel: "रद्द करो",
+        },
     },
     'गुजराती': {
         "settings": {
@@ -3098,7 +3160,7 @@ const translations: Record<string, Translations> = {
             "seeAll": "બધા જુઓ",
             "home": "હોમ",
             "library": "લાઇબ્રેરી",
-            "explore": "અન્ਵੇષણ કરો",
+            "explore": "અન્વેષણ કરો",
             "opinion": "અભિપ્રાય"
         },
         "login": {
@@ -3121,7 +3183,7 @@ const translations: Record<string, Translations> = {
         },
         "newAddress": {
             "title": "નવું સરનામું",
-            "completeAddress": "સંપૂર્ણ સરનામું દાખਲ કરો",
+            "completeAddress": "સંપૂર્ણ સરનામું દાખલ કરો",
             "orderingFor": "તમે કોના માટે ઓર્ડર કરી રહ્યા છો?",
             "myself": "મારા માટે",
             "someoneElse": "બીજા કોઈ માટે",
@@ -3144,7 +3206,7 @@ const translations: Record<string, Translations> = {
             "pluxee": "પ્લક્સી",
             "netbanking": "નેટબેંકિંગ",
             "add": "ઉમેરો",
-            "payOnDelivery": "ડિલિવરી પર ચૂકવણી કરો",
+            "payOnDelivery": "ડિલિવरी પર ચૂકવણી કરો",
             "wallets": "વોલેટ્સ",
             "googlePay": "ગૂગલ પે યુપીઆઈ",
             "link": "લિંક કરો",
@@ -3335,13 +3397,20 @@ const translations: Record<string, Translations> = {
             addressSavedDesc: "તમારું નવું સરનામું સાચવવામાં આવ્યું છે।",
             micAccessDenied: 'માઇક્રોફોન ઍક્સેસ નકારવામાં આવ્યો',
             micAccessDeniedDesc: 'વૉઇસ શોધનો ઉપયોગ કરવા માટે કૃપા કરીને તમારા બ્રાઉઝર સેટિંગ્સમાં માઇક્રોફોન ઍક્સેસ સક્ષમ કરો।',
-        }
+        },
+        dialogs: {
+            deleteTitle: "તમે ચોક્કસ છો?",
+            deleteCartItemMessage: "આ તમારી કાર્ટમાંથી આ આઇટમને કાયમ માટે દૂર કરશે.",
+            deleteChatMessage: "આ તમારી ચેટ ઇતિહાસને કાયમ માટે સાફ કરશે.",
+            confirm: "કાઢી નાખો",
+            cancel: "રદ કરો",
+        },
     },
     'ಕನ್ನಡ': {
         "settings": {
             "title": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು",
-            "orderMessages": "ಆರ್ಡರ್ ಸಂಬಂಧಿತ ಸಂದేశಗಳು",
-            "orderMessagesDescription": "ಸೇವಾ ಅನುಭವಕ್ಕಾಗಿ ಆರ್ಡರ್ ಸಂಬಂಧಿತ ಸಂದేశಗಳನ್ನು ಆಫ್ ಮಾಡಲಾಗುವುದಿಲ್ಲ ಏಕೆಂದರೆ ಅವು ಮುಖ್ಯವಾಗಿವೆ.",
+            "orderMessages": "ಆರ್ಡರ್ ಸಂಬಂಧಿತ ಸಂದೇಶಗಳು",
+            "orderMessagesDescription": "ಸೇವಾ ಅನುಭವಕ್ಕಾಗಿ ಆರ್ಡರ್ ಸಂಬಂಧಿತ ಸಂದೇಶಗಳನ್ನು ಆಫ್ ಮಾಡಲಾಗುವುದಿಲ್ಲ ಏಕೆಂದರೆ ಅವು ಮುಖ್ಯವಾಗಿವೆ.",
             "language": "ಭಾಷೆ",
             "change": "ಬದಲಾಯಿಸಿ",
             "notificationsAndReminders": "ಅಧಿಸೂಚನೆಗಳು ಮತ್ತು ಜ್ಞಾਪನೆಗಳು",
@@ -3485,7 +3554,7 @@ const translations: Record<string, Translations> = {
         },
         "phoneLogin": {
             "title": "ಫೋನ್‌ನೊಂದಿಗೆ ಲಾಗಿನ್ ಮಾಡಿ",
-            "subtitle": "ಲಾಗಿన్ ಮಾಡಲು ಕೆಳಗೆ ನಿಮ್ಮ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ.",
+            "subtitle": "ಲಾಗಿನ್ ಮಾಡಲು ಕೆಳಗೆ ನಿಮ್ಮ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ.",
             "placeholder": "ನಿಮ್ಮ ಫೋನ್ ಸಂಖ್ಯೆ...",
             "continue": "ಮುಂದುವರಿಸಿ"
         },
@@ -3620,7 +3689,7 @@ const translations: Record<string, Translations> = {
             cartUpdated: "ಕಾರ್ಟ್ ನವೀಕರಿಸಲಾಗಿದೆ!",
             cartUpdatedDesc: "ಪ್ರಮಾಣವನ್ನು ನವೀಕರಿಸಲಾಗಿದೆ.",
             selectionRequired: "ಆಯ್ಕೆ ಅಗತ್ಯವಿದೆ",
-            selectionRequiredDesc: "ದಯವಿಟ್ಟು ದಿನಾಂక ಮತ್ತು ಸಮಯ ಸ್ಲಾಟ್ ಆಯ್ಕೆಮಾಡಿ.",
+            selectionRequiredDesc: "ದಯವಿಟ್ಟು ದಿನಾಂಕ ಮತ್ತು ಸಮಯ ಸ್ಲಾಟ್ ಆಯ್ಕೆಮಾಡಿ.",
             error: "ದೋಷ",
             notLoggedIn: "ಬಳಕೆದಾರರು ಲಾಗಿನ್ ಆಗಿಲ್ಲ ಅಥವಾ ಫೈರ್‌ಸ್ಟೋರ್ ಲಭ್ಯವಿಲ್ಲ.",
             addressMissing: "ವಿಳಾಸ ಕಾಣೆಯಾಗಿದೆ",
@@ -3668,7 +3737,14 @@ const translations: Record<string, Translations> = {
             addressSavedDesc: "ನಿಮ್ಮ ಹೊಸ ವಿಳಾಸವನ್ನು ಉಳಿಸಲಾಗಿದೆ.",
             micAccessDenied: 'ಮೈಕ್ರೊಫೋನ್ ಪ್ರವೇಶವನ್ನು ನಿರಾಕರಿಸಲಾಗಿದೆ',
             micAccessDeniedDesc: 'ಧ್ವನಿ ಹುಡುಕಾಟವನ್ನು ಬಳಸಲು ದಯವಿಟ್ಟು ನಿಮ್ಮ ಬ್ರೌಸರ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಮೈಕ್ರೊಫೋನ್ ಪ್ರವೇಶವನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ.',
-        }
+        },
+        dialogs: {
+            deleteTitle: "ನೀವು ಖಚಿತವೇ?",
+            deleteCartItemMessage: "ಇದು ನಿಮ್ಮ ಕಾರ್ಟಿನಿಂದ ಈ ಐಟಂ ಅನ್ನು శాశ్వతంగా ತೆಗೆದುಹಾಕುತ್ತದೆ.",
+            deleteChatMessage: "ಇದು ನಿಮ್ಮ ಚಾಟ್ ಇತಿಹಾಸವನ್ನು శాశ్వతంగా ಅಳಿಸುತ್ತದೆ.",
+            confirm: "ಅಳಿಸಿ",
+            cancel: "ರದ್ದುಮಾಡಿ",
+        },
     },
     'कश्मीरी': {
         "settings": {
@@ -3939,7 +4015,7 @@ const translations: Record<string, Translations> = {
             noAddressSelected: 'کانہہ پتہ منتخب کرنہٕ آمت نی',
             loading: 'لوڈ ہو رہا ہے...',
             placeOrder: 'آرڈر دیو',
-            loginToPlaceOrder: 'آর்டர் देने باپتھ لاگ ان کریو',
+            loginToPlaceOrder: 'آर्डर देने باپتھ لاگ ان کریو',
             payFromWallet: 'والیٹ سٟتؠ ادا کریو',
         },
         toasts: {
@@ -4001,7 +4077,14 @@ const translations: Record<string, Translations> = {
             addressSavedDesc: "आपका नया पता सहेज लिया गया है।",
             micAccessDenied: 'مائیکروفون رسائی نامنظور',
             micAccessDeniedDesc: 'آواز تلاش استعمال کرنہٕ باپتھ مہربانی کرِتھ پنن برائوزر سیٹنگز منز مائیکروفون رسائی فعال کریو۔',
-        }
+        },
+        dialogs: {
+            deleteTitle: "کیا توہہِ یقین چھِو؟",
+            deleteCartItemMessage: "یہٕ توہندِ کارٹ پیٹھہٕ یہٕ آئٹم مستقل طور پأٹھؠ ہٹاو۔",
+            deleteChatMessage: "یہٕ توہندِ چیٹ ہسٹری مستقل طور پأٹھؠ صاف کرِ۔",
+            confirm: "خارج کریو",
+            cancel: "منسوخ کریو",
+        },
     },
     'कोंकणी': {
         "settings": {
@@ -4334,7 +4417,14 @@ const translations: Record<string, Translations> = {
             addressSavedDesc: "तुमचा नवीन पत्ता जतन केला आहे।",
             micAccessDenied: 'मायक्रोफोन प्रवेश नाकारला',
             micAccessDeniedDesc: 'आवाज शोध वापरण्यासाठी कृपया तुमच्या ब्राउझर सेटिंग्जमध्ये मायक्रोफोन प्रवेश सक्षम करा।',
-        }
+        },
+        dialogs: {
+            deleteTitle: "तुमी निश्चित आसात?",
+            deleteCartItemMessage: "हें तुमकां कार्टांतल्यान हें आयटम कायमचें काडून उडयतलें।",
+            deleteChatMessage: "हें तुमचो चॅट इतिहास कायमचो साफ करतलो।",
+            confirm: "काडून उडय",
+            cancel: "रद्द कर",
+        },
     },
     'मैथिली': {
         "settings": {
@@ -4667,9 +4757,16 @@ const translations: Record<string, Translations> = {
             addressSavedDesc: "अहाँक नवका पता सहेज लेल गेल अछि।",
             micAccessDenied: 'माइक्रोफोन एक्सेस अस्वीकार कएल गेल',
             micAccessDeniedDesc: 'आवाज खोज के उपयोग करबाक लेल कृपया अपन ब्राउज़र सेटिंग मे माइक्रोफोन एक्सेस सक्षम करू।',
-        }
+        },
+        dialogs: {
+            deleteTitle: "की अहाँ निश्चित छी?",
+            deleteCartItemMessage: "ई अहाँक कार्ट सँ ई आइटम केँ स्थायी रूप सँ हटा देत।",
+            deleteChatMessage: "ई अहाँक चैट हिस्ट्री केँ स्थायी रूप सँ साफ क' देत।",
+            confirm: "हटाउ",
+            cancel: "रद्द करू",
+        },
     },
-    'मलयालम': {
+    'മലയാളം': {
         "settings": {
             "title": "ക്രമീകരണങ്ങൾ",
             "orderMessages": "ഓർഡർ സംബന്ധമായ സന്ദേശങ്ങൾ",
@@ -5000,7 +5097,14 @@ const translations: Record<string, Translations> = {
             addressSavedDesc: "നിങ്ങളുടെ പുതിയ വിലാസം സംരക്ഷിച്ചു.",
             micAccessDenied: 'മൈക്രോഫോൺ ആക്സസ് നിഷേധിച്ചു',
             micAccessDeniedDesc: 'വോയിസ് സെർച്ച് ഉപയോഗിക്കാൻ നിങ്ങളുടെ ബ്രൗസർ ക്രമീകരണങ്ങളിൽ മൈക്രോഫോൺ ആക്സസ് പ്രവർത്തനക്ഷമമാക്കുക.',
-        }
+        },
+        dialogs: {
+            deleteTitle: "നിങ്ങൾക്ക് ഉറപ്പാണോ?",
+            deleteCartItemMessage: "ഇത് നിങ്ങളുടെ കാർട്ടിൽ നിന്ന് ഈ ഇനം ശാശ്വതമായി നീക്കം ചെയ്യും.",
+            deleteChatMessage: "ഇത് നിങ്ങളുടെ ചാറ്റ് ചരിത്രം ശാശ്വതമായി മായ്ക്കും.",
+            confirm: "മായ്ക്കുക",
+            cancel: "റദ്ദാക്കുക",
+        },
     },
     'मणिपुरी': {
         "settings": {
@@ -5022,7 +5126,7 @@ const translations: Record<string, Translations> = {
         },
         "about": {
             "title": "ঐখোয়গী মরমদা",
-            "welcome": "ঐখোয়গী এপদা তরাম্না ওকচরি, অমাং অতা লাকশিনবা এক্সপেরিয়েন্সকীদমক অদোমগী অরোইবা পন্থুংফম! ঐখোয় অমা ইনোভেটিভ, কাস্টমার-সেন্ট্রিক প্লেটফর্মনি, মসিনা অদোমদা খ্বাইদগী ফবা সার্ভিসশিং, এক্সেপ্সনেল ডিলশিং, অমসুং অকোইবা সুবিধাশিং ফংহন্নবা ডিজাইন তৌবনি — পুম্নমক অদোমগী খুৎশাশিংদা।",
+            "welcome": "ঐখোয়গী এপদা তরাম্না ওকচরি, অমাং অতা লাকশินবা এক্সপেরিয়েন্সকীদমক অদোমগী অরোইবা পন্থুংফম! ঐখোয় অমা ইনোভেটিভ, কাস্টমার-সেন্ট্রিক প্লেটফর্মনি, মসিনা অদোমদা খ্বাইদগী ফবা সার্ভিসশিং, এক্সেপ্সনেল ডিলশিং, অমসুং অকোইবা সুবিধাশিং ফংহন্নবা ডিজাইন তৌবনি — পুম্নমক অদোমগী খুৎশাশিংদা।",
             "storyTitle": "ঐখোয়গী ৱারী",
             "storyP1": "ঐখোয় অমা সরল ৱাখল্লোন্দগী হৌদোকখি: অমা প্লেটফর্ম ফংহনবা মসিনা শুপ্নগী মখল কয়াগী সার্ভিসশিং ফংহনবা নত্তনা মসিগী মপুং ফাবা প্রক্রিয়া অদুসু হকথেংননা অমসুং নুংঙাইনা শেমগৎপা।",
             "storyP2": "অধম হৌরকফমদগী, ঐখোয় অথুবদা খ্বাইদগী থাজনীংঙাই ওইবা প্লেটফর্মশিংগী মনুংদা অমা ওইরকখি। কাস্টমার সন্তুষ্টি, ফংফম, অমসুং লেপ্তনা অনৌবা পুথোকপগী ঐখোয়গী কোর ভেলুশিংনা ঐখোয়বু মখা তানা পুখৎলি মরমদি ঐখোয়না ঐখোয়গী অফারশিং শাহৌহনবা পান্দম থম্লি।"
@@ -5031,7 +5135,7 @@ const translations: Record<string, Translations> = {
             "title": "ঐগী ঠিকানা",
             "nothingHere": "হৌজিক ফাওবদা মসিমদা করি অমত্তা লৈতে",
             "deliveryMessage": "অদোমগী অর্ডারশিং কদাইদা ডেলিভারি তৌগদগে হায়বদু ঐখোয়দা খংহনবীয়ু",
-            "addNew": "অনৌবা ঠিকানা হাপচিনবীয়ু",
+            "addNew": "অনৌবা ঠিকানা হাপচินবীয়ু",
             "currentLocation": "হৌজিক লৈরিবা মফম শিজিন্নবীয়ু",
             "change": "ওন্থোকপা"
         },
@@ -5242,7 +5346,7 @@ const translations: Record<string, Translations> = {
             "availableOffers": "ফংলিবা অফারসমূহ",
             "byProServices": "প্রো সার্ভিসশিংগী",
             "viewDetails": "ডিটেলশিং উবা",
-            "addToCart": "কার্টতা হাপচিনবীয়ু",
+            "addToCart": "কার্টতা হাপচินবীয়ু",
             "selectDateTime": "নুমিৎ অমসুং মতম খনবীয়ু",
             "viewCart": "কার্ট উবা",
             "selected": "খনখ্রে:",
@@ -5281,7 +5385,7 @@ const translations: Record<string, Translations> = {
             invalidCouponDesc: "অদোমনা ইশিল্লকপা কুপন কোড অদু চৎনদে।",
             couponRemoved: "কুপন লৌথোকখ্রে",
             couponRemovedDesc: "অদোমগী কার্টকী মোটেল অপডেট তৌখ্রে।",
-            serviceAddedToCart: "সার্ভিস কার্টতা হাপচিনখ্রে!",
+            serviceAddedToCart: "সার্ভিস কার্টতা হাপচินখ্রে!",
             cartUpdated: "কার্ট অপডেট তৌখ্রে!",
             cartUpdatedDesc: "কোয়ান্টিটি অপডেট তৌখ্রে।",
             selectionRequired: "सिलेক্সন মথৌ তাই",
@@ -5303,7 +5407,7 @@ const translations: Record<string, Translations> = {
             profileUpdatedDesc: "অদোমগী ওন্থোকপশিং সেভ তৌখ্রে।",
             updateFailed: "অপডেট মায় পাকখিদ্রে",
             updateFailedDesc: "অদোমগী প্রোফাইল সেভ তৌবা ঙমखিদ্রে। প্লিজ অমুক হন্না হোৎনবীয়ু।",
-            ratingSubmitted: "রেটিং পীশিনখ্রে!",
+            ratingSubmitted: "রেটিং পীশินখ্রে!",
             ratingSubmittedDesc: "অদোমগী অপাম্বগীদমক ধন্যবাদ।",
             pleaseSelectRating: "প্লিজ অমা রেটিং খনবীয়ু",
             ratingFailed: "রেটিং পীশินবদা মায় পাকখিদ্রে",
@@ -5333,7 +5437,14 @@ const translations: Record<string, Translations> = {
             addressSavedDesc: "অদোমগী অনৌবা ঠিকানা সেভ তৌখ্রে।",
             micAccessDenied: 'মাইক্রোফোন এক্সেস পিখিদ্রে',
             micAccessDeniedDesc: 'ভয়েস সার্চ শিজিন্ননবা অদোমগী ব্রাউজার সেটিংদা মাইক্রোফোন এক্সেস অদু অন তৌবীয়ু।',
-        }
+        },
+        dialogs: {
+            deleteTitle: "নাকচিনা?",
+            deleteCartItemMessage: "মসিনা নহাক্কী কার্টতগী আইটেম অসি লেপ্তনা লৌথোক্কনি।",
+            deleteChatMessage: "মসিনা নহাক্কী চ্যাট ইতিহাস লেপ্তনা মুথৎকনি।",
+            confirm: "মুথৎপা",
+            cancel: "কেনসেল তৌ",
+        },
     },
     'नेपाली': {
         "settings": {
@@ -5666,7 +5777,14 @@ const translations: Record<string, Translations> = {
             addressSavedDesc: "तपाईंको नयाँ ठेगाना सुरक्षित गरिएको छ।",
             micAccessDenied: 'माइक्रोफोन पहुँच अस्वीकृत गरियो',
             micAccessDeniedDesc: 'भ्वाइस खोज प्रयोग गर्न कृपया आफ्नो ब्राउजर सेटिङहरूमा माइक्रोफोन पहुँच सक्षम गर्नुहोस्।',
-        }
+        },
+        dialogs: {
+            deleteTitle: "के तपाईं निश्चित हुनुहुन्छ?",
+            deleteCartItemMessage: "यसले तपाईंको कार्टबाट यो वस्तु स्थायी रूपमा हटाउनेछ।",
+            deleteChatMessage: "यसले तपाईंको च्याट इतिहास स्थायी रूपमा खाली गर्नेछ।",
+            confirm: "हटाउनुहोस्",
+            cancel: "रद्द गर्नुहोस्",
+        },
     },
     'ଓଡିଆ': {
         "settings": {
@@ -5688,10 +5806,10 @@ const translations: Record<string, Translations> = {
         },
         "about": {
             "title": "ଆମ ବିଷୟରେ",
-            "welcome": "ଆମର ଆପକୁ ସ୍ଵାଗତ, ଏକ ସୁଗମ ଅନୁଭୂତି ପାଇଁ ଆପଣଙ୍କର ଚୂଡାନ୍ତ ଗନ୍ତବ୍ୟସ୍ଥଳ! ଆମେ ଏକ ଅଭିନବ, ଗ୍ରାହକ-କେନ୍ଦ୍ରିକ ପ୍ଲାଟଫର୍ମ ଯାହା ଆପଣଙ୍କୁ ସର୍ବୋତ୍ତମ ସେବା, ଅସାଧାରଣ ଡିଲ୍, ଏବଂ ଅପ୍ରତିଦ୍ବନ୍ଦ୍ବୀ ସୁବିଧା ପ୍ରଦାନ କରିବା ପାଇଁ ପରିକଳ୍ਪିତ — ସବୁ ଆପଣଙ୍କ ଆଙ୍ଗୁଠି ଟିପରେ।",
+            "welcome": "ଆମର ଆପକୁ ସ୍ଵାଗତ, ଏକ ସୁଗମ ଅନୁଭୂତି ପାଇଁ ଆପଣଙ୍କର ଚୂଡାନ୍ତ ଗନ୍ତବ୍ୟସ୍ଥଳ! ଆମେ ଏକ ଅଭିନବ, ଗ୍ରାହକ-କେନ୍ଦ୍ରିକ ପ୍ଲାਟଫର୍ମ ଯାହା ଆପଣଙ୍କୁ ସର୍ବୋତ୍ତମ ସେବା, ଅସାଧାରଣ ଡିଲ୍, ଏବଂ ଅପ୍ରତିଦ୍ବନ୍ଦ୍ବୀ ସୁବିଧା ପ୍ରଦାନ କରିବା ପାଇଁ ପରିକଳ୍ପିତ — ସବୁ ଆପଣଙ୍କ ଆଙ୍ଗୁଠି ଟିପରେ।",
             "storyTitle": "ଆମ କାହାଣୀ",
-            "storyP1": "ଆମେ ଏକ ସରଳ ଧାରଣାରୁ ଆରମ୍ଭ କରିଥିଲୁ: ଏକ ଏପରି ପ୍ଲାଟଫର୍ମ ପ୍ରଦାନ କରିବା ଯାହା କେବଳ ବିଭିନ୍ନ ପ୍ରକାରର ସେବା ପ୍ରଦାନ କରେ ନାହିଁ ବରଂ ସମଗ୍ର ପ୍ରକ୍ରିୟାକୁ ସହଜ ଏବଂ ଆନନ୍ଦଦାୟକ କରାଏ।",
-            "storyP2": "ସାଧାରଣ ଆରମ୍ଭରୁ, ଆମେ ଶୀଘ୍ର ସବୁଠାରୁ ବିଶ୍ଵସନୀୟ ପ୍ଲାଟଫର୍ମ ମଧ୍ୟରୁ ଗୋଟିଏ ହୋଇଗଲୁ। ଗ୍ରାହକ ସନ୍ତୁଷ୍ଟି, ସୁଲଭତା, ଏବଂ ନିରନ୍ତର ନବୀକରଣର ଆମର ମୂଳ ମୂଲ୍ୟବୋଧ ଆମକୁ ଆଗକୁ ବଢାଇବାରେ ସାହାଯ୍ୟ କରୁଛି କାରଣ ଆମେ ଆମର ଅଫରଗୁଡିକୁ ବିସ୍ତାର କରିବାକୁ ଲକ୍ଷ୍ୟ ରଖିଛୁ।"
+            "storyP1": "ଆମେ ଏକ ସରଳ ଧାରଣାରୁ ଆରମ୍ଭ କରିଥିଲୁ: ଏକ ଏପରି ପ୍ଲାਟਫର୍ମ ପ୍ରଦାନ କରିବା ଯାହା କେବଳ ବିଭିନ୍ନ ପ୍ରକାରର ସେବା ପ୍ରଦାନ କରେ ନାହିଁ ବରଂ ସମଗ୍ର ପ୍ରକ୍ରିୟାକୁ ସହଜ ଏବଂ ଆନନ୍ଦଦାୟକ କରାଏ।",
+            "storyP2": "ସାଧାରଣ ଆରମ୍ଭରୁ, ଆମେ ଶୀଘ୍ର ସବୁଠାରୁ ବିଶ୍ଵସନୀୟ ପ୍ଲାਟਫର୍ମ ମଧ୍ୟରୁ ଗୋଟିଏ ହୋଇଗଲୁ। ଗ୍ରାହକ ସନ୍ତୁଷ୍ଟି, ସୁଲଭତା, ଏବଂ ନିରନ୍ତର ନବୀକରଣର ଆମର ମୂଳ ମୂଲ୍ୟବୋଧ ଆମକୁ ଆଗକୁ ବଢାଇବାରେ ସାହାଯ୍ୟ କରୁଛି କାରଣ ଆମେ ଆମର ଅଫରଗୁଡିକୁ ବିସ୍ତାର କରିବାକୁ ଲକ୍ଷ୍ୟ ରଖିଛୁ।"
         },
         "address": {
             "title": "ମୋର ଠିକଣା",
@@ -5709,18 +5827,18 @@ const translations: Record<string, Translations> = {
             "seeAll": "ସବୁ ଦେଖନ୍ତୁ",
             "popularProducts": "ଲୋକପ୍ରିୟ ଉତ୍ପାଦ",
             "yourCart": "ଆପଣଙ୍କ କାର୍ଟ",
-            "emptyTitle": "ଆପଣଙ୍କ କାର୍ଟ ଖାଲି ଅଛି",
+            "emptyTitle": "ଆପଣଙ୍କ କାର୍ਟ ଖାଲି ଅଛି",
             "emptySubtitle": "ଆପଣ ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି ସେବା ଯୋଡିନାହାନ୍ତି ପରି ଲାଗୁଛି।",
             "browseServices": "ସେବା ବ୍ରାଉଜ୍ କରନ୍ତୁ",
             "paymentSummary": "ପେମେଣ୍ଟ ସାରାଂଶ",
             "itemTotal": "ମୋଟ ଆଇଟମ୍",
             "deliveryFee": "ବିତରଣ ଶୁଳ୍କ",
-            "platformFee": "ପ୍ଲାଟଫର୍ମ ଶୁଳ୍କ",
+            "platformFee": "ପ୍ଲାਟਫର୍ମ ଶୁଳ୍କ",
             "toPay": "ଦେବାକୁ",
-            "checkout": "ଚେକଆଉଟ୍ ପାଇଁ ଆଗକୁ ବଢନ୍ତୁ"
+            "checkout": "ଚେକଆଉਟ୍ ਪାଇଁ ଆଗକୁ ବଢନ୍ତୁ"
         },
         "home": {
-            "searchPlaceholder": "ସେବା ପାଇଁ ଖୋଜନ୍ତୁ, ଯେପରିକି ପ୍ଲମ୍ବର...",
+            "searchPlaceholder": "ସେବା ପାଇଁ ଖୋଜନ୍ତୁ, ଯେପରିକି ପ୍ਲମ୍ବର...",
             "locationLabel": "ସ୍ଥାନ",
             "all": "ସବୁ",
             "electronics": "ଇଲେକ୍ଟ୍ରୋନିକ୍ସ",
@@ -5733,7 +5851,7 @@ const translations: Record<string, Translations> = {
             "popularProducts": "ଲୋକପ୍ରିୟ ଉତ୍ପାଦ",
             "home": "ମୂଳପୃଷ୍ଠା",
             "bookings": "ବୁକିଂ",
-            "chat": "ଚାଟ୍",
+            "chat": "ଚାਟ್",
             "profile": "ପ୍ରୋଫାଇଲ୍",
             "car": "କାର୍",
             "painting": "ପେଣ୍ଟିଂ",
@@ -5795,21 +5913,21 @@ const translations: Record<string, Translations> = {
             "other": "ଅନ୍ୟ",
             "name": "ନାମ",
             "mobile": "ମୋବାଇଲ୍ ନମ୍ବର",
-            "flatHouse": "ଫ୍ଲାଟ୍ / ଘର ନଂ / ବିଲ୍ଡିଂ ନାମ",
+            "flatHouse": "ଫ୍ଲାਟ୍ / ଘର ନଂ / ବିଲ୍ଡିଂ ନାମ",
             "floor": "ମହଲା (ବୈକଳ୍ପିକ)",
             "landmark": "ନିକଟସ୍ଥ ଲ୍ୟାଣ୍ଡମାର୍କ (ବୈକଳ୍ପିକ)",
-            "save": "ଠିକଣା ସଞ୍ଚୟ କରନ୍ତୁ"
+            "save": "ଠିକଣା ସଞ୍ਚয় କରନ୍ତୁ"
         },
         "paymentSettings": {
-            "title": "ପେମେଣ୍ଟ ସେଟିଂସ",
+            "title": "ପେମେଣ୍ਟ ସେଟିଂସ",
             "cards": "କାର୍ଡ",
-            "creditDebit": "କ୍ରେଡିଟ୍/ଡେବିଟ୍ କାର୍ଡ",
+            "creditDebit": "କ୍ରେଡିਟ୍/ଡେବିਟ୍ କାର୍ଡ",
             "sliceUpi": "ସ୍ଲାଇସ୍ ୟୁପିଆଇ",
             "pluxee": "ପ୍ଲକ୍ସୀ",
             "netbanking": "ନେଟବ୍ୟାଙ୍କିଙ୍ଗ",
             "add": "ଯୋଡନ୍ତୁ",
             "payOnDelivery": "ଡେଲିଭରୀରେ ପେମେଣ୍ଟ କରନ୍ତୁ",
-            "wallets": "ୱାଲେଟ୍",
+            "wallets": "ୱାଲେਟ୍",
             "googlePay": "ଗୁଗଲ୍ ପେ ୟୁପିଆଇ",
             "link": "ଲିଙ୍କ୍ କରନ୍ତୁ",
             "amazonPay": "ଆମାଜନ ପେ ବାଲାନ୍ସ"
@@ -5823,25 +5941,25 @@ const translations: Record<string, Translations> = {
         "plusMembership": {
             "title": "ପ୍ଲସ୍ ସଦସ୍ୟତା",
             "oops": "ଓହୋ, ଆପଣ ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି ଅର୍ଡର ଦେଇନାହାନ୍ତି",
-            "textWidget": "[ପାଠ୍ୟ ୱିଜେଟ୍]"
+            "textWidget": "[ପାଠ୍ୟ ୱିଜେਟ୍]"
         },
         "profile": {
             "title": "ପ୍ରୋଫାଇଲ୍",
             "continue": "ଜାରି ରଖନ୍ତୁ",
             "loginMessage": "ଆପଣଙ୍କର ସମ୍ପୂର୍ଣ୍ଣ ପ୍ରୋଫାଇଲ୍ ଦେଖିବାକୁ ଲଗ୍ ଇନ୍ କିମ୍ବା ସାଇନ୍ ଅପ୍ କରନ୍ତୁ",
-            "payments": "ମୋର ପେମେଣ୍ଟ",
+            "payments": "ମୋର ପେମେଣ୍ਟ",
             "support": "ସାହାଯ୍ୟ ଏବଂ ସମର୍ଥନ",
-            "wallet": "ମୋର ୱାଲେଟ୍",
+            "wallet": "ମୋର ୱାଲେਟ୍",
             "myPlans": "ମୋର ବୁକିଂ",
             "nativeDevices": "ଦେଶୀ ଉପକରଣ",
             "addressBook": "ଠିକଣା ବହି",
-            "plusMembership": "ପ୍ଲସ୍ ସଦସ୍ୟତା",
+            "plusMembership": "ପ୍ਲସ୍ ସଦସ୍ୟତା",
             "myRating": "ମୋର ରେଟିଂ",
             "setting": "ସେଟିଂସ",
             "otherInfo": "ଅନ୍ୟ ସୂଚନା",
             "shareApp": "ଆପ୍ ସେୟାର କରନ୍ତୁ",
             "aboutUs": "ଆମ ବିଷୟରେ",
-            "logOut": "ଲଗ୍ ଆଉଟ୍ କରନ୍ତୁ",
+            "logOut": "ଲଗ୍ ଆଉਟ୍ କରନ୍ତୁ",
             "referEarn": "ରେଫର୍ କରନ୍ତୁ ଏବଂ ରୋଜଗାର କରନ୍ତୁ",
             "referEarnDescription": "ଯେତେବେଳେ ଆପଣଙ୍କ ସାଙ୍ଗ ତାଙ୍କର ପ୍ରଥମ ବୁକିଂ ସମ୍ପୂର୍ଣ୍ଣ କରନ୍ତି, ₹100 ପାଆନ୍ତୁ।",
             "hurryUp": "ଶୀଘ୍ର କରନ୍ତୁ",
@@ -5865,12 +5983,12 @@ const translations: Record<string, Translations> = {
         },
         "support": {
             "title": "ସମର୍ଥନ",
-            "aiChatbot": "AI ଚାଟବଟ୍",
+            "aiChatbot": "AI ଚାଟବਟ୍",
             "webLink": "ୱେବ୍ ଲିଙ୍କ୍"
         },
         "verifyPhone": {
             "title": "ପ୍ରମାଣୀକରଣ କୋଡ୍",
-            "subtitle": "ଆପଣ ପାଇଥିବା ୬-ଅଙ୍କ ବିଶିଷ୍ଟ କୋଡ୍ ପ୍ରବେଶ କରନ୍ତୁ:",
+            "subtitle": "ଆପଣ ପାଇଥିବା ୬-ଅଙ୍କ ବିଶିଷ୍ਟ କୋଡ୍ ପ୍ରବେଶ କରନ୍ତୁ:",
             "changeNumber": "ନମ୍ବର ପରିବର୍ତ୍ତନ କରିବେ?",
             "verifyCode": "କୋଡ୍ ପ୍ରମାଣୀକରଣ କରନ୍ତୁ",
             "resendCode": "କୋଡ୍ ପୁଣି ପଠାନ୍ତୁ"
@@ -5883,7 +6001,7 @@ const translations: Record<string, Translations> = {
         },
         "paymentSuccess": {
             "title": "ଅର୍ଡର ସଫଳତାର ସହିତ ଦିଆଯାଇଛି!",
-            "subtitle": "ଆପଣଙ୍କ ବୁକିଂ ନିଶ୍ଚିତ ହୋଇଛି। ଆପଣ 'ମୋର ବୁକିଂ' ବିଭାଗରେ ଆପଣଙ୍କ ବୁକିଂର ସ୍ଥିତି ଯାଞ୍ଚ କରିପାରିବେ।",
+            "subtitle": "ଆପଣଙ୍କ ବୁକିଂ ନିଶ୍ਚିତ ହୋଇଛି। ଆପଣ 'ମୋର ବୁକିଂ' ବିଭାଗରେ ଆପଣଙ୍କ ବୁକିଂର ସ୍ଥିତି ଯାଞ୍ਚ କରିପାରିବେ।",
             "viewBookings": "ବୁକିଂ ଦେଖନ୍ତୁ",
             "continueShopping": "କିଣିବା ଜାରି ରଖନ୍ତୁ",
             receiptDetails: 'ରସିଦ ବିବରଣୀ',
@@ -5910,13 +6028,13 @@ const translations: Record<string, Translations> = {
             "viewDetails": "ବିବରଣୀ ଦେଖନ୍ତୁ",
             "addToCart": "କାର୍ଟରେ ଯୋଡନ୍ତୁ",
             "selectDateTime": "ତାରିଖ ଏବଂ ସମୟ ବାଛନ୍ତୁ",
-            "viewCart": "କାର୍ଟ ଦେଖନ୍ତୁ",
+            "viewCart": "କାର୍ਟ ଦେଖନ୍ତୁ",
             "selected": "ବାଛିଛନ୍ତି:",
             "noDate": "କୌଣସି ତାରିଖ ନାହିଁ",
             "noTime": "କୌଣସି ସମୟ ନାହିଁ",
-            "availableSlots": "ଉପଲବ୍ଧ ସ୍ଲଟ୍",
+            "availableSlots": "ଉପଲବ୍ଧ ସ୍ਲଟ୍",
             "quantity": "ପରିମାଣ",
-            "confirmAndAddToCart": "ନିଶ୍ଚିତ କରନ୍ତୁ ଏବଂ କାର୍ଟରେ ଯୋଡନ୍ତୁ",
+            "confirmAndAddToCart": "ନିଶ୍ଚିତ କରନ୍ତୁ ଏବଂ କାର୍ਟରେ ଯୋଡନ୍ତୁ",
         },
         checkout: {
             title: 'ଚେକଆଉଟ୍',
@@ -5929,7 +6047,7 @@ const translations: Record<string, Translations> = {
             payWithWallet: 'ୱାଲେଟ୍ ସହିତ ପେମେଣ୍ଟ କରନ୍ତୁ',
             balance: 'ବାଲାନ୍ସ',
             insufficientBalance: 'ଅପର୍ଯ୍ୟାପ୍ତ ବାଲାନ୍ସ।',
-            payOnDelivery: 'ଡେଲିଭରୀରେ ପେମେଣ୍ଟ କରନ୍ତୁ',
+            payOnDelivery: 'ଡେଲିଭରୀରେ ପେମେଣ୍ਟ କରନ୍ତୁ',
             paymentDetails: 'ପେମେଣ୍ଟ ବିବରଣୀ',
             remove: 'କାଢିଦିଅନ୍ତୁ',
             deliverTo: 'କୁ ବିତରଣ କରନ୍ତୁ',
@@ -5953,32 +6071,32 @@ const translations: Record<string, Translations> = {
             selectionRequired: "ଚୟନ ଆବଶ్యକ",
             selectionRequiredDesc: "ଦୟାକରି ଏକ ତାରିଖ ଏବଂ ସମୟ ସ୍ਲଟ୍ ବାଛନ୍ତୁ।",
             error: "ତ୍ରୁଟି",
-            notLoggedIn: "ଉପଭୋକ୍ତା ଲଗ୍ ଇନ୍ କରିନାହାଁନ୍ତି କିମ୍ବା ଫାୟାରଷ୍ଟୋର୍ ଉପଲବ୍ଧ ନାହିଁ।",
+            notLoggedIn: "ଉପଭୋକ୍ତା ଲଗ୍ ଇନ୍ କରିନାହାଁନ୍ତି କିମ୍ବା ଫାୟାରଷ୍ਟୋର୍ ଉପଲବ୍ଧ ନାହିଁ।",
             addressMissing: "ଠିକଣା ନିଖୋଜ",
             addressMissingDesc: "ଦୟାକରି ଏକ ବିତରଣ ଠିକଣା ବାଛନ୍ତୁ।",
             orderFailed: "ଅର୍ଡର ବିଫଳ",
-            orderFailedDescWallet: "ଆପଣଙ୍କ ୱାଲେଟ୍ ପେମେଣ୍ଟ୍ ପ୍ରକ୍ରିୟାକରଣ ହୋଇପାରିଲା ନାହିଁ। ଦୟାକରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
-            orderFailedDescCod: "ଆପଣଙ୍କ ବୁକିଂ ସଞ୍ଚୟ ହୋଇପାରିଲା ନାହିଁ। ଦୟାକରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
+            orderFailedDescWallet: "ଆପଣଙ୍କ ୱାଲେਟ୍ ਪੇਮେଣ୍ਟ୍ ପ୍ରକ୍ରିୟାକରଣ ହୋଇପାରିଲା ନାହିଁ। ଦୟାକରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
+            orderFailedDescCod: "ଆପଣଙ୍କ ବୁକିଂ ସଞ୍ਚয় ହୋଇପାରିଲା ନାହିଁ। ଦୟାକରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
             missingFields: "ଆବଶ్యକୀୟ ଫିਲ୍ଡ ନିଖୋଜ",
             missingFieldsDesc: "ଦୟାକରି ଆପଣଙ୍କ ନାମ, ମୋବାଇਲ୍, ଏବଂ ଠିକଣା ପୂରଣ କରନ୍ତୁ।",
             notLoggedInSave: "ଲଗ୍ ଇନ୍ ହୋଇନାହିଁ",
-            notLoggedInSaveDesc: "ଏକ ଠିକଣା ସଞ୍ਚୟ କରିବାକୁ ଆପଣ ଲଗ୍ ଇନ୍ କରିବା ଆବଶ్యକ।",
-            saveFailed: "ସଞ୍ਚୟ ବିଫଳ",
-            saveFailedDesc: "ଆପଣଙ୍କ ଠିକଣା ସଞ୍ਚୟ ହୋଇପାରିଲା ନାହିଁ। ଦୟାକରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
-            profileUpdated: "ପ୍ରୋଫାଇଲ୍ ଅପଡେਟ୍ ହେଲା!",
-            profileUpdatedDesc: "ଆପଣଙ୍କ ପରିବର୍ତ୍ତନ ସଞ୍ଚୟ ହୋଇଛି।",
+            notLoggedInSaveDesc: "ଏକ ଠିକଣା ସଞ୍ਚয় କରିବାକୁ ଆପଣ ଲଗ୍ ଇନ୍ କରିବା ଆବଶ్యକ।",
+            saveFailed: "ସଞ୍ਚয় ବିଫଳ",
+            saveFailedDesc: "ଆପଣଙ୍କ ଠିକଣା ସଞ୍ਚয় ହୋଇପାରିଲା ନାହିଁ। ଦୟାକରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
+            profileUpdated: "ପ୍ରୋଫାଇਲ୍ ଅପଡେਟ୍ ହେଲା!",
+            profileUpdatedDesc: "ଆପଣଙ୍କ ପରିବର୍ତ୍ତନ ସଞ୍ਚয় ହୋଇଛି।",
             updateFailed: "ଅପଡେਟ୍ ବିଫଳ",
-            updateFailedDesc: "ଆପଣଙ୍କ ପ୍ରୋଫାଇਲ୍ ସଞ୍ଚୟ ହୋଇପାରିଲା ନାହିଁ। ଦୟାକରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
+            updateFailedDesc: "ଆପଣଙ୍କ ପ୍ରୋଫାଇਲ୍ ସଞ୍ਚয় ହୋଇପାରିଲା ନାହିଁ। ଦୟାକରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
             ratingSubmitted: "ରେଟିଂ ଦାଖଲ କରାଗଲା!",
             ratingSubmittedDesc: "ଆପଣଙ୍କ ମତାମତ ପାଇଁ ଧନ୍ୟବାଦ।",
             pleaseSelectRating: "ଦୟାକରି ଏକ ରେଟିଂ ବାଛନ୍ତୁ",
             ratingFailed: "ରେଟିଂ ଦାଖଲ କରିବାରେ ବିଫଳ",
             copied: "କପି କରାଗଲା!",
             copiedDesc: "ରେଫରାଲ୍ କୋଡ୍ କ୍ଲିପବୋର୍ଡକୁ କପି କରାଯାଇଛି।",
-            chatCleared: "ଚାଟ୍ ପରିଷ୍କାର କରାଗଲା",
+            chatCleared: "ଚାਟ୍ ପରିଷ୍କାର କରାଗଲା",
             chatClearedDesc: "ଆପଣଙ୍କ ଆଲୋଚନା ଇତିହାସ ପରିଷ୍କାର କରାଯାଇଛି।",
             errorClearingChat: "ତ୍ରୁଟି",
-            errorClearingChatDesc: "ଚାଟ୍ ଇତିହାସ ପରିଷ୍କାର କରାଯାଇପାରିଲା ନାହିଁ।",
+            errorClearingChatDesc: "ଚାਟ್ ଇତିହାସ ପରିଷ୍କାର କରାଯାଇପାରିଲା ନାହିଁ।",
             verificationError: "ପ୍ରମାଣୀକରଣ ତ୍ରୁଟି",
             verificationErrorDesc: "ଦୟାକରି ଲଗଇନ୍ ପ୍ରକ୍ରିୟା ପୁଣି ଆରମ୍ଭ କରନ୍ତୁ।",
             invalidOtp: "ଅବୈଧ OTP",
@@ -5986,20 +6104,27 @@ const translations: Record<string, Translations> = {
             loginSuccess: "ଲଗ୍ ଇନ୍!",
             loginSuccessDesc: "ଆପଣ ସଫଳତାର ସହିତ ଲଗ୍ ଇନ୍ କରିଛନ୍ତି।",
             verificationFailed: "ପ୍ରମାଣୀକରଣ ବିଫଳ",
-            verificationFailedDesc: "OTP ଭୁଲ୍ ଅଟେ। ଦୟାକରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
+            verificationFailedDesc: "OTP ଭୁଲ୍ ଅਟੇ। ଦୟାକରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
             otpResent: "OTP ପୁଣି ପଠାଗଲା",
             otpResentDesc: "ଆପଣଙ୍କ ଫୋନକୁ ଏକ ନୂଆ OTP ପଠାଯାଇଛି।",
             otpResentFailed: "OTP ପୁଣି ପଠାଇବାରେ ବିଫଳ",
             otpResendFailedDesc: "ଦୟାକରି ପରେ ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
             invalidPhone: "ଅବୈଧ ଫୋନ୍ ନମ୍ବର",
-            invalidPhoneDesc: "ଦୟାକରି ଏକ ବୈଧ 10-ଅଙ୍କ ବିଶିଷ୍ଟ ଭାରତୀୟ ମୋବାଇਲ୍ ନମ୍ବର ପ୍ରବେଶ କରନ୍ତୁ।",
+            invalidPhoneDesc: "ଦୟାକରି ଏକ ବୈଧ 10-ଅଙ୍କ ବିଶିଷ୍ਟ ଭାରତୀୟ ମୋବାଇਲ୍ ନମ୍ବର ପ୍ରବେଶ କରନ୍ତୁ।",
             otpSendFailed: "OTP ପଠାଇବାରେ ବିଫଳ",
             otpSendFailedDesc: "ଏକ ଅପ୍ରत्याଶିତ ତ୍ରୁଟି ଘଟିଲା। ଦୟାକରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
-            addressSaved: "ଠିକଣା ସଞ୍ਚୟ ହେଲା!",
-            addressSavedDesc: "ଆପଣଙ୍କ ନୂଆ ଠିକଣା ସଞ୍ਚୟ ହୋଇଛି।",
+            addressSaved: "ଠିକଣା ସଞ୍ਚয় ହେଲା!",
+            addressSavedDesc: "ଆପଣଙ୍କ ନୂଆ ଠିକଣା ସଞ୍ਚয় ହୋଇଛି।",
             micAccessDenied: 'ମାଇକ୍ରୋଫୋନ୍ ପ୍ରବେଶ ଅସ୍ଵୀକାର କରାଗଲା',
             micAccessDeniedDesc: 'ଭଏସ୍ ସର୍ଚ୍ଚ ବ୍ୟବହାର କରିବାକୁ ଦୟାକରି ଆପଣଙ୍କ ବ୍ରାଉଜର୍ ସେଟିଂସରେ ମାଇକ୍ରୋଫୋନ୍ ପ୍ରବେଶ ସକ୍ଷମ କରନ୍ତୁ।',
-        }
+        },
+        dialogs: {
+            deleteTitle: "ଆପଣ ନିଶ୍ଚିତ କି?",
+            deleteCartItemMessage: "ଏହା ଆପଣଙ୍କ କାର୍ଟରୁ ଏହି ଆଇଟମକୁ ସ୍ଥାୟୀ ଭାବରେ ଅପସାରଣ କରିବ।",
+            deleteChatMessage: "ଏହା ଆପଣଙ୍କ ଚାଟ୍ ଇତିହାସକୁ ସ୍ଥାୟୀ ଭାବରେ ସଫା କରିବ।",
+            confirm: "ଅପସାରଣ କରନ୍ତୁ",
+            cancel: "ବାତିଲ କରନ୍ତୁ",
+        },
     },
     'पंजाबी': {
         settings: {
@@ -6332,7 +6457,14 @@ const translations: Record<string, Translations> = {
             addressSavedDesc: "ਤੁਹਾਡਾ ਨਵਾਂ ਪਤਾ ਸੁਰੱਖਿਅਤ ਕੀਤਾ ਗਿਆ ਹੈ।",
             micAccessDenied: 'ਮਾਈਕ੍ਰੋਫੋਨ ਪਹੁੰਚ ਤੋਂ ਇਨਕਾਰ ਕੀਤਾ ਗਿਆ',
             micAccessDeniedDesc: 'ਵੌਇਸ ਖੋਜ ਦੀ ਵਰਤੋਂ ਕਰਨ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਬ੍ਰਾਊਜ਼ਰ ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਮਾਈਕ੍ਰੋਫੋਨ ਪਹੁੰਚ ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ।',
-        }
+        },
+        dialogs: {
+            deleteTitle: "ਕੀ ਤੁਸੀਂ ਯਕੀਨੀ ਹੋ?",
+            deleteCartItemMessage: "ਇਹ ਇਸ ਆਈਟਮ ਨੂੰ ਤੁਹਾਡੀ ਕਾਰਟ ਤੋਂ ਸਥਾਈ ਤੌਰ 'ਤੇ ਹਟਾ ਦੇਵੇਗਾ।",
+            deleteChatMessage: "ਇਹ ਤੁਹਾਡੇ ਚੈਟ ਇਤਿਹਾਸ ਨੂੰ ਸਥਾਈ ਤੌਰ 'ਤੇ ਸਾਫ਼ ਕਰ ਦੇਵੇਗਾ।",
+            confirm: "ਮਿਟਾਓ",
+            cancel: "ਰੱਦ ਕਰੋ",
+        },
     },
     'संस्कृत': {
         "settings": {
@@ -6665,13 +6797,20 @@ const translations: Record<string, Translations> = {
             addressSavedDesc: "भवतः नूतनः सङ्केतः रक्षितः।",
             micAccessDenied: 'माइक्रोफोनस्य प्रवेशः अस्वीकृतः',
             micAccessDeniedDesc: 'ध्वनिना अन्वेषणं कर्तुं कृपया भवतः ब्राउजरस्य सेटिङ्ग्स् मध्ये माइक्रोफोनस्य प्रवेशं सक्षमीकरोतु।',
-        }
+        },
+        dialogs: {
+            deleteTitle: "किं भवान् निश्चितः?",
+            deleteCartItemMessage: "एतत् भवतः शकट्याः एतत् वस्तु स्थायिरूपेण निष्कासयिष्यति।",
+            deleteChatMessage: "एतत् भवतः सम्भाषणस्य इतिहासं स्थायिरूपेण मार्जयिष्यति।",
+            confirm: "निष्कासयतु",
+            cancel: "रद्दं करोतु",
+        },
     },
     'संथाली': {
         "settings": {
             "title": "সেটিংসমূহ",
-            "orderMessages": "অর্ডার સંબંધিত বার্তা",
-            "orderMessagesDescription": "অর্ডার સંબંધিত বার্তাগুলি বন্ধ করা যাবে না কারণ সেগুলি পরিষেবা تجربার জন্য গুরুত্বপূর্ণ।",
+            "orderMessages": "অর্ডার সম্পর্কিত বার্তা",
+            "orderMessagesDescription": "অর্ডার সম্পর্কিত বার্তাগুলি বন্ধ করা যাবে না কারণ সেগুলি পরিষেবা تجربার জন্য গুরুত্বপূর্ণ।",
             "language": "ভাষা",
             "change": "বদলান",
             "notificationsAndReminders": "বিজ্ঞপ্তি এবং অনুস্মারক",
@@ -6998,7 +7137,14 @@ const translations: Record<string, Translations> = {
             addressSavedDesc: "আপনার নতুন ঠিকানা সংরক্ষিত হয়েছে।",
             micAccessDenied: 'মাইক্রোফোন অ্যাক্সেস প্রত্যাখ্যান করা হয়েছে',
             micAccessDeniedDesc: 'ভয়েস অনুসন্ধান ব্যবহার করতে আপনার ব্রাউজার সেটিংসে মাইক্রোফোন অ্যাক্সেস সক্ষম করুন।',
-        }
+        },
+        dialogs: {
+            deleteTitle: "আপনি কি নিশ্চিত?",
+            deleteCartItemMessage: "এটি আপনার কার্ট থেকে এই আইটেমটি স্থায়ীভাবে সরিয়ে ফেলবে।",
+            deleteChatMessage: "এটি আপনার চ্যাট ইতিহাস স্থায়ীভাবে পরিষ্কার করবে।",
+            confirm: "মুছে ফেলুন",
+            cancel: "বাতিল করুন",
+        },
     },
     'सिंधी': {
         "settings": {
@@ -7039,7 +7185,7 @@ const translations: Record<string, Translations> = {
             "discountsAvailable": "رعايتون موجود آهن",
             "categories": "زمرا",
             "seeAll": "سڀ ڏسو",
-            "popularProducts": "مشهور پراڊڪٽس",
+            "popularProducts": "مشهور پراਡਕਟਸ",
             "yourCart": "توهان جي ڪارٽ",
             "emptyTitle": "توهان جي ڪارٽ خالي آهي",
             "emptySubtitle": "لڳي ٿو ته توهان اڃا تائين ڪا به خدمت شامل نه ڪئي آهي.",
@@ -7060,12 +7206,12 @@ const translations: Record<string, Translations> = {
             "kids": "ٻار",
             "gifting": "تحفا",
             "premium": "صفائي",
-            "productBuy": "پراڊڪٽ خريد ڪريو",
+            "productBuy": "پراਡਕਟ ਖਰੀਦੋ",
             "category": "زمرو",
-            "popularProducts": "مشهور پراڊਕਟਸ",
+            "popularProducts": "مشهور پراਡਕਟਸ",
             "home": "گهر",
             "bookings": "بڪنگون",
-            "chat": "چيٽ",
+            "chat": "چيਟ",
             "profile": "پروفائيل",
             "car": "ڪار",
             "painting": "پينٽنگ",
@@ -7113,12 +7259,12 @@ const translations: Record<string, Translations> = {
         "nativeDevices": {
             "title": "ڏيهي ڊوائيس",
             "oops": "افسوس، توهان اڃا تائين آرڊر نه ڪيو آهي",
-            "textWidget": "[ٽيڪسٽ ويجٽ]"
+            "textWidget": "[ٽيڪਸਟ ويجٽ]"
         },
         "newAddress": {
             "title": "نئون پتو",
             "completeAddress": "مڪمل پتو داخل ڪريو",
-            "orderingFor": "توهان ڪنهن لاءِ آرڊر ڪري رهيا آهيو؟",
+            "orderingFor": "توهان ڪنهن لاءِ آرڊਰ ڪري رهيا آهيو؟",
             "myself": "منهنجي لاءِ",
             "someoneElse": "ڪنهن ٻئي لاءِ",
             "home": "گهر",
@@ -7127,15 +7273,15 @@ const translations: Record<string, Translations> = {
             "other": "ٻيو",
             "name": "نالو",
             "mobile": "موبائل نمبر",
-            "flatHouse": "فليٽ / گھر نمبر / عمارت جو نالو",
+            "flatHouse": "فليਟ / گھر نمبر / عمارت جو نالو",
             "floor": "منزل (اختياري)",
             "landmark": "ويجهي لينڊ مارڪ (اختياري)",
             "save": "پتو محفوظ ڪريو"
         },
         "paymentSettings": {
             "title": "ادائيگي سيٽنگون",
-            "cards": "ڪارڊ",
-            "creditDebit": "ڪريڊٽ/ڊيبٽ ڪارڊ",
+            "cards": "ڪਾਰਡ",
+            "creditDebit": "ڪريਡਿਟ/ڊيبਿਟ ڪਾਰਡ",
             "sliceUpi": "سلائس يو پي آءِ",
             "pluxee": "پلڪسي",
             "netbanking": "نيٽ بينڪنگ",
@@ -7154,8 +7300,8 @@ const translations: Record<string, Translations> = {
         },
         "plusMembership": {
             "title": "پلس رڪنيت",
-            "oops": "افسوس، توهان اڃا تائين آرڊر نه ڪيو آهي",
-            "textWidget": "[ٽيڪسٽ ويجٽ]"
+            "oops": "افسوس، توهان اڃا تائين آرਡਰ نه ڪيو آهي",
+            "textWidget": "[ٽيਕਸਟ ويجٽ]"
         },
         "profile": {
             "title": "پروفائيل",
@@ -7169,7 +7315,7 @@ const translations: Record<string, Translations> = {
             "addressBook": "پتي جو ڪتاب",
             "plusMembership": "پلس رڪنيت",
             "myRating": "منهنجون درجه بنديون",
-            "setting": "سيٽنگون",
+            "setting": "سيਟਿੰਗون",
             "otherInfo": "ٻي معلومات",
             "shareApp": "ايپ شيئر ڪريو",
             "aboutUs": "اسان جي باري ۾",
@@ -7179,14 +7325,14 @@ const translations: Record<string, Translations> = {
             "hurryUp": "جلدي ڪريو",
             "referNow": "هاڻي حوالو ڏيو",
             "lightMode": "لائيٽ موڊ",
-            "darkMode": "ڊارڪ موڊ",
+            "darkMode": "ڊارڪ موਡ",
             "appVersions": "ايپ ورجن",
-            "masterAdminPanel": "ماسٽر ايڊمن پينل"
+            "masterAdminPanel": "ماسٽਰ ਐਡਮਿਨ ਪੈਨਲ"
         },
         "refer": {
             "title": "حوالو ڏيو ۽ ڪمايو",
-            "subtitle": "پنهنجو ڪوڊ دوستن سان شيئر ڪريو ۽ انعام حاصل ڪريو!",
-            "code": "توهان جو ڪوڊ",
+            "subtitle": "پنهنجو ڪوਡ ਦੋਸਤਾਂ سان شيئر ڪريو ۽ انعام حاصل ڪريو!",
+            "code": "توهان جو ڪوਡ",
             "share": "هاڻي شيئر ڪريو"
         },
         "search": {
@@ -7197,20 +7343,20 @@ const translations: Record<string, Translations> = {
         },
         "support": {
             "title": "سپورٽ",
-            "aiChatbot": "AI چيٽ بوٽ",
+            "aiChatbot": "AI چيਟ ਬੋਟ",
             "webLink": "ويب لنڪ"
         },
         "verifyPhone": {
-            "title": "تصديقي ڪوڊ",
-            "subtitle": "توهان کي مليل 6-عددي ڪوڊ داخل ڪريو:",
+            "title": "تصديقي ڪوਡ",
+            "subtitle": "توهان کي مليل 6-عددي ڪوਡ داخل ڪريو:",
             "changeNumber": "نمبر تبديل ڪريو؟",
-            "verifyCode": "ڪوڊ جي تصديق ڪريو",
-            "resendCode": "ڪوڊ ٻيهر موڪليو"
+            "verifyCode": "ڪوਡ جي تصديق ڪريو",
+            "resendCode": "ڪوਡ ٻيهر موڪليو"
         },
         "wallet": {
             "title": "منهنجو والٽ",
             "availableBalance": "دستياب بيلنس",
-            "transitionHistory": "ٽرانزيڪشن جي تاريخ",
+            "transitionHistory": "ٽرانزيڪਸ਼ਨ جي تاريخ",
             "refund": "واپسي"
         },
         "paymentSuccess": {
@@ -7240,18 +7386,18 @@ const translations: Record<string, Translations> = {
             "availableOffers": "دستياب آفرز",
             "byProServices": "پرو سروسز طرفان",
             "viewDetails": "تفصيل ڏسو",
-            "addToCart": "ڪارٽ ۾ شامل ڪريو",
+            "addToCart": "ڪਾਰٽ ۾ شامل ڪريو",
             "selectDateTime": "تاريخ ۽ وقت چونڊيو",
-            "viewCart": "ڪارٽ ڏسو",
+            "viewCart": "ڪਾਰਟ ڏسو",
             "selected": "چونڊيل:",
             "noDate": "ڪا تاريخ ناهي",
             "noTime": "ڪو وقت ناهي",
             "availableSlots": "دستياب سلاٽس",
             "quantity": "مقدار",
-            "confirmAndAddToCart": "تصديق ڪريو ۽ ڪارٽ ۾ شامل ڪريو",
+            "confirmAndAddToCart": "تصديق ڪريو ۽ ڪارਟ ۾ شامل ڪريو",
         },
         checkout: {
-            title: 'چيڪ آئوٽ',
+            title: 'چيڪ آئوਟ',
             deliveringTo: 'ڏانهن پهچايو پيو وڃي',
             change: 'تبديل ڪريو',
             selectAddress: 'مهرباني ڪري هڪ پهچائڻ جو پتو چونڊيو',
@@ -7276,14 +7422,14 @@ const translations: Record<string, Translations> = {
             couponApplied: "ڪوپن لاڳو ڪيو ويو!",
             couponAppliedDesc: "توهان کي رعايت ملي آهي!",
             invalidCoupon: "ناقابل قبول ڪوپن",
-            invalidCouponDesc: "توهان پاران داخل ڪيل ڪوپن ڪوڊ صحيح ناهي.",
+            invalidCouponDesc: "توهان پاران داخل ڪيل ڪوپن ڪوਡ صحيح ناهي.",
             couponRemoved: "ڪوپن هٽايو ويو",
-            couponRemovedDesc: "توهان جي ڪارٽ جو ڪل اپڊيٽ ڪيو ويو آهي.",
-            serviceAddedToCart: "خدمت ڪارٽ ۾ شامل ڪئي وئي!",
-            cartUpdated: "ڪارٽ اپڊيٽ ڪئي وئي!",
-            cartUpdatedDesc: "مقدار اپڊيٽ ڪئي وئي آهي.",
+            couponRemovedDesc: "توهان جي ڪارਟ جو ڪل اپڊيਟ ڪيو ويو آهي.",
+            serviceAddedToCart: "خدمت ڪਾਰਟ ۾ شامل ڪئي وئي!",
+            cartUpdated: "ڪਾਰਟ اپڊيਟ ڪئي وئي!",
+            cartUpdatedDesc: "مقدار اپڊيਟ ڪئي وئي آهي.",
             selectionRequired: "چونڊ گهربل آهي",
-            selectionRequiredDesc: "مهرباني ڪري هڪ تاريخ ۽ وقت سلاٽ چونڊيو.",
+            selectionRequiredDesc: "مهرباني ڪري هڪ تاريخ ۽ وقت سلاਟ چونڊيو.",
             error: "غلطي",
             notLoggedIn: "صارف لاگ ان نه آهي يا فائر اسٽور دستياب ناهي.",
             addressMissing: "پتو غائب آهي",
@@ -7291,26 +7437,26 @@ const translations: Record<string, Translations> = {
             orderFailed: "آਰਡਰ ناڪام ٿيو",
             orderFailedDescWallet: "توهان جي والٽ جي ادائيگي کي پروسيس نه ڪري سگهيو. مهرباني ڪري ٻيهر ڪوشش ڪريو.",
             orderFailedDescCod: "توهان جي بڪنگ محفوظ نه ٿي سگهي. مهرباني ڪري ٻيهر ڪوشش ڪريو.",
-            missingFields: "غائب فيلڊز",
+            missingFields: "غائب فيلਡز",
             missingFieldsDesc: "مهرباني ڪري پنهنجو نالو، موبائل ۽ پتو ڀريو.",
             notLoggedInSave: "لاگ ان نه آهي",
             notLoggedInSaveDesc: "هڪ پتو محفوظ ڪرڻ لاءِ توهان کي لاگ ان ٿيڻو پوندو.",
             saveFailed: "محفوظ ڪرڻ ۾ ناڪام",
             saveFailedDesc: "توهان جو پتو محفوظ نه ٿي سگهيو. مهرباني ڪري ٻيهر ڪوشش ڪريو.",
-            profileUpdated: "پروفائيل اپڊيٽ ڪئي وئي!",
+            profileUpdated: "پروفائيل اپڊيਟ ڪئي وئي!",
             profileUpdatedDesc: "توهان جون تبديليون محفوظ ڪيون ويون آهن.",
-            updateFailed: "اپڊيٽ ناڪام ٿي",
+            updateFailed: "اپڊيਟ ناڪام ٿي",
             updateFailedDesc: "توهان جي پروفائيل محفوظ نه ٿي سگهي. مهرباني ڪري ٻيهر ڪوشش ڪريو.",
             ratingSubmitted: "درجه بندي جمع ڪئي وئي!",
             ratingSubmittedDesc: "توهان جي راءِ لاءِ مهرباني.",
             pleaseSelectRating: "مهرباني ڪري هڪ درجه بندي چونڊيو",
             ratingFailed: "درجه بندي جمع ڪرڻ ۾ ناڪام",
             copied: "ڪاپي ڪيو ويو!",
-            copiedDesc: "حوالو ڪوڊ ڪلپ بورڊ تي ڪاپي ڪيو ويو آهي.",
+            copiedDesc: "حوالو ڪوਡ ڪلپ بورਡ تي ڪاپي ڪيو ويو آهي.",
             chatCleared: "چيٽ صاف ڪئي وئي",
             chatClearedDesc: "توهان جي گفتگو جي تاريخ صاف ڪئي وئي آهي.",
             errorClearingChat: "غلطي",
-            errorClearingChatDesc: "چيٽ جي تاريخ صاف نه ٿي سگهي.",
+            errorClearingChatDesc: "چيਟ جي تاريخ صاف نه ٿي سگهي.",
             verificationError: "تصديقي غلطي",
             verificationErrorDesc: "مهرباني ڪري لاگ ان جي عمل کي ٻيهر شروع ڪريو.",
             invalidOtp: "ناقابل قبول OTP",
@@ -7331,7 +7477,14 @@ const translations: Record<string, Translations> = {
             addressSavedDesc: "توهان جو نئون پتو محفوظ ڪيو ويو آهي.",
             micAccessDenied: 'مائڪروفون رسائي رد ڪئي وئي',
             micAccessDeniedDesc: 'آواز جي ڳولا استعمال ڪرڻ لاءِ مهرباني ڪري پنهنجي برائوزر سيٽنگن ۾ مائڪروفون رسائي کي فعال ڪريو।',
-        }
+        },
+        dialogs: {
+            deleteTitle: "ڇا توهان کي پڪ آهي؟",
+            deleteCartItemMessage: "اهو هن شيون کي توهان جي ڪارٽ مان مستقل طور تي هٽائي ڇڏيندو.",
+            deleteChatMessage: "اهو توهان جي چيٽ جي تاريخ کي مستقل طور تي صاف ڪندو.",
+            confirm: "حذف ڪريو",
+            cancel: "منسوخ ڪريو",
+        },
     },
     'தமிழ்': {
         "settings": {
@@ -7664,7 +7817,14 @@ const translations: Record<string, Translations> = {
             addressSavedDesc: "உங்கள் புதிய முகவரி சேமிக்கப்பட்டது.",
             micAccessDenied: 'மைக்ரோஃபோன் அணுகல் மறுக்கப்பட்டது',
             micAccessDeniedDesc: 'குரல் தேடலைப் பயன்படுத்த உங்கள் உலாவி அமைப்புகளில் மைக்ரோஃபோன் அணுகலை இயக்கவும்.',
-        }
+        },
+        dialogs: {
+            deleteTitle: "நீங்கள் உறுதியாக இருக்கிறீர்களா?",
+            deleteCartItemMessage: "இது உங்கள் கூடையில் இருந்து இந்த உருப்படியை நிரந்தரமாக அகற்றும்.",
+            deleteChatMessage: "இது உங்கள் அரட்டை வரலாற்றை நிரந்தரமாக அழிக்கும்.",
+            confirm: "அழி",
+            cancel: "ரத்து செய்",
+        },
     },
     'తెలుగు': {
         "settings": {
@@ -7997,7 +8157,14 @@ const translations: Record<string, Translations> = {
             addressSavedDesc: "మీ కొత్త చిరునామా సేవ్ చేయబడింది.",
             micAccessDenied: 'మైక్రోఫోన్ యాక్సెస్ నిరాకరించబడింది',
             micAccessDeniedDesc: 'వాయిస్ శోధనను ఉపయోగించడానికి దయచేసి మీ బ్రౌజర్ సెట్టింగ్‌లలో మైక్రోఫోన్ యాక్సెస్‌ను ప్రారంభించండి.',
-        }
+        },
+        dialogs: {
+            deleteTitle: "మీరు ఖచ్చితంగా ఉన్నారా?",
+            deleteCartItemMessage: "ఇది మీ కార్ట్ నుండి ఈ వస్తువును శాశ్వతంగా తీసివేస్తుంది.",
+            deleteChatMessage: "ఇది మీ చాట్ చరిత్రను శాశ్వతంగా క్లియర్ చేస్తుంది.",
+            confirm: "తొలగించు",
+            cancel: "రద్దు చేయండి",
+        },
     }
 };
 

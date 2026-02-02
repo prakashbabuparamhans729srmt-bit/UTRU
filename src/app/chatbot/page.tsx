@@ -11,6 +11,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { useLanguage } from '@/context/LanguageContext';
 import { useVoiceSearch } from '@/context/VoiceSearchContext';
 import { useToast } from '@/hooks/use-toast';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 
 type Message = {
   text: string;
@@ -19,7 +20,7 @@ type Message = {
 
 export default function ChatbotPage() {
   const router = useRouter();
-  const { language } = useLanguage();
+  const { language, translations } = useLanguage();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -117,15 +118,15 @@ export default function ChatbotPage() {
             sender: 'bot'
         }]);
         toast({
-            title: 'Chat Cleared',
-            description: 'Your conversation history has been cleared.',
+            title: (translations as any).toasts.chatCleared,
+            description: (translations as any).toasts.chatClearedDesc,
         });
     } catch (error) {
         console.error("Failed to clear chat history:", error);
         toast({
             variant: 'destructive',
-            title: 'Error',
-            description: 'Could not clear chat history.',
+            title: (translations as any).toasts.errorClearingChat,
+            description: (translations as any).toasts.errorClearingChatDesc,
         });
     }
   };
@@ -152,15 +153,32 @@ export default function ChatbotPage() {
                 </div>
             </div>
         </div>
-        <Button
-            onClick={handleClearChat}
-            size="icon"
-            variant="ghost"
-            className="rounded-full hover:bg-gray-700"
-            title="Clear Chat"
-        >
-            <Trash2 className="w-5 h-5"/>
-        </Button>
+        <AlertDialog>
+            <AlertDialogTrigger asChild>
+                <Button
+                    size="icon"
+                    variant="ghost"
+                    className="rounded-full hover:bg-gray-700"
+                    title="Clear Chat"
+                >
+                    <Trash2 className="w-5 h-5"/>
+                </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent className="bg-card text-card-foreground">
+                <AlertDialogHeader>
+                    <AlertDialogTitle>{(translations as any).dialogs.deleteTitle}</AlertDialogTitle>
+                    <AlertDialogDescription>
+                        {(translations as any).dialogs.deleteChatMessage}
+                    </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                    <AlertDialogCancel>{(translations as any).dialogs.cancel}</AlertDialogCancel>
+                    <AlertDialogAction onClick={handleClearChat} className="bg-destructive hover:bg-destructive/90">
+                        {(translations as any).dialogs.confirm}
+                    </AlertDialogAction>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
       </header>
 
       <main className="flex-1 overflow-y-auto p-6 space-y-8">

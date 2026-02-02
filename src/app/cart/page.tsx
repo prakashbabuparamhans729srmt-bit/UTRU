@@ -16,10 +16,12 @@ import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carouse
 import { servicesData, type Service } from '@/lib/services';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 
 
 function CartItemCard({ item }: { item: CartItem }) {
   const { updateItemQuantity } = useCart();
+  const { translations } = useLanguage();
 
   return (
     <Card className="flex items-start gap-4 p-4">
@@ -53,9 +55,27 @@ function CartItemCard({ item }: { item: CartItem }) {
             </div>
         </div>
       </div>
-      <Button variant="ghost" size="icon" onClick={() => updateItemQuantity(item.cartItemId, 0)}>
-        <Trash2 className="w-5 h-5 text-destructive" />
-      </Button>
+      <AlertDialog>
+          <AlertDialogTrigger asChild>
+              <Button variant="ghost" size="icon">
+                  <Trash2 className="w-5 h-5 text-destructive" />
+              </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+              <AlertDialogHeader>
+                  <AlertDialogTitle>{(translations as any).dialogs.deleteTitle}</AlertDialogTitle>
+                  <AlertDialogDescription>
+                      {(translations as any).dialogs.deleteCartItemMessage}
+                  </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                  <AlertDialogCancel>{(translations as any).dialogs.cancel}</AlertDialogCancel>
+                  <AlertDialogAction className="bg-destructive hover:bg-destructive/90" onClick={() => updateItemQuantity(item.cartItemId, 0)}>
+                      {(translations as any).dialogs.confirm}
+                  </AlertDialogAction>
+              </AlertDialogFooter>
+          </AlertDialogContent>
+      </AlertDialog>
     </Card>
   );
 }
