@@ -1,4 +1,3 @@
-
 'use client'
 
 import { useState, useEffect, useMemo } from 'react';
@@ -69,7 +68,7 @@ export default function SideNavigationBar({ isOpen, setIsOpen }: SideNavigationB
             ) : (
                 <AvatarImage src={userProfile?.photoURL || user?.photoURL || "https://picsum.photos/seed/avatar/100/100"} />
             )}
-            <AvatarFallback>{userProfile?.displayName?.charAt(0) || user?.displayName?.charAt(0) || 'U'}</AvatarFallback>
+            <AvatarFallback>{userProfile?.displayName?.charAt(0) || user?.displayName?.charAt(0) || user?.email?.charAt(0) || 'U'}</AvatarFallback>
           </Avatar>
           <div>
              {isLoading ? (
@@ -80,7 +79,7 @@ export default function SideNavigationBar({ isOpen, setIsOpen }: SideNavigationB
             ) : user ? (
                 <>
                     <p className="font-semibold text-lg user-name">{userProfile?.displayName || user?.displayName || 'Guest User'}</p>
-                    <p className="text-sm text-gray-400 user-name">{userProfile?.phoneNumber || user?.phoneNumber || userProfile?.email}</p>
+                    <p className="text-sm text-gray-400 user-name">{userProfile?.phoneNumber || user?.phoneNumber || userProfile?.email || user?.email}</p>
                 </>
             ) : (
                  <div>
