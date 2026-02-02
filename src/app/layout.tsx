@@ -8,6 +8,7 @@ import { FirebaseClientProvider } from '@/firebase';
 import { AuthUIProvider } from '@/firebase/auth/auth-ui-provider';
 import { CartProvider } from '@/context/CartContext';
 import { VoiceSearchProvider } from '@/context/VoiceSearchContext';
+import CookieConsent from '@/components/CookieConsent';
 
 export default function RootLayout({
   children,
@@ -28,6 +29,7 @@ export default function RootLayout({
                   <CartProvider>
                     {children}
                     <Toaster />
+                    <CookieConsent />
                   </CartProvider>
                 </AuthUIProvider>
               </FirebaseClientProvider>
