@@ -69,6 +69,12 @@ export default function CookieConsent() {
       }
     }
   }, []);
+  
+  const handleSaveAndClose = useCallback(() => {
+    localStorage.setItem(COOKIE_PREFERENCES_KEY, JSON.stringify(settings));
+    localStorage.setItem(COOKIE_CONSENT_GIVEN_KEY, 'true');
+    setIsOpen(false);
+  }, [settings]);
 
   useEffect(() => {
     if (isOpen && timer > 0) {
@@ -80,13 +86,7 @@ export default function CookieConsent() {
         // Auto-save on timeout
         handleSaveAndClose();
     }
-  }, [isOpen, timer]);
-
-  const handleSaveAndClose = useCallback(() => {
-    localStorage.setItem(COOKIE_PREFERENCES_KEY, JSON.stringify(settings));
-    localStorage.setItem(COOKIE_CONSENT_GIVEN_KEY, 'true');
-    setIsOpen(false);
-  }, [settings]);
+  }, [isOpen, timer, handleSaveAndClose]);
 
   const handleAcceptAll = () => {
     const newSettings = {
