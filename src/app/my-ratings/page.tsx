@@ -45,17 +45,18 @@ function RatingStars({ rating, onRate, interactive = false }: { rating: number; 
     );
 }
 
-function RatingCard({ booking, onUpdate }: { booking: Booking, onUpdate: () => void }) {
+function RatingCard({ booking }: { booking: Booking }) {
     const [rating, setRating] = useState(booking.rating || 0);
     const [review, setReview] = useState(booking.review || '');
     const [isSaving, setIsSaving] = useState(false);
     const { toast } = useToast();
     const firestore = useFirestore();
     const { user } = useUser();
+    const { translations } = useLanguage();
 
     const handleSubmitRating = async () => {
         if (rating === 0) {
-            toast({ variant: 'destructive', title: 'Please select a rating' });
+            toast({ variant: 'destructive', title: translations.toasts.pleaseSelectRating });
             return;
         }
         if (!user || !firestore) return;
@@ -66,8 +67,7 @@ function RatingCard({ booking, onUpdate }: { booking: Booking, onUpdate: () => v
 
         updateDoc(bookingRef, updateData)
             .then(() => {
-                toast({ title: 'Rating submitted!', description: 'Thank you for your feedback.' });
-                onUpdate(); // This will trigger a re-fetch in the parent if needed
+                toast({ title: translations.toasts.ratingSubmitted, description: translations.toasts.ratingSubmittedDesc });
             })
             .catch((err) => {
                 const permissionError = new FirestorePermissionError({
@@ -76,7 +76,7 @@ function RatingCard({ booking, onUpdate }: { booking: Booking, onUpdate: () => v
                     requestResourceData: updateData,
                 });
                 errorEmitter.emit('permission-error', permissionError);
-                toast({ variant: 'destructive', title: 'Failed to submit rating' });
+                toast({ variant: 'destructive', title: translations.toasts.ratingFailed });
             })
             .finally(() => {
                 setIsSaving(false);
@@ -218,7 +218,7 @@ export default function MyRatingsPage() {
                         <h3 className="text-lg font-semibold mb-4">Rate Your Past Services</h3>
                         <div className="space-y-4">
                             {unratedBookings.map(booking => (
-                                <RatingCard key={booking.id} booking={booking} onUpdate={() => {}} /> // Re-render will be handled by useCollection
+                                <RatingCard key={booking.id} booking={booking} />
                             ))}
                         </div>
                     </div>
@@ -229,7 +229,7 @@ export default function MyRatingsPage() {
                         <h3 className="text-lg font-semibold mb-4">Your Past Ratings</h3>
                         <div className="space-y-4">
                             {ratedBookings.map(booking => (
-                                <RatingCard key={booking.id} booking={booking} onUpdate={() => {}} />
+                                <RatingCard key={booking.id} booking={booking} />
                             ))}
                         </div>
                     </div>
