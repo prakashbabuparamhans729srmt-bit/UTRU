@@ -76,12 +76,12 @@ export default function CheckoutPage() {
 
     const handlePlaceOrder = async () => {
         if (!user || !firestore || !userProfileRef) {
-            toast({ variant: 'destructive', title: 'Error', description: 'User not logged in or Firestore not available.'});
+            toast({ variant: 'destructive', title: translations.toasts.error, description: translations.toasts.notLoggedIn});
             router.push('/phone-login');
             return;
         }
         if (!deliveryAddress) {
-            toast({ variant: 'destructive', title: 'Address Missing', description: 'Please select a delivery address.' });
+            toast({ variant: 'destructive', title: translations.toasts.addressMissing, description: translations.toasts.addressMissingDesc });
             return;
         }
 
@@ -144,8 +144,8 @@ export default function CheckoutPage() {
                 errorEmitter.emit('permission-error', permissionError);
                 toast({
                     variant: 'destructive',
-                    title: 'Order Failed',
-                    description: 'Could not process your wallet payment. Please try again.',
+                    title: translations.toasts.orderFailed,
+                    description: translations.toasts.orderFailedDescWallet,
                 });
             } finally {
                 setIsPlacingOrder(false);
@@ -166,8 +166,8 @@ export default function CheckoutPage() {
                 errorEmitter.emit('permission-error', permissionError);
                 toast({
                     variant: 'destructive',
-                    title: 'Order Failed',
-                    description: 'Could not save your booking. Please try again.',
+                    title: translations.toasts.orderFailed,
+                    description: translations.toasts.orderFailedDescCod,
                 });
               })
               .finally(() => {
@@ -179,8 +179,8 @@ export default function CheckoutPage() {
     const handleRemoveCoupon = () => {
         removeCoupon();
         toast({
-        title: 'Coupon Removed',
-        description: 'Your cart total has been updated.',
+        title: translations.toasts.couponRemoved,
+        description: translations.toasts.couponRemovedDesc,
         });
     };
     

@@ -19,8 +19,8 @@ export default function ReferPage() {
   const handleCopy = () => {
     navigator.clipboard.writeText(referralCode);
     toast({
-      title: 'Copied!',
-      description: 'Referral code copied to clipboard.',
+      title: translations.toasts.copied,
+      description: translations.toasts.copiedDesc,
     });
   };
 

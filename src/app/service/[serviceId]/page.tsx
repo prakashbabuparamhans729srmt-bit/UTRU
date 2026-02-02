@@ -126,8 +126,8 @@ export default function ServicePage() {
     if (!selectedDate || !selectedTime) {
       toast({
         variant: 'destructive',
-        title: translations.service.selectionRequiredTitle,
-        description: translations.service.selectionRequiredDesc,
+        title: translations.toasts.selectionRequired,
+        description: translations.toasts.selectionRequiredDesc,
       });
       return;
     }
@@ -144,14 +144,14 @@ export default function ServicePage() {
 
     if (action === 'added') {
       toast({
-        title: translations.service.addedToCartTitle,
+        title: translations.toasts.serviceAddedToCart,
         description: `${quantity} x ${service.name}`,
         action: <ToastAction altText={translations.service.viewCart} onClick={() => router.push('/cart')}>{translations.service.viewCart}</ToastAction>,
       });
     } else { // 'updated'
       toast({
-        title: translations.service.updatedCartTitle,
-        description: `${translations.service.quantity} for ${service.name} has been updated.`,
+        title: translations.toasts.cartUpdated,
+        description: `${translations.toasts.cartUpdatedDesc} for ${service.name} has been updated.`,
         action: <ToastAction altText={translations.service.viewCart} onClick={() => router.push('/cart')}>{translations.service.viewCart}</ToastAction>,
       });
     }

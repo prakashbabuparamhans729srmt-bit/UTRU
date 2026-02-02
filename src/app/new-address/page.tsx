@@ -42,16 +42,16 @@ export default function NewAddressPage() {
     if (!name || !mobile || !fullAddress) {
       toast({
         variant: 'destructive',
-        title: 'Missing fields',
-        description: 'Please fill in your name, mobile, and address.'
+        title: translations.toasts.missingFields,
+        description: translations.toasts.missingFieldsDesc
       });
       return;
     }
     if (!user || !firestore) {
       toast({
         variant: 'destructive',
-        title: 'Not logged in',
-        description: 'You must be logged in to save an address.'
+        title: translations.toasts.notLoggedInSave,
+        description: translations.toasts.notLoggedInSaveDesc
       });
       router.push('/phone-login');
       return;
@@ -77,7 +77,7 @@ export default function NewAddressPage() {
             id: docRef.id
         }
         setDeliveryAddress(newAddressWithId);
-        toast({ title: 'Address Saved!', description: 'Your new address has been saved.' });
+        toast({ title: translations.toasts.addressSaved, description: translations.toasts.addressSavedDesc });
         router.back();
       })
       .catch((serverError) => {
@@ -89,8 +89,8 @@ export default function NewAddressPage() {
           errorEmitter.emit('permission-error', permissionError);
           toast({
               variant: 'destructive',
-              title: 'Save Failed',
-              description: 'Could not save your address. Please try again.',
+              title: translations.toasts.saveFailed,
+              description: translations.toasts.saveFailedDesc,
           });
       })
       .finally(() => {

@@ -140,10 +140,10 @@ export default function CartPage() {
     if (!couponInput.trim()) return;
     const success = applyCoupon(couponInput);
     if (success) {
-        toast({ title: 'Coupon applied!', description: `You've received a discount!` });
+        toast({ title: translations.toasts.couponApplied, description: translations.toasts.couponAppliedDesc });
         setIsCouponDialogOpen(false);
     } else {
-        toast({ variant: 'destructive', title: 'Invalid Coupon', description: 'The coupon code you entered is not valid.' });
+        toast({ variant: 'destructive', title: translations.toasts.invalidCoupon, description: translations.toasts.invalidCouponDesc });
     }
     setCouponInput('');
   };
@@ -151,7 +151,7 @@ export default function CartPage() {
   const handleCouponClick = (code: string) => {
     const success = applyCoupon(code);
     if (success) {
-        toast({ title: 'Coupon applied!', description: `You've received a discount!` });
+        toast({ title: translations.toasts.couponApplied, description: translations.toasts.couponAppliedDesc });
         setIsCouponDialogOpen(false);
     }
   }
@@ -159,8 +159,8 @@ export default function CartPage() {
   const handleRemoveCoupon = () => {
     removeCoupon();
     toast({
-      title: 'Coupon Removed',
-      description: 'Your cart total has been updated.',
+      title: translations.toasts.couponRemoved,
+      description: translations.toasts.couponRemovedDesc,
     });
   };
 
