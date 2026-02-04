@@ -38,16 +38,6 @@ import { Badge } from '@/components/ui/badge';
 import ServiceGrid from '@/components/ServiceGrid';
 import { servicesData } from '@/lib/services';
 import { useVoiceSearch } from '@/context/VoiceSearchContext';
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuItem,
-  SidebarProvider,
-  SidebarTrigger,
-  SidebarInset,
-} from '@/components/ui/sidebar';
 import { useUser, useFirestore, useDoc } from '@/firebase';
 import { useAuthUI } from '@/firebase/auth/use-auth-ui';
 import { doc } from 'firebase/firestore';
@@ -120,93 +110,13 @@ export default function Home() {
   );
 
   return (
-    <SidebarProvider>
-      <div className="bg-background min-h-screen flex">
-        <Sidebar collapsible="offcanvas" className="bg-gray-900 text-white">
-           <div className="flex flex-col h-full">
-            <SidebarHeader className='p-0'>
-              <div className="p-4 border-b border-gray-700">
-                  <div className="flex items-center gap-4 user-info">
-                  <Avatar className="w-12 h-12">
-                      {isLoading ? (
-                      <Skeleton className="w-full h-full rounded-full" />
-                      ) : user ? (
-                      <>
-                          <AvatarImage src={userProfile?.photoURL || user?.photoURL || "https://picsum.photos/seed/avatar/100/100"} />
-                          <AvatarFallback>{userProfile?.displayName?.charAt(0) || user?.displayName?.charAt(0) || user?.email?.charAt(0) || 'U'}</AvatarFallback>
-                      </>
-                      ) : (
-                      <AvatarFallback>
-                          <User className="w-6 h-6" />
-                      </AvatarFallback>
-                      )}
-                  </Avatar>
-                  <div className="sidebar-text-wrapper">
-                      {isLoading ? (
-                          <div className="space-y-2">
-                              <Skeleton className="h-6 w-32 bg-gray-600" />
-                              <Skeleton className="h-4 w-40 bg-gray-700" />
-                          </div>
-                      ) : user ? (
-                          <>
-                              <p className="font-semibold text-lg">{userProfile?.displayName || user?.displayName || 'Guest User'}</p>
-                              <p className="text-sm text-gray-400">{userProfile?.phoneNumber || user?.phoneNumber || userProfile?.email || user?.email}</p>
-                          </>
-                      ) : (
-                          <div>
-                              <Button
-                                  size="sm"
-                                  onClick={() => {
-                                      router.push('/phone-login');
-                                  }}
-                              >
-                                  Login / Sign Up
-                              </Button>
-                          </div>
-                      )}
-                  </div>
-                  </div>
-              </div>
-            </SidebarHeader>
-            <SidebarContent className="p-0">
-                <nav className="flex-grow p-4 space-y-2">
-                    {sideNavLinks.map((link) => (
-                    <Link
-                        key={link.href}
-                        href={link.href}
-                        className={cn(
-                        "flex items-center gap-4 p-2 rounded-lg hover:bg-gray-700 transition-colors",
-                        pathname === link.href ? 'bg-primary text-white' : ''
-                        )}
-                    >
-                        <link.icon className="w-6 h-6" />
-                        <span className="nav-text">{(translations.profile as any)[link.labelKey] || link.text}</span>
-                    </Link>
-                    ))}
-                </nav>
-            </SidebarContent>
-            {user && (
-              <div className="p-4 border-t border-gray-700">
-                  <Button
-                  variant="ghost"
-                  className="w-full justify-start text-left gap-4 p-2 hover:bg-red-500/20"
-                  onClick={handleSignOut}
-                  disabled={signOutPending || isLoading}
-                  >
-                  <LogOut className="w-6 h-6" />
-                  <span className="logout-text">{translations.profile.logOut}</span>
-                  </Button>
-              </div>
-            )}
-          </div>
-        </Sidebar>
-        <SidebarInset className="flex-col flex-1">
+      <div className="bg-background text-foreground min-h-screen flex flex-col">
           <header className="p-4 bg-background/80 backdrop-blur-sm sticky top-0 z-50">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <SidebarTrigger>
-                  <Menu />
-                </SidebarTrigger>
+                <Link href="/profile" className="md:hidden">
+                    <Menu />
+                </Link>
                 <div className="w-10 h-10 bg-black dark:bg-white rounded-full flex items-center justify-center">
                   <div className="w-4 h-4 bg-white dark:bg-black rounded-full" />
                 </div>
@@ -428,8 +338,6 @@ export default function Home() {
               })}
             </div>
           </footer>
-        </SidebarInset>
       </div>
-    </SidebarProvider>
   );
 }
