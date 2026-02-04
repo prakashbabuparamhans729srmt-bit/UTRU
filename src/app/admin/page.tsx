@@ -113,7 +113,7 @@ export default function AdminDashboard() {
   return (
     <SidebarProvider>
       <div className="flex h-screen bg-background text-foreground">
-        <Sidebar collapsible="icon" className="hidden md:flex">
+        <Sidebar collapsible="offcanvas" className="hidden md:flex">
           <SidebarHeader>
             <div className="text-2xl font-bold text-center text-sidebar-foreground group-data-[state=expanded]:block group-data-[state=collapsed]:hidden">
               UCLAP
