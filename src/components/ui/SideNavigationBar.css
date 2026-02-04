@@ -1,3 +1,4 @@
+/* Mobile slide-out styles */
 .sidebar-transition {
     transition: transform 0.3s ease-in-out;
 }
@@ -7,20 +8,54 @@
 .sidebar-closed {
     transform: translateX(-100%);
 }
-.desktop-sidebar-transition {
+
+/* New auto-hiding desktop sidebar */
+.desktop-auto-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 50;
+    background-color: #111827; /* bg-gray-900 */
+    color: #ffffff; /* text-white */
+    width: 80px; /* Collapsed width */
+    overflow: hidden;
     transition: width 0.3s ease-in-out;
 }
-.desktop-sidebar-open {
+
+.desktop-auto-sidebar:hover {
     width: 280px;
 }
-.desktop-sidebar-closed {
-    width: 80px;
+
+/* Text elements to hide/show */
+.desktop-auto-sidebar .sidebar-text-wrapper,
+.desktop-auto-sidebar .nav-text,
+.desktop-auto-sidebar .logout-text {
+    opacity: 0;
+    white-space: nowrap;
+    transition: opacity 0.2s ease-in-out;
 }
-.desktop-sidebar-closed .nav-text,
-.desktop-sidebar-closed .user-name,
-.desktop-sidebar-closed .logout-text {
-    display: none;
+
+.desktop-auto-sidebar:hover .sidebar-text-wrapper,
+.desktop-auto-sidebar:hover .nav-text,
+.desktop-auto-sidebar:hover .logout-text {
+    opacity: 1;
+    transition-delay: 0.15s;
 }
-.desktop-sidebar-closed .user-info {
+
+/* User info container alignment */
+.desktop-auto-sidebar .user-info {
     justify-content: center;
+    transition: justify-content 0.3s ease-in-out;
+}
+
+.desktop-auto-sidebar:hover .user-info {
+    justify-content: flex-start;
+}
+
+/* Hide old desktop classes to prevent any potential conflicts */
+.desktop-sidebar-transition,
+.desktop-sidebar-open,
+.desktop-sidebar-closed {
+    display: none;
 }

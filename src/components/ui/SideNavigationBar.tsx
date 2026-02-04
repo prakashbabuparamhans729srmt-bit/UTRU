@@ -76,7 +76,7 @@ export default function SideNavigationBar({ isOpen, setIsOpen }: SideNavigationB
               </AvatarFallback>
             )}
           </Avatar>
-          <div>
+          <div className="sidebar-text-wrapper">
              {isLoading ? (
                 <div className="space-y-2">
                     <Skeleton className="h-6 w-32 bg-gray-600" />
@@ -84,11 +84,11 @@ export default function SideNavigationBar({ isOpen, setIsOpen }: SideNavigationB
                 </div>
             ) : user ? (
                 <>
-                    <p className="font-semibold text-lg user-name">{userProfile?.displayName || user?.displayName || 'Guest User'}</p>
-                    <p className="text-sm text-gray-400 user-name">{userProfile?.phoneNumber || user?.phoneNumber || userProfile?.email || user?.email}</p>
+                    <p className="font-semibold text-lg">{userProfile?.displayName || user?.displayName || 'Guest User'}</p>
+                    <p className="text-sm text-gray-400">{userProfile?.phoneNumber || user?.phoneNumber || userProfile?.email || user?.email}</p>
                 </>
             ) : (
-                 <div className="nav-text">
+                 <div>
                      <Button
                         size="sm"
                         onClick={() => {
@@ -139,10 +139,7 @@ export default function SideNavigationBar({ isOpen, setIsOpen }: SideNavigationB
 
   if (isDesktop) {
     return (
-      <div className={cn(
-        "fixed top-0 left-0 h-full bg-gray-900 text-white z-50 desktop-sidebar-transition",
-        isOpen ? "desktop-sidebar-open" : "desktop-sidebar-closed"
-      )}>
+      <div className="desktop-auto-sidebar">
         {content}
       </div>
     );
