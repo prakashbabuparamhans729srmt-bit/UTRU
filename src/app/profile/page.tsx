@@ -142,7 +142,7 @@ export default function ProfilePage() {
                 </div>
             ) : (
                 <div className="mt-6 w-full flex flex-col items-center">
-                    <Link href="/phone-login" passHref className='w-full text-center'>
+                    <Link href="/entry" passHref className='w-full text-center'>
                         <Button className="w-full max-w-[240px] bg-primary text-primary-foreground rounded-full h-12 text-base hover:bg-primary/90">
                            {translations.profile.continue}
                         </Button>
