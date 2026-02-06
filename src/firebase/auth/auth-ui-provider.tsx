@@ -14,9 +14,11 @@ import {
   signInWithPhoneNumber,
   GoogleAuthProvider,
   signInWithPopup,
-  getAdditionalUserInfo,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  updateProfile,
   type ConfirmationResult,
-  type UserCredential,
 } from 'firebase/auth';
 import { useAuth, useFirestore } from '@/firebase';
 import { doc, getDoc, writeBatch, collection, serverTimestamp } from 'firebase/firestore';
@@ -33,6 +35,9 @@ interface AuthUIContextType {
   // Actions
   signInWithPhoneNumber: (phoneNumber: string, container: HTMLElement | null) => Promise<boolean>;
   signInWithGoogle: () => Promise<boolean>;
+  signUpWithEmail: (email: string, password: string, name: string, country: string, state: string) => Promise<boolean>;
+  signInWithEmail: (email: string, password: string) => Promise<boolean>;
+  sendPasswordReset: (email: string) => Promise<boolean>;
   verifyOtp: (otp: string) => Promise<boolean>;
   signOut: () => Promise<void>;
 }
@@ -64,7 +69,7 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
     };
   }, []);
 
-  const setupNewUser = async (user: any) => {
+  const setupNewUser = async (user: any, details: { name?: string; country?: string; state?: string } = {}) => {
       if (!user || !firestore) return;
 
       const userRef = doc(firestore, 'users', user.uid);
@@ -72,21 +77,25 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
 
       if (!userSnap.exists()) {
           try {
-              const { uid, email, displayName, photoURL, phoneNumber } = user;
-              
               const batch = writeBatch(firestore);
 
-              // 1. Create the user document with a 100 balance
-              batch.set(userRef, {
-                  uid,
-                  email: email || null,
-                  displayName: displayName || 'New User',
-                  photoURL: photoURL || null,
-                  phoneNumber: phoneNumber || null,
-                  walletBalance: 100
-              });
+              const profileData: { [key: string]: any } = {
+                  uid: user.uid,
+                  email: user.email || null,
+                  displayName: details.name || user.displayName || 'New User',
+                  photoURL: user.photoURL || null,
+                  phoneNumber: user.phoneNumber || null,
+                  walletBalance: 100,
+              };
 
-              // 2. Create the sign-up bonus transaction
+              if (details.country) {
+                  profileData.country = details.country;
+              }
+              if (details.state) {
+                  profileData.state = details.state;
+              }
+              batch.set(userRef, profileData);
+
               const transactionRef = doc(collection(firestore, 'users', user.uid, 'walletTransactions'));
               batch.set(transactionRef, {
                   amount: 100,
@@ -98,10 +107,9 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
               await batch.commit();
           } catch (firestoreError: any) {
               console.error("Failed to create user profile and bonus:", firestoreError);
-              // If creating the user profile fails, sign them out to force a retry on next login
               if (auth) await auth.signOut();
               setError("Could not initialize your user profile. Please try logging in again.");
-              throw firestoreError; // Throw error to be caught by caller
+              throw firestoreError;
           }
       }
   };
@@ -120,7 +128,6 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
       setPhoneNumber(phone);
 
       try {
-        // Ensure any previous verifier is cleared before creating a new one
         if (recaptchaVerifierRef.current) {
             recaptchaVerifierRef.current.clear();
         }
@@ -139,7 +146,6 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
         return true;
       } catch (err: any) {
         setError(err.message);
-        // Reset verifier on error.
         if (recaptchaVerifierRef.current) {
             recaptchaVerifierRef.current.clear();
             recaptchaVerifierRef.current = null;
@@ -159,17 +165,12 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
             setError('Firebase Auth not available');
             return false;
         }
-
         setIsPending(true);
         setError(null);
-
         try {
             const provider = new GoogleAuthProvider();
             const userCredential = await signInWithPopup(auth, provider);
-            
-            // setupNewUser will check if the user is actually new and set them up.
-            await setupNewUser(userCredential.user);
-            
+            await setupNewUser(userCredential.user, { name: userCredential.user.displayName || undefined });
             return true;
         } catch (err: any) {
             setError(err.message);
@@ -180,6 +181,67 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
         }
     }, [auth, firestore]);
 
+  // Email Sign-Up
+  const handleSignUpWithEmail = useCallback(async (email: string, password: string, name: string, country: string, state: string) => {
+    if (!auth || !firestore) {
+        setError("Firebase not available.");
+        return false;
+    }
+    setIsPending(true);
+    setError(null);
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        await updateProfile(userCredential.user, { displayName: name });
+        await setupNewUser(userCredential.user, { name, country, state });
+        return true;
+    } catch (err: any) {
+        setError(err.message);
+        console.error("Email sign-up error:", err);
+        return false;
+    } finally {
+        setIsPending(false);
+    }
+  }, [auth, firestore]);
+
+  // Email Sign-In
+  const handleSignInWithEmail = useCallback(async (email: string, password: string) => {
+    if (!auth) {
+        setError("Firebase not available.");
+        return false;
+    }
+    setIsPending(true);
+    setError(null);
+    try {
+        await signInWithEmailAndPassword(auth, email, password);
+        return true;
+    } catch (err: any) {
+        setError(err.message);
+        return false;
+    } finally {
+        setIsPending(false);
+    }
+  }, [auth]);
+
+  // Password Reset
+  const handleSendPasswordReset = useCallback(async (email: string) => {
+      if (!auth) {
+        setError("Firebase not available.");
+        return false;
+      }
+      setIsPending(true);
+      setError(null);
+      try {
+          await sendPasswordResetEmail(auth, email);
+          return true;
+      } catch (err: any) {
+          setError(err.message);
+          return false;
+      } finally {
+          setIsPending(false);
+      }
+  }, [auth]);
+
+
   // OTP Verifier
   const handleVerifyOtp = useCallback(
     async (otp: string) => {
@@ -187,23 +249,16 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
         setError('No confirmation result available. Please try again.');
         return false;
       }
-
       setIsPending(true);
       setError(null);
-
       try {
-        const userCredential: UserCredential = await confirmationResult.confirm(otp);
-        
-        // setupNewUser will check if the user is actually new and set them up.
+        const userCredential = await confirmationResult.confirm(otp);
         await setupNewUser(userCredential.user);
-
-        // Clean up the reCAPTCHA verifier after successful sign-in
         if (recaptchaVerifierRef.current) {
           recaptchaVerifierRef.current.clear();
           recaptchaVerifierRef.current = null;
         }
-        
-        setConfirmationResult(null); // Clear confirmation result
+        setConfirmationResult(null);
         setPhoneNumber(null);
         return true;
       } catch (err: any) {
@@ -213,7 +268,7 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
         setIsPending(false);
       }
     },
-    [confirmationResult, firestore, auth]
+    [confirmationResult, auth, firestore]
   );
 
   // Sign Out
@@ -242,6 +297,9 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
       phoneNumber,
       signInWithPhoneNumber: handleSignInWithPhoneNumber,
       signInWithGoogle: handleSignInWithGoogle,
+      signUpWithEmail: handleSignUpWithEmail,
+      signInWithEmail: handleSignInWithEmail,
+      sendPasswordReset: handleSendPasswordReset,
       verifyOtp: handleVerifyOtp,
       signOut: handleSignOut,
     }),
@@ -252,6 +310,9 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
       phoneNumber,
       handleSignInWithPhoneNumber,
       handleSignInWithGoogle,
+      handleSignUpWithEmail,
+      handleSignInWithEmail,
+      handleSendPasswordReset,
       handleVerifyOtp,
       handleSignOut,
     ]
