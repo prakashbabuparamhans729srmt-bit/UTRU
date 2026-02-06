@@ -1,21 +1,28 @@
-
 'use client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { X, Play, Loader2, ChevronLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useAuthUI } from '@/firebase/auth/use-auth-ui';
 import { useToast } from '@/hooks/use-toast';
+import { useUser } from '@/firebase';
 
 export default function PhoneLoginPage() {
   const router = useRouter();
+  const { user, loading: userLoading } = useUser();
   const { translations } = useLanguage();
   const [phoneNumber, setPhoneNumber] = useState('');
   const { signInWithPhoneNumber, isPending, error } = useAuthUI();
   const { toast } = useToast();
   const recaptchaContainerRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!userLoading && user) {
+      router.replace('/');
+    }
+  }, [user, userLoading, router]);
 
   const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -50,6 +57,15 @@ export default function PhoneLoginPage() {
         });
     }
   };
+  
+  if (userLoading || user) {
+    return (
+      <div className="h-screen w-full flex items-center justify-center bg-background">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
 
   return (
     <div className="bg-background text-foreground min-h-screen flex items-center justify-center">

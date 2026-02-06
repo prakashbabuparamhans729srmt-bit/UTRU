@@ -1,4 +1,3 @@
-
 'use client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,9 +8,11 @@ import { useAuthUI } from '@/firebase/auth/use-auth-ui';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/context/LanguageContext';
 import { useCart } from '@/context/CartContext';
+import { useUser } from '@/firebase';
 
 export default function VerifyPhonePage() {
   const router = useRouter();
+  const { user, loading: userLoading } = useUser();
   const { toast } = useToast();
   const { translations } = useLanguage();
   const { verifyOtp, isPending, error, confirmationResult, phoneNumber, signInWithPhoneNumber } = useAuthUI();
@@ -21,10 +22,16 @@ export default function VerifyPhonePage() {
   const recaptchaResendRef = useRef<HTMLButtonElement>(null);
   const [countdown, setCountdown] = useState(30);
 
+  useEffect(() => {
+    if (!userLoading && user) {
+      router.replace('/');
+    }
+  }, [user, userLoading, router]);
 
   useEffect(() => {
-    // If there's no confirmationResult, the user shouldn't be on this page.
-    if (!confirmationResult && !isPending) {
+    // If there's no confirmationResult and we're not in a pending state,
+    // and we've confirmed the user is not logged in, then redirect.
+    if (!confirmationResult && !isPending && !userLoading && !user) {
       toast({
         variant: 'destructive',
         title: (translations as any).toasts.verificationError,
@@ -32,7 +39,7 @@ export default function VerifyPhonePage() {
       });
       router.replace('/phone-login');
     }
-  }, [confirmationResult, router, toast, isPending, translations]);
+  }, [confirmationResult, isPending, userLoading, user, router, toast, translations]);
 
   useEffect(() => {
     if (countdown > 0) {
@@ -109,6 +116,14 @@ export default function VerifyPhonePage() {
         toast({ variant: 'destructive', title: (translations as any).toasts.otpResentFailed, description: error || (translations as any).toasts.otpResendFailedDesc });
     }
   };
+  
+  if (userLoading || user) {
+    return (
+      <div className="h-screen w-full flex items-center justify-center bg-background">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    );
+  }
 
   return (
     <div className="bg-background text-foreground min-h-screen flex items-center justify-center">

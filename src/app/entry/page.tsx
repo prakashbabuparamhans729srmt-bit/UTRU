@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -19,6 +18,7 @@ import { Phone, Loader2 } from 'lucide-react';
 import { useAuthUI } from '@/firebase/auth/use-auth-ui';
 import { useToast } from '@/hooks/use-toast';
 import { useCart } from '@/context/CartContext';
+import { useUser } from '@/firebase';
 
 
 const GoogleIcon = () => (
@@ -46,6 +46,7 @@ const GoogleIcon = () => (
 
 export default function EntryPage() {
   const router = useRouter();
+  const { user, loading: userLoading } = useUser();
   const { translations } = useLanguage();
   const { items: cartItems } = useCart();
   const { signInWithGoogle, isPending } = useAuthUI();
@@ -72,6 +73,12 @@ export default function EntryPage() {
       imageHint: pImage?.imageHint || imgData.hint
     }
   });
+
+  useEffect(() => {
+    if (!userLoading && user) {
+      router.replace('/');
+    }
+  }, [user, userLoading, router]);
 
 
   useEffect(() => {
@@ -109,6 +116,14 @@ export default function EntryPage() {
       });
     }
   };
+
+  if (userLoading || user) {
+    return (
+      <div className="h-screen w-full flex items-center justify-center bg-background">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    );
+  }
 
   return (
     <div className="relative h-screen w-full bg-black">
