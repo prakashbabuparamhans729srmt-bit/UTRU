@@ -1,3 +1,4 @@
+
 'use client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -26,12 +27,12 @@ export default function VerifyPhonePage() {
     if (!confirmationResult && !isPending) {
       toast({
         variant: 'destructive',
-        title: 'Verification Error',
-        description: 'Please start the login process again.',
+        title: (translations as any).toasts.verificationError,
+        description: (translations as any).toasts.verificationErrorDesc,
       });
       router.replace('/phone-login');
     }
-  }, [confirmationResult, router, toast, isPending]);
+  }, [confirmationResult, router, toast, isPending, translations]);
 
   useEffect(() => {
     if (countdown > 0) {
@@ -73,19 +74,19 @@ export default function VerifyPhonePage() {
   const handleVerify = async () => {
     const otpCode = otp.join('');
     if (otpCode.length !== 6) {
-        toast({ variant: 'destructive', title: 'Invalid OTP', description: 'Please enter all 6 digits.'});
+        toast({ variant: 'destructive', title: (translations as any).toasts.invalidOtp, description: (translations as any).toasts.invalidOtpDesc});
         return;
     }
     const success = await verifyOtp(otpCode);
     if (success) {
-      toast({ title: 'Success!', description: 'You have been logged in successfully.' });
+      toast({ title: (translations as any).toasts.loginSuccess, description: (translations as any).toasts.loginSuccessDesc });
       if (cartItems.length > 0) {
         router.replace('/checkout');
       } else {
         router.replace('/');
       }
     } else {
-      toast({ variant: 'destructive', title: 'Verification Failed', description: error || 'The OTP is incorrect. Please try again.' });
+      toast({ variant: 'destructive', title: (translations as any).toasts.verificationFailed, description: error || (translations as any).toasts.verificationFailedDesc });
       setOtp(new Array(6).fill(''));
       inputRefs.current[0]?.focus();
     }
@@ -93,19 +94,19 @@ export default function VerifyPhonePage() {
 
   const handleResendOtp = async () => {
     if (!phoneNumber || !recaptchaResendRef.current) {
-        toast({ variant: 'destructive', title: 'Error', description: 'Could not resend OTP. Please try again.' });
+        toast({ variant: 'destructive', title: (translations as any).toasts.error, description: (translations as any).toasts.otpResendFailedDesc });
         return;
     }
 
     const success = await signInWithPhoneNumber(phoneNumber, recaptchaResendRef.current);
 
     if (success) {
-        toast({ title: 'OTP Resent', description: 'A new OTP has been sent to your phone.' });
+        toast({ title: (translations as any).toasts.otpResent, description: (translations as any).toasts.otpResentDesc });
         setCountdown(30); // Reset countdown
         setOtp(new Array(6).fill('')); // Clear OTP inputs
         inputRefs.current[0]?.focus(); // Focus first input
     } else {
-        toast({ variant: 'destructive', title: 'Failed to Resend OTP', description: error || 'Please try again later.' });
+        toast({ variant: 'destructive', title: (translations as any).toasts.otpResentFailed, description: error || (translations as any).toasts.otpResendFailedDesc });
     }
   };
 

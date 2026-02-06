@@ -1,3 +1,4 @@
+
 'use client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -28,8 +29,8 @@ export default function PhoneLoginPage() {
     if (phoneNumber.length !== 10 || !/^[6-9]/.test(phoneNumber)) {
       toast({
         variant: 'destructive',
-        title: 'Invalid Phone Number',
-        description: 'Please enter a valid 10-digit Indian mobile number.',
+        title: (translations as any).toasts.invalidPhone,
+        description: (translations as any).toasts.invalidPhoneDesc,
       });
       return;
     }
@@ -44,8 +45,8 @@ export default function PhoneLoginPage() {
     } else {
         toast({
             variant: 'destructive',
-            title: 'Failed to send OTP',
-            description: error || 'An unexpected error occurred. Please try again.',
+            title: (translations as any).toasts.otpSendFailed,
+            description: error || (translations as any).toasts.otpSendFailedDesc,
         });
     }
   };

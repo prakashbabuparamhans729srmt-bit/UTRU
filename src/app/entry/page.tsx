@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -95,8 +96,8 @@ export default function EntryPage() {
     const success = await signInWithGoogle();
     if (success) {
       toast({
-        title: "Login Successful!",
-        description: "Welcome to the app.",
+        title: (translations as any).toasts.loginSuccess,
+        description: (translations as any).toasts.loginSuccessDesc,
       });
       const redirectPath = cartItems.length > 0 ? '/checkout' : '/';
       router.replace(redirectPath);

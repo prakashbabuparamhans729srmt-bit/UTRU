@@ -167,11 +167,8 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
             const provider = new GoogleAuthProvider();
             const userCredential = await signInWithPopup(auth, provider);
             
-            // Check if it's a new user and set up their profile
-            const additionalInfo = getAdditionalUserInfo(userCredential);
-            if (additionalInfo?.isNewUser) {
-                await setupNewUser(userCredential.user);
-            }
+            // setupNewUser will check if the user is actually new and set them up.
+            await setupNewUser(userCredential.user);
             
             return true;
         } catch (err: any) {
@@ -197,7 +194,7 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
       try {
         const userCredential: UserCredential = await confirmationResult.confirm(otp);
         
-        // This is now a new user according to Firebase Auth
+        // setupNewUser will check if the user is actually new and set them up.
         await setupNewUser(userCredential.user);
 
         // Clean up the reCAPTCHA verifier after successful sign-in
