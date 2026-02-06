@@ -167,18 +167,22 @@ export default function EntryPage() {
         <div className="w-full max-w-sm space-y-4">
           <Button
             className="w-full bg-white text-black rounded-full h-14 text-lg hover:bg-gray-200"
-            onClick={handleGoogleSignIn}
-            disabled={isPending}
-          >
-            {isPending ? <Loader2 className="w-6 h-6 animate-spin" /> : <><GoogleIcon /> Sign Up with Google</>}
-          </Button>
-          <Button
-            className="w-full bg-black text-white rounded-full h-14 text-lg border-2 border-gray-500 hover:bg-gray-800"
             onClick={() => router.push('/phone-login')}
             disabled={isPending}
           >
-            <Phone className="mr-2 h-6 w-6" />
-            {(translations as any).login?.continueWithPhone || 'Continue with Phone'}
+            Sign Up
+          </Button>
+           <div className="relative flex py-2 items-center">
+              <div className="flex-grow border-t border-gray-600"></div>
+              <span className="flex-shrink mx-4 text-gray-400">or</span>
+              <div className="flex-grow border-t border-gray-600"></div>
+          </div>
+          <Button
+            className="w-full bg-black text-white rounded-full h-14 text-lg border-2 border-gray-500 hover:bg-gray-800"
+            onClick={handleGoogleSignIn}
+            disabled={isPending}
+          >
+            {isPending ? <Loader2 className="w-6 h-6 animate-spin" /> : <><GoogleIcon /> Sign up with Google</>}
           </Button>
         </div>
       </div>
