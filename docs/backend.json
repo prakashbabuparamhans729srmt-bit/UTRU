@@ -30,6 +30,14 @@
                 "walletBalance": {
                     "type": "number",
                     "description": "The user's current wallet balance. New users receive a ₹100 sign-up bonus."
+                },
+                "country": {
+                    "type": "string",
+                    "description": "The user's country."
+                },
+                "state": {
+                    "type": "string",
+                    "description": "The user's state."
                 }
             },
             "required": [
@@ -150,7 +158,8 @@
     },
     "auth": {
         "providers": [
-            "phone"
+            "phone",
+            "google.com"
         ]
     },
     "firestore": {

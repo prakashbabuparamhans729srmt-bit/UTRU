@@ -9,12 +9,11 @@ service cloud.firestore {
       // Allow users to read their own document.
       allow read: if isOwner(userId);
 
-      // Allow users to create their own document only with specific initial data.
+      // Allow users to create their own document with initial data.
+      // The walletBalance must be set to the sign-up bonus of 100.
       allow create: if request.auth.uid == userId
                     && request.resource.data.uid == userId
-                    && request.resource.data.walletBalance == 100
-                    && request.resource.data.keys().hasAll(['uid', 'email', 'displayName', 'photoURL', 'phoneNumber', 'walletBalance'])
-                    && request.resource.data.size() == 6;
+                    && request.resource.data.walletBalance == 100;
       
       // Allow users to update their own document for profile changes (balance unchanged)
       // or for wallet payments (balance decreases). This rule allows updates if the

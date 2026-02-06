@@ -12,10 +12,13 @@ import React, {
 import {
   RecaptchaVerifier,
   signInWithPhoneNumber,
+  GoogleAuthProvider,
+  signInWithPopup,
+  getAdditionalUserInfo,
   type ConfirmationResult,
   type UserCredential,
 } from 'firebase/auth';
-import { useAuth, useFirestore, useUser } from '@/firebase';
+import { useAuth, useFirestore } from '@/firebase';
 import { doc, getDoc, writeBatch, collection, serverTimestamp } from 'firebase/firestore';
 
 
@@ -29,6 +32,7 @@ interface AuthUIContextType {
 
   // Actions
   signInWithPhoneNumber: (phoneNumber: string, container: HTMLElement | null) => Promise<boolean>;
+  signInWithGoogle: () => Promise<boolean>;
   verifyOtp: (otp: string) => Promise<boolean>;
   signOut: () => Promise<void>;
 }
@@ -42,7 +46,6 @@ export const AuthUIContext = createContext<AuthUIContextType | undefined>(
 export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
   const auth = useAuth();
   const firestore = useFirestore();
-  const { user, loading: userLoading } = useUser();
   const [confirmationResult, setConfirmationResult] =
     useState<ConfirmationResult | null>(null);
   const [isPending, setIsPending] = useState(false);
@@ -60,6 +63,48 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
       }
     };
   }, []);
+
+  const setupNewUser = async (user: any) => {
+      if (!user || !firestore) return;
+
+      const userRef = doc(firestore, 'users', user.uid);
+      const userSnap = await getDoc(userRef);
+
+      if (!userSnap.exists()) {
+          try {
+              const { uid, email, displayName, photoURL, phoneNumber } = user;
+              
+              const batch = writeBatch(firestore);
+
+              // 1. Create the user document with a 100 balance
+              batch.set(userRef, {
+                  uid,
+                  email: email || null,
+                  displayName: displayName || 'New User',
+                  photoURL: photoURL || null,
+                  phoneNumber: phoneNumber || null,
+                  walletBalance: 100
+              });
+
+              // 2. Create the sign-up bonus transaction
+              const transactionRef = doc(collection(firestore, 'users', user.uid, 'walletTransactions'));
+              batch.set(transactionRef, {
+                  amount: 100,
+                  type: 'credit',
+                  description: 'Sign-up Bonus',
+                  timestamp: serverTimestamp()
+              });
+
+              await batch.commit();
+          } catch (firestoreError: any) {
+              console.error("Failed to create user profile and bonus:", firestoreError);
+              // If creating the user profile fails, sign them out to force a retry on next login
+              if (auth) await auth.signOut();
+              setError("Could not initialize your user profile. Please try logging in again.");
+              throw firestoreError; // Throw error to be caught by caller
+          }
+      }
+  };
 
 
   // Phone Sign-In Initiator
@@ -107,6 +152,37 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
     [auth]
   );
 
+  // Google Sign-In Initiator
+  const handleSignInWithGoogle = useCallback(
+    async () => {
+        if (!auth) {
+            setError('Firebase Auth not available');
+            return false;
+        }
+
+        setIsPending(true);
+        setError(null);
+
+        try {
+            const provider = new GoogleAuthProvider();
+            const userCredential = await signInWithPopup(auth, provider);
+            
+            // Check if it's a new user and set up their profile
+            const additionalInfo = getAdditionalUserInfo(userCredential);
+            if (additionalInfo?.isNewUser) {
+                await setupNewUser(userCredential.user);
+            }
+            
+            return true;
+        } catch (err: any) {
+            setError(err.message);
+            console.error("Google sign-in error:", err);
+            return false;
+        } finally {
+            setIsPending(false);
+        }
+    }, [auth, firestore]);
+
   // OTP Verifier
   const handleVerifyOtp = useCallback(
     async (otp: string) => {
@@ -120,49 +196,9 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
 
       try {
         const userCredential: UserCredential = await confirmationResult.confirm(otp);
-        const user = userCredential.user;
-
-        // --- NEW LOGIC: Create user document and sign-up bonus in Firestore on first login ---
-        if (user && firestore && auth) {
-            const userRef = doc(firestore, 'users', user.uid);
-            const userSnap = await getDoc(userRef);
-
-            if (!userSnap.exists()) {
-                try {
-                    const { uid, email, displayName, photoURL, phoneNumber } = user;
-                    
-                    const batch = writeBatch(firestore);
-
-                    // 1. Create the user document with a 100 balance
-                    batch.set(userRef, {
-                        uid,
-                        email: email || null,
-                        displayName: displayName || 'New User',
-                        photoURL: photoURL || null,
-                        phoneNumber: phoneNumber || null,
-                        walletBalance: 100
-                    });
-
-                    // 2. Create the sign-up bonus transaction
-                    const transactionRef = doc(collection(firestore, 'users', user.uid, 'walletTransactions'));
-                    batch.set(transactionRef, {
-                        amount: 100,
-                        type: 'credit',
-                        description: 'Sign-up Bonus',
-                        timestamp: serverTimestamp()
-                    });
-
-                    await batch.commit();
-                } catch (firestoreError: any) {
-                    console.error("Failed to create user profile and bonus:", firestoreError);
-                    // If creating the user profile fails, sign them out to force a retry on next login
-                    await auth.signOut();
-                    setError("Could not initialize your user profile. Please try logging in again.");
-                    return false;
-                }
-            }
-        }
-        // --- END NEW LOGIC ---
+        
+        // This is now a new user according to Firebase Auth
+        await setupNewUser(userCredential.user);
 
         // Clean up the reCAPTCHA verifier after successful sign-in
         if (recaptchaVerifierRef.current) {
@@ -204,20 +240,21 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
   const value = useMemo(
     () => ({
       confirmationResult,
-      isPending: isPending || userLoading,
+      isPending,
       error,
       phoneNumber,
       signInWithPhoneNumber: handleSignInWithPhoneNumber,
+      signInWithGoogle: handleSignInWithGoogle,
       verifyOtp: handleVerifyOtp,
       signOut: handleSignOut,
     }),
     [
       confirmationResult,
       isPending,
-      userLoading,
       error,
       phoneNumber,
       handleSignInWithPhoneNumber,
+      handleSignInWithGoogle,
       handleVerifyOtp,
       handleSignOut,
     ]
