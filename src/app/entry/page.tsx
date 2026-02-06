@@ -14,7 +14,7 @@ import Autoplay from 'embla-carousel-autoplay';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { useLanguage } from '@/context/LanguageContext';
 import { cn } from '@/lib/utils';
-import { Phone, Loader2 } from 'lucide-react';
+import { Phone, Loader2, Mail } from 'lucide-react';
 import { useAuthUI } from '@/firebase/auth/use-auth-ui';
 import { useToast } from '@/hooks/use-toast';
 import { useCart } from '@/context/CartContext';
@@ -167,11 +167,22 @@ export default function EntryPage() {
         <div className="w-full max-w-sm space-y-4">
           <Button
             className="w-full bg-white text-black rounded-full h-14 text-lg hover:bg-gray-200"
+            onClick={() => router.push('/email-signup')}
+            disabled={isPending}
+          >
+            <Mail className="mr-2 h-6 w-6" />
+            Sign up with Email
+          </Button>
+
+          <Button
+            className="w-full bg-white text-black rounded-full h-14 text-lg hover:bg-gray-200"
             onClick={() => router.push('/phone-login')}
             disabled={isPending}
           >
-            Sign Up
+             <Phone className="mr-2 h-6 w-6" />
+            Sign up with Phone
           </Button>
+
            <div className="relative flex py-2 items-center">
               <div className="flex-grow border-t border-gray-600"></div>
               <span className="flex-shrink mx-4 text-gray-400">or</span>

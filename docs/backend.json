@@ -159,7 +159,8 @@
     "auth": {
         "providers": [
             "phone",
-            "google.com"
+            "google.com",
+            "password"
         ]
     },
     "firestore": {
