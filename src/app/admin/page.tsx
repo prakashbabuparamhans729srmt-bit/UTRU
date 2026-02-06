@@ -111,7 +111,7 @@ export default function AdminDashboard() {
   const [searchQuery, setSearchQuery] = useState('');
 
   return (
-    <SidebarProvider>
+    <SidebarProvider defaultOpen={false}>
       <div className="flex h-screen bg-background text-foreground">
         <Sidebar collapsible="offcanvas" className="hidden md:flex">
           <SidebarHeader>
