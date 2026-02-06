@@ -20,6 +20,8 @@ import { useAuthUI } from '@/firebase/auth/use-auth-ui';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/context/LanguageContext';
 import { useCart } from '@/context/CartContext';
+import { useEffect } from 'react';
+import { useUser } from '@/firebase';
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Invalid email address.' }),
@@ -51,6 +53,7 @@ const GoogleIcon = () => (
 
 export default function EmailLoginPage() {
   const router = useRouter();
+  const { user, loading: userLoading } = useUser();
   const { signInWithEmail, signInWithGoogle, isPending } = useAuthUI();
   const { toast } = useToast();
   const { translations } = useLanguage();
@@ -63,6 +66,12 @@ export default function EmailLoginPage() {
       password: '',
     },
   });
+
+  useEffect(() => {
+    if (!userLoading && user) {
+      router.replace('/');
+    }
+  }, [user, userLoading, router]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const success = await signInWithEmail(values.email, values.password);
@@ -99,6 +108,14 @@ export default function EmailLoginPage() {
       });
     }
   };
+
+  if (userLoading || user) {
+    return (
+      <div className="h-screen w-full flex items-center justify-center bg-background">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    );
+  }
 
 
   return (
@@ -197,7 +214,7 @@ export default function EmailLoginPage() {
             onClick={handleGoogleSignIn}
             disabled={isPending}
         >
-            {isPending ? <Loader2 className="animate-spin" /> : <><GoogleIcon /> Google</>}
+          {isPending ? <Loader2 className="animate-spin" /> : <><GoogleIcon /> Sign in with Google</>}
         </Button>
 
         <p className="mt-6 text-center text-sm text-muted-foreground">
