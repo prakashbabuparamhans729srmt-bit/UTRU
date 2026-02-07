@@ -35,7 +35,7 @@ interface AuthUIContextType {
   // Actions
   signInWithPhoneNumber: (phoneNumber: string, container: HTMLElement | null) => Promise<boolean>;
   signInWithGoogle: () => Promise<boolean>;
-  signUpWithEmail: (email: string, password: string, name: string, country: string, state: string) => Promise<boolean>;
+  signUpWithEmail: (email: string, password: string, displayName: string) => Promise<boolean>;
   signInWithEmail: (email: string, password: string) => Promise<boolean>;
   sendPasswordReset: (email: string) => Promise<boolean>;
   verifyOtp: (otp: string) => Promise<boolean>;
@@ -182,7 +182,7 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
     }, [auth, firestore]);
 
   // Email Sign-Up
-  const handleSignUpWithEmail = useCallback(async (email: string, password: string, name: string, country: string, state: string) => {
+  const handleSignUpWithEmail = useCallback(async (email: string, password: string, displayName: string) => {
     if (!auth || !firestore) {
         setError("Firebase not available.");
         return false;
@@ -191,8 +191,8 @@ export const AuthUIProvider = ({ children }: { children: React.ReactNode }) => {
     setError(null);
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        await updateProfile(userCredential.user, { displayName: name });
-        await setupNewUser(userCredential.user, { name, country, state });
+        await updateProfile(userCredential.user, { displayName });
+        await setupNewUser(userCredential.user, { name: displayName });
         return true;
     } catch (err: any) {
         setError(err.message);

@@ -10,7 +10,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { ChevronLeft, Loader2 } from 'lucide-react';
+import { Loader2, LayoutGrid } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -29,7 +29,7 @@ const formSchema = z.object({
 });
 
 const GoogleIcon = () => (
-    <svg className="mr-2 h-5 w-5" viewBox="0 0 24 24">
+    <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
       <path
         d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
         fill="#4285F4"
@@ -111,118 +111,129 @@ export default function EmailLoginPage() {
 
   if (userLoading || user) {
     return (
-      <div className="h-screen w-full flex items-center justify-center bg-background">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      <div className="h-screen w-full flex items-center justify-center bg-gray-900">
+        <Loader2 className="w-8 h-8 animate-spin text-teal-400" />
       </div>
     );
   }
 
 
   return (
-    <div className="bg-background text-foreground min-h-screen flex items-center justify-center">
-      <div className="bg-card text-card-foreground w-full max-w-md mx-4 rounded-3xl p-8 shadow-lg border">
-        <div className="flex items-center justify-between mb-8">
-          <Button
-            size="icon"
-            variant="ghost"
-            className="rounded-full"
-            onClick={() => router.back()}
-          >
-            <ChevronLeft className="w-6 h-6" />
-          </Button>
-          <h1 className="text-2xl font-bold">Login</h1>
-          <div className="w-12"></div>
+     <div className="min-h-screen bg-gray-900 text-white grid lg:grid-cols-2">
+      <div className="hidden lg:flex flex-col items-start justify-center p-12 bg-gradient-to-br from-teal-800 via-gray-900 to-purple-900">
+        <div className="flex items-center gap-4 mb-8">
+            <LayoutGrid className="h-10 w-10 text-white"/>
+            <span className="text-3xl font-bold">UCLAP</span>
         </div>
-
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="you@example.com"
-                      {...field}
-                      type="email"
-                      className="bg-muted"
-                      disabled={isPending}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="••••••••"
-                      {...field}
-                      type="password"
-                      className="bg-muted"
-                      disabled={isPending}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <div className="text-right">
-              <Link
-                href="/forgot-password"
-                className="text-sm text-primary hover:underline"
-              >
-                Forgot Password?
-              </Link>
+        <h1 className="text-5xl font-bold mb-4">Welcome Back!</h1>
+        <p className="text-lg text-gray-300 mb-12">Log in to access your account and continue where you left off.</p>
+         <div className="space-y-4 w-full max-w-sm">
+            <div className="bg-white/10 p-4 rounded-lg">
+                <p className="font-bold text-gray-400">1. Log in to your account</p>
             </div>
+            <div className="bg-white/10 p-4 rounded-lg">
+                <p className="font-bold text-gray-400">2. Manage your services</p>
+            </div>
+            <div className="bg-white p-4 rounded-lg text-black">
+                <p className="font-bold">3. Enjoy seamless service!</p>
+            </div>
+        </div>
+      </div>
+      <div className="flex flex-col justify-center items-center p-8">
+        <div className="w-full max-w-md">
+            <h2 className="text-3xl font-bold mb-2">Log In to Your Account</h2>
+            <p className="text-gray-400 mb-8">Welcome back! Please enter your details.</p>
 
             <Button
-              type="submit"
-              className="w-full h-12 text-lg"
-              disabled={isPending}
+                variant="outline"
+                className="w-full h-12 text-base bg-gray-800 border-gray-700 hover:bg-gray-700"
+                onClick={handleGoogleSignIn}
+                disabled={isPending}
             >
-              {isPending ? (
-                <Loader2 className="animate-spin" />
-              ) : (
-                'Login'
-              )}
+              {isPending ? <Loader2 className="animate-spin" /> : <><GoogleIcon /> Sign in with Google</>}
             </Button>
-          </form>
-        </Form>
-        
-        <div className="relative my-6">
-            <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t" />
+            
+            <div className="relative my-6">
+                <div className="absolute inset-0 flex items-center">
+                    <span className="w-full border-t border-gray-700" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                    <span className="bg-gray-900 px-2 text-gray-500">
+                    Or
+                    </span>
+                </div>
             </div>
-            <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-card px-2 text-muted-foreground">
-                Or continue with
-                </span>
-            </div>
+
+            <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                    <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                        <Input
+                        placeholder="you@example.com"
+                        {...field}
+                        type="email"
+                        className="bg-gray-800 border-gray-700 h-12"
+                        disabled={isPending}
+                        />
+                    </FormControl>
+                    <FormMessage />
+                    </FormItem>
+                )}
+                />
+                <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                    <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                        <Input
+                        placeholder="••••••••"
+                        {...field}
+                        type="password"
+                        className="bg-gray-800 border-gray-700 h-12"
+                        disabled={isPending}
+                        />
+                    </FormControl>
+                    <FormMessage />
+                    </FormItem>
+                )}
+                />
+                <div className="text-right">
+                <Link
+                    href="/forgot-password"
+                    className="text-sm text-teal-400 hover:underline"
+                >
+                    Forgot Password?
+                </Link>
+                </div>
+
+                <Button
+                type="submit"
+                className="w-full h-12 text-lg bg-teal-400 text-black hover:bg-teal-500"
+                disabled={isPending}
+                >
+                {isPending ? (
+                    <Loader2 className="animate-spin" />
+                ) : (
+                    'Log In'
+                )}
+                </Button>
+            </form>
+            </Form>
+            
+            <p className="mt-6 text-center text-sm text-gray-400">
+            Don't have an account?{' '}
+            <Link href="/email-signup" className="font-semibold text-teal-400 hover:underline">
+                Sign up
+            </Link>
+            </p>
         </div>
-
-        <Button
-            variant="outline"
-            className="w-full h-12 text-base"
-            onClick={handleGoogleSignIn}
-            disabled={isPending}
-        >
-          {isPending ? <Loader2 className="animate-spin" /> : <><GoogleIcon /> Sign in with Google</>}
-        </Button>
-
-        <p className="mt-6 text-center text-sm text-muted-foreground">
-          Don't have an account?{' '}
-          <Link href="/email-signup" className="text-primary hover:underline">
-            Sign up
-          </Link>
-        </p>
       </div>
     </div>
   );
