@@ -2,67 +2,103 @@
 'use client';
 
 import {
+  Home,
+  Flame,
+  MessageSquare,
+  Lightbulb,
+  Crown,
+  Globe,
+  Bell,
   Search,
-  X,
-  MapPin,
-  Phone,
-  Mic,
-  SlidersHorizontal,
-  Menu,
-  ChevronLeft,
-  Sun,
-  Wind,
-  Droplets,
-  Sunrise,
-  Sunset,
-  CloudRain,
-  Newspaper,
-  CalendarDays,
-  Map as MapIcon,
-  Users,
-  GraduationCap,
-  Briefcase,
-  Landmark,
-  Shield,
-  Train,
-  Bus,
-  Plane,
-  TramFront,
-  Banknote,
-  Sprout,
-  Thermometer,
-  FileText,
-  Gavel,
-  BookOpen,
-  Award,
-  Scroll,
-  Megaphone,
-  Ticket,
-  BookUser,
-  Siren,
-  CircleAlert,
-  CircleCheck,
-  Building,
+  User,
+  Settings,
   BarChart2,
-  BookCopy,
+  MapPin,
+  Clock,
+  Map as MapIcon,
+  Leaf,
   HeartPulse,
-  Building2,
-  BookMarked,
+  Briefcase,
+  Smile,
+  Vote,
+  Plus,
+  Trophy,
+  BookOpen,
+  ThumbsUp,
+  List as ListIcon,
+  Landmark,
+  CheckCircle,
+  Download,
+  Users as UsersIcon,
+  Share2,
+  Bookmark,
+  UserPlus,
+  Languages,
+  X,
+  ThumbsDown,
+  Repeat,
+  Paperclip,
+  Tag,
+  Rocket,
+  Edit,
+  Eye,
+  Ban,
+  Trash2,
+  Video,
+  File as FileIcon,
+  Link as LinkIcon,
+  MoreHorizontal,
+  ChevronRight,
+  Upload,
+  RefreshCw,
+  LayoutDashboard,
+  Box,
+  Building,
+  CheckCircle2,
+  ClipboardList,
+  LogOut,
+  Mail,
+  AlertTriangle,
+  HardDrive,
+  Cloud,
+  Layers,
+  Archive,
+  Terminal,
+  TestTube,
+  HardHat,
   Waypoints,
   LocateFixed,
-  Download,
   Footprints,
   Car,
   Wheat,
-  Cloud,
   Wallet,
   Ruler,
-  Globe,
-  Trophy,
   Medal,
   PlaySquare,
   Quote,
-  LayoutGrid
+  LayoutGrid,
+  Mic,
+  SlidersHorizontal,
+  Star,
+  Zap,
+  Target,
+  Award,
+  Droplets,
+  GraduationCap,
+  ChevronLeft,
+  Phone,
+  Siren,
+  Thermometer,
+  TramFront,
+  Train,
+  Bus,
+  Plane,
+  Building2,
+  Gavel,
+  Scroll,
+  Megaphone,
+  BookUser,
+  CircleAlert,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -79,6 +115,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useRouter, usePathname } from 'next/navigation';
+import { useToast } from '@/hooks/use-toast';
 
 const WeatherCard = () => (
     <Card>
@@ -115,7 +152,9 @@ const WeatherCard = () => (
     </Card>
 );
 
-const EmergencyCard = () => (
+const EmergencyCard = () => {
+    const { toast } = useToast();
+    return (
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-lg">
@@ -127,32 +166,32 @@ const EmergencyCard = () => (
         <div>
           <h3 className="font-semibold mb-2">एक क्लिक में कॉल:</h3>
           <div className="flex flex-wrap gap-2">
-            <Button variant="destructive" size="sm"><Phone className="mr-2 h-4 w-4" /> पुलिस - १००</Button>
-            <Button variant="destructive" size="sm"><Phone className="mr-2 h-4 w-4" /> एम्बुलेंस - १०२</Button>
-            <Button variant="destructive" size="sm"><Phone className="mr-2 h-4 w-4" /> अग्निशमन - १०१</Button>
-            <Button variant="destructive" size="sm"><Phone className="mr-2 h-4 w-4" /> महिला हेल्पलाइन - १०९०</Button>
-            <Button variant="destructive" size="sm"><Phone className="mr-2 h-4 w-4" /> चाइल्ड हेल्पलाइन - १०९८</Button>
+            <Button variant="destructive" size="sm" onClick={() => window.location.href = 'tel:100'}><Phone className="mr-2 h-4 w-4" /> पुलिस - १००</Button>
+            <Button variant="destructive" size="sm" onClick={() => window.location.href = 'tel:102'}><Phone className="mr-2 h-4 w-4" /> एम्बुलेंस - १०२</Button>
+            <Button variant="destructive" size="sm" onClick={() => window.location.href = 'tel:101'}><Phone className="mr-2 h-4 w-4" /> अग्निशमन - १०१</Button>
+            <Button variant="destructive" size="sm" onClick={() => window.location.href = 'tel:1090'}><Phone className="mr-2 h-4 w-4" /> महिला हेल्पलाइन - १०९०</Button>
+            <Button variant="destructive" size="sm" onClick={() => window.location.href = 'tel:1098'}><Phone className="mr-2 h-4 w-4" /> चाइल्ड हेल्पलाइन - १०९८</Button>
           </div>
         </div>
         <div className="border-t pt-4">
           <h3 className="font-semibold">निकटतम स्वास्थ्य सुविधाएँ:</h3>
           <p className="text-muted-foreground">• सिविल हॉस्पिटल (२ किमी) - ०५२२-२२५५०००</p>
-          <p className="text-muted-foreground">• मेडिकल कॉलेज (३.५ किमी) - २४x৭ आपातकालीन</p>
+          <p className="text-muted-foreground">• मेडिकल कॉलेज (३.५ किमी) - ২৪x৭ आपातकालीन</p>
           <div className="flex gap-2 mt-2">
-            <Button variant="outline" size="sm"><MapIcon className="mr-2 h-4 w-4" /> रूट देखें</Button>
-            <Button variant="outline" size="sm"><Phone className="mr-2 h-4 w-4" /> कॉल करें</Button>
+            <Button variant="outline" size="sm" onClick={() => window.open('https://www.google.com/maps/dir/?api=1&destination=Civil+Hospital+Lucknow', '_blank')}><MapIcon className="mr-2 h-4 w-4" /> रूट देखें</Button>
+            <Button variant="outline" size="sm" onClick={() => window.location.href = 'tel:05222255000'}><Phone className="mr-2 h-4 w-4" /> कॉल करें</Button>
           </div>
         </div>
         <div className="border-t pt-4">
           <h3 className="font-semibold">निकटतम पुलिस स्टेशन: हज़रतगंज थाना (१.५ किमी)</h3>
           <p className="text-muted-foreground">📞: ०५२२-२२१०३००</p>
           <div className="mt-2">
-            <Button variant="destructive" className="w-full"><Siren className="mr-2 h-4 w-4" /> SOS अलर्ट भेजें</Button>
+            <Button variant="destructive" className="w-full" onClick={() => toast({ title: 'SOS Alert Sent', description: 'Your location has been shared with emergency contacts.'})}><Siren className="mr-2 h-4 w-4" /> SOS अलर्ट भेजें</Button>
           </div>
         </div>
       </CardContent>
     </Card>
-);
+)};
 
 const LocalNewsCard = () => (
     <Card>
@@ -186,12 +225,12 @@ const MapCard = () => (
                 <p className="text-muted-foreground">गूगल मैप्स / ओपनस्ट्रीटमैप इंटीग्रेशन</p>
             </div>
             <div className="flex flex-wrap gap-2">
-                <Button variant="outline" size="sm"><LocateFixed className="w-4 h-4 mr-2" /> मेरी लोकेशन सेट करें</Button>
-                <Button variant="outline" size="sm"><Search className="w-4 h-4 mr-2" /> स्थान खोजें</Button>
-                <Button variant="outline" size="sm"><Ruler className="w-4 h-4 mr-2" /> दूरी मापें</Button>
-                <Button variant="outline" size="sm"><Footprints className="w-4 h-4 mr-2" /> पैदल मार्ग</Button>
-                <Button variant="outline" size="sm"><Car className="w-4 h-4 mr-2" /> गाड़ी मार्ग</Button>
-                <Button variant="outline" size="sm"><Download className="w-4 h-4 mr-2" /> ऑफ़लाइन मैप डाउनलोड</Button>
+                <Button variant="outline" size="sm" onClick={() => navigator.geolocation.getCurrentPosition(pos => window.open(`https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`, '_blank'))}><LocateFixed className="w-4 h-4 mr-2" /> मेरी लोकेशन सेट करें</Button>
+                <Button variant="outline" size="sm" onClick={() => document.querySelector('input[type="text"]')?.focus()}><Search className="w-4 h-4 mr-2" /> स्थान खोजें</Button>
+                <Button variant="outline" size="sm" onClick={() => window.open('https://www.google.com/maps', '_blank')}><Ruler className="w-4 h-4 mr-2" /> दूरी मापें</Button>
+                <Button variant="outline" size="sm" onClick={() => window.open('https://www.google.com/maps?q=directions&travelmode=walking', '_blank')}><Footprints className="w-4 h-4 mr-2" /> पैदल मार्ग</Button>
+                <Button variant="outline" size="sm" onClick={() => window.open('https://www.google.com/maps?q=directions&travelmode=driving', '_blank')}><Car className="w-4 h-4 mr-2" /> गाड़ी मार्ग</Button>
+                <Button variant="outline" size="sm" onClick={() => window.open('https://support.google.com/maps/answer/6291838', '_blank')}><Download className="w-4 h-4 mr-2" /> ऑफ़लाइन मैप डाउनलोड</Button>
             </div>
         </CardContent>
     </Card>
@@ -330,8 +369,8 @@ const DistrictTransportCard = () => (
                 <h3 className="font-semibold flex items-center gap-2"><Train/> रेलवे स्टेशन: लखनऊ जंक्शन</h3>
                 <p className="text-muted-foreground">🚅 वंदे भारत, शताब्दी, राजधानी एक्सप्रेस</p>
                 <div className="flex gap-2 mt-1">
-                    <Button variant="link" className="p-0 h-auto">ट्रेन शेड्यूल</Button>
-                    <Button variant="link" className="p-0 h-auto">टिकट बुकिंग</Button>
+                    <Button variant="link" className="p-0 h-auto" onClick={() => window.open('https://www.irctc.co.in/', '_blank')}>ट्रेन शेड्यूल</Button>
+                    <Button variant="link" className="p-0 h-auto" onClick={() => window.open('https://www.irctc.co.in/', '_blank')}>टिकट बुकिंग</Button>
                 </div>
             </div>
              <div>
@@ -345,8 +384,8 @@ const DistrictTransportCard = () => (
              <div>
                 <h3 className="font-semibold flex items-center gap-2"><TramFront/> मेट्रो रेल: २ लाइन (२३ स्टेशन)</h3>
                 <div className="flex gap-2 mt-1">
-                    <Button variant="link" className="p-0 h-auto">मेट्रो मैप</Button>
-                    <Button variant="link" className="p-0 h-auto">स्मार्ट कार्ड रिचार्ज</Button>
+                    <Button variant="link" className="p-0 h-auto" onClick={() => window.open('https://www.lmrcl.com/', '_blank')}>मेट्रो मैप</Button>
+                    <Button variant="link" className="p-0 h-auto" onClick={() => window.open('https://www.lmrcl.com/passenger/value-added-services', '_blank')}>स्मार्ट कार्ड रिचार्ज</Button>
                 </div>
             </div>
         </CardContent>
@@ -368,10 +407,10 @@ const DistrictSchemesCard = () => (
             <div>
                 <h3 className="font-semibold">आवेदन प्रक्रिया:</h3>
                  <div className="flex flex-wrap gap-2 mt-1">
-                    <Button variant="outline" size="sm">फॉर्म डाउनलोड</Button>
-                    <Button variant="outline" size="sm">योग्यता जाँचें</Button>
-                    <Button variant="outline" size="sm">ऑनलाइन आवेदन करें</Button>
-                    <Button variant="outline" size="sm">आवेदन स्थिति जाँचें</Button>
+                    <Button variant="outline" size="sm" onClick={() => window.open('https://www.india.gov.in/my-government/schemes', '_blank')}>फॉर्म डाउनलोड</Button>
+                    <Button variant="outline" size="sm" onClick={() => window.open('https://www.india.gov.in/my-government/schemes', '_blank')}>योग्यता जाँचें</Button>
+                    <Button variant="outline" size="sm" onClick={() => window.open('https://www.india.gov.in/my-government/schemes', '_blank')}>ऑनलाइन आवेदन करें</Button>
+                    <Button variant="outline" size="sm" onClick={() => window.open('https://www.india.gov.in/my-government/schemes', '_blank')}>आवेदन स्थिति जाँचें</Button>
                 </div>
             </div>
              <div>
@@ -500,32 +539,6 @@ const StateExamsCard = () => (
     </Card>
 );
 
-const StateTransportCard = () => (
-    <Card>
-        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Bus /> राज्य परिवहन और यात्रा</CardTitle></CardHeader>
-        <CardContent className="space-y-4 text-sm">
-            <div>
-                <h3 className="font-semibold">UPSRTC (उत्तर प्रदेश सड़क परिवहन निगम):</h3>
-                <p className="text-muted-foreground">• बसें: १०,०००+ | मार्ग: २,५००+ | दैनिक यात्री: ३० लाख+</p>
-                <Button variant="link" className="p-0 h-auto">ऑनलाइन टिकट बुकिंग</Button>
-            </div>
-            <div>
-                <h3 className="font-semibold">रेलवे:</h3>
-                <p className="text-muted-foreground">• प्रमुख स्टेशन: लखनऊ, कानपुर, वाराणसी, प्रयागराज</p>
-            </div>
-            <div>
-                <h3 className="font-semibold">हवाई अड्डे:</h3>
-                <p className="text-muted-foreground">• अंतर्राष्ट्रीय: लखनऊ, वाराणसी, कुशीनगर</p>
-                <p className="text-muted-foreground">• घरेलू: आगरा, प्रयागराज, गोरखपुर</p>
-            </div>
-            <div>
-                <h3 className="font-semibold">राजमार्ग:</h3>
-                <p className="text-muted-foreground">• NH-24, यमुना एक्सप्रेसवे, पूर्वांचल एक्सप्रेसवे</p>
-            </div>
-        </CardContent>
-    </Card>
-);
-
 const StateAgricultureCard = () => (
     <Card>
         <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Sprout /> कृषि और मौसम पूर्वानुमान</CardTitle></CardHeader>
@@ -550,26 +563,6 @@ const StateAgricultureCard = () => (
     </Card>
 );
 
-const StateHealthCard = () => (
-    <Card>
-        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><HeartPulse /> स्वास्थ्य और चिकित्सा सुविधाएँ</CardTitle></CardHeader>
-        <CardContent className="space-y-4 text-sm">
-            <div>
-                <h3 className="font-semibold">चिकित्सा बुनियादी ढाँचा:</h3>
-                <p className="text-muted-foreground">• सरकारी अस्पताल: ८००+, स्वास्थ्य केंद्र: २०,०००+</p>
-            </div>
-            <div>
-                <h3 className="font-semibold">महत्वपूर्ण संस्थान:</h3>
-                <p className="text-muted-foreground">• SGPGI लखनऊ, KGMU लखनऊ, AIIMS (गोरखपुर, रायबरेली)</p>
-            </div>
-            <div>
-                <h3 className="font-semibold">सार्वजनिक स्वास्थ्य कार्यक्रम:</h3>
-                <p className="text-muted-foreground">• आयुष्मान भारत, टीकाकरण अभियान, स्वच्छ भारत मिशन</p>
-            </div>
-        </CardContent>
-    </Card>
-);
-
 const NationalSymbolCard = () => (
     <Card>
         <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Award /> राष्ट्रीय प्रतीक और गान</CardTitle></CardHeader>
@@ -580,8 +573,8 @@ const NationalSymbolCard = () => (
             <p><b> राष्ट्रीय पशु:</b> बाघ</p>
             <p><b> राष्ट्रीय पक्षी:</b> मोर</p>
             <div className="flex gap-2 mt-2">
-                <Button variant="outline" size="sm">गान सुनें</Button>
-                <Button variant="outline" size="sm">संविधान देखें</Button>
+                <Button variant="outline" size="sm" onClick={() => window.open('https://www.youtube.com/watch?v=gb1UeSU11qI', '_blank')}>गान सुनें</Button>
+                <Button variant="outline" size="sm" onClick={() => window.open('https://www.india.gov.in/my-government/documents/constitutions', '_blank')}>संविधान देखें</Button>
             </div>
              <div className="border-t pt-2 mt-2">
                 <h3 className="font-semibold">राष्ट्रीय अवकाश:</h3>
@@ -659,9 +652,9 @@ const NationalSchemesCard = () => (
                 <li>उज्ज्वला योजना</li>
             </ul>
             <div className="flex flex-wrap gap-2 mt-4">
-                <Button variant="outline" size="sm">ऑनलाइन आवेदन करें</Button>
-                <Button variant="outline" size="sm">योग्यता जाँचें</Button>
-                <Button variant="outline" size="sm">आवेदन स्थिति जाँचें</Button>
+                <Button variant="outline" size="sm" onClick={() => window.open('https://www.india.gov.in/my-government/schemes', '_blank')}>ऑनलाइन आवेदन करें</Button>
+                <Button variant="outline" size="sm" onClick={() => window.open('https://www.india.gov.in/my-government/schemes', '_blank')}>योग्यता जाँचें</Button>
+                <Button variant="outline" size="sm" onClick={() => window.open('https://www.india.gov.in/my-government/schemes', '_blank')}>आवेदन स्थिति जाँचें</Button>
             </div>
         </CardContent>
     </Card>
@@ -671,10 +664,10 @@ const DocumentServicesCard = () => (
     <Card>
         <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><BookUser /> पासपोर्ट, आधार, पैन और दस्तावेज़ सेवाएँ</CardTitle></CardHeader>
         <CardContent className="flex flex-wrap gap-2">
-            <Button variant="secondary" size="sm">पासपोर्ट सेवाएँ</Button>
-            <Button variant="secondary" size="sm">आधार कार्ड सेवाएँ</Button>
-            <Button variant="secondary" size="sm">पैन कार्ड सेवाएँ</Button>
-            <Button variant="secondary" size="sm">मतदाता पहचान पत्र</Button>
+            <Button variant="secondary" size="sm" onClick={() => window.open('https://www.passportindia.gov.in/', '_blank')}>पासपोर्ट सेवाएँ</Button>
+            <Button variant="secondary" size="sm" onClick={() => window.open('https://uidai.gov.in/', '_blank')}>आधार कार्ड सेवाएँ</Button>
+            <Button variant="secondary" size="sm" onClick={() => window.open('https://www.onlineservices.nsdl.com/paam/endUserRegisterContact.html', '_blank')}>पैन कार्ड सेवाएँ</Button>
+            <Button variant="secondary" size="sm" onClick={() => window.open('https://voters.eci.gov.in/', '_blank')}>मतदाता पहचान पत्र</Button>
         </CardContent>
     </Card>
 );
@@ -752,6 +745,52 @@ const IndiaFactsCard = () => (
             </div>
         </CardContent>
     </Card>
+);
+
+const StateTransportCard = () => (
+    <Card>
+       <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Bus /> राज्य परिवहन और यात्रा</CardTitle></CardHeader>
+       <CardContent className="space-y-4 text-sm">
+           <div>
+               <h3 className="font-semibold">UPSRTC (उत्तर प्रदेश सड़क परिवहन निगम):</h3>
+               <p className="text-muted-foreground">• बसें: १०,०००+ | मार्ग: २,५००+ | दैनिक यात्री: ३० लाख+</p>
+               <Button variant="link" className="p-0 h-auto">ऑनलाइन टिकट बुकिंग</Button>
+           </div>
+           <div>
+               <h3 className="font-semibold">रेलवे:</h3>
+               <p className="text-muted-foreground">• प्रमुख स्टेशन: लखनऊ, कानपुर, वाराणसी, प्रयागराज</p>
+           </div>
+           <div>
+               <h3 className="font-semibold">हवाई अड्डे:</h3>
+               <p className="text-muted-foreground">• अंतर्राष्ट्रीय: लखनऊ, वाराणसी, कुशीनगर</p>
+               <p className="text-muted-foreground">• घरेलू: आगरा, प्रयागराज, गोरखपुर</p>
+           </div>
+           <div>
+               <h3 className="font-semibold">राजमार्ग:</h3>
+               <p className="text-muted-foreground">• NH-24, यमुना एक्सप्रेसवे, पूर्वांचल एक्सप्रेसवे</p>
+           </div>
+       </CardContent>
+   </Card>
+);
+
+const StateHealthCard = () => (
+   <Card>
+       <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><HeartPulse /> स्वास्थ्य और चिकित्सा सुविधाएँ</CardTitle></CardHeader>
+       <CardContent className="space-y-4 text-sm">
+           <div>
+               <h3 className="font-semibold">चिकित्सा बुनियादी ढाँचा:</h3>
+               <p className="text-muted-foreground">• सरकारी अस्पताल: ८००+, स्वास्थ्य केंद्र: २०,०००+</p>
+           </div>
+           <div>
+               <h3 className="font-semibold">महत्वपूर्ण संस्थान:</h3>
+               <p className="text-muted-foreground">• SGPGI लखनऊ, KGMU लखनऊ, AIIMS (गोरखपुर, रायबरेली)</p>
+           </div>
+           <div>
+               <h3 className="font-semibold">सार्वजनिक स्वास्थ्य कार्यक्रम:</h3>
+               <p className="text-muted-foreground">• आयुष्मान भारत, टीकाकरण अभियान, स्वच्छ भारत मिशन</p>
+           </div>
+       </CardContent>
+   </Card>
 );
 
 export default function MorePage() {
