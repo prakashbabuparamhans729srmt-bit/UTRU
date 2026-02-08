@@ -293,7 +293,7 @@ const DistrictHealthCard = () => (
              <div>
                 <h3 className="font-semibold">टीकाकरण और परीक्षण:</h3>
                 <p className="text-muted-foreground">💉 टीकाकरण केंद्र: १५०+ (📍 निकटतम खोजें)</p>
-                <p className="text-muted-foreground">🧪 COVID-19 टेस्टिंग सेंटर: ২৫+</p>
+                <p className="text-muted-foreground">🧪 COVID-19 टेस्टिंग सेंटर: २५+</p>
             </div>
              <div className="flex gap-2 mt-2">
                 <Button variant="outline" size="sm">सभी अस्पताल देखें</Button>
@@ -803,6 +803,7 @@ export default function MorePage() {
   const router = useRouter();
   const pathname = usePathname();
   const [searchQuery, setSearchQuery] = useState('');
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { translations } = useLanguage();
   const { openModal: openVoiceModal } = useVoiceSearch();
   const adImages = PlaceHolderImages.filter((img) => img.id.startsWith('ad-hero'));
@@ -818,34 +819,49 @@ export default function MorePage() {
 
   return (
     <div className="bg-background text-foreground min-h-screen">
-        <header className="p-4 flex items-center justify-between border-b sticky top-0 bg-background/80 backdrop-blur-sm z-20">
+      <header className="p-4 flex items-center justify-between border-b sticky top-0 bg-background/80 backdrop-blur-sm z-20">
+        {isSearchOpen ? (
+          <div className="flex items-center gap-2 w-full">
+            <Button onClick={() => setIsSearchOpen(false)} size="icon" variant="ghost" className="rounded-full">
+              <ChevronLeft />
+            </Button>
+            <form onSubmit={handleSearchSubmit} className="relative flex-grow">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+              <input
+                type="text"
+                placeholder="खोजें..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full bg-input rounded-full pl-10 pr-12 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                autoFocus
+              />
+              <Mic
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground cursor-pointer"
+                onClick={openVoiceModal}
+              />
+            </form>
+          </div>
+        ) : (
+          <>
             <div className='flex items-center gap-4'>
-                <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
+              <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
                 <ChevronLeft />
-                </Button>
-                <h1 className="text-lg font-semibold">🇮🇳 भारत सूचना</h1>
+              </Button>
+              <h1 className="text-lg font-semibold">🇮🇳 भारत सूचना</h1>
             </div>
             <div className='flex items-center gap-2'>
-                <Button size="icon" variant="ghost" className="rounded-full"><Search /></Button>
-                <Button size="icon" variant="ghost" className="rounded-full"><Users /></Button>
+              <Button onClick={() => setIsSearchOpen(true)} size="icon" variant="ghost" className="rounded-full">
+                <Search />
+              </Button>
+              <Button size="icon" variant="ghost" className="rounded-full">
+                <Users />
+              </Button>
             </div>
-        </header>
+          </>
+        )}
+      </header>
 
         <main className="p-4 space-y-6 pb-32">
-            <form onSubmit={handleSearchSubmit} className="relative flex-grow">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                <input
-                    type="text"
-                    placeholder="खोजें..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full bg-input rounded-full pl-10 pr-12 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-                />
-                <Mic
-                    className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground cursor-pointer"
-                    onClick={openVoiceModal}
-                />
-            </form>
 
             <Carousel 
               className="w-full" 
