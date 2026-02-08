@@ -8,6 +8,10 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { ChevronLeft, Loader2, Video } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useUser, useFirestore } from '@/firebase';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { errorEmitter } from '@/firebase/error-emitter';
+import { FirestorePermissionError } from '@/firebase/errors';
 
 export default function AddShortPage() {
   const router = useRouter();
@@ -16,6 +20,9 @@ export default function AddShortPage() {
   const [views, setViews] = useState('');
   const [imageId, setImageId] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  const { user } = useUser();
+  const firestore = useFirestore();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,36 +35,52 @@ export default function AddShortPage() {
       return;
     }
 
+    if (!user || !firestore) {
+      toast({
+        variant: 'destructive',
+        title: 'Not Authenticated',
+        description: 'You must be logged in to add a video.',
+      });
+      router.push('/login');
+      return;
+    }
+
     setIsLoading(true);
 
-    try {
-        const newShort = {
-            id: `short-${Date.now()}`,
-            title,
-            views,
-            imageId
-        };
-
-        const existingShorts = JSON.parse(localStorage.getItem('user_shorts') || '[]');
-        const updatedShorts = [newShort, ...existingShorts];
-        localStorage.setItem('user_shorts', JSON.stringify(updatedShorts));
-
+    const shortData = {
+      title,
+      views,
+      imageId,
+      userId: user.uid,
+      createdAt: serverTimestamp(),
+    };
+    const shortsCollection = collection(firestore, 'shorts');
+    
+    addDoc(shortsCollection, shortData)
+      .then(() => {
         toast({
-            title: 'Short Video Added!',
-            description: 'Your new short video is now available on the explore page.',
+          title: 'Short Video Added!',
+          description: 'Your new short video is now available on the explore page.',
         });
-
         router.push('/explore');
-    } catch (error) {
-        console.error('Failed to save short:', error);
-        toast({
-            variant: 'destructive',
-            title: 'Error',
-            description: 'Could not save the short video.',
+      })
+      .catch((serverError) => {
+        console.error('Failed to save short:', serverError);
+        const permissionError = new FirestorePermissionError({
+          path: 'shorts',
+          operation: 'create',
+          requestResourceData: shortData,
         });
-    } finally {
+        errorEmitter.emit('permission-error', permissionError);
+        toast({
+          variant: 'destructive',
+          title: 'Error',
+          description: 'Could not save the short video.',
+        });
+      })
+      .finally(() => {
         setIsLoading(false);
-    }
+      });
   };
 
   return (

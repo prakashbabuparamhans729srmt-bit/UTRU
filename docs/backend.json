@@ -154,6 +154,39 @@
                 "description",
                 "timestamp"
             ]
+        },
+        "shortVideo": {
+            "title": "Short Video",
+            "description": "A short video created by the company.",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "views": {
+                    "type": "string"
+                },
+                "imageId": {
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "string",
+                    "description": "The UID of the user who created the short."
+                },
+                "createdAt": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            },
+            "required": [
+                "id",
+                "title",
+                "userId",
+                "createdAt"
+            ]
         }
     },
     "auth": {
@@ -187,6 +220,12 @@
                 "$ref": "#/backend/entities/walletTransaction"
             },
             "description": "Stores a user's wallet transaction history. A 'Sign-up Bonus' transaction is added for new users."
+        },
+        "/shorts/{shortId}": {
+            "schema": {
+                "$ref": "#/backend/entities/shortVideo"
+            },
+            "description": "Stores short videos created by the company to be shown to customers."
         }
     }
 }

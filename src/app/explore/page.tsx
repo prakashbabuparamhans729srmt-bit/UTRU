@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -20,12 +20,15 @@ import {
   Pause,
   Music,
   Loader2,
+  Video,
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Autoplay from 'embla-carousel-autoplay';
 import { shortsData } from '@/lib/navigation';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
+import { useCollection, useFirestore } from '@/firebase';
+import { collection, query, orderBy, type DocumentData } from 'firebase/firestore';
 
 
 // A utility function to format large numbers
@@ -40,6 +43,15 @@ const formatCount = (num: number): string => {
     return num.toString();
   };
 
+interface Short extends DocumentData {
+    id: string;
+    title: string;
+    views: string;
+    imageId: string;
+    userId?: string;
+    createdAt?: any;
+}
+
 export default function ExplorePage() {
   const router = useRouter();
   const [api, setApi] = useState<CarouselApi>();
@@ -47,41 +59,48 @@ export default function ExplorePage() {
   const [likedStatus, setLikedStatus] = useState<{ [key: string]: boolean }>({});
   const [likeCounts, setLikeCounts] = useState<{ [key: string]: number }>({});
   const { toast } = useToast();
-  const [allShorts, setAllShorts] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  
+  const firestore = useFirestore();
+
+  const shortsQuery = useMemo(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'shorts'), orderBy('createdAt', 'desc'));
+  }, [firestore]);
+
+  const { data: shortsFromDb, loading: isLoading } = useCollection<Short>(shortsQuery);
+  
+  const allShorts = useMemo(() => {
+    const dbShorts = shortsFromDb || [];
+    const combined = [...dbShorts, ...shortsData];
+    
+    return combined.map((short, index) => {
+        const image = PlaceHolderImages.find((img) => img.id === short.imageId);
+        const viewsNumber = parseFloat(short.views) * 1000000 || Math.floor(Math.random() * 5000000);
+        const initialLikes = Math.floor(viewsNumber / 10 + Math.random() * 10000);
+
+        return {
+            ...short,
+            id: short.id, 
+            imageUrl: image?.imageUrl || `https://picsum.photos/seed/${short.id}/900/1600`,
+            imageHint: image?.imageHint || 'video content',
+            userName: short.userId ? `User-${short.userId.substring(0,4)}` : `Creator${index + 1}`,
+            avatarUrl: `https://picsum.photos/seed/avatar${short.id}/40/40`,
+            description: `${short.title} - Check this out! #cool #video #fyp`,
+            audio: `Original Audio - ${short.userId ? `User-${short.userId.substring(0,4)}` : `Creator${index + 1}`}`,
+            initialLikes: initialLikes
+        };
+    });
+  }, [shortsFromDb]);
 
   useEffect(() => {
-      // This will run only on the client
-      const staticShorts = shortsData;
-      const userShorts = JSON.parse(localStorage.getItem('user_shorts') || '[]');
-      const combinedShorts = [...userShorts, ...staticShorts];
-
-      const processedShorts = combinedShorts.map((short, index) => {
-          const image = PlaceHolderImages.find((img) => img.id === short.imageId);
-          const viewsNumber = parseFloat(short.views) * 1000000 || Math.floor(Math.random() * 5000000);
-          const initialLikes = Math.floor(viewsNumber / 10 + Math.random() * 10000);
-
-          return {
-              ...short,
-              imageUrl: image?.imageUrl || `https://picsum.photos/seed/${short.id}/900/1600`,
-              imageHint: image?.imageHint || 'video content',
-              userName: `Creator${index + 1}`,
-              avatarUrl: `https://picsum.photos/seed/avatar${index}/40/40`,
-              description: `${short.title} - Check this out! #cool #video #fyp`,
-              audio: `Original Audio - Creator${index + 1}`,
-              initialLikes: initialLikes
-          };
-      });
-      
-      setAllShorts(processedShorts);
-
-      const initialCounts = processedShorts.reduce((acc, short) => {
+    if (allShorts.length > 0) {
+      const initialCounts = allShorts.reduce((acc, short) => {
           acc[short.id] = short.initialLikes;
           return acc;
       }, {} as Record<string, number>);
       setLikeCounts(initialCounts);
-      setIsLoading(false);
-  }, []);
+    }
+  }, [allShorts]);
 
   // Using autoplay to simulate video playback and auto-advancing shorts
   const plugin = useRef(
@@ -91,7 +110,6 @@ export default function ExplorePage() {
   useEffect(() => {
     if (!api) return;
     
-    // When a new short is selected, reset and play the autoplay
     const onSelect = () => {
       plugin.current.reset();
       if (!isPlaying) {
@@ -108,7 +126,6 @@ export default function ExplorePage() {
   }, [api, isPlaying]);
 
   const togglePlay = (e: React.MouseEvent<HTMLDivElement>) => {
-    // Prevent toggling when clicking on buttons inside the container
     if ((e.target as HTMLElement).closest('button')) {
         return;
     }
@@ -137,13 +154,12 @@ export default function ExplorePage() {
     const shareData = {
         title: `Check out this short: ${short.title}`,
         text: short.description,
-        url: window.location.href, // In a real app, this would be a direct link to the short
+        url: window.location.href, 
     };
     try {
         if (navigator.share) {
             await navigator.share(shareData);
         } else {
-            // Fallback for desktop or browsers that don't support Web Share API
             await navigator.clipboard.writeText(shareData.url);
             toast({
                 title: "Link Copied!",
@@ -168,6 +184,30 @@ export default function ExplorePage() {
     );
   }
 
+  if (!isLoading && allShorts.length === 0) {
+    return (
+      <div className="h-screen w-screen bg-black flex flex-col items-center justify-center text-white p-4">
+          <header className="absolute top-0 left-0 right-0 z-20 p-4 flex justify-between items-center bg-gradient-to-b from-black/60 to-transparent">
+            <Button
+              onClick={() => router.back()}
+              size="icon"
+              variant="ghost"
+              className="rounded-full bg-black/30 hover:bg-black/50"
+            >
+              <ChevronLeft />
+            </Button>
+            <h1 className="text-lg font-bold drop-shadow-lg">Shorts</h1>
+            <div className="w-10"></div>
+          </header>
+          <Video className="w-24 h-24 text-muted-foreground mb-4" />
+          <h2 className="text-2xl font-bold">No Shorts Yet</h2>
+          <p className="text-muted-foreground text-center">Be the first one to add a short video!</p>
+           <Button onClick={() => router.push('/add-short')} className="mt-6">
+              Add a Short Video
+            </Button>
+      </div>
+    );
+  }
 
   return (
     <div className="h-screen w-screen bg-black text-white relative overflow-hidden">
@@ -181,7 +221,6 @@ export default function ExplorePage() {
           <ChevronLeft />
         </Button>
         <h1 className="text-lg font-bold drop-shadow-lg">Shorts</h1>
-        {/* Placeholder for other icons like search */}
         <div className="w-10"></div>
       </header>
 
@@ -197,7 +236,7 @@ export default function ExplorePage() {
       >
         <CarouselContent className="h-full -mt-0">
           {allShorts.map((short, index) => (
-            <CarouselItem key={index} className="pt-0 h-full relative">
+            <CarouselItem key={short.id} className="pt-0 h-full relative">
               <div className="w-full h-full" onClick={togglePlay}>
                 <Image
                   src={short.imageUrl}
@@ -209,15 +248,12 @@ export default function ExplorePage() {
                   data-ai-hint={short.imageHint}
                 />
                 
-                {/* Overlay for better text readability and interaction area */}
                 <div className="absolute inset-0"></div>
 
-                {/* Play/Pause icon appears in center on toggle */}
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none transition-opacity duration-300">
                     {!isPlaying && <Play className="w-20 h-20 text-white/70 drop-shadow-2xl" fill="white" />}
                 </div>
 
-                {/* Video Info and Actions */}
                 <div className="absolute bottom-0 left-0 right-0 p-4 flex justify-between items-end bg-gradient-to-t from-black/70 to-transparent">
                   <div className="flex-1 space-y-3 min-w-0">
                     <div className="flex items-center gap-3">
