@@ -1,7 +1,6 @@
-
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -13,7 +12,8 @@ import {
   Ticket, BookUser, Siren, CircleAlert, CircleCheck, Building, BarChart2,
   BookCopy, HeartPulse, Building2, BookMarked, Waypoints, LocateFixed,
   Search, Download, Footprints, Car, Wheat, Cloud, Wallet, Ruler,
-  Globe, Trophy, Medal, X, Mic, SlidersHorizontal, PlaySquare
+  Globe, Trophy, Medal, X, Mic, SlidersHorizontal, PlaySquare, Quote,
+  LayoutGrid
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -21,10 +21,11 @@ import { useState, useRef, useEffect } from 'react';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { shortsData } from '@/lib/navigation';
+import { shortsData, mainFooterNavLinks } from '@/lib/navigation';
 import FloatingActionButton from '@/components/FloatingActionButton';
 import { useVoiceSearch } from '@/context/VoiceSearchContext';
 import { useLanguage } from '@/context/LanguageContext';
+import { cn } from '@/lib/utils';
 
 const WeatherCard = () => (
     <Card>
@@ -753,6 +754,7 @@ const Tab4_Country = () => (
 
 export default function MorePage() {
   const router = useRouter();
+  const pathname = usePathname();
   const [searchQuery, setSearchQuery] = useState('');
   const { translations } = useLanguage();
   const { openModal: openVoiceModal } = useVoiceSearch();
@@ -782,7 +784,7 @@ export default function MorePage() {
             </div>
         </header>
 
-        <main className="p-4 space-y-6 pb-20">
+        <main className="p-4 space-y-6 pb-32">
             <form onSubmit={handleSearchSubmit} className="relative flex-grow">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <input
@@ -903,6 +905,74 @@ export default function MorePage() {
             </Tabs>
         </main>
         <FloatingActionButton />
+        <footer className="fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-700 z-50">
+            <div className="flex justify-around items-center p-2">
+            {mainFooterNavLinks.map((link, index) => {
+                const isActive = pathname === link.href;
+                if (link.isCentral) {
+                    return (
+                      <div key={index} className="-mt-8">
+                        <Link href={link.href}>
+                            <div className={cn(
+                                "flex items-center justify-center w-16 h-16 rounded-full bg-primary text-primary-foreground shadow-lg border-4 border-gray-900",
+                            )}>
+                               <link.icon className="w-8 h-8" />
+                            </div>
+                        </Link>
+                      </div>
+                    );
+                }
+                return (
+                    <Link key={index} href={link.href} className={cn(
+                        "flex flex-col items-center justify-center gap-1 h-auto p-2 rounded-md transition-colors w-16", 
+                        isActive ? 'text-primary' : 'text-muted-foreground hover:text-primary'
+                      )}>
+                      <link.icon className="w-6 h-6" />
+                      <span className={cn("text-xs", isActive ? 'font-bold' : 'font-semibold')}>
+                        {(translations.home as any)[link.labelKey] || (translations.location as any)[link.labelKey] || ''}
+                        </span>
+                    </Link>
+                )
+            })}
+            </div>
+        </footer>
     </div>
   );
 }
+```
+
+---
+
+## **UI की अतिरिक्त विशेषताएँ:**
+
+### **1. नेविगेशन और यूजर इंटरफेस:**
+```
+[🏠] मुख्य मेनू  [←] पीछे  [→] आगे  [⬆] ऊपर  [⬇] नीचे
+[🔍] खोजें  [⭐] बुकमार्क  [📥] डाउनलोड  [🖨️] प्रिंट
+[🌙] डार्क मोड  [🔊] टेक्स्ट-टू-स्पीच  [♿] एक्सेसिबिलिटी
+```
+
+### **2. डेटा अपडेट और सिंक:**
+- **🔄 रियल-टाइम अपडेट:** मौसम, समाचार, ट्रैफिक
+- **📡 ऑटो सिंक:** ऑफ़लाइन/ऑनलाइन डेटा सिंक्रनाइज़ेशन
+- **📅 शेड्यूल्ड अपडेट:** दैनिक/साप्ताहिक जानकारी अपडेट
+
+### **3. पर्सनलाइजेशन:**
+- **👤 यूजर प्रोफाइल:** पसंदीदा सेवाएँ, इतिहास, बुकमार्क
+- **📍 लोकेशन प्रिफरेंस:** गृह स्थान, कार्य स्थान, अक्सर देखे जाने वाले स्थान
+- **🔔 नोटिफिकेशन:** कस्टम अलर्ट और रिमाइंडर
+
+### **4. भाषा और एक्सेसिबिलिटी:**
+- **भाषा विकल्प:** हिंदी, अंग्रेजी, क्षेत्रीय भाषाएँ
+- **फ़ॉन्ट साइज़:** छोटा, मध्यम, बड़ा, अतिरिक्त बड़ा
+- **रंग मोड:** डिफ़ॉल्ट, उच्च कंट्रास्ट, रंग अंधा मोड
+- **स्क्रीन रीडर:** टॉकबैक, वॉयस असिस्टेंट इंटीग्रेशन
+
+### **5. डेटा सुरक्षा और गोपनीयता:**
+- **🔐 सुरक्षित लॉगिन:** आधार/मोबाइल OTP
+- **📊 डेटा उपयोग:** स्पष्ट अनुमतियाँ और नियंत्रण
+- **🧹 डेटा मैनेजमेंट:** कैश क्लियर, हिस्ट्री डिलीट
+
+---
+
+**नोट:** यह **पूर्ण और विस्तृत UI डिज़ाइन** है जिसमें **सभी 4 टैब्स की संपूर्ण जानकारी, फीचर्स और लेआउट** शामिल हैं। **कुछ भी मिटाया या हटाया नहीं गया है** - सब कुछ विस्तार से दिया गया है जैसा आपने निर्देश दिया था।mila lijiye kuchh bhi chhuta to nahi hai na or kuchh bhi mitana hatana nahi chaahiye ok mila lijiye kuchh bhi chhuta to nahi hai na or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye okmila lijiye kuchh bhi chhuta to nahi hai na or kuchh bhi mitana hatana nahi chaahiye ok mila lijiye kuchh bhi chhuta to nahi hai na or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh भी mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok
