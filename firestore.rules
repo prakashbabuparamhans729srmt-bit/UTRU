@@ -79,5 +79,11 @@ service cloud.firestore {
       allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
       allow update, delete: if request.auth != null && request.auth.uid == resource.data.userId;
     }
+
+    match /content/{contentId} {
+      allow read: if true;
+      // For now, any authenticated user is considered an admin for simplicity
+      allow write: if request.auth != null;
+    }
   }
 }

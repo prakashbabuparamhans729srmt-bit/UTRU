@@ -62,10 +62,35 @@ import {
 } from '@/components/ui/table';
 import { useRouter } from 'next/navigation';
 import { Progress } from '@/components/ui/progress';
+import { useCollection, useFirestore } from '@/firebase';
+import { collection, query, orderBy, limit, type DocumentData } from 'firebase/firestore';
+import { useMemo } from 'react';
+import { format } from 'date-fns';
+import { Skeleton } from '@/components/ui/skeleton';
+
+
+interface Content extends DocumentData {
+    id: string;
+    title: string;
+    type: string;
+    createdAt: { seconds: number, nanoseconds: number };
+}
 
 // Main Dashboard Component
 export default function AdminDashboardPage() {
   const router = useRouter();
+  const firestore = useFirestore();
+
+  const contentQuery = useMemo(() => {
+      if (!firestore) return null;
+      return query(
+        collection(firestore, 'content'),
+        orderBy('createdAt', 'desc'),
+        limit(5)
+      );
+  }, [firestore]);
+
+  const { data: recentContent, loading, error } = useCollection<Content>(contentQuery);
 
   return (
     <div className="bg-gray-100 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-gray-100 p-4">
@@ -221,50 +246,27 @@ export default function AdminDashboardPage() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  <TableRow>
-                    <TableCell>01</TableCell>
-                    <TableCell>लखनऊ मौसम अपडेट</TableCell>
-                    <TableCell>मेरा स्थान</TableCell>
-                    <TableCell>2 घंटे पहले</TableCell>
-                    <TableCell><span className="flex items-center text-green-500"><CheckCircle className="mr-1 h-4 w-4" />सक्रिय</span></TableCell>
-                    <TableCell>
-                      <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}><Edit className="h-4 w-4" /></Button>
-                      <Button variant="ghost" size="icon"><Trash2 className="h-4 w-4 text-destructive" /></Button>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>02</TableCell>
-                    <TableCell>UP बजट २०२४-२५</TableCell>
-                    <TableCell>राज्य</TableCell>
-                    <TableCell>१ दिन पहले</TableCell>
-                    <TableCell><span className="flex items-center text-yellow-500"><Edit className="mr-1 h-4 w-4" />ड्राफ्ट</span></TableCell>
-                    <TableCell>
-                      <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}><Edit className="h-4 w-4" /></Button>
-                      <Button variant="ghost" size="icon"><Trash2 className="h-4 w-4 text-destructive" /></Button>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>03</TableCell>
-                    <TableCell>नई राष्ट्रीय योजना</TableCell>
-                    <TableCell>देश</TableCell>
-                    <TableCell>३ दिन पहले</TableCell>
-                    <TableCell><span className="flex items-center text-green-500"><CheckCircle className="mr-1 h-4 w-4" />सक्रिय</span></TableCell>
-                    <TableCell>
-                      <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}><Edit className="h-4 w-4" /></Button>
-                      <Button variant="ghost" size="icon"><Trash2 className="h-4 w-4 text-destructive" /></Button>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>04</TableCell>
-                    <TableCell>जिला अस्पताल सूची</TableCell>
-                    <TableCell>जिला</TableCell>
-                    <TableCell>१ सप्ताह पहले</TableCell>
-                    <TableCell><span className="flex items-center text-green-500"><CheckCircle className="mr-1 h-4 w-4" />सक्रिय</span></TableCell>
-                    <TableCell>
-                      <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}><Edit className="h-4 w-4" /></Button>
-                      <Button variant="ghost" size="icon"><Trash2 className="h-4 w-4 text-destructive" /></Button>
-                    </TableCell>
-                  </TableRow>
+                  {loading && [1,2,3].map(i => <TableRow key={i}><TableCell colSpan={6}><Skeleton className="h-8 w-full" /></TableCell></TableRow>)}
+                  {!loading && recentContent?.map((item, index) => (
+                    <TableRow key={item.id}>
+                      <TableCell>{(index + 1).toString().padStart(2, '0')}</TableCell>
+                      <TableCell>{item.title}</TableCell>
+                      <TableCell>{item.type}</TableCell>
+                      <TableCell>
+                        {item.createdAt ? format(new Date(item.createdAt.seconds * 1000), 'd MMM, h:mm a') : 'अभी'}
+                      </TableCell>
+                      <TableCell><span className="flex items-center text-green-500"><CheckCircle className="mr-1 h-4 w-4" />सक्रिय</span></TableCell>
+                      <TableCell>
+                        <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}><Edit className="h-4 w-4" /></Button>
+                        <Button variant="ghost" size="icon"><Trash2 className="h-4 w-4 text-destructive" /></Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                  {!loading && (!recentContent || recentContent.length === 0) && (
+                    <TableRow>
+                        <TableCell colSpan={6} className="text-center">कोई हालिया कंटेंट नहीं मिला।</TableCell>
+                    </TableRow>
+                  )}
                 </TableBody>
               </Table>
                <div className="flex justify-center mt-4">

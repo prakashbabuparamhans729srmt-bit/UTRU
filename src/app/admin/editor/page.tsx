@@ -17,6 +17,7 @@ import {
   ChevronLeft,
   Trash2,
   Edit,
+  Loader2,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -26,9 +27,95 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Textarea } from '@/components/ui/textarea';
 import { useRouter } from 'next/navigation';
 import { Switch } from '@/components/ui/switch';
+import { useState } from 'react';
+import { useUser, useFirestore } from '@/firebase';
+import { useToast } from '@/hooks/use-toast';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { errorEmitter } from '@/firebase/error-emitter';
+import { FirestorePermissionError } from '@/firebase/errors';
 
 export default function ContentEditorPage() {
     const router = useRouter();
+    const { user } = useUser();
+    const firestore = useFirestore();
+    const { toast } = useToast();
+
+    const [isLoading, setIsLoading] = useState(false);
+    const [title, setTitle] = useState('');
+    const [type, setType] = useState('');
+    const [location, setLocation] = useState('');
+    const [priority, setPriority] = useState('सामान्य');
+    const [publishDate, setPublishDate] = useState('');
+    const [publishTime, setPublishTime] = useState('');
+    const [expiryDate, setExpiryDate] = useState('');
+    const [expiryTime, setExpiryTime] = useState('');
+    const [contentData, setContentData] = useState('');
+    const [sendNotification, setSendNotification] = useState(false);
+    const [notificationMessage, setNotificationMessage] = useState('');
+
+    const handleSave = async () => {
+        if (!title || !type || !contentData) {
+            toast({
+                variant: 'destructive',
+                title: 'आवश्यक फ़ील्ड',
+                description: 'कृपया शीर्षक, प्रकार, और कंटेंट डेटा भरें।',
+            });
+            return;
+        }
+
+        if (!user || !firestore) {
+            toast({
+                variant: 'destructive',
+                title: 'प्रमाणीकरण त्रुटि',
+                description: 'कृपया कंटेंट सहेजने के लिए लॉग इन करें।',
+            });
+            router.push('/admin/login');
+            return;
+        }
+
+        setIsLoading(true);
+
+        const contentObject = {
+            title,
+            type,
+            location,
+            priority,
+            publishDate,
+            publishTime,
+            expiryDate,
+            expiryTime,
+            contentData,
+            sendNotification,
+            notificationMessage,
+            createdBy: user.uid,
+            createdAt: serverTimestamp(),
+            // Storing target settings would require more state, simplifying for now
+        };
+
+        try {
+            const contentCollection = collection(firestore, 'content');
+            await addDoc(contentCollection, contentObject);
+            toast({
+                title: 'सहेज लिया गया!',
+                description: 'कंटेंट सफलतापूर्वक सहेज लिया गया है।',
+            });
+            router.push('/admin');
+        } catch (serverError) {
+            const permissionError = new FirestorePermissionError({
+                path: 'content',
+                operation: 'create',
+                requestResourceData: contentObject,
+            });
+            errorEmitter.emit('permission-error', permissionError);
+            toast({
+                variant: 'destructive',
+                title: 'त्रुटि',
+                description: 'कंटेंट सहेजने में विफल।',
+            });
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
   return (
     <div className="bg-gray-100 dark:bg-gray-900 min-h-screen p-4">
@@ -41,8 +128,11 @@ export default function ContentEditorPage() {
         </div>
         <div className="flex gap-2">
           <Button variant="secondary"><Eye className="mr-2 h-4 w-4" />प्रीव्यू</Button>
-          <Button><Save className="mr-2 h-4 w-4" />सहेजें</Button>
-          <Button variant="destructive"><Ban className="mr-2 h-4 w-4" />रद्द</Button>
+          <Button onClick={handleSave} disabled={isLoading}>
+            {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+            सहेजें
+            </Button>
+          <Button variant="destructive" onClick={() => router.back()}><Ban className="mr-2 h-4 w-4" />रद्द</Button>
         </div>
       </header>
 
@@ -53,17 +143,17 @@ export default function ContentEditorPage() {
             <CardContent className="space-y-4">
               <div>
                 <Label htmlFor="title">शीर्षक</Label>
-                <Input id="title" placeholder="कंटेंट का शीर्षक" />
+                <Input id="title" placeholder="कंटेंट का शीर्षक" value={title} onChange={(e) => setTitle(e.target.value)} />
               </div>
               <div className="grid grid-cols-2 gap-4">
                  <div>
                     <Label htmlFor="type">प्रकार</Label>
-                    <Input id="type" placeholder="जैसे - मौसम, समाचार, योजना"/>
+                    <Input id="type" placeholder="जैसे - मौसम, समाचार, योजना" value={type} onChange={(e) => setType(e.target.value)} />
                 </div>
                  <div>
                     <Label htmlFor="location">स्थान</Label>
                     <div className='flex items-center gap-2'>
-                        <Input id="location" placeholder="जैसे - लखनऊ, उत्तर प्रदेश"/>
+                        <Input id="location" placeholder="जैसे - लखनऊ, उत्तर प्रदेश" value={location} onChange={(e) => setLocation(e.target.value)} />
                         <Button variant="outline" size="icon"><MapPin/></Button>
                     </div>
                 </div>
@@ -71,21 +161,21 @@ export default function ContentEditorPage() {
               <div className="grid grid-cols-2 gap-4">
                  <div>
                     <Label htmlFor="priority">प्राथमिकता</Label>
-                    <Input id="priority" placeholder="जैसे - सामान्य, उच्च"/>
+                    <Input id="priority" placeholder="जैसे - सामान्य, उच्च" value={priority} onChange={(e) => setPriority(e.target.value)} />
                 </div>
                  <div>
                     <Label>प्रकाशन तिथि</Label>
                     <div className="flex gap-2 items-center">
-                        <Input type="date" />
-                        <Input type="time" />
+                        <Input type="date" value={publishDate} onChange={(e) => setPublishDate(e.target.value)} />
+                        <Input type="time" value={publishTime} onChange={(e) => setPublishTime(e.target.value)} />
                     </div>
                 </div>
               </div>
               <div>
                   <Label>समाप्ति तिथि</Label>
                   <div className="flex gap-2 items-center">
-                        <Input type="date" />
-                        <Input type="time" />
+                        <Input type="date" value={expiryDate} onChange={(e) => setExpiryDate(e.target.value)} />
+                        <Input type="time" value={expiryTime} onChange={(e) => setExpiryTime(e.target.value)} />
                     </div>
               </div>
             </CardContent>
@@ -94,7 +184,7 @@ export default function ContentEditorPage() {
           <Card>
             <CardHeader><CardTitle className="flex items-center gap-2"><FileIcon/>कंटेंट डेटा</CardTitle></CardHeader>
             <CardContent>
-                <Textarea placeholder="कंटेंट यहाँ लिखें (JSON, टेक्स्ट, आदि)..." rows={10} />
+                <Textarea placeholder="कंटेंट यहाँ लिखें (JSON, टेक्स्ट, आदि)..." rows={10} value={contentData} onChange={(e) => setContentData(e.target.value)} />
             </CardContent>
           </Card>
           
@@ -137,10 +227,10 @@ export default function ContentEditorPage() {
                 <div>
                     <Label className="flex items-center gap-2"><Bell/>नोटिफिकेशन</Label>
                     <div className='flex items-center gap-2 mt-2'>
-                        <Switch id="notification-switch"/>
+                        <Switch id="notification-switch" checked={sendNotification} onCheckedChange={setSendNotification} />
                         <Label htmlFor="notification-switch">पुश नोटिफिकेशन भेजें</Label>
                     </div>
-                    <Textarea className="mt-2" placeholder="नोटिफिकेशन संदेश..."/>
+                    <Textarea className="mt-2" placeholder="नोटिफिकेशन संदेश..." value={notificationMessage} onChange={(e) => setNotificationMessage(e.target.value)} />
                 </div>
             </CardContent>
           </Card>
@@ -167,9 +257,10 @@ export default function ContentEditorPage() {
                 <CardContent>
                     <div className="w-full max-w-[300px] mx-auto border-4 border-gray-800 rounded-2xl p-2 bg-white dark:bg-black">
                         <Card>
-                            <CardHeader><CardTitle className="flex items-center gap-2 text-sm"><FileIcon/> कंटेंट प्रीव्यू</CardTitle></CardHeader>
+                            <CardHeader><CardTitle className="flex items-center gap-2 text-sm"><FileIcon/> {title || 'कंटेंट प्रीव्यू'}</CardTitle></CardHeader>
                             <CardContent className="text-xs space-y-2">
-                                <p className="text-muted-foreground">कंटेंट का प्रीव्यू यहाँ दिखाई देगा जब आप उसे लिखेंगे।</p>
+                                <p className="font-bold">{type} - {location}</p>
+                                <p className="text-muted-foreground">{contentData || 'कंटेंट का प्रीव्यू यहाँ दिखाई देगा जब आप उसे लिखेंगे।'}</p>
                             </CardContent>
                         </Card>
                     </div>

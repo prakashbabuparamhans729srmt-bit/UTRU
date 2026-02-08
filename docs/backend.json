@@ -187,6 +187,27 @@
                 "userId",
                 "createdAt"
             ]
+        },
+        "content": {
+            "title": "Dynamic Content",
+            "description": "Stores dynamic content managed from the admin panel.",
+            "type": "object",
+            "properties": {
+                "title": { "type": "string" },
+                "type": { "type": "string" },
+                "location": { "type": "string" },
+                "priority": { "type": "string" },
+                "publishDate": { "type": "string" },
+                "publishTime": { "type": "string" },
+                "expiryDate": { "type": "string" },
+                "expiryTime": { "type": "string" },
+                "contentData": { "type": "string" },
+                "sendNotification": { "type": "boolean" },
+                "notificationMessage": { "type": "string" },
+                "createdBy": { "type": "string" },
+                "createdAt": { "type": "object" }
+            },
+            "required": ["title", "type", "contentData", "createdBy", "createdAt"]
         }
     },
     "auth": {
@@ -226,6 +247,12 @@
                 "$ref": "#/backend/entities/shortVideo"
             },
             "description": "Stores short videos created by the company to be shown to customers."
+        },
+        "/content/{contentId}": {
+            "schema": {
+                "$ref": "#/backend/entities/content"
+            },
+            "description": "Stores dynamic content for various sections of the app, managed via the admin panel."
         }
     }
 }
