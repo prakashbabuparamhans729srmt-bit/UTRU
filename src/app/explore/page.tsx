@@ -24,7 +24,6 @@ import {
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Autoplay from 'embla-carousel-autoplay';
-import { shortsData } from '@/lib/navigation';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import { useCollection, useFirestore } from '@/firebase';
@@ -85,9 +84,7 @@ export default function ExplorePage() {
         return bNanos - aNanos;
     });
     
-    const combined = [...dbShorts, ...shortsData];
-    
-    return combined.map((short, index) => {
+    return dbShorts.map((short, index) => {
         const image = PlaceHolderImages.find((img) => img.id === short.imageId);
         const viewsNumber = parseFloat(short.views) * 1000000 || Math.floor(Math.random() * 5000000);
         const initialLikes = Math.floor(viewsNumber / 10 + Math.random() * 10000);
