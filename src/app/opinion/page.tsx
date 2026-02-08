@@ -357,7 +357,7 @@ export default function GlobalVoicePage() {
                     </div>
                  </div>
                  <div className="mt-4 space-y-2">
-                    <p className="text-sm flex items-center gap-2">📈 प्रभाव ग्राफ: <Progress value={45} className="w-24 h-2"/> +४५% (पिछले महीने)</p>
+                    <div className="text-sm flex items-center gap-2">📈 प्रभाव ग्राफ: <Progress value={45} className="w-24 h-2"/> +४५% (पिछले महीने)</div>
                     <p className="text-sm">🌍 सबसे सक्रिय देश: 🇺🇸 USA, 🇮🇳 भारत, 🇩🇪 जर्मनी, 🇧🇷 ब्राज़ील, 🇯🇵 जापान</p>
                  </div>
                  <Separator className="my-4"/>
