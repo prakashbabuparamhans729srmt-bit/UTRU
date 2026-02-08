@@ -79,6 +79,7 @@ import {
   LayoutGrid,
   Mic,
   SlidersHorizontal,
+  Star,
   Zap,
   Target,
   Award,
@@ -135,8 +136,21 @@ export default function GlobalVoicePage() {
       
       {/* Main Navigation */}
       <nav className="p-2 border-b bg-background/80 backdrop-blur-sm sticky top-[61px] z-20">
-        {/* Desktop View */}
-        <div className="hidden md:flex justify-around">
+        <div className="md:hidden">
+            <Tabs defaultValue="होम" className="w-full">
+                <TabsList className="w-full justify-start overflow-x-auto p-0 bg-transparent border-none">
+                    {navItems.map((item) => (
+                        <TabsTrigger key={item.value} value={item.value} className="flex-col h-auto p-2 gap-1 data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none data-[state=active]:bg-transparent text-muted-foreground data-[state=active]:text-primary data-[state=active]:font-semibold">
+                            <item.icon className="w-5 h-5" />
+                            <span className="text-xs whitespace-nowrap">
+                                {item.text}
+                            </span>
+                        </TabsTrigger>
+                    ))}
+                </TabsList>
+            </Tabs>
+        </div>
+         <div className="hidden md:flex justify-around">
           <Button variant="ghost" className="flex flex-col h-auto p-1 items-center gap-1 text-primary">
             <Home className="w-5 h-5"/> <span className="text-xs font-semibold">होम</span>
           </Button>
@@ -155,21 +169,6 @@ export default function GlobalVoicePage() {
           <Button variant="ghost" className="flex flex-col h-auto p-1 items-center gap-1 text-muted-foreground">
             <Globe className="w-5 h-5"/> <span className="text-xs">वैश्विक दृष्टि</span>
           </Button>
-        </div>
-        {/* Mobile/Tablet View */}
-        <div className="md:hidden">
-            <Tabs defaultValue="होम" className="w-full">
-                <TabsList className="w-full justify-start overflow-x-auto p-0 bg-transparent border-none">
-                    {navItems.map((item) => (
-                        <TabsTrigger key={item.value} value={item.value} className="flex-col h-auto p-2 gap-1 data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none data-[state=active]:bg-transparent text-muted-foreground data-[state=active]:text-primary data-[state=active]:font-semibold">
-                            <item.icon className="w-5 h-5" />
-                            <span className="text-xs whitespace-nowrap">
-                                {item.text}
-                            </span>
-                        </TabsTrigger>
-                    ))}
-                </TabsList>
-            </Tabs>
         </div>
       </nav>
 
