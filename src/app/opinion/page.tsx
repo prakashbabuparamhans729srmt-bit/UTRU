@@ -83,7 +83,9 @@ import {
   Zap,
   Target,
   Star,
-  Award
+  Award,
+  Droplets,
+  GraduationCap
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -106,7 +108,7 @@ export default function GlobalVoicePage() {
           Global Voice
         </h1>
         <div className="flex items-center gap-1">
-          <Button variant="ghost" size="icon"><Bell className="w-5 h-5" /><span className="sr-only">Notifications</span></Button>
+          <Button variant="ghost" size="icon" className='relative'><Bell className="w-5 h-5" /><span className="absolute top-1 right-1 flex h-2 w-2"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span><span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span></span><span className="sr-only">Notifications</span></Button>
           <Button variant="ghost" size="icon"><Search className="w-5 h-5" /><span className="sr-only">Search</span></Button>
           <Button variant="ghost" size="icon"><User className="w-5 h-5" /><span className="sr-only">Profile</span></Button>
           <Button variant="ghost" size="icon"><Settings className="w-5 h-5" /><span className="sr-only">Settings</span></Button>
@@ -142,12 +144,12 @@ export default function GlobalVoicePage() {
         {/* Trending Discussions */}
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-lg">🎯 आज की शीर्ष चर्चाएँ (ट्रेंडिंग)</CardTitle>
+            <CardTitle className="flex items-center gap-2 text-lg"><Target/> आज की शीर्ष चर्चाएँ (ट्रेंडिंग)</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2 text-sm text-muted-foreground">
             <p><Flame className="inline w-4 h-4 text-red-500 mr-1" /> #ClimateAction2024 (१२.५K) • <Zap className="inline w-4 h-4 text-yellow-500 mr-1" /> #MentalHealthAwareness (८.७K)</p>
-            <p>🆕 #AI_Ethics_Debate (३.२K) • 💧 #WaterCrisis (५.४K)</p>
-            <p><Leaf className="inline w-4 h-4 text-green-500 mr-1" /> #SustainableLiving (७.९K) • 🎓 #EducationForAll (६.३K)</p>
+            <p>🆕 #AI_Ethics_Debate (३.२K) • <Droplets className="inline w-4 h-4 text-blue-500 mr-1" /> #WaterCrisis (५.४K)</p>
+            <p><Leaf className="inline w-4 h-4 text-green-500 mr-1" /> #SustainableLiving (७.९K) • <GraduationCap className="inline w-4 h-4 text-indigo-500 mr-1" /> #EducationForAll (६.३K)</p>
             <Separator className="my-4"/>
             <div className="flex flex-wrap gap-2">
               <Button variant="outline" size="sm"><BarChart2 className="mr-1"/> सभी ट्रेंड्स</Button>
@@ -185,6 +187,9 @@ export default function GlobalVoicePage() {
                     <Button variant="ghost" size="sm"><Leaf className="mr-1"/> पर्यावरण</Button>
                     <Button variant="ghost" size="sm"><HeartPulse className="mr-1"/> स्वास्थ्य</Button>
                     <Button variant="ghost" size="sm"><Briefcase className="mr-1"/> आर्थिक</Button>
+                    <Button variant="ghost" size="sm"><Target className="mr-1"/> रुचियाँ</Button>
+                    <Button variant="ghost" size="sm"><MapPin className="mr-1"/> निकटतम</Button>
+                    <Button variant="ghost" size="sm"><Flame className="mr-1"/> ट्रेंडिंग</Button>
                  </div>
                  <div className="space-y-4">
                     <div className="border p-3 rounded-lg">
@@ -194,7 +199,10 @@ export default function GlobalVoicePage() {
                             <User className="w-3 h-3"/> डॉ. एमिली • 🇩🇪 जर्मनी • <MessageSquare className="w-3 h-3"/> २३४ • <ThumbsUp className="w-3 h-3"/> १.५K • <Eye className="w-3 h-3"/> १२K
                         </div>
                         <div className="flex gap-2 mt-3">
-                            <Button size="sm"><MessageSquare className="mr-1"/> भाग लें</Button>
+                            <Dialog>
+                                <DialogTrigger asChild><Button size="sm"><MessageSquare className="mr-1"/> भाग लें</Button></DialogTrigger>
+                                <DiscussionDetailDialog />
+                            </Dialog>
                             <Button size="sm" variant="outline"><Vote className="mr-1"/> वोट दें</Button>
                             <Button size="sm" variant="outline"><Lightbulb className="mr-1"/> समाधान</Button>
                         </div>
@@ -206,7 +214,10 @@ export default function GlobalVoicePage() {
                             <User className="w-3 h-3"/> प्रो. यामामोटो • 🇯🇵 जापान • <MessageSquare className="w-3 h-3"/> १८९ • <ThumbsUp className="w-3 h-3"/> २.३K • <Eye className="w-3 h-3"/> ८.५K
                         </div>
                          <div className="flex gap-2 mt-3">
-                            <Button size="sm"><MessageSquare className="mr-1"/> भाग लें</Button>
+                            <Dialog>
+                                <DialogTrigger asChild><Button size="sm"><MessageSquare className="mr-1"/> भाग लें</Button></DialogTrigger>
+                                <DiscussionDetailDialog />
+                            </Dialog>
                             <Button size="sm" variant="outline"><Vote className="mr-1"/> वोट दें</Button>
                             <Button size="sm" variant="outline"><Lightbulb className="mr-1"/> समाधान</Button>
                         </div>
@@ -218,7 +229,10 @@ export default function GlobalVoicePage() {
                             <User className="w-3 h-3"/> अहमद अल-फैसल • 🇸🇦 सऊदी अरब • <MessageSquare className="w-3 h-3"/> १२३ • <ThumbsUp className="w-3 h-3"/> ९८९ • <Eye className="w-3 h-3"/> ५.६K
                         </div>
                          <div className="flex gap-2 mt-3">
-                            <Button size="sm"><MessageSquare className="mr-1"/> भाग लें</Button>
+                           <Dialog>
+                                <DialogTrigger asChild><Button size="sm"><MessageSquare className="mr-1"/> भाग लें</Button></DialogTrigger>
+                                <DiscussionDetailDialog />
+                            </Dialog>
                             <Button size="sm" variant="outline"><Vote className="mr-1"/> वोट दें</Button>
                             <Button size="sm" variant="outline"><Lightbulb className="mr-1"/> समाधान</Button>
                         </div>
@@ -226,8 +240,11 @@ export default function GlobalVoicePage() {
                  </div>
                  <Separator className="my-4"/>
                  <div className="flex flex-wrap gap-2">
-                    <Button variant="link">📜 और चर्चाएँ लोड करें...</Button>
-                    <Button><Plus className="mr-1"/> नई चर्चा शुरू करें</Button>
+                    <Button variant="link"><ListIcon className="w-4 h-4 mr-1"/>और चर्चाएँ लोड करें...</Button>
+                     <Dialog>
+                        <DialogTrigger asChild><Button><Plus className="mr-1"/> नई चर्चा शुरू करें</Button></DialogTrigger>
+                        <NewDiscussionDialog />
+                    </Dialog>
                  </div>
             </CardContent>
         </Card>
@@ -413,10 +430,120 @@ export default function GlobalVoicePage() {
         </div>
         <Separator orientation="vertical" className="h-8 mx-1"/>
         <div className="text-xs text-muted-foreground text-center pr-2">
-            <p className="flex items-center gap-1"><Globe className="w-3 h-3"/> २४,५६७ एक्टिव</p>
-            <p className="flex items-center gap-1"><Clock className="w-3 h-3"/> रीयल-टाइम</p>
+            <div className="flex items-center gap-1"><Globe className="w-3 h-3"/> २४,५६७ एक्टिव</div>
+            <div className="flex items-center gap-1"><Clock className="w-3 h-3"/> रीयल-टाइम</div>
         </div>
       </footer>
     </div>
   );
+}
+
+function DiscussionDetailDialog() {
+    return (
+        <DialogContent className="max-w-lg w-full">
+            <DialogHeader>
+                <DialogTitle className="flex items-center justify-between">
+                    💬 चर्चा विस्तार
+                    <DialogClose asChild>
+                        <Button variant="ghost" size="icon"><X/></Button>
+                    </DialogClose>
+                </DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4 pt-4">
+                <div className='p-2 rounded-lg bg-muted text-muted-foreground text-xs flex flex-wrap gap-x-4 gap-y-1'>
+                    <span className='flex items-center gap-1'><Leaf className="w-3 h-3 text-green-500"/> पर्यावरण</span>
+                    <span>#ClimateAction</span>
+                    <span className='flex items-center gap-1'><Flame className="w-3 h-3 text-red-500"/> ट्रेंडिंग</span>
+                </div>
+                <div className='text-sm text-muted-foreground flex flex-wrap gap-x-4 gap-y-1'>
+                    <span>⏰ २ घंटे पहले</span>
+                    <span>👁️ १२,३४५</span>
+                    <span>💬 ५६७</span>
+                    <span>👍 २.३K</span>
+                </div>
+
+                <h2 className="text-xl font-bold">क्या इलेक्ट्रिक वाहन २०३० तक पेट्रोल वाहनों की जगह ले सकते हैं?</h2>
+                <div className="flex items-center gap-2">
+                    <User className="w-4 h-4"/>
+                    <span className="font-semibold">सारा जॉनसन • 🇺🇸 USA • 🏆 इलेक्ट्रिक वाहन विशेषज्ञ</span>
+                </div>
+                
+                <p className="text-muted-foreground text-sm">
+                    वैश्विक परिवहन क्षेत्र में क्रांति... [विस्तृत विवरण यहाँ]
+                </p>
+
+                <div>
+                    <h3 className="font-semibold mb-2">🗳️ वोट:</h3>
+                    <div className="space-y-1 text-sm">
+                        <div className="flex items-center justify-between"><span>✅ हाँ</span> <span>६५%</span></div>
+                        <Progress value={65} className="h-2" />
+                        <div className="flex items-center justify-between"><span>❌ नहीं</span> <span>२५%</span></div>
+                        <Progress value={25} className="h-2" />
+                        <div className="flex items-center justify-between"><span>🤷 नहीं पता</span> <span>१०%</span></div>
+                        <Progress value={10} className="h-2" />
+                    </div>
+                </div>
+
+                <div>
+                    <h3 className="font-semibold">💡 शीर्ष समाधान:</h3>
+                    <p className="text-sm text-primary underline cursor-pointer">"सार्वजनिक EV चार्जिंग इंफ्रास्ट्रक्चर में निवेश"</p>
+                </div>
+
+                <div className="border-t pt-4">
+                    <h3 className="font-semibold mb-2">💬 टिप्पणियाँ:</h3>
+                    <div className="space-y-3 max-h-40 overflow-y-auto">
+                        <p className="text-sm">👤 राजेश: "भारत में EV अपनाने की चुनौतियाँ..." <Button variant="link" size="sm" className="p-0 h-auto">जवाब</Button></p>
+                        <p className="text-sm">👤 यामामोटो: "जापान की EV पॉलिसी सफलता..." <Button variant="link" size="sm" className="p-0 h-auto">जवाब</Button></p>
+                    </div>
+                </div>
+                
+                <div className="flex items-center gap-2 pt-4 border-t">
+                    <Input placeholder="टिप्पणी लिखें..." className="flex-grow" />
+                    <Button><ThumbsUp /></Button>
+                    <Button variant="ghost"><ThumbsDown /></Button>
+                    <Button variant="ghost"><Repeat /></Button>
+                    <Button variant="ghost"><Share2 /></Button>
+                </div>
+            </div>
+        </DialogContent>
+    )
+}
+
+function NewDiscussionDialog() {
+    return (
+        <DialogContent>
+            <DialogHeader>
+                 <DialogTitle className="flex items-center justify-between">
+                    ✏️ नई चर्चा शुरू करें
+                    <DialogClose asChild>
+                        <Button variant="ghost" size="icon"><X/></Button>
+                    </DialogClose>
+                </DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4 pt-4">
+                <Textarea placeholder="आपकी चर्चा/प्रश्न लिखें..." className="min-h-[100px]" />
+                <div className="grid grid-cols-2 gap-4">
+                    <Input placeholder="श्रेणी: पर्यावरण ⬇️" />
+                    <Input placeholder="टैग: #EV, #Sustainable" />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                    <Input placeholder="दृश्यता: सार्वजनिक ⬇️" />
+                    <Input placeholder="भाषा: हिंदी, अंग्रेजी ⬇️" />
+                </div>
+                 <Input placeholder="अवधि: ७ दिन ⬇️" />
+                 <div className="flex gap-2">
+                    <Button variant="outline"><Paperclip className="mr-2"/> मीडिया जोड़ें</Button>
+                    <Button variant="outline"><FileIcon className="mr-2"/> डेटा जोड़ें</Button>
+                    <Button variant="outline"><MapPin className="mr-2"/> स्थान टैग</Button>
+                 </div>
+                 <DialogFooter className="gap-2 sm:justify-between">
+                    <Button variant="ghost">रद्द</Button>
+                     <div className='flex gap-2'>
+                        <Button variant="outline">ड्राफ्ट</Button>
+                        <Button>प्रकाशित करें</Button>
+                     </div>
+                 </DialogFooter>
+            </div>
+        </DialogContent>
+    )
 }
