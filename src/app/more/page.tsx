@@ -125,6 +125,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useRouter, usePathname } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
+import { Progress } from '@/components/ui/progress';
+import { Separator } from '@/components/ui/separator';
+import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
 
 const WeatherCard = () => (
     <Card>
@@ -819,6 +825,118 @@ const StateHealthCard = () => (
        </CardContent>
    </Card>
 );
+
+
+const DiscussionDetailDialog = () => {
+    return (
+        <DialogContent className="max-w-lg w-full">
+            <DialogHeader>
+                <DialogTitle className="flex items-center justify-between">
+                    💬 चर्चा विस्तार
+                    <DialogClose asChild>
+                        <Button variant="ghost" size="icon"><X/></Button>
+                    </DialogClose>
+                </DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4 pt-4">
+                <div className='p-2 rounded-lg bg-muted text-muted-foreground text-xs flex flex-wrap gap-x-4 gap-y-1'>
+                    <span className='flex items-center gap-1'><Leaf className="w-3 h-3 text-green-500"/> पर्यावरण</span>
+                    <span>#ClimateAction</span>
+                    <span className='flex items-center gap-1'><Flame className="w-3 h-3 text-red-500"/> ट्रेंडिंग</span>
+                </div>
+                <div className='text-sm text-muted-foreground flex flex-wrap gap-x-4 gap-y-1'>
+                    <span>⏰ २ घंटे पहले</span>
+                    <span>👁️ १२,३४५</span>
+                    <span>💬 ५६७</span>
+                    <span>👍 २.३K</span>
+                </div>
+
+                <h2 className="text-xl font-bold">क्या इलेक्ट्रिक वाहन २०३० तक पेट्रोल वाहनों की जगह ले सकते हैं?</h2>
+                <div className="flex items-center gap-2">
+                    <User className="w-4 h-4"/>
+                    <span className="font-semibold">सारा जॉनसन • 🇺🇸 USA • 🏆 इलेक्ट्रिक वाहन विशेषज्ञ</span>
+                </div>
+                
+                <p className="text-muted-foreground text-sm">
+                    वैश्विक परिवहन क्षेत्र में क्रांति... [विस्तृत विवरण यहाँ]
+                </p>
+
+                <div>
+                    <h3 className="font-semibold mb-2">🗳️ वोट:</h3>
+                    <div className="space-y-1 text-sm">
+                        <div className="flex items-center justify-between"><span>✅ हाँ</span> <span>६५%</span></div>
+                        <Progress value={65} className="h-2" />
+                        <div className="flex items-center justify-between"><span>❌ नहीं</span> <span>२५%</span></div>
+                        <Progress value={25} className="h-2" />
+                        <div className="flex items-center justify-between"><span>🤷 नहीं पता</span> <span>१०%</span></div>
+                        <Progress value={10} className="h-2" />
+                    </div>
+                </div>
+
+                <div>
+                    <h3 className="font-semibold">💡 शीर्ष समाधान:</h3>
+                    <p className="text-sm text-primary underline cursor-pointer">"सार्वजनिक EV चार्जिंग इंफ्रास्ट्रक्चर में निवेश"</p>
+                </div>
+
+                <div className="border-t pt-4">
+                    <h3 className="font-semibold mb-2">💬 टिप्पणियाँ:</h3>
+                    <div className="space-y-3 max-h-40 overflow-y-auto">
+                        <p className="text-sm">👤 राजेश: "भारत में EV अपनाने की चुनौतियाँ..." <Button variant="link" size="sm" className="p-0 h-auto">जवाब</Button></p>
+                        <p className="text-sm">👤 यामामोटो: "जापान की EV पॉलिसी सफलता..." <Button variant="link" size="sm" className="p-0 h-auto">जवाब</Button></p>
+                    </div>
+                </div>
+                
+                <div className="flex items-center gap-2 pt-4 border-t">
+                    <Input placeholder="टिप्पणी लिखें..." className="flex-grow" />
+                    <Button><ThumbsUp /></Button>
+                    <Button variant="ghost"><ThumbsDown /></Button>
+                    <Button variant="ghost"><Repeat /></Button>
+                    <Button variant="ghost"><Share2 /></Button>
+                </div>
+            </div>
+        </DialogContent>
+    )
+}
+
+const NewDiscussionDialog = () => {
+    return (
+        <DialogContent>
+            <DialogHeader>
+                 <DialogTitle className="flex items-center justify-between">
+                    ✏️ नई चर्चा शुरू करें
+                    <DialogClose asChild>
+                        <Button variant="ghost" size="icon"><X/></Button>
+                    </DialogClose>
+                </DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4 pt-4">
+                <Textarea placeholder="आपकी चर्चा/प्रश्न लिखें..." className="min-h-[100px]" />
+                <div className="grid grid-cols-2 gap-4">
+                    <Input placeholder="श्रेणी: पर्यावरण ⬇️" />
+                    <Input placeholder="टैग: #EV, #Sustainable" />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                    <Input placeholder="दृश्यता: सार्वजनिक ⬇️" />
+                    <Input placeholder="भाषा: हिंदी, अंग्रेजी ⬇️" />
+                </div>
+                 <Input placeholder="अवधि: ७ दिन ⬇️" />
+                 <div className="flex gap-2">
+                    <Button variant="outline"><Paperclip className="mr-2"/> मीडिया जोड़ें</Button>
+                    <Button variant="outline"><FileIcon className="mr-2"/> डेटा जोड़ें</Button>
+                    <Button variant="outline"><MapPin className="mr-2"/> स्थान टैग</Button>
+                 </div>
+                 <DialogFooter className="gap-2 sm:justify-between">
+                    <Button variant="ghost">रद्द</Button>
+                     <div className='flex gap-2'>
+                        <Button variant="outline">ड्राफ्ट</Button>
+                        <Button>प्रकाशित करें</Button>
+                     </div>
+                 </DialogFooter>
+            </div>
+        </DialogContent>
+    )
+}
+
 
 export default function MorePage() {
   const router = useRouter();
