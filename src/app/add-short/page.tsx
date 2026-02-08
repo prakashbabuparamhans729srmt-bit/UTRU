@@ -65,7 +65,6 @@ export default function AddShortPage() {
         router.push('/explore');
       })
       .catch((serverError) => {
-        console.error('Failed to save short:', serverError);
         const permissionError = new FirestorePermissionError({
           path: 'shorts',
           operation: 'create',
