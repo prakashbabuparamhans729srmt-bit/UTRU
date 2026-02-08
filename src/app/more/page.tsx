@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useRouter, usePathname } from 'next/navigation';
@@ -688,7 +689,7 @@ const NationalEmergencyCard = () => (
 
 const IndiaFactsCard = () => (
     <Card>
-        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Award /> भारत के बारे में तथ्य और उपलब्धियाँ</CardTitle></CardHeader>
+        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Medal /> भारत के बारे में तथ्य और उपलब्धियाँ</CardTitle></CardHeader>
         <CardContent className="space-y-3 text-sm">
             <div>
                 <h3 className="font-semibold flex items-center gap-2"><Globe className="w-4 h-4"/>भौगोलिक तथ्य:</h3>
@@ -941,38 +942,3 @@ export default function MorePage() {
 }
 ```
 
----
-
-## **UI की अतिरिक्त विशेषताएँ:**
-
-### **1. नेविगेशन और यूजर इंटरफेस:**
-```
-[🏠] मुख्य मेनू  [←] पीछे  [→] आगे  [⬆] ऊपर  [⬇] नीचे
-[🔍] खोजें  [⭐] बुकमार्क  [📥] डाउनलोड  [🖨️] प्रिंट
-[🌙] डार्क मोड  [🔊] टेक्स्ट-टू-स्पीच  [♿] एक्सेसिबिलिटी
-```
-
-### **2. डेटा अपडेट और सिंक:**
-- **🔄 रियल-टाइम अपडेट:** मौसम, समाचार, ट्रैफिक
-- **📡 ऑटो सिंक:** ऑफ़लाइन/ऑनलाइन डेटा सिंक्रनाइज़ेशन
-- **📅 शेड्यूल्ड अपडेट:** दैनिक/साप्ताहिक जानकारी अपडेट
-
-### **3. पर्सनलाइजेशन:**
-- **👤 यूजर प्रोफाइल:** पसंदीदा सेवाएँ, इतिहास, बुकमार्क
-- **📍 लोकेशन प्रिफरेंस:** गृह स्थान, कार्य स्थान, अक्सर देखे जाने वाले स्थान
-- **🔔 नोटिफिकेशन:** कस्टम अलर्ट और रिमाइंडर
-
-### **4. भाषा और एक्सेसिबिलिटी:**
-- **भाषा विकल्प:** हिंदी, अंग्रेजी, क्षेत्रीय भाषाएँ
-- **फ़ॉन्ट साइज़:** छोटा, मध्यम, बड़ा, अतिरिक्त बड़ा
-- **रंग मोड:** डिफ़ॉल्ट, उच्च कंट्रास्ट, रंग अंधा मोड
-- **स्क्रीन रीडर:** टॉकबैक, वॉयस असिस्टेंट इंटीग्रेशन
-
-### **5. डेटा सुरक्षा और गोपनीयता:**
-- **🔐 सुरक्षित लॉगिन:** आधार/मोबाइल OTP
-- **📊 डेटा उपयोग:** स्पष्ट अनुमतियाँ और नियंत्रण
-- **🧹 डेटा मैनेजमेंट:** कैश क्लियर, हिस्ट्री डिलीट
-
----
-
-**नोट:** यह **पूर्ण और विस्तृत UI डिज़ाइन** है जिसमें **सभी 4 टैब्स की संपूर्ण जानकारी, फीचर्स और लेआउट** शामिल हैं। **कुछ भी मिटाया या हटाया नहीं गया है** - सब कुछ विस्तार से दिया गया है जैसा आपने निर्देश दिया था।mila lijiye kuchh bhi chhuta to nahi hai na or kuchh bhi mitana hatana nahi chaahiye ok mila lijiye kuchh bhi chhuta to nahi hai na or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye okmila lijiye kuchh bhi chhuta to nahi hai na or kuchh bhi mitana hatana nahi chaahiye ok mila lijiye kuchh bhi chhuta to nahi hai na or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh भी mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok or kuchh bhi mitana hatana nahi chaahiye ok
