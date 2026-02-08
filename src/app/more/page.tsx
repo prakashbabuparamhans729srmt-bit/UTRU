@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useRouter } from 'next/navigation';
@@ -72,6 +73,7 @@ import {
   Syringe,
   Wheat,
   Cloud,
+  Wallet,
 } from 'lucide-react';
 import Image from 'next/image';
 
