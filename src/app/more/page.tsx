@@ -535,7 +535,7 @@ const StateAgricultureCard = () => (
             </div>
             <div>
                 <h3 className="font-semibold">सिंचाई:</h3>
-                <p className="text-muted-foreground">• नहरें: गंगा नहर, शारदा नहर | नलकूप: २५ लाख+</p>
+                <p className="text-muted-foreground">• नहरें: गंगा नहर, शारदा नहर | नलकूप: ২৫ लाख+</p>
             </div>
             <div>
                 <h3 className="font-semibold">किसान कल्याण:</h3>
@@ -1020,5 +1020,3 @@ export default function MorePage() {
     </div>
   );
 }
-
-    
