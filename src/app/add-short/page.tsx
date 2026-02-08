@@ -30,25 +30,34 @@ export default function AddShortPage() {
 
     setIsLoading(true);
 
-    // In a real application, you would send this data to your backend
-    // to be saved in a database and update the `shortsData`.
-    // For this prototype, we'll just simulate the process.
-    setTimeout(() => {
-      console.log('New Short Data:', { 
-        id: `short-${Date.now()}`,
-        title,
-        views,
-        imageId
-      });
+    try {
+        const newShort = {
+            id: `short-${Date.now()}`,
+            title,
+            views,
+            imageId
+        };
 
-      toast({
-        title: 'Short Video Submitted!',
-        description: 'Your new short video has been added to the queue for processing.',
-      });
-      
-      setIsLoading(false);
-      router.push('/explore'); // Redirect to the shorts page to see it (in a real app)
-    }, 1500);
+        const existingShorts = JSON.parse(localStorage.getItem('user_shorts') || '[]');
+        const updatedShorts = [newShort, ...existingShorts];
+        localStorage.setItem('user_shorts', JSON.stringify(updatedShorts));
+
+        toast({
+            title: 'Short Video Added!',
+            description: 'Your new short video is now available on the explore page.',
+        });
+
+        router.push('/explore');
+    } catch (error) {
+        console.error('Failed to save short:', error);
+        toast({
+            variant: 'destructive',
+            title: 'Error',
+            description: 'Could not save the short video.',
+        });
+    } finally {
+        setIsLoading(false);
+    }
   };
 
   return (

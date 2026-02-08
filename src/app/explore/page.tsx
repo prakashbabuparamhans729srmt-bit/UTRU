@@ -1,7 +1,6 @@
-
 'use client';
 
-import React, { useEffect, useRef, useState, useMemo } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -20,6 +19,7 @@ import {
   Play,
   Pause,
   Music,
+  Loader2,
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Autoplay from 'embla-carousel-autoplay';
@@ -47,31 +47,41 @@ export default function ExplorePage() {
   const [likedStatus, setLikedStatus] = useState<{ [key: string]: boolean }>({});
   const [likeCounts, setLikeCounts] = useState<{ [key: string]: number }>({});
   const { toast } = useToast();
-
-  const allShorts = useMemo(() => shortsData.map((short, index) => {
-    const image = PlaceHolderImages.find((img) => img.id === short.imageId);
-    const viewsNumber = parseFloat(short.views) * 1000000;
-    const initialLikes = Math.floor(viewsNumber / 10 + Math.random() * 10000); // Base likes + random variation
-
-    return {
-      ...short,
-      imageUrl: image?.imageUrl || `https://picsum.photos/seed/${short.id}/900/1600`,
-      imageHint: image?.imageHint || 'video content',
-      userName: `Creator${index + 1}`,
-      avatarUrl: `https://picsum.photos/seed/avatar${index}/40/40`,
-      description: `${short.title} - Check this out! #cool #video #fyp`,
-      audio: `Original Audio - Creator${index + 1}`,
-      initialLikes: initialLikes
-    };
-  }), []);
+  const [allShorts, setAllShorts] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const initialCounts = allShorts.reduce((acc, short) => {
-        acc[short.id] = short.initialLikes;
-        return acc;
-    }, {} as Record<string, number>);
-    setLikeCounts(initialCounts);
-  }, [allShorts]);
+      // This will run only on the client
+      const staticShorts = shortsData;
+      const userShorts = JSON.parse(localStorage.getItem('user_shorts') || '[]');
+      const combinedShorts = [...userShorts, ...staticShorts];
+
+      const processedShorts = combinedShorts.map((short, index) => {
+          const image = PlaceHolderImages.find((img) => img.id === short.imageId);
+          const viewsNumber = parseFloat(short.views) * 1000000 || Math.floor(Math.random() * 5000000);
+          const initialLikes = Math.floor(viewsNumber / 10 + Math.random() * 10000);
+
+          return {
+              ...short,
+              imageUrl: image?.imageUrl || `https://picsum.photos/seed/${short.id}/900/1600`,
+              imageHint: image?.imageHint || 'video content',
+              userName: `Creator${index + 1}`,
+              avatarUrl: `https://picsum.photos/seed/avatar${index}/40/40`,
+              description: `${short.title} - Check this out! #cool #video #fyp`,
+              audio: `Original Audio - Creator${index + 1}`,
+              initialLikes: initialLikes
+          };
+      });
+      
+      setAllShorts(processedShorts);
+
+      const initialCounts = processedShorts.reduce((acc, short) => {
+          acc[short.id] = short.initialLikes;
+          return acc;
+      }, {} as Record<string, number>);
+      setLikeCounts(initialCounts);
+      setIsLoading(false);
+  }, []);
 
   // Using autoplay to simulate video playback and auto-advancing shorts
   const plugin = useRef(
@@ -149,6 +159,14 @@ export default function ExplorePage() {
         });
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="h-screen w-screen bg-black flex items-center justify-center">
+          <Loader2 className="w-10 h-10 animate-spin text-white"/>
+      </div>
+    );
+  }
 
 
   return (
