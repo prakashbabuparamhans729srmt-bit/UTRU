@@ -761,9 +761,6 @@ export default function MorePage() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { translations } = useLanguage();
   const { openModal: openVoiceModal } = useVoiceSearch();
-  const adImages = PlaceHolderImages.filter((img) => img.id.startsWith('ad-hero'));
-  const shortsImages = PlaceHolderImages.filter(img => img.id.startsWith('shorts-'));
-  const adPlugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: true }));
   
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -802,45 +799,48 @@ export default function MorePage() {
     );
   };
 
-  const NewsSection = () => (
-      <section className="space-y-4">
-        <div className="flex items-center justify-between">
-          <h2 className="text-xl font-bold flex items-center gap-2">
-            <PlaySquare className="text-red-500" />
-            ज़रूरी ख़बरें
-          </h2>
-          <Button variant="link" onClick={() => router.push('/explore')}>और देखें</Button>
-        </div>
-        <Carousel opts={{ align: 'start', loop: false }} className="w-full">
-          <CarouselContent className="-ml-2">
-            {shortsData.slice(0, 6).map((short, index) => {
-              const image = shortsImages.find(img => img.id === short.imageId);
-              return (
-                <CarouselItem key={index} className="pl-4 basis-1/2 md:basis-1/3">
-                  <Link href="/explore">
-                    <Card className="overflow-hidden rounded-xl border-none">
-                      <CardContent className="p-0 relative">
-                        <Image
-                          src={image?.imageUrl || `https://picsum.photos/seed/${short.id}/300/500`}
-                          alt={short.title}
-                          width={300}
-                          height={200}
-                          className="object-cover w-full aspect-video rounded-xl"
-                          data-ai-hint={image?.imageHint || 'video content'}
-                        />
-                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2">
-                          <h4 className="font-semibold text-white text-sm truncate">{short.title}</h4>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                </CarouselItem>
-              );
-            })}
-          </CarouselContent>
-        </Carousel>
-      </section>
-  );
+  const NewsSection = () => {
+      const shortsImages = PlaceHolderImages.filter(img => img.id.startsWith('shorts-'));
+      return (
+        <section className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-bold flex items-center gap-2">
+              <PlaySquare className="text-red-500" />
+              ज़रूरी ख़बरें
+            </h2>
+            <Button variant="link" onClick={() => router.push('/explore')}>और देखें</Button>
+          </div>
+          <Carousel opts={{ align: 'start', loop: false }} className="w-full">
+            <CarouselContent className="-ml-2">
+              {shortsData.slice(0, 6).map((short, index) => {
+                const image = shortsImages.find(img => img.id === short.imageId);
+                return (
+                  <CarouselItem key={index} className="pl-4 basis-1/2 md:basis-1/3">
+                    <Link href="/explore">
+                      <Card className="overflow-hidden rounded-xl border-none">
+                        <CardContent className="p-0 relative">
+                          <Image
+                            src={image?.imageUrl || `https://picsum.photos/seed/${short.id}/300/500`}
+                            alt={short.title}
+                            width={300}
+                            height={200}
+                            className="object-cover w-full aspect-video rounded-xl"
+                            data-ai-hint={image?.imageHint || 'video content'}
+                          />
+                          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2">
+                            <h4 className="font-semibold text-white text-sm truncate">{short.title}</h4>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  </CarouselItem>
+                );
+              })}
+            </CarouselContent>
+          </Carousel>
+        </section>
+      );
+  };
 
   const Tab1_MyPlace = () => (
     <div className="space-y-6 p-1">
@@ -923,9 +923,6 @@ export default function MorePage() {
         ) : (
           <>
             <div className='flex items-center gap-4'>
-              <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
-                <ChevronLeft />
-              </Button>
               <h1 className="text-lg font-semibold">🇮🇳 भारत सूचना</h1>
             </div>
             <div className='flex items-center gap-2'>
@@ -941,89 +938,6 @@ export default function MorePage() {
       </header>
 
         <main className="p-4 space-y-6 pb-32">
-
-            <Carousel 
-              className="w-full" 
-              opts={{ loop: true }}
-              plugins={[adPlugin.current]}
-              onMouseEnter={adPlugin.current.stop}
-              onMouseLeave={adPlugin.current.reset}
-            >
-              <CarouselContent>
-                {adImages.slice(0, 5).map((image) => (
-                  <CarouselItem key={image.id}>
-                    <Image
-                        src={image.imageUrl}
-                        alt={image.description}
-                        width={600}
-                        height={300}
-                        className="rounded-lg object-cover w-full aspect-[2/1]"
-                        data-ai-hint={image.imageHint}
-                    />
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-            </Carousel>
-            
-            <Carousel 
-              className="w-full" 
-              opts={{ loop: true }}
-              plugins={[useRef(Autoplay({ delay: 4000, stopOnInteraction: true })).current]}
-            >
-              <CarouselContent>
-                {PlaceHolderImages.filter(i => i.id.startsWith('electronics-hero')).slice(0, 5).map((image) => (
-                  <CarouselItem key={image.id}>
-                     <Image
-                        src={image.imageUrl}
-                        alt={image.description}
-                        width={600}
-                        height={300}
-                        className="rounded-lg object-cover w-full aspect-[2/1]"
-                        data-ai-hint={image.imageHint}
-                    />
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-            </Carousel>
-
-            <section className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h2 className="text-xl font-bold flex items-center gap-2">
-                  <PlaySquare className="text-red-500" />
-                  ज़रूरी ख़बरें
-                </h2>
-                <Button variant="link" onClick={() => router.push('/explore')}>और देखें</Button>
-              </div>
-              <Carousel opts={{ align: 'start', loop: false }} className="w-full">
-                <CarouselContent className="-ml-2">
-                  {shortsData.slice(0, 6).map((short, index) => {
-                    const image = shortsImages.find(img => img.id === short.imageId);
-                    return (
-                      <CarouselItem key={index} className="pl-4 basis-1/2 md:basis-1/3">
-                        <Link href="/explore">
-                          <Card className="overflow-hidden rounded-xl border-none">
-                            <CardContent className="p-0 relative">
-                              <Image
-                                src={image?.imageUrl || `https://picsum.photos/seed/${short.id}/300/500`}
-                                alt={short.title}
-                                width={300}
-                                height={200}
-                                className="object-cover w-full aspect-video rounded-xl"
-                                data-ai-hint={image?.imageHint || 'video content'}
-                              />
-                              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2">
-                                <h4 className="font-semibold text-white text-sm truncate">{short.title}</h4>
-                              </div>
-                            </CardContent>
-                          </Card>
-                        </Link>
-                      </CarouselItem>
-                    );
-                  })}
-                </CarouselContent>
-              </Carousel>
-            </section>
-
             <Tabs defaultValue="my-place" className="w-full">
                 <TabsList className="grid w-full grid-cols-4 h-auto">
                     <TabsTrigger value="my-place" className="text-xs sm:text-sm">मेरा वर्तमान स्थान</TabsTrigger>
