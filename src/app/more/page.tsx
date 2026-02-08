@@ -1,4 +1,3 @@
-
 'use client';
 
 import {
@@ -66,7 +65,7 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -294,7 +293,7 @@ const DistrictHealthCard = () => (
              <div>
                 <h3 className="font-semibold">टीकाकरण और परीक्षण:</h3>
                 <p className="text-muted-foreground">💉 टीकाकरण केंद्र: १५०+ (📍 निकटतम खोजें)</p>
-                <p className="text-muted-foreground">🧪 COVID-19 टेस्टिंग सेंटर: २५+</p>
+                <p className="text-muted-foreground">🧪 COVID-19 टेस्टिंग सेंटर: ২৫+</p>
             </div>
              <div className="flex gap-2 mt-2">
                 <Button variant="outline" size="sm">सभी अस्पताल देखें</Button>
@@ -986,5 +985,3 @@ export default function MorePage() {
     </div>
   );
 }
-
-```
