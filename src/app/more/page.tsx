@@ -33,7 +33,9 @@ import {
   Mic,
   SlidersHorizontal,
   PlaySquare,
-  Quote,
+  Award,
+  Droplets,
+  GraduationCap,
   ChevronLeft,
   LocateFixed,
   Ruler,
@@ -48,7 +50,6 @@ import {
   Siren,
   Phone,
   Thermometer,
-  Droplets,
   Wind,
   Sunrise,
   Sunset,
@@ -57,11 +58,9 @@ import {
   CircleAlert,
   Newspaper,
   CalendarDays,
-  GraduationCap,
   Gavel,
   Sprout,
   Wallet,
-  Award,
   Building2,
   Scroll,
   Megaphone,
@@ -70,7 +69,7 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -89,7 +88,7 @@ const WeatherCard = () => (
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-lg">
-          <Sun className="text-yellow-500" />
+          <Cloud className="text-blue-500" />
           मौसम और पर्यावरण
         </CardTitle>
       </CardHeader>
@@ -111,7 +110,7 @@ const WeatherCard = () => (
         <div>
           <p className="font-semibold mb-2">अगले ३ दिन का पूर्वानुमान:</p>
           <div className="flex justify-around text-center">
-            <div><Sun className="mx-auto text-yellow-500" /><span>३२°</span></div>
+            <div><Sunrise className="mx-auto text-yellow-500" /><span>३२°</span></div>
             <div><Cloud className="mx-auto text-gray-400" /><span>३१°</span></div>
             <div><CloudRain className="mx-auto text-blue-400" /><span>२९°</span></div>
           </div>
@@ -144,7 +143,7 @@ const EmergencyCard = () => {
         <div className="border-t pt-4">
           <h3 className="font-semibold">निकटतम स्वास्थ्य सुविधाएँ:</h3>
           <p className="text-muted-foreground">• सिविल हॉस्पिटल (२ किमी) - ०५२२-२२५५०००</p>
-          <p className="text-muted-foreground">• मेडिकल कॉलेज (३.५ किमी) - ২৪x৭ आपातकालीन</p>
+          <p className="text-muted-foreground">• मेडिकल कॉलेज (३.५ किमी) - २४x७ आपातकालीन</p>
           <div className="flex gap-2 mt-2">
             <Button variant="outline" size="sm" onClick={() => window.open('https://www.google.com/maps/dir/?api=1&destination=Civil+Hospital+Lucknow', '_blank')}><MapIcon className="mr-2 h-4 w-4" /> रूट देखें</Button>
             <Button variant="outline" size="sm" onClick={() => window.location.href = 'tel:05222255000'}><Phone className="mr-2 h-4 w-4" /> कॉल करें</Button>
@@ -217,7 +216,7 @@ const LocalStatsCard = () => {
             <p className="flex items-center gap-2"><b><GraduationCap className="w-4 h-4 inline-block"/> साक्षरता दर:</b> ८४%</p>
             <p className="flex items-center gap-2"><b><UsersIcon className="w-4 h-4 inline-block"/> लिंगानुपात:</b> ९२० महिलाएँ प्रति १००० पुरुष</p>
             <p className="flex items-center gap-2"><b><Briefcase className="w-4 h-4 inline-block"/> प्रमुख उद्योग:</b> सूचना प्रौद्योगिकी, हस्तशिल्प, पर्यटन</p>
-            <p className="flex items-center gap-2"><b><Building className="w-4 h-4 inline-block"/> स्थानीय प्रशासन:</b> लखनऊ नगर निगम, जिला प्रशासन</p>
+            <p className="flex items-center gap-2"><b><Building2 className="w-4 h-4 inline-block"/> स्थानीय प्रशासन:</b> लखनऊ नगर निगम, जिला प्रशासन</p>
             <div className="flex gap-2 mt-2">
                 <Button variant="outline" size="sm" onClick={() => toast({ title: 'Feature coming soon!' })}>विस्तृत आँकड़े देखें</Button>
                 <Button variant="outline" size="sm" onClick={() => toast({ title: 'Feature coming soon!' })}>रिपोर्ट डाउनलोड</Button>
@@ -779,6 +778,7 @@ const StateHealthCard = () => (
    </Card>
 );
 
+
 export default function MorePage() {
   const router = useRouter();
   const pathname = usePathname();
@@ -955,7 +955,7 @@ export default function MorePage() {
                 <Search />
               </Button>
               <Button onClick={() => router.push('/profile')} size="icon" variant="ghost" className="rounded-full">
-                <UsersIcon />
+                <User />
               </Button>
             </div>
           </>
@@ -1019,3 +1019,5 @@ export default function MorePage() {
     </div>
   );
 }
+
+    
