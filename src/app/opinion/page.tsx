@@ -77,7 +77,7 @@ import {
   PlaySquare,
   Quote,
   LayoutGrid,
-  Menu,
+  Menu, // Added
   Mic,
   SlidersHorizontal,
   Zap,
@@ -85,20 +85,31 @@ import {
   Star,
   Award,
   Droplets,
-  GraduationCap
+  GraduationCap,
+  ChevronLeft, // Added
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Progress } from '@/components/ui/progress';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogClose, DialogFooter } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose, DialogFooter } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import FloatingActionButton from '@/components/FloatingActionButton';
+import { mainFooterNavLinks } from '@/lib/navigation';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import { cn } from '@/lib/utils';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function GlobalVoicePage() {
+  const pathname = usePathname();
+  const { translations } = useLanguage();
+
   return (
     <div className="bg-gray-100 dark:bg-black text-gray-900 dark:text-white min-h-screen">
       {/* Top Header */}
@@ -117,7 +128,8 @@ export default function GlobalVoicePage() {
       
       {/* Main Navigation */}
       <nav className="p-2 border-b bg-background/80 backdrop-blur-sm sticky top-[61px] z-20">
-        <div className="flex justify-around">
+        {/* Desktop View */}
+        <div className="hidden md:flex justify-around">
           <Button variant="ghost" className="flex flex-col h-auto p-1 items-center gap-1 text-primary">
             <Home className="w-5 h-5"/> <span className="text-xs font-semibold">होम</span>
           </Button>
@@ -136,6 +148,22 @@ export default function GlobalVoicePage() {
           <Button variant="ghost" className="flex flex-col h-auto p-1 items-center gap-1 text-muted-foreground">
             <Globe className="w-5 h-5"/> <span className="text-xs">वैश्विक दृष्टि</span>
           </Button>
+        </div>
+        {/* Mobile/Tablet View */}
+        <div className="md:hidden">
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button variant="outline"><Menu className="mr-2 h-4 w-4"/>मेन्यू</Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                    <DropdownMenuItem><Home className="mr-2 h-4 w-4"/> होम</DropdownMenuItem>
+                    <DropdownMenuItem><Flame className="mr-2 h-4 w-4"/> ट्रेंडिंग</DropdownMenuItem>
+                    <DropdownMenuItem><MessageSquare className="mr-2 h-4 w-4"/> मेरी चर्चाएँ</DropdownMenuItem>
+                    <DropdownMenuItem><Lightbulb className="mr-2 h-4 w-4"/> समाधान</DropdownMenuItem>
+                    <DropdownMenuItem><Crown className="mr-2 h-4 w-4"/> लीडरबोर्ड</DropdownMenuItem>
+                    <DropdownMenuItem><Globe className="mr-2 h-4 w-4"/> वैश्विक दृष्टि</DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
         </div>
       </nav>
 
@@ -407,31 +435,37 @@ export default function GlobalVoicePage() {
         </Card>
       </main>
 
-      <footer className="fixed bottom-0 left-0 right-0 z-20 bg-background border-t p-1 flex items-center justify-between">
-         <div className="flex justify-around flex-grow">
-            <Button variant="ghost" className="flex flex-col h-auto p-1 items-center gap-1 text-primary">
-              <Home className="w-5 h-5"/> <span className="text-xs">होम</span>
-            </Button>
-            <Button variant="ghost" className="flex flex-col h-auto p-1 items-center gap-1 text-muted-foreground">
-              <Flame className="w-5 h-5"/> <span className="text-xs">ट्रेंडिंग</span>
-            </Button>
-            <Button variant="ghost" className="flex flex-col h-auto p-1 items-center gap-1 text-muted-foreground">
-              <MessageSquare className="w-5 h-5"/> <span className="text-xs">चर्चाएँ</span>
-            </Button>
-            <Button variant="ghost" className="flex flex-col h-auto p-1 items-center gap-1 text-muted-foreground">
-              <Lightbulb className="w-5 h-5"/> <span className="text-xs">समाधान</span>
-            </Button>
-            <Button variant="ghost" className="flex flex-col h-auto p-1 items-center gap-1 text-muted-foreground">
-              <Crown className="w-5 h-5"/> <span className="text-xs">लीडरबोर्ड</span>
-            </Button>
-            <Button variant="ghost" className="flex flex-col h-auto p-1 items-center gap-1 text-muted-foreground">
-              <Globe className="w-5 h-5"/> <span className="text-xs">वैश्विक</span>
-            </Button>
-        </div>
-        <Separator orientation="vertical" className="h-8 mx-1"/>
-        <div className="text-xs text-muted-foreground text-center pr-2">
-            <div className="flex items-center gap-1"><Globe className="w-3 h-3"/> २४,५६७ एक्टिव</div>
-            <div className="flex items-center gap-1"><Clock className="w-3 h-3"/> रीयल-टाइम</div>
+      <FloatingActionButton />
+      
+      <footer className="fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-700 z-50">
+        <div className="flex justify-around items-center p-2">
+          {mainFooterNavLinks.map((link, index) => {
+              const isActive = pathname === link.href;
+              if (link.isCentral) {
+                return (
+                  <div key={index} className="-mt-8">
+                    <Link href={link.href}>
+                        <div className={cn(
+                            "flex items-center justify-center w-16 h-16 rounded-full bg-primary text-primary-foreground shadow-lg border-4 border-gray-900",
+                        )}>
+                           <link.icon className="w-8 h-8" />
+                        </div>
+                    </Link>
+                  </div>
+                );
+              }
+              return (
+                <Link key={index} href={link.href} className={cn(
+                    "flex flex-col items-center justify-center gap-1 h-auto p-2 rounded-md transition-colors w-16", 
+                    isActive ? 'text-primary' : 'text-muted-foreground hover:text-primary'
+                  )}>
+                  <link.icon className="w-6 h-6" />
+                  <span className={cn("text-xs", isActive ? 'font-bold' : 'font-semibold')}>
+                    {(translations.home as any)[link.labelKey] || (translations.location as any)[link.labelKey] || ''}
+                    </span>
+                </Link>
+              )
+          })}
         </div>
       </footer>
     </div>
