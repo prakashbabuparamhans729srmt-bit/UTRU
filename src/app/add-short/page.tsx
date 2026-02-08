@@ -12,6 +12,10 @@ import { useUser, useFirestore } from '@/firebase';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
+
+const shortImages = PlaceHolderImages.filter(img => img.id.startsWith('shorts-'));
 
 export default function AddShortPage() {
   const router = useRouter();
@@ -127,17 +131,21 @@ export default function AddShortPage() {
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="imageId">Thumbnail Image ID</Label>
-                <Input
-                  id="imageId"
-                  placeholder="e.g., shorts-new-product"
-                  value={imageId}
-                  onChange={(e) => setImageId(e.target.value)}
-                  disabled={isLoading}
-                  required
-                />
+                <Label htmlFor="imageId">Thumbnail Image</Label>
+                <Select onValueChange={setImageId} value={imageId} disabled={isLoading}>
+                  <SelectTrigger id="imageId" className="w-full">
+                    <SelectValue placeholder="Select a thumbnail" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {shortImages.map(image => (
+                      <SelectItem key={image.id} value={image.id}>
+                        {image.description}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
                 <p className="text-xs text-muted-foreground">
-                  Use an `id` from the `src/lib/placeholder-images.json` file.
+                  Choose a thumbnail for your short video.
                 </p>
               </div>
               <Button type="submit" className="w-full" disabled={isLoading}>
