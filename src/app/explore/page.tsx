@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -23,14 +23,16 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Autoplay from 'embla-carousel-autoplay';
 import { shortsData } from '@/lib/navigation';
+import { cn } from '@/lib/utils';
 
 export default function ExplorePage() {
   const router = useRouter();
-  const [api, setApi] = React.useState<CarouselApi>();
-  const [isPlaying, setIsPlaying] = React.useState(true);
+  const [api, setApi] = useState<CarouselApi>();
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [likedStatus, setLikedStatus] = useState<{ [key: string]: boolean }>({});
 
   // Using autoplay to simulate video playback and auto-advancing shorts
-  const plugin = React.useRef(
+  const plugin = useRef(
     Autoplay({ delay: 8000, stopOnInteraction: false, stopOnMouseEnter: false })
   );
 
@@ -65,6 +67,13 @@ export default function ExplorePage() {
       plugin.current.play();
     }
     setIsPlaying(!isPlaying);
+  };
+  
+  const toggleLike = (shortId: string) => {
+    setLikedStatus(prev => ({
+        ...prev,
+        [shortId]: !prev[shortId]
+    }));
   };
 
   const allShorts = shortsData.map((short, index) => {
@@ -145,8 +154,8 @@ export default function ExplorePage() {
                     </div>
                   </div>
                   <div className="flex flex-col items-center space-y-5 ml-4">
-                    <button className="text-white flex flex-col items-center h-auto">
-                        <Heart className="w-8 h-8" />
+                    <button onClick={() => toggleLike(short.id)} className="text-white flex flex-col items-center h-auto">
+                        <Heart className={cn("w-8 h-8 transition-colors", likedStatus[short.id] ? "fill-red-500 text-red-500" : "text-white")} />
                         <span className="text-xs font-semibold mt-1">1.2M</span>
                     </button>
                     <button className="text-white flex flex-col items-center h-auto">
