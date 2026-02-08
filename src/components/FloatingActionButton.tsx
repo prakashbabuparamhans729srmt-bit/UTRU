@@ -160,6 +160,7 @@ export default function FloatingActionButton() {
          {isOpen && (
           <div className="absolute bottom-full mb-3 flex flex-col items-center gap-3">
             <Button
+              onPointerDown={(e) => e.stopPropagation()}
               size="icon"
               className={subButtonClasses}
               onClick={() => handleSubMenuClick('/add-short')}
@@ -168,6 +169,7 @@ export default function FloatingActionButton() {
               <Video className="w-5 h-5" />
             </Button>
             <Button
+              onPointerDown={(e) => e.stopPropagation()}
               size="icon"
               className={subButtonClasses}
               onClick={() => handleSubMenuClick('/search')}
@@ -176,6 +178,7 @@ export default function FloatingActionButton() {
               <Search className="w-5 h-5" />
             </Button>
             <Button
+              onPointerDown={(e) => e.stopPropagation()}
               size="icon"
               className={subButtonClasses}
               onClick={() => handleSubMenuClick('/my-plans')}
@@ -184,6 +187,7 @@ export default function FloatingActionButton() {
               <ClipboardList className="w-5 h-5" />
             </Button>
             <Button
+              onPointerDown={(e) => e.stopPropagation()}
               size="icon"
               className={subButtonClasses}
               onClick={() => handleSubMenuClick('/chatbot')}
@@ -192,6 +196,7 @@ export default function FloatingActionButton() {
               <MessageCircle className="w-5 h-5" />
             </Button>
             <Button
+              onPointerDown={(e) => e.stopPropagation()}
               size="icon"
               className={subButtonClasses}
               onClick={() => handleSubMenuClick('/cart')}
