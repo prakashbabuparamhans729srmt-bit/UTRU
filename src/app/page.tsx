@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useRef, useMemo } from 'react';
@@ -17,7 +16,6 @@ import {
   MapPin,
   LayoutGrid,
   SlidersHorizontal,
-  Menu,
   PlaySquare,
   LogOut,
   User,
@@ -114,9 +112,6 @@ export default function Home() {
           <header className="p-4 bg-background/80 backdrop-blur-sm sticky top-0 z-50">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <Link href="/profile" className="md:hidden">
-                    <Menu />
-                </Link>
                 <div className="w-10 h-10 bg-black dark:bg-white rounded-full flex items-center justify-center">
                   <div className="w-4 h-4 bg-white dark:bg-black rounded-full" />
                 </div>

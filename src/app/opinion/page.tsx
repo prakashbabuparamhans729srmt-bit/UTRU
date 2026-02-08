@@ -7,6 +7,7 @@ import {
   MapPin,
   Mic,
   SlidersHorizontal,
+  Menu,
 } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -30,6 +31,9 @@ export default function OpinionPage() {
       <header className="p-4 bg-background sticky top-0 z-50">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
+            <Link href="/profile" className="md:hidden">
+                <Menu />
+            </Link>
             <MapPin className="w-5 h-5 text-foreground" />
             <span className="font-semibold">{translations.location.selectLocation}</span>
           </div>
