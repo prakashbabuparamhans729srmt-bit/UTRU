@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useEffect, useRef, useState, useMemo } from 'react';
@@ -24,6 +25,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Autoplay from 'embla-carousel-autoplay';
 import { shortsData } from '@/lib/navigation';
 import { cn } from '@/lib/utils';
+import { useToast } from '@/hooks/use-toast';
 
 
 // A utility function to format large numbers
@@ -44,6 +46,7 @@ export default function ExplorePage() {
   const [isPlaying, setIsPlaying] = useState(true);
   const [likedStatus, setLikedStatus] = useState<{ [key: string]: boolean }>({});
   const [likeCounts, setLikeCounts] = useState<{ [key: string]: number }>({});
+  const { toast } = useToast();
 
   const allShorts = useMemo(() => shortsData.map((short, index) => {
     const image = PlaceHolderImages.find((img) => img.id === short.imageId);
@@ -120,6 +123,34 @@ export default function ExplorePage() {
     }));
   };
 
+  const handleShare = async (short: any) => {
+    const shareData = {
+        title: `Check out this short: ${short.title}`,
+        text: short.description,
+        url: window.location.href, // In a real app, this would be a direct link to the short
+    };
+    try {
+        if (navigator.share) {
+            await navigator.share(shareData);
+        } else {
+            // Fallback for desktop or browsers that don't support Web Share API
+            await navigator.clipboard.writeText(shareData.url);
+            toast({
+                title: "Link Copied!",
+                description: "The link to this short has been copied to your clipboard.",
+            });
+        }
+    } catch (error) {
+        console.error("Error sharing:", error);
+        toast({
+            variant: "destructive",
+            title: "Could not share",
+            description: "There was an error trying to share this short.",
+        });
+    }
+  };
+
+
   return (
     <div className="h-screen w-screen bg-black text-white relative overflow-hidden">
       <header className="absolute top-0 left-0 right-0 z-20 p-4 flex justify-between items-center bg-gradient-to-b from-black/60 to-transparent">
@@ -193,7 +224,7 @@ export default function ExplorePage() {
                         <MessageCircle className="w-8 h-8" />
                         <span className="text-xs font-semibold mt-1">12k</span>
                     </button>
-                    <button className="text-white flex flex-col items-center h-auto">
+                    <button onClick={() => handleShare(short)} className="text-white flex flex-col items-center h-auto">
                         <Share2 className="w-8 h-8" />
                         <span className="text-xs font-semibold mt-1">Share</span>
                     </button>
