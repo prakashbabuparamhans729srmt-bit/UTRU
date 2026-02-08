@@ -28,7 +28,7 @@ import { shortsData } from '@/lib/navigation';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import { useCollection, useFirestore } from '@/firebase';
-import { collection, query, orderBy, type DocumentData } from 'firebase/firestore';
+import { collection, query, type DocumentData } from 'firebase/firestore';
 
 
 // A utility function to format large numbers
@@ -49,7 +49,7 @@ interface Short extends DocumentData {
     views: string;
     imageId: string;
     userId?: string;
-    createdAt?: any;
+    createdAt?: { seconds: number; nanoseconds: number; };
 }
 
 export default function ExplorePage() {
@@ -64,13 +64,27 @@ export default function ExplorePage() {
 
   const shortsQuery = useMemo(() => {
     if (!firestore) return null;
-    return query(collection(firestore, 'shorts'), orderBy('createdAt', 'desc'));
+    // Remove orderBy from the query to avoid needing a Firestore index
+    return query(collection(firestore, 'shorts'));
   }, [firestore]);
 
-  const { data: shortsFromDb, loading: isLoading } = useCollection<Short>(shortsQuery);
+  const { data: shortsFromDb, loading: isLoading, error } = useCollection<Short>(shortsQuery);
   
   const allShorts = useMemo(() => {
     const dbShorts = shortsFromDb || [];
+
+    // Sort on the client-side to avoid needing a Firestore index
+    dbShorts.sort((a, b) => {
+        const aSeconds = a.createdAt?.seconds ?? 0;
+        const bSeconds = b.createdAt?.seconds ?? 0;
+        if (aSeconds !== bSeconds) {
+            return bSeconds - aSeconds;
+        }
+        const aNanos = a.createdAt?.nanoseconds ?? 0;
+        const bNanos = b.createdAt?.nanoseconds ?? 0;
+        return bNanos - aNanos;
+    });
+    
     const combined = [...dbShorts, ...shortsData];
     
     return combined.map((short, index) => {
@@ -180,6 +194,29 @@ export default function ExplorePage() {
     return (
       <div className="h-screen w-screen bg-black flex items-center justify-center">
           <Loader2 className="w-10 h-10 animate-spin text-white"/>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="h-screen w-screen bg-black flex flex-col items-center justify-center text-white p-4">
+          <header className="absolute top-0 left-0 right-0 z-20 p-4 flex justify-between items-center bg-gradient-to-b from-black/60 to-transparent">
+            <Button
+              onClick={() => router.back()}
+              size="icon"
+              variant="ghost"
+              className="rounded-full bg-black/30 hover:bg-black/50"
+            >
+              <ChevronLeft />
+            </Button>
+            <h1 className="text-lg font-bold drop-shadow-lg">Shorts</h1>
+            <div className="w-10"></div>
+          </header>
+          <Video className="w-24 h-24 text-muted-foreground mb-4" />
+          <h2 className="text-2xl font-bold">Error Loading Shorts</h2>
+          <p className="text-muted-foreground text-center">Could not load videos. Please try again later.</p>
+           <p className="text-xs text-red-500 mt-4 max-w-sm text-center">{error.message}</p>
       </div>
     );
   }
