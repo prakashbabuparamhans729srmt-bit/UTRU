@@ -14,10 +14,6 @@ import {
   Sunset,
   CloudRain,
   Phone,
-  Hospital,
-  Flame,
-  User,
-  Baby,
   Newspaper,
   CalendarDays,
   Map as MapIcon,
@@ -31,14 +27,11 @@ import {
   Plane,
   TramFront,
   Banknote,
-  HeartHandshake,
   Sprout,
   Thermometer,
   FileText,
-  UserCheck,
   Gavel,
   BookOpen,
-  Tractor,
   Award,
   Scroll,
   Megaphone,
@@ -48,29 +41,17 @@ import {
   CircleAlert,
   CircleCheck,
   Building,
-  Factory,
   BarChart2,
   BookCopy,
-  Receipt,
-  Scale,
-  UserCog,
   HeartPulse,
-  BrainCircuit,
-  TestTube2,
-  School,
   Building2,
   BookMarked,
   Waypoints,
   LocateFixed,
   Search,
-  ZoomIn,
   Download,
   Footprints,
   Car,
-  Atom,
-  Satellite,
-  Rocket,
-  Syringe,
   Wheat,
   Cloud,
   Wallet,
@@ -180,7 +161,7 @@ const MapCard = () => (
                 <Button variant="secondary" size="sm">अस्पताल</Button>
             </div>
             <div className="aspect-video bg-muted rounded-lg flex items-center justify-center mb-4">
-                <p className="text-muted-foreground">Map Placeholder</p>
+                <p className="text-muted-foreground">गूगल मैप्स / ओपनस्ट्रीटमैप इंटीग्रेशन</p>
             </div>
             <div className="flex flex-wrap gap-2">
                 <Button variant="outline" size="sm"><LocateFixed className="w-4 h-4 mr-2" /> मेरी लोकेशन सेट करें</Button>
@@ -193,7 +174,7 @@ const MapCard = () => (
     </Card>
 );
 
-const StatsCard = () => (
+const LocalStatsCard = () => (
     <Card>
         <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><BarChart2 /> स्थानीय जानकारी और आँकड़े</CardTitle></CardHeader>
         <CardContent className="space-y-2 text-sm">
@@ -217,7 +198,7 @@ const Tab1_MyPlace = () => (
         <EmergencyCard />
         <NewsCard />
         <MapCard />
-        <StatsCard />
+        <LocalStatsCard />
     </div>
 );
 
@@ -380,6 +361,10 @@ const DistrictSchemesCard = () => (
                     <Button variant="outline" size="sm">आवेदन स्थिति जाँचें</Button>
                 </div>
             </div>
+             <div>
+                <h3 className="font-semibold">जिला सेवा केंद्र: ५०+ (📍 निकटतम खोजें)</h3>
+                <p className="text-muted-foreground">🕒 समय: सोम-शनि, ९:०० AM - ५:०० PM</p>
+            </div>
         </CardContent>
     </Card>
 );
@@ -490,11 +475,111 @@ const StatePoliciesCard = () => (
     </Card>
 );
 
+const StateExamsCard = () => (
+    <Card>
+        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Briefcase /> राज्यस्तरीय परीक्षाएँ और रिजल्ट</CardTitle></CardHeader>
+        <CardContent className="space-y-4 text-sm">
+            <div>
+                <h3 className="font-semibold">शिक्षा बोर्ड:</h3>
+                <p className="text-muted-foreground">• उत्तर प्रदेश माध्यमिक शिक्षा परिषद (UPMSP)</p>
+                <Button variant="link" className="p-0 h-auto">UP बोर्ड हाईस्कूल/इंटरमीडिएट रिजल्ट</Button>
+            </div>
+            <div>
+                <h3 className="font-semibold">भर्ती परीक्षाएँ:</h3>
+                <ul className="list-disc list-inside text-muted-foreground">
+                    <li>UPPSC (प्रांतीय सिविल सेवा)</li>
+                    <li>UP Police (योग्यता/भौतिक परीक्षण)</li>
+                    <li>UP TET (शिक्षक पात्रता परीक्षा)</li>
+                </ul>
+            </div>
+            <div>
+                <h3 className="font-semibold">आगामी परीक्षाएँ:</h3>
+                <p className="text-muted-foreground">• UPPSC PCS २०२४ (आवेदन तिथि: १-३१ दिसंबर २०२३)</p>
+            </div>
+        </CardContent>
+    </Card>
+);
+
+const StateTransportCard = () => (
+    <Card>
+        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Bus /> राज्य परिवहन और यात्रा</CardTitle></CardHeader>
+        <CardContent className="space-y-4 text-sm">
+            <div>
+                <h3 className="font-semibold">UPSRTC (उत्तर प्रदेश सड़क परिवहन निगम):</h3>
+                <p className="text-muted-foreground">• बसें: १०,०००+ | मार्ग: २,५००+ | दैनिक यात्री: ३० लाख+</p>
+                <Button variant="link" className="p-0 h-auto">ऑनलाइन टिकट बुकिंग</Button>
+            </div>
+            <div>
+                <h3 className="font-semibold">रेलवे:</h3>
+                <p className="text-muted-foreground">• प्रमुख स्टेशन: लखनऊ, कानपुर, वाराणसी, प्रयागराज</p>
+            </div>
+            <div>
+                <h3 className="font-semibold">हवाई अड्डे:</h3>
+                <p className="text-muted-foreground">• अंतर्राष्ट्रीय: लखनऊ, वाराणसी, कुशीनगर</p>
+                <p className="text-muted-foreground">• घरेलू: आगरा, प्रयागराज, गोरखपुर</p>
+            </div>
+            <div>
+                <h3 className="font-semibold">राजमार्ग:</h3>
+                <p className="text-muted-foreground">• NH-24, यमुना एक्सप्रेसवे, पूर्वांचल एक्सप्रेसवे</p>
+            </div>
+        </CardContent>
+    </Card>
+);
+
+const StateAgricultureCard = () => (
+    <Card>
+        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Sprout /> कृषि और मौसम पूर्वानुमान</CardTitle></CardHeader>
+        <CardContent className="space-y-4 text-sm">
+            <div>
+                <h3 className="font-semibold">प्रमुख फसलें:</h3>
+                <p className="text-muted-foreground">• गेहूँ (देश का ३०% उत्पादन), धान, गन्ना</p>
+            </div>
+            <div>
+                <h3 className="font-semibold">मौसम पूर्वानुमान:</h3>
+                <p className="text-muted-foreground">• मॉनसून: जून-सितंबर, वर्षा: १०००-१२०० मिमी</p>
+            </div>
+            <div>
+                <h3 className="font-semibold">सिंचाई:</h3>
+                <p className="text-muted-foreground">• नहरें: गंगा नहर, शारदा नहर | नलकूप: २५ लाख+</p>
+            </div>
+            <div>
+                <h3 className="font-semibold">किसान कल्याण:</h3>
+                <p className="text-muted-foreground">• किसान सम्मान निधि, फसल बीमा योजना</p>
+            </div>
+        </CardContent>
+    </Card>
+);
+
+const StateHealthCard = () => (
+    <Card>
+        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><HeartPulse /> स्वास्थ्य और चिकित्सा सुविधाएँ</CardTitle></CardHeader>
+        <CardContent className="space-y-4 text-sm">
+            <div>
+                <h3 className="font-semibold">चिकित्सा बुनियादी ढाँचा:</h3>
+                <p className="text-muted-foreground">• सरकारी अस्पताल: ८००+, स्वास्थ्य केंद्र: २०,०००+</p>
+            </div>
+            <div>
+                <h3 className="font-semibold">महत्वपूर्ण संस्थान:</h3>
+                <p className="text-muted-foreground">• SGPGI लखनऊ, KGMU लखनऊ, AIIMS (गोरखपुर, रायबरेली)</p>
+            </div>
+            <div>
+                <h3 className="font-semibold">सार्वजनिक स्वास्थ्य कार्यक्रम:</h3>
+                <p className="text-muted-foreground">• आयुष्मान भारत, टीकाकरण अभियान, स्वच्छ भारत मिशन</p>
+            </div>
+        </CardContent>
+    </Card>
+);
+
+
 const Tab3_State = () => (
     <div className="space-y-6 p-1">
         <StateGovtCard />
         <StateBudgetCard/>
         <StatePoliciesCard />
+        <StateExamsCard />
+        <StateTransportCard />
+        <StateAgricultureCard />
+        <StateHealthCard />
     </div>
 );
 
@@ -508,6 +593,10 @@ const NationalSymbolCard = () => (
             <p><b> राष्ट्रीय गान:</b> जन गण मन</p>
             <p><b> राष्ट्रीय पशु:</b> बाघ</p>
             <p><b> राष्ट्रीय पक्षी:</b> मोर</p>
+            <div className="flex gap-2 mt-2">
+                <Button variant="outline" size="sm">गान सुनें</Button>
+                <Button variant="outline" size="sm">संविधान देखें</Button>
+            </div>
         </CardContent>
     </Card>
 );
@@ -537,8 +626,7 @@ const ConstitutionCard = () => (
         <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Scroll /> संविधान और नागरिक अधिकार</CardTitle></CardHeader>
         <CardContent className="space-y-3 text-sm">
              <div>
-                <p><b>📖 भारत का संविधान:</b></p>
-                <p className="text-muted-foreground">• लागू: २६ जनवरी १९५०</p>
+                <p><b>📖 भारत का संविधान:</b> लागू: २६ जनवरी १९५०</p>
             </div>
             <div>
                 <h3 className="font-semibold">⚖️ मौलिक अधिकार:</h3>
@@ -578,6 +666,38 @@ const DocumentServicesCard = () => (
     </Card>
 );
 
+const NationalEmergencyCard = () => (
+    <Card>
+        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Siren /> राष्ट्रीय आपातकाल और आपदा प्रबंधन</CardTitle></CardHeader>
+        <CardContent className="space-y-3 text-sm">
+            <div>
+                <h3 className="font-semibold">राष्ट्रीय आपातकालीन नंबर:</h3>
+                <p className="text-muted-foreground">• पुलिस: १००, एम्बुलेंस: १०२, अग्निशमन: १०१</p>
+            </div>
+            <div>
+                <h3 className="font-semibold">आपदा प्रबंधन:</h3>
+                <p className="text-muted-foreground">• राष्ट्रीय आपदा प्रबंधन प्राधिकरण (NDMA)</p>
+            </div>
+        </CardContent>
+    </Card>
+);
+
+const IndiaFactsCard = () => (
+    <Card>
+        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Award /> भारत के बारे में तथ्य और उपलब्धियाँ</CardTitle></CardHeader>
+        <CardContent className="space-y-3 text-sm">
+            <div>
+                <h3 className="font-semibold">भौगोलिक तथ्य:</h3>
+                <p className="text-muted-foreground">• क्षेत्रफल: ३२.८ लाख वर्ग किमी (विश्व में ७वाँ)</p>
+            </div>
+            <div>
+                <h3 className="font-semibold">उपलब्धियाँ:</h3>
+                <p className="text-muted-foreground">• 🚀 चंद्रयान-३, 🌐 UPI, 🏭 3rd largest startup ecosystem</p>
+            </div>
+        </CardContent>
+    </Card>
+);
+
 
 const Tab4_Country = () => (
     <div className="space-y-6 p-1">
@@ -586,6 +706,8 @@ const Tab4_Country = () => (
         <ConstitutionCard />
         <NationalSchemesCard />
         <DocumentServicesCard />
+        <NationalEmergencyCard />
+        <IndiaFactsCard />
     </div>
 );
 
@@ -603,7 +725,7 @@ export default function MorePage() {
         </header>
 
         <Tabs defaultValue="my-place" className="w-full p-4">
-            <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto">
+            <TabsList className="grid w-full grid-cols-4 h-auto">
                 <TabsTrigger value="my-place" className="text-xs sm:text-sm">मेरा वर्तमान स्थान</TabsTrigger>
                 <TabsTrigger value="district" className="text-xs sm:text-sm">जिला</TabsTrigger>
                 <TabsTrigger value="state" className="text-xs sm:text-sm">राज्य</TabsTrigger>
