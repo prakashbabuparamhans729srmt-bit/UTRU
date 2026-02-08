@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -25,11 +25,50 @@ import Autoplay from 'embla-carousel-autoplay';
 import { shortsData } from '@/lib/navigation';
 import { cn } from '@/lib/utils';
 
+
+// A utility function to format large numbers
+const formatCount = (num: number): string => {
+    if (!num) return '0';
+    if (num >= 1000000) {
+      return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+    }
+    if (num >= 1000) {
+      return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+    }
+    return num.toString();
+  };
+
 export default function ExplorePage() {
   const router = useRouter();
   const [api, setApi] = useState<CarouselApi>();
   const [isPlaying, setIsPlaying] = useState(true);
   const [likedStatus, setLikedStatus] = useState<{ [key: string]: boolean }>({});
+  const [likeCounts, setLikeCounts] = useState<{ [key: string]: number }>({});
+
+  const allShorts = useMemo(() => shortsData.map((short, index) => {
+    const image = PlaceHolderImages.find((img) => img.id === short.imageId);
+    const viewsNumber = parseFloat(short.views) * 1000000;
+    const initialLikes = Math.floor(viewsNumber / 10 + Math.random() * 10000); // Base likes + random variation
+
+    return {
+      ...short,
+      imageUrl: image?.imageUrl || `https://picsum.photos/seed/${short.id}/900/1600`,
+      imageHint: image?.imageHint || 'video content',
+      userName: `Creator${index + 1}`,
+      avatarUrl: `https://picsum.photos/seed/avatar${index}/40/40`,
+      description: `${short.title} - Check this out! #cool #video #fyp`,
+      audio: `Original Audio - Creator${index + 1}`,
+      initialLikes: initialLikes
+    };
+  }), []);
+
+  useEffect(() => {
+    const initialCounts = allShorts.reduce((acc, short) => {
+        acc[short.id] = short.initialLikes;
+        return acc;
+    }, {} as Record<string, number>);
+    setLikeCounts(initialCounts);
+  }, [allShorts]);
 
   // Using autoplay to simulate video playback and auto-advancing shorts
   const plugin = useRef(
@@ -70,24 +109,16 @@ export default function ExplorePage() {
   };
   
   const toggleLike = (shortId: string) => {
+    const isCurrentlyLiked = likedStatus[shortId];
     setLikedStatus(prev => ({
         ...prev,
-        [shortId]: !prev[shortId]
+        [shortId]: !isCurrentlyLiked
+    }));
+    setLikeCounts(prev => ({
+        ...prev,
+        [shortId]: isCurrentlyLiked ? (prev[shortId] || 1) - 1 : (prev[shortId] || 0) + 1
     }));
   };
-
-  const allShorts = shortsData.map((short, index) => {
-    const image = PlaceHolderImages.find((img) => img.id === short.imageId);
-    return {
-      ...short,
-      imageUrl: image?.imageUrl || `https://picsum.photos/seed/${short.id}/900/1600`,
-      imageHint: image?.imageHint || 'video content',
-      userName: `Creator${index + 1}`,
-      avatarUrl: `https://picsum.photos/seed/avatar${index}/40/40`,
-      description: `${short.title} - Check this out! #cool #video #fyp`,
-      audio: `Original Audio - Creator${index + 1}`
-    };
-  });
 
   return (
     <div className="h-screen w-screen bg-black text-white relative overflow-hidden">
@@ -156,7 +187,7 @@ export default function ExplorePage() {
                   <div className="flex flex-col items-center space-y-5 ml-4">
                     <button onClick={() => toggleLike(short.id)} className="text-white flex flex-col items-center h-auto">
                         <Heart className={cn("w-8 h-8 transition-colors", likedStatus[short.id] ? "fill-red-500 text-red-500" : "text-white")} />
-                        <span className="text-xs font-semibold mt-1">1.2M</span>
+                        <span className="text-xs font-semibold mt-1">{formatCount(likeCounts[short.id] || 0)}</span>
                     </button>
                     <button className="text-white flex flex-col items-center h-auto">
                         <MessageCircle className="w-8 h-8" />
