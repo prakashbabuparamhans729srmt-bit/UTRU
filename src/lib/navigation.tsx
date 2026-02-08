@@ -174,6 +174,15 @@ import {
     { href: '/more', icon: MoreHorizontal, labelKey: 'more' },
   ];
   
+  export const shortsData = [
+    { id: 'shorts-1', title: "'DANGEROUS food'", views: '20M views', imageId: 'shorts-dangerous-food' },
+    { id: 'shorts-2', title: 'Iron Chef kitchen', views: '2M views', imageId: 'shorts-chef-knife' },
+    { id: 'shorts-3', title: "17 Year Teeth-One KNOCKS...", views: '11M views', imageId: 'shorts-girl-crying' },
+    { id: 'shorts-4', title: "ANIMALS THAT ASHES PEOPLE TO...", views: '18M views', imageId: 'shorts-animal-glass' },
+    { id: 'shorts-5', title: "The weirdest scenes in sports...", views: '9M views', imageId: 'shorts-baseball-swing' },
+    { id: 'shorts-6', title: "SPAGHETTI BOWL THEM IN SLIME", views: '1M views', imageId: 'shorts-jelly-cherries' }
+  ];
+
   // For src/app/profile/page.tsx
   
   export const profileHeaderLinks = [

@@ -27,7 +27,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useLanguage } from '@/context/LanguageContext';
 import FloatingActionButton from '@/components/FloatingActionButton';
-import { mainFooterNavLinks, homeCategoryLinks, sideNavLinks } from '@/lib/navigation.tsx';
+import { mainFooterNavLinks, homeCategoryLinks, shortsData } from '@/lib/navigation.tsx';
 import Autoplay from 'embla-carousel-autoplay';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -90,15 +90,6 @@ export default function Home() {
   );
   const shortsImages = PlaceHolderImages.filter(img => img.id.startsWith('shorts-'));
   
-  const shortsData = [
-    { id: 'shorts-1', title: "'DANGEROUS food'", views: '20M views', imageId: 'shorts-dangerous-food' },
-    { id: 'shorts-2', title: 'Iron Chef kitchen', views: '2M views', imageId: 'shorts-chef-knife' },
-    { id: 'shorts-3', title: "17 Year Teeth-One KNOCKS...", views: '11M views', imageId: 'shorts-girl-crying' },
-    { id: 'shorts-4', title: "ANIMALS THAT ASHES PEOPLE TO...", views: '18M views', imageId: 'shorts-animal-glass' },
-    { id: 'shorts-5', title: "The weirdest scenes in sports...", views: '9M views', imageId: 'shorts-baseball-swing' },
-    { id: 'shorts-6', title: "SPAGHETTI BOWL THEM IN SLIME", views: '1M views', imageId: 'shorts-jelly-cherries' }
-  ];
-
   const adPlugin = React.useRef(
     Autoplay({ delay: 3000, stopOnInteraction: true })
   );

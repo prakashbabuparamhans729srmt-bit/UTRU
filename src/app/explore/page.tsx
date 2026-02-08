@@ -1,108 +1,173 @@
-
 'use client';
 
-import {
-  Search,
-  X,
-  MapPin,
-  Mic,
-  SlidersHorizontal,
-} from 'lucide-react';
-import Link from 'next/link';
+import React, { useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { useLanguage } from '@/context/LanguageContext';
-import { cn } from '@/lib/utils';
-import { locationNavLinks, mainFooterNavLinks } from '@/lib/navigation';
-import { usePathname } from 'next/navigation';
-import { useState } from 'react';
-import { Card } from '@/components/ui/card';
-import { useVoiceSearch } from '@/context/VoiceSearchContext';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from '@/components/ui/carousel';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
+import {
+  Heart,
+  MessageCircle,
+  Share2,
+  ChevronLeft,
+  Play,
+  Pause,
+  Music,
+} from 'lucide-react';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import Autoplay from 'embla-carousel-autoplay';
+import { shortsData } from '@/lib/navigation';
 
 export default function ExplorePage() {
-  const { translations } = useLanguage();
-  const pathname = usePathname();
-  const [searchQuery, setSearchQuery] = useState('');
-  const { openModal: openVoiceModal } = useVoiceSearch();
+  const router = useRouter();
+  const [api, setApi] = React.useState<CarouselApi>();
+  const [isPlaying, setIsPlaying] = React.useState(true);
+
+  // Using autoplay to simulate video playback and auto-advancing shorts
+  const plugin = React.useRef(
+    Autoplay({ delay: 8000, stopOnInteraction: false, stopOnMouseEnter: false })
+  );
+
+  useEffect(() => {
+    if (!api) return;
+    
+    // When a new short is selected, reset and play the autoplay
+    const onSelect = () => {
+      plugin.current.reset();
+      if (!isPlaying) {
+        setIsPlaying(true);
+      }
+    };
+
+    api.on('select', onSelect);
+    
+    return () => {
+      api.off('select', onSelect);
+    };
+
+  }, [api, isPlaying]);
+
+  const togglePlay = (e: React.MouseEvent<HTMLDivElement>) => {
+    // Prevent toggling when clicking on buttons inside the container
+    if ((e.target as HTMLElement).closest('button')) {
+        return;
+    }
+
+    if (isPlaying) {
+      plugin.current.stop();
+    } else {
+      plugin.current.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
+
+  const allShorts = shortsData.map((short, index) => {
+    const image = PlaceHolderImages.find((img) => img.id === short.imageId);
+    return {
+      ...short,
+      imageUrl: image?.imageUrl || `https://picsum.photos/seed/${short.id}/900/1600`,
+      imageHint: image?.imageHint || 'video content',
+      userName: `Creator${index + 1}`,
+      avatarUrl: `https://picsum.photos/seed/avatar${index}/40/40`,
+      description: `${short.title} - Check this out! #cool #video #fyp`,
+      audio: `Original Audio - Creator${index + 1}`
+    };
+  });
 
   return (
-    <div className="bg-background text-foreground min-h-screen flex flex-col">
-      <header className="p-4 bg-background sticky top-0 z-50">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <MapPin className="w-5 h-5 text-foreground" />
-            <span className="font-semibold">{translations.location.selectLocation}</span>
-          </div>
-          <span className="text-sm">{translations.location.man}</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="relative flex-grow">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-            <input
-              type="text"
-              placeholder={translations.location.searchPlaceholder}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-input rounded-full pl-10 pr-28 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
-                {searchQuery && (
-                    <X 
-                        className="w-5 h-5 text-muted-foreground cursor-pointer"
-                        onClick={() => setSearchQuery('')}
-                    />
-                )}
-                <div className="w-px h-5 bg-border"></div>
-                <Mic
-                  className="w-5 h-5 text-muted-foreground cursor-pointer"
-                  onClick={openVoiceModal}
-                />
-                <div className="w-px h-5 bg-border"></div>
-                <Link href="/filter">
-                  <SlidersHorizontal className="w-5 h-5 text-muted-foreground cursor-pointer" />
-                </Link>
-            </div>
-          </div>
-        </div>
+    <div className="h-screen w-screen bg-black text-white relative overflow-hidden">
+      <header className="absolute top-0 left-0 right-0 z-20 p-4 flex justify-between items-center bg-gradient-to-b from-black/60 to-transparent">
+        <Button
+          onClick={() => router.back()}
+          size="icon"
+          variant="ghost"
+          className="rounded-full bg-black/30 hover:bg-black/50"
+        >
+          <ChevronLeft />
+        </Button>
+        <h1 className="text-lg font-bold drop-shadow-lg">Shorts</h1>
+        {/* Placeholder for other icons like search */}
+        <div className="w-10"></div>
       </header>
 
-      <main className="flex-grow pb-32">
-        <div className="p-4 text-center">
-            <h1 className="text-2xl font-bold">Explore Page</h1>
-            <p className="text-muted-foreground">Content for Explore will be displayed here.</p>
-        </div>
-      </main>
+      <Carousel
+        setApi={setApi}
+        opts={{
+          align: 'start',
+          loop: true,
+        }}
+        orientation="vertical"
+        className="w-full h-full"
+        plugins={[plugin.current]}
+      >
+        <CarouselContent className="h-full -mt-0">
+          {allShorts.map((short, index) => (
+            <CarouselItem key={index} className="pt-0 h-full relative">
+              <div className="w-full h-full" onClick={togglePlay}>
+                <Image
+                  src={short.imageUrl}
+                  alt={short.title}
+                  layout="fill"
+                  objectFit="cover"
+                  className="w-full h-full"
+                  priority={index === 0}
+                  data-ai-hint={short.imageHint}
+                />
+                
+                {/* Overlay for better text readability and interaction area */}
+                <div className="absolute inset-0"></div>
 
-      <footer className="fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-700 z-50">
-        <div className="flex justify-around items-center p-2">
-          {mainFooterNavLinks.map((link, index) => {
-              const isActive = pathname === link.href;
-              if (link.isCentral) {
-                return (
-                  <div key={index} className="-mt-8">
-                    <Link href={link.href}>
-                        <div className={cn(
-                            "flex items-center justify-center w-16 h-16 rounded-full bg-primary text-primary-foreground shadow-lg border-4 border-gray-900",
-                        )}>
-                           <link.icon className="w-8 h-8" />
-                        </div>
-                    </Link>
+                {/* Play/Pause icon appears in center on toggle */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none transition-opacity duration-300">
+                    {!isPlaying && <Play className="w-20 h-20 text-white/70 drop-shadow-2xl" fill="white" />}
+                </div>
+
+                {/* Video Info and Actions */}
+                <div className="absolute bottom-0 left-0 right-0 p-4 flex justify-between items-end bg-gradient-to-t from-black/70 to-transparent">
+                  <div className="flex-1 space-y-3 min-w-0">
+                    <div className="flex items-center gap-3">
+                      <Avatar className="h-10 w-10 border-2 border-white">
+                        <AvatarImage src={short.avatarUrl} />
+                        <AvatarFallback>{short.userName.charAt(0)}</AvatarFallback>
+                      </Avatar>
+                      <p className="font-semibold text-white truncate">@{short.userName}</p>
+                    </div>
+                    <p className="text-sm text-white/90 truncate">{short.description}</p>
+                    <div className="flex items-center gap-2">
+                        <Music className="w-4 h-4"/>
+                        <p className="text-sm text-white/90 truncate">{short.audio}</p>
+                    </div>
                   </div>
-                );
-              }
-              return (
-                <Link key={index} href={link.href} className={cn(
-                    "flex flex-col items-center justify-center gap-1 h-auto p-2 rounded-md transition-colors w-16", 
-                    isActive ? 'text-primary' : 'text-muted-foreground hover:text-primary'
-                  )}>
-                  <link.icon className="w-6 h-6" />
-                  <span className={cn("text-xs", isActive ? 'font-bold' : 'font-semibold')}>
-                    {(translations.home as any)[link.labelKey] || (translations.location as any)[link.labelKey] || ''}
-                    </span>
-                </Link>
-              )
-          })}
-        </div>
-      </footer>
+                  <div className="flex flex-col items-center space-y-5 ml-4">
+                    <button className="text-white flex flex-col items-center h-auto">
+                        <Heart className="w-8 h-8" />
+                        <span className="text-xs font-semibold mt-1">1.2M</span>
+                    </button>
+                    <button className="text-white flex flex-col items-center h-auto">
+                        <MessageCircle className="w-8 h-8" />
+                        <span className="text-xs font-semibold mt-1">12k</span>
+                    </button>
+                    <button className="text-white flex flex-col items-center h-auto">
+                        <Share2 className="w-8 h-8" />
+                        <span className="text-xs font-semibold mt-1">Share</span>
+                    </button>
+                     <Avatar className="h-10 w-10 border-2 border-white animate-spin-slow">
+                        <AvatarImage src={short.avatarUrl} />
+                        <AvatarFallback>{short.userName.charAt(0)}</AvatarFallback>
+                      </Avatar>
+                  </div>
+                </div>
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
     </div>
   );
 }
