@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useRouter } from 'next/navigation';
@@ -5,61 +6,25 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
-  ChevronLeft,
-  Sun,
-  Wind,
-  Droplets,
-  Sunrise,
-  Sunset,
-  CloudRain,
-  Phone,
-  Newspaper,
-  CalendarDays,
-  Map as MapIcon,
-  Users,
-  GraduationCap,
-  Briefcase,
-  Landmark,
-  Shield,
-  Train,
-  Bus,
-  Plane,
-  TramFront,
-  Banknote,
-  Sprout,
-  Thermometer,
-  FileText,
-  Gavel,
-  BookOpen,
-  Award,
-  Scroll,
-  Megaphone,
-  Ticket,
-  BookUser,
-  Siren,
-  CircleAlert,
-  CircleCheck,
-  Building,
-  BarChart2,
-  BookCopy,
-  HeartPulse,
-  Building2,
-  BookMarked,
-  Waypoints,
-  LocateFixed,
-  Search,
-  Download,
-  Footprints,
-  Car,
-  Wheat,
-  Cloud,
-  Wallet,
-  Ruler,
-  Globe,
-  Trophy,
-  Medal,
+  ChevronLeft, Sun, Wind, Droplets, Sunrise, Sunset, CloudRain, Phone,
+  Newspaper, CalendarDays, Map as MapIcon, Users, GraduationCap, Briefcase,
+  Landmark, Shield, Train, Bus, Plane, TramFront, Banknote, Sprout,
+  Thermometer, FileText, Gavel, BookOpen, Award, Scroll, Megaphone,
+  Ticket, BookUser, Siren, CircleAlert, CircleCheck, Building, BarChart2,
+  BookCopy, HeartPulse, Building2, BookMarked, Waypoints, LocateFixed,
+  Search, Download, Footprints, Car, Wheat, Cloud, Wallet, Ruler,
+  Globe, Trophy, Medal, X, Mic, SlidersHorizontal, PlaySquare
 } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useState, useRef, useEffect } from 'react';
+import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
+import Autoplay from 'embla-carousel-autoplay';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { shortsData } from '@/lib/navigation';
+import FloatingActionButton from '@/components/FloatingActionButton';
+import { useVoiceSearch } from '@/context/VoiceSearchContext';
+import { useLanguage } from '@/context/LanguageContext';
 
 const WeatherCard = () => (
     <Card>
@@ -135,7 +100,7 @@ const EmergencyCard = () => (
     </Card>
 );
 
-const NewsCard = () => (
+const LocalNewsCard = () => (
     <Card>
       <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Newspaper /> स्थानीय समाचार और अपडेट्स</CardTitle></CardHeader>
       <CardContent className="space-y-3 text-sm">
@@ -200,7 +165,7 @@ const Tab1_MyPlace = () => (
     <div className="space-y-6 p-1">
         <WeatherCard />
         <EmergencyCard />
-        <NewsCard />
+        <LocalNewsCard />
         <MapCard />
         <LocalStatsCard />
     </div>
@@ -275,7 +240,7 @@ const DistrictHealthCard = () => (
              <div>
                 <h3 className="font-semibold">टीकाकरण और परीक्षण:</h3>
                 <p className="text-muted-foreground">💉 टीकाकरण केंद्र: १५०+ (📍 निकटतम खोजें)</p>
-                <p className="text-muted-foreground">🧪 COVID-19 टेस्टिंग सेंटर: २५+</p>
+                <p className="text-muted-foreground">🧪 COVID-19 टेस्टिंग सेंटर: ২৫+</p>
             </div>
              <div className="flex gap-2 mt-2">
                 <Button variant="outline" size="sm">सभी अस्पताल देखें</Button>
@@ -788,36 +753,156 @@ const Tab4_Country = () => (
 
 export default function MorePage() {
   const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState('');
+  const { translations } = useLanguage();
+  const { openModal: openVoiceModal } = useVoiceSearch();
+  const adImages = PlaceHolderImages.filter((img) => img.id.startsWith('ad-hero'));
+  const shortsImages = PlaceHolderImages.filter(img => img.id.startsWith('shorts-'));
+  const adPlugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: true }));
+  
+  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
 
   return (
     <div className="bg-background text-foreground min-h-screen">
-        <header className="p-4 flex items-center gap-4 border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
-            <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
-            <ChevronLeft />
-            </Button>
-            <h1 className="text-lg font-semibold">🇮🇳 भारत सूचना</h1>
+        <header className="p-4 flex items-center justify-between border-b sticky top-0 bg-background/80 backdrop-blur-sm z-20">
+            <div className='flex items-center gap-4'>
+                <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
+                <ChevronLeft />
+                </Button>
+                <h1 className="text-lg font-semibold">🇮🇳 भारत सूचना</h1>
+            </div>
+            <div className='flex items-center gap-2'>
+                <Button size="icon" variant="ghost" className="rounded-full"><Search /></Button>
+                <Button size="icon" variant="ghost" className="rounded-full"><Users /></Button>
+            </div>
         </header>
 
-        <Tabs defaultValue="my-place" className="w-full p-4">
-            <TabsList className="grid w-full grid-cols-4 h-auto">
-                <TabsTrigger value="my-place" className="text-xs sm:text-sm">मेरा वर्तमान स्थान</TabsTrigger>
-                <TabsTrigger value="district" className="text-xs sm:text-sm">जिला</TabsTrigger>
-                <TabsTrigger value="state" className="text-xs sm:text-sm">राज्य</TabsTrigger>
-                <TabsTrigger value="country" className="text-xs sm:text-sm">देश</TabsTrigger>
-            </TabsList>
-            <TabsContent value="my-place" className="mt-6">
-                <Tab1_MyPlace />
-            </TabsContent>
-            <TabsContent value="district" className="mt-6">
-                <Tab2_District />
-            </TabsContent>
-            <TabsContent value="state" className="mt-6">
-                <Tab3_State />
-            </TabsContent>
-            <TabsContent value="country" className="mt-6">
-                <Tab4_Country />
-            </TabsContent>
-        </Tabs>
+        <main className="p-4 space-y-6 pb-20">
+            <form onSubmit={handleSearchSubmit} className="relative flex-grow">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                <input
+                    type="text"
+                    placeholder="खोजें..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full bg-input rounded-full pl-10 pr-12 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+                <Mic
+                    className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground cursor-pointer"
+                    onClick={openVoiceModal}
+                />
+            </form>
+
+            <Carousel 
+              className="w-full" 
+              opts={{ loop: true }}
+              plugins={[adPlugin.current]}
+              onMouseEnter={adPlugin.current.stop}
+              onMouseLeave={adPlugin.current.reset}
+            >
+              <CarouselContent>
+                {adImages.slice(0, 5).map((image) => (
+                  <CarouselItem key={image.id}>
+                    <Image
+                        src={image.imageUrl}
+                        alt={image.description}
+                        width={600}
+                        height={300}
+                        className="rounded-lg object-cover w-full aspect-[2/1]"
+                        data-ai-hint={image.imageHint}
+                    />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+            
+            <Carousel 
+              className="w-full" 
+              opts={{ loop: true }}
+              plugins={[useRef(Autoplay({ delay: 4000, stopOnInteraction: true })).current]}
+            >
+              <CarouselContent>
+                {PlaceHolderImages.filter(i => i.id.startsWith('electronics-hero')).slice(0, 5).map((image) => (
+                  <CarouselItem key={image.id}>
+                     <Image
+                        src={image.imageUrl}
+                        alt={image.description}
+                        width={600}
+                        height={300}
+                        className="rounded-lg object-cover w-full aspect-[2/1]"
+                        data-ai-hint={image.imageHint}
+                    />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+
+            <section className="space-y-4">
+              <div className="flex items-center justify-between">
+                <h2 className="text-xl font-bold flex items-center gap-2">
+                  <PlaySquare className="text-red-500" />
+                  ज़रूरी ख़बरें
+                </h2>
+                <Button variant="link" onClick={() => router.push('/explore')}>और देखें</Button>
+              </div>
+              <Carousel opts={{ align: 'start', loop: false }} className="w-full">
+                <CarouselContent className="-ml-2">
+                  {shortsData.slice(0, 6).map((short, index) => {
+                    const image = shortsImages.find(img => img.id === short.imageId);
+                    return (
+                      <CarouselItem key={index} className="pl-4 basis-1/2 md:basis-1/3">
+                        <Link href="/explore">
+                          <Card className="overflow-hidden rounded-xl border-none">
+                            <CardContent className="p-0 relative">
+                              <Image
+                                src={image?.imageUrl || `https://picsum.photos/seed/${short.id}/300/500`}
+                                alt={short.title}
+                                width={300}
+                                height={200}
+                                className="object-cover w-full aspect-video rounded-xl"
+                                data-ai-hint={image?.imageHint || 'video content'}
+                              />
+                              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2">
+                                <h4 className="font-semibold text-white text-sm truncate">{short.title}</h4>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        </Link>
+                      </CarouselItem>
+                    );
+                  })}
+                </CarouselContent>
+              </Carousel>
+            </section>
+
+
+            <Tabs defaultValue="my-place" className="w-full">
+                <TabsList className="grid w-full grid-cols-4 h-auto">
+                    <TabsTrigger value="my-place" className="text-xs sm:text-sm">मेरा वर्तमान स्थान</TabsTrigger>
+                    <TabsTrigger value="district" className="text-xs sm:text-sm">जिला</TabsTrigger>
+                    <TabsTrigger value="state" className="text-xs sm:text-sm">राज्य</TabsTrigger>
+                    <TabsTrigger value="country" className="text-xs sm:text-sm">देश</TabsTrigger>
+                </TabsList>
+                <TabsContent value="my-place" className="mt-6">
+                    <Tab1_MyPlace />
+                </TabsContent>
+                <TabsContent value="district" className="mt-6">
+                    <Tab2_District />
+                </TabsContent>
+                <TabsContent value="state" className="mt-6">
+                    <Tab3_State />
+                </TabsContent>
+                <TabsContent value="country" className="mt-6">
+                    <Tab4_Country />
+                </TabsContent>
+            </Tabs>
+        </main>
+        <FloatingActionButton />
     </div>
   );
 }
