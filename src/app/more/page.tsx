@@ -99,6 +99,15 @@ import {
   Megaphone,
   BookUser,
   CircleAlert,
+  Sun,
+  Wind,
+  Sunrise,
+  Sunset,
+  CloudRain,
+  Newspaper,
+  CalendarDays,
+  Banknote,
+  Sprout,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -134,7 +143,7 @@ const WeatherCard = () => (
           <div className="flex items-center gap-2"><Sunset className="w-5 h-5 text-orange-700" /><span>सूर्यास्त: ६:३० PM</span></div>
         </div>
         <div className="p-2 bg-green-100 dark:bg-green-900/50 rounded-lg flex items-start gap-2">
-          <CircleCheck className="w-5 h-5 text-green-600 mt-0.5 shrink-0" />
+          <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 shrink-0" />
           <div>
             <p className="font-semibold">वायु गुणवत्ता सूचकांक (AQI): ४५ (अच्छा)</p>
             <p className="text-xs text-muted-foreground">सलाह: बाहरी गतिविधियों के लिए उत्तम दिन</p>
@@ -193,23 +202,25 @@ const EmergencyCard = () => {
     </Card>
 )};
 
-const LocalNewsCard = () => (
+const LocalNewsCard = () => {
+    const router = useRouter();
+    return (
     <Card>
       <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Newspaper /> स्थानीय समाचार और अपडेट्स</CardTitle></CardHeader>
       <CardContent className="space-y-3 text-sm">
         <div className="flex items-start gap-2"><CircleAlert className="text-red-500 mt-1 shrink-0" /><p><b>जरूरी सूचना:</b> कल से नगर निगम का विशेष स्वच्छता अभियान शुरू</p></div>
         <div className="flex items-start gap-2"><CircleAlert className="text-yellow-500 mt-1 shrink-0" /><p><b>चेतावनी:</b> आज रात १० बजे से सुबह ६ बजे तक पानी की आपूर्ति बाधित</p></div>
-        <div className="flex items-start gap-2"><CircleCheck className="text-green-500 mt-1 shrink-0" /><p><b>सकारात्मक:</b> मेट्रो का नया रूट अगले माह से शुरू, ५०,००० लोगों को लाभ</p></div>
+        <div className="flex items-start gap-2"><CheckCircle className="text-green-500 mt-1 shrink-0" /><p><b>सकारात्मक:</b> मेट्रो का नया रूट अगले माह से शुरू, ५०,००० लोगों को लाभ</p></div>
         <div className="flex items-start gap-2"><CalendarDays className="text-blue-500 mt-1 shrink-0" /><p><b>आगामी कार्यक्रम:</b> १५ अगस्त - स्वतंत्रता दिवस समारोह, पार्क में</p></div>
         <div className="flex gap-2 mt-2">
-            <Button variant="outline" size="sm">सभी समाचार देखें</Button>
-            <Button variant="outline" size="sm">अलर्ट प्राप्त करें</Button>
+            <Button variant="outline" size="sm" onClick={() => router.push('/explore')}>सभी समाचार देखें</Button>
+            <Button variant="outline" size="sm" onClick={() => router.push('/settings')}>अलर्ट प्राप्त करें</Button>
         </div>
       </CardContent>
     </Card>
-);
+)};
 
-const MapCard = () => (
+const MapCard = ({ onSearchClick }: { onSearchClick: () => void }) => (
     <Card>
         <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><MapIcon /> इंटरएक्टिव नक्शा और स्थानीय सुविधाएँ</CardTitle></CardHeader>
         <CardContent>
@@ -226,7 +237,7 @@ const MapCard = () => (
             </div>
             <div className="flex flex-wrap gap-2">
                 <Button variant="outline" size="sm" onClick={() => navigator.geolocation.getCurrentPosition(pos => window.open(`https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`, '_blank'))}><LocateFixed className="w-4 h-4 mr-2" /> मेरी लोकेशन सेट करें</Button>
-                <Button variant="outline" size="sm" onClick={() => document.querySelector('input[type="text"]')?.focus()}><Search className="w-4 h-4 mr-2" /> स्थान खोजें</Button>
+                <Button variant="outline" size="sm" onClick={onSearchClick}><Search className="w-4 h-4 mr-2" /> स्थान खोजें</Button>
                 <Button variant="outline" size="sm" onClick={() => window.open('https://www.google.com/maps', '_blank')}><Ruler className="w-4 h-4 mr-2" /> दूरी मापें</Button>
                 <Button variant="outline" size="sm" onClick={() => window.open('https://www.google.com/maps?q=directions&travelmode=walking', '_blank')}><Footprints className="w-4 h-4 mr-2" /> पैदल मार्ग</Button>
                 <Button variant="outline" size="sm" onClick={() => window.open('https://www.google.com/maps?q=directions&travelmode=driving', '_blank')}><Car className="w-4 h-4 mr-2" /> गाड़ी मार्ग</Button>
@@ -236,7 +247,9 @@ const MapCard = () => (
     </Card>
 );
 
-const LocalStatsCard = () => (
+const LocalStatsCard = () => {
+    const { toast } = useToast();
+    return (
     <Card>
         <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><BarChart2 /> स्थानीय जानकारी और आँकड़े</CardTitle></CardHeader>
         <CardContent className="space-y-3 text-sm">
@@ -247,14 +260,16 @@ const LocalStatsCard = () => (
             <p className="flex items-center gap-2"><b><Briefcase className="w-4 h-4 inline-block"/> प्रमुख उद्योग:</b> सूचना प्रौद्योगिकी, हस्तशिल्प, पर्यटन</p>
             <p className="flex items-center gap-2"><b><Building className="w-4 h-4 inline-block"/> स्थानीय प्रशासन:</b> लखनऊ नगर निगम, जिला प्रशासन</p>
             <div className="flex gap-2 mt-2">
-                <Button variant="outline" size="sm">विस्तृत आँकड़े देखें</Button>
-                <Button variant="outline" size="sm">रिपोर्ट डाउनलोड</Button>
+                <Button variant="outline" size="sm" onClick={() => toast({ title: 'Feature coming soon!' })}>विस्तृत आँकड़े देखें</Button>
+                <Button variant="outline" size="sm" onClick={() => toast({ title: 'Feature coming soon!' })}>रिपोर्ट डाउनलोड</Button>
             </div>
         </CardContent>
     </Card>
-);
+)};
 
-const DistrictAdminCard = () => (
+const DistrictAdminCard = () => {
+    const { toast } = useToast();
+    return (
     <Card>
         <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Landmark /> जिला प्रशासन और अधिकारी</CardTitle></CardHeader>
         <CardContent className="space-y-3 text-sm">
@@ -264,7 +279,7 @@ const DistrictAdminCard = () => (
             </div>
             <div>
                 <p><b>🚓 पुलिस अधीक्षक (SP):</b> श्रीमती प्रिया शर्मा, IPS</p>
-                <p className="text-muted-foreground">📞: ०५२२-२२१०३०२ | <Button variant="link" className="p-0 h-auto">अपराध रिपोर्ट ऑनलाइन दर्ज करें</Button></p>
+                <p className="text-muted-foreground">📞: ०५२२-२२१०३०२ | <Button variant="link" className="p-0 h-auto" onClick={() => toast({ title: 'Feature coming soon!' })}>अपराध रिपोर्ट ऑनलाइन दर्ज करें</Button></p>
             </div>
             <div className="border-t pt-3">
                 <p className="font-semibold">अन्य प्रमुख अधिकारी:</p>
@@ -273,13 +288,15 @@ const DistrictAdminCard = () => (
                     <li>मुख्य चिकित्सा अधिकारी (CMO)</li>
                     <li>जिला शिक्षा अधिकारी (DEO)</li>
                 </ul>
-                <Button variant="outline" size="sm" className="mt-2">सभी अधिकारियों की सूची</Button>
+                <Button variant="outline" size="sm" className="mt-2" onClick={() => toast({ title: 'Feature coming soon!' })}>सभी अधिकारियों की सूची</Button>
             </div>
         </CardContent>
     </Card>
-);
+)};
 
-const DistrictStatsCard = () => (
+const DistrictStatsCard = () => {
+    const { toast } = useToast();
+    return (
     <Card>
         <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><BarChart2 /> जिला सांख्यिकी और आँकड़े</CardTitle></CardHeader>
         <CardContent className="space-y-4 text-sm">
@@ -298,13 +315,15 @@ const DistrictStatsCard = () => (
              <div>
                 <p><b>💼 आर्थिक सूचक:</b></p>
                 <p className="text-muted-foreground">प्रति व्यक्ति आय: ₹१,४५,०००/वर्ष | बेरोजगारी दर: ६.२%</p>
-                <Button variant="outline" size="sm" className="mt-2">विस्तृत आर्थिक रिपोर्ट</Button>
+                <Button variant="outline" size="sm" className="mt-2" onClick={() => toast({ title: 'Feature coming soon!' })}>विस्तृत आर्थिक रिपोर्ट</Button>
             </div>
         </CardContent>
     </Card>
-);
+)};
 
-const DistrictHealthCard = () => (
+const DistrictHealthCard = () => {
+    const { toast } = useToast();
+    return(
     <Card>
         <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><HeartPulse /> स्वास्थ्य सेवाएँ और अस्पताल</CardTitle></CardHeader>
         <CardContent className="space-y-4 text-sm">
@@ -322,18 +341,20 @@ const DistrictHealthCard = () => (
             </div>
              <div>
                 <h3 className="font-semibold">टीकाकरण और परीक्षण:</h3>
-                <p className="text-muted-foreground">💉 टीकाकरण केंद्र: १५०+ (📍 निकटतम खोजें)</p>
+                <p className="text-muted-foreground">💉 टीकाकरण केंद्र: १५०+ (<span className='text-primary underline cursor-pointer' onClick={() => window.open('https://www.google.com/maps/search/vaccination+center', '_blank')}>📍 निकटतम खोजें</span>)</p>
                 <p className="text-muted-foreground">🧪 COVID-19 टेस्टिंग सेंटर: २५+</p>
             </div>
              <div className="flex gap-2 mt-2">
-                <Button variant="outline" size="sm">सभी अस्पताल देखें</Button>
-                <Button variant="outline" size="sm">अपॉइंटमेंट बुक करें</Button>
+                <Button variant="outline" size="sm" onClick={() => toast({ title: 'Feature coming soon!' })}>सभी अस्पताल देखें</Button>
+                <Button variant="outline" size="sm" onClick={() => toast({ title: 'Feature coming soon!' })}>अपॉइंटमेंट बुक करें</Button>
             </div>
         </CardContent>
     </Card>
-);
+)};
 
-const DistrictEducationCard = () => (
+const DistrictEducationCard = () => {
+    const { toast } = useToast();
+    return(
     <Card>
         <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><GraduationCap /> शिक्षा और शैक्षणिक संस्थान</CardTitle></CardHeader>
         <CardContent className="space-y-4 text-sm">
@@ -349,8 +370,8 @@ const DistrictEducationCard = () => (
                 <h3 className="font-semibold">शिक्षा योजनाएँ:</h3>
                 <p className="text-muted-foreground">• छात्रवृत्ति योजना • मुफ़्त पाठ्यपुस्तक • साइकिल वितरण</p>
                  <div className="flex gap-2 mt-2">
-                    <Button variant="outline" size="sm">आवेदन करें</Button>
-                    <Button variant="outline" size="sm">योग्यता जाँचें</Button>
+                    <Button variant="outline" size="sm" onClick={() => toast({ title: 'Feature coming soon!' })}>आवेदन करें</Button>
+                    <Button variant="outline" size="sm" onClick={() => toast({ title: 'Feature coming soon!' })}>योग्यता जाँचें</Button>
                 </div>
             </div>
             <div>
@@ -359,7 +380,7 @@ const DistrictEducationCard = () => (
             </div>
         </CardContent>
     </Card>
-);
+)};
 
 const DistrictTransportCard = () => (
      <Card>
@@ -414,14 +435,16 @@ const DistrictSchemesCard = () => (
                 </div>
             </div>
              <div>
-                <h3 className="font-semibold">जिला सेवा केंद्र: ५०+ (📍 निकटतम खोजें)</h3>
+                <h3 className="font-semibold">जिला सेवा केंद्र: ५०+ (<span className='text-primary underline cursor-pointer' onClick={() => window.open('https://www.google.com/maps/search/district+service+center', '_blank')}>📍 निकटतम खोजें</span>)</h3>
                 <p className="text-muted-foreground">🕒 समय: सोम-शनि, ९:०० AM - ५:०० PM</p>
             </div>
         </CardContent>
     </Card>
 );
 
-const DistrictEventsCard = () => (
+const DistrictEventsCard = () => {
+    const { toast } = useToast();
+    return (
     <Card>
         <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><CalendarDays /> आगामी जिला कार्यक्रम और त्योहार</CardTitle></CardHeader>
         <CardContent className="space-y-4 text-sm">
@@ -441,12 +464,12 @@ const DistrictEventsCard = () => (
                 </ul>
             </div>
             <div className="flex gap-2 mt-2">
-                <Button variant="outline" size="sm">पूरा कैलेंडर देखें</Button>
-                <Button variant="outline" size="sm">रिमाइंडर सेट करें</Button>
+                <Button variant="outline" size="sm" onClick={() => toast({ title: 'Feature coming soon!' })}>पूरा कैलेंडर देखें</Button>
+                <Button variant="outline" size="sm" onClick={() => toast({ title: 'Feature coming soon!' })}>रिमाइंडर सेट करें</Button>
             </div>
         </CardContent>
     </Card>
-);
+)};
 
 const StateGovtCard = () => (
     <Card>
@@ -521,7 +544,7 @@ const StateExamsCard = () => (
             <div>
                 <h3 className="font-semibold">शिक्षा बोर्ड:</h3>
                 <p className="text-muted-foreground">• उत्तर प्रदेश माध्यमिक शिक्षा परिषद (UPMSP)</p>
-                <Button variant="link" className="p-0 h-auto">UP बोर्ड हाईस्कूल/इंटरमीडिएट रिजल्ट</Button>
+                <Button variant="link" className="p-0 h-auto" onClick={() => window.open('https://upmsp.edu.in/', '_blank')}>UP बोर्ड हाईस्कूल/इंटरमीडिएट रिजल्ट</Button>
             </div>
             <div>
                 <h3 className="font-semibold">भर्ती परीक्षाएँ:</h3>
@@ -553,7 +576,7 @@ const StateAgricultureCard = () => (
             </div>
             <div>
                 <h3 className="font-semibold">सिंचाई:</h3>
-                <p className="text-muted-foreground">• नहरें: गंगा नहर, शारदा नहर | नलकूप: ২৫ लाख+</p>
+                <p className="text-muted-foreground">• नहरें: गंगा नहर, शारदा नहर | नलकूप: २५ लाख+</p>
             </div>
             <div>
                 <h3 className="font-semibold">किसान कल्याण:</h3>
@@ -672,7 +695,9 @@ const DocumentServicesCard = () => (
     </Card>
 );
 
-const NationalEmergencyCard = () => (
+const NationalEmergencyCard = () => {
+    const { toast } = useToast();
+    return(
     <Card>
         <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Siren /> राष्ट्रीय आपातकाल और आपदा प्रबंधन</CardTitle></CardHeader>
         <CardContent className="space-y-3 text-sm">
@@ -687,15 +712,17 @@ const NationalEmergencyCard = () => (
             <div>
                 <h3 className="font-semibold">आपातकालीन तैयारी:</h3>
                 <div className="flex flex-wrap gap-2 mt-1">
-                    <Button variant="outline" size="sm">आपातकालीन किट</Button>
-                    <Button variant="outline" size="sm">निकासी मार्ग</Button>
+                    <Button variant="outline" size="sm" onClick={() => toast({title: 'Feature coming soon!'})}>आपातकालीन किट</Button>
+                    <Button variant="outline" size="sm" onClick={() => toast({title: 'Feature coming soon!'})}>निकासी मार्ग</Button>
                 </div>
             </div>
         </CardContent>
     </Card>
-);
+)};
 
-const IndiaFactsCard = () => (
+const IndiaFactsCard = () => {
+    const { toast } = useToast();
+    return(
     <Card>
         <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Medal /> भारत के बारे में तथ्य और उपलब्धियाँ</CardTitle></CardHeader>
         <CardContent className="space-y-3 text-sm">
@@ -741,11 +768,11 @@ const IndiaFactsCard = () => (
                 </ul>
             </div>
              <div className="flex gap-2 mt-2">
-                <Button variant="outline" size="sm">📚 भारत के बारे में और जानें</Button>
+                <Button variant="outline" size="sm" onClick={() => toast({ title: 'Feature coming soon!' })}>📚 भारत के बारे में और जानें</Button>
             </div>
         </CardContent>
     </Card>
-);
+)};
 
 const StateTransportCard = () => (
     <Card>
@@ -754,7 +781,7 @@ const StateTransportCard = () => (
            <div>
                <h3 className="font-semibold">UPSRTC (उत्तर प्रदेश सड़क परिवहन निगम):</h3>
                <p className="text-muted-foreground">• बसें: १०,०००+ | मार्ग: २,५००+ | दैनिक यात्री: ३० लाख+</p>
-               <Button variant="link" className="p-0 h-auto">ऑनलाइन टिकट बुकिंग</Button>
+               <Button variant="link" className="p-0 h-auto" onClick={() => window.open('https://www.upsrtconline.co.in/', '_blank')}>ऑनलाइन टिकट बुकिंग</Button>
            </div>
            <div>
                <h3 className="font-semibold">रेलवे:</h3>
@@ -800,6 +827,7 @@ export default function MorePage() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { translations } = useLanguage();
   const { openModal: openVoiceModal } = useVoiceSearch();
+  const { toast } = useToast();
   
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -888,7 +916,7 @@ export default function MorePage() {
         <WeatherCard />
         <EmergencyCard />
         <LocalNewsCard />
-        <MapCard />
+        <MapCard onSearchClick={() => setIsSearchOpen(true)} />
         <LocalStatsCard />
     </div>
   );
@@ -968,7 +996,7 @@ export default function MorePage() {
               <Button onClick={() => setIsSearchOpen(true)} size="icon" variant="ghost" className="rounded-full">
                 <Search />
               </Button>
-              <Button size="icon" variant="ghost" className="rounded-full">
+              <Button onClick={() => router.push('/profile')} size="icon" variant="ghost" className="rounded-full">
                 <Users />
               </Button>
             </div>
