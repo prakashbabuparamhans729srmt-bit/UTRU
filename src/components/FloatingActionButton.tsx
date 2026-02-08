@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
@@ -164,7 +163,7 @@ export default function FloatingActionButton() {
               onPointerDown={(e) => e.stopPropagation()}
               size="icon"
               className={cn(subButtonClasses, "bg-red-500 text-white")}
-              onClick={() => handleSubMenuClick('/admin')}
+              onClick={() => handleSubMenuClick('/admin/login')}
               aria-label="Admin Panel"
             >
               <Shield className="w-5 h-5" />
@@ -228,4 +227,3 @@ export default function FloatingActionButton() {
     </div>
   );
 }
-

@@ -25,17 +25,15 @@ export default function AdminLoginPage() {
         <CardContent>
           <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); router.push('/admin'); }}>
             <div className="space-y-2">
-              <Label htmlFor="username">उपयोगकर्ता नाम / ईमेल</Label>
+              <Label htmlFor="username" className="flex items-center gap-2"><User className="w-4 h-4" />उपयोगकर्ता नाम / ईमेल</Label>
               <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                <Input id="username" type="text" placeholder="admin@example.com" className="pl-10" required />
+                <Input id="username" type="text" placeholder="admin@example.com" required />
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">पासवर्ड</Label>
+              <Label htmlFor="password" className="flex items-center gap-2"><Lock className="w-4 h-4" />पासवर्ड</Label>
                <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                <Input id="password" type="password" placeholder="••••••••" className="pl-10" required />
+                <Input id="password" type="password" placeholder="••••••••" required />
               </div>
             </div>
             <div className="flex items-center justify-between">
@@ -45,10 +43,15 @@ export default function AdminLoginPage() {
               </div>
               <a href="#" className="text-sm text-primary hover:underline">रीसेट?</a>
             </div>
-            <Button type="submit" className="w-full">
-              <LogIn className="mr-2 h-4 w-4" />
-              लॉगिन
-            </Button>
+            <div className="flex gap-4">
+                 <Button type="submit" className="w-full">
+                    <LogIn className="mr-2 h-4 w-4" />
+                    लॉगिन
+                </Button>
+                 <Button type="button" variant="outline" className="w-full">
+                    रीसेट
+                </Button>
+            </div>
           </form>
           <div className="mt-8 text-center text-xs text-muted-foreground">
             <p>📞 समर्थन: admin-support@bharatsuchana.in</p>
