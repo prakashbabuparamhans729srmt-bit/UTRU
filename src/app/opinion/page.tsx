@@ -77,16 +77,14 @@ import {
   PlaySquare,
   Quote,
   LayoutGrid,
-  Menu, // Added
   Mic,
   SlidersHorizontal,
   Zap,
   Target,
-  Star,
   Award,
   Droplets,
   GraduationCap,
-  ChevronLeft, // Added
+  ChevronLeft,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -98,7 +96,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import FloatingActionButton from '@/components/FloatingActionButton';
 import { mainFooterNavLinks } from '@/lib/navigation';
 import { usePathname } from 'next/navigation';
@@ -109,6 +107,15 @@ import { useLanguage } from '@/context/LanguageContext';
 export default function GlobalVoicePage() {
   const pathname = usePathname();
   const { translations } = useLanguage();
+
+  const navItems = [
+    { value: "होम", icon: Home, text: "होम" },
+    { value: "ट्रेंडिंग", icon: Flame, text: "ट्रेंडिंग" },
+    { value: "मेरी चर्चाएँ", icon: MessageSquare, text: "मेरी चर्चाएँ" },
+    { value: "समाधान", icon: Lightbulb, text: "समाधान" },
+    { value: "लीडरबोर्ड", icon: Crown, text: "लीडरबोर्ड" },
+    { value: "वैश्विक दृष्टि", icon: Globe, text: "वैश्विक दृष्टि" }
+  ];
 
   return (
     <div className="bg-gray-100 dark:bg-black text-gray-900 dark:text-white min-h-screen">
@@ -151,19 +158,18 @@ export default function GlobalVoicePage() {
         </div>
         {/* Mobile/Tablet View */}
         <div className="md:hidden">
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button variant="outline"><Menu className="mr-2 h-4 w-4"/>मेन्यू</Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                    <DropdownMenuItem><Home className="mr-2 h-4 w-4"/> होम</DropdownMenuItem>
-                    <DropdownMenuItem><Flame className="mr-2 h-4 w-4"/> ट्रेंडिंग</DropdownMenuItem>
-                    <DropdownMenuItem><MessageSquare className="mr-2 h-4 w-4"/> मेरी चर्चाएँ</DropdownMenuItem>
-                    <DropdownMenuItem><Lightbulb className="mr-2 h-4 w-4"/> समाधान</DropdownMenuItem>
-                    <DropdownMenuItem><Crown className="mr-2 h-4 w-4"/> लीडरबोर्ड</DropdownMenuItem>
-                    <DropdownMenuItem><Globe className="mr-2 h-4 w-4"/> वैश्विक दृष्टि</DropdownMenuItem>
-                </DropdownMenuContent>
-            </DropdownMenu>
+            <Tabs defaultValue="होम" className="w-full">
+                <TabsList className="w-full justify-start overflow-x-auto p-0 bg-transparent border-none">
+                    {navItems.map((item) => (
+                        <TabsTrigger key={item.value} value={item.value} className="flex-col h-auto p-2 gap-1 data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none data-[state=active]:bg-transparent text-muted-foreground data-[state=active]:text-primary data-[state=active]:font-semibold">
+                            <item.icon className="w-5 h-5" />
+                            <span className="text-xs whitespace-nowrap">
+                                {item.text}
+                            </span>
+                        </TabsTrigger>
+                    ))}
+                </TabsList>
+            </Tabs>
         </div>
       </nav>
 
