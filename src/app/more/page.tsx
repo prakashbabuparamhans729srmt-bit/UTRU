@@ -55,6 +55,7 @@ import {
   Wheat,
   Cloud,
   Wallet,
+  Ruler
 } from 'lucide-react';
 import Image from 'next/image';
 
@@ -166,6 +167,7 @@ const MapCard = () => (
             <div className="flex flex-wrap gap-2">
                 <Button variant="outline" size="sm"><LocateFixed className="w-4 h-4 mr-2" /> मेरी लोकेशन सेट करें</Button>
                 <Button variant="outline" size="sm"><Search className="w-4 h-4 mr-2" /> स्थान खोजें</Button>
+                <Button variant="outline" size="sm"><Ruler className="w-4 h-4 mr-2" /> दूरी मापें</Button>
                 <Button variant="outline" size="sm"><Footprints className="w-4 h-4 mr-2" /> पैदल मार्ग</Button>
                 <Button variant="outline" size="sm"><Car className="w-4 h-4 mr-2" /> गाड़ी मार्ग</Button>
                 <Button variant="outline" size="sm"><Download className="w-4 h-4 mr-2" /> ऑफ़लाइन मैप डाउनलोड</Button>
@@ -597,6 +599,14 @@ const NationalSymbolCard = () => (
                 <Button variant="outline" size="sm">गान सुनें</Button>
                 <Button variant="outline" size="sm">संविधान देखें</Button>
             </div>
+             <div className="border-t pt-2 mt-2">
+                <h3 className="font-semibold">राष्ट्रीय अवकाश:</h3>
+                <ul className="list-disc list-inside text-muted-foreground">
+                    <li>२६ जनवरी: गणतंत्र दिवस</li>
+                    <li>१५ अगस्त: स्वतंत्रता दिवस</li>
+                    <li>२ अक्टूबर: गांधी जयंती</li>
+                </ul>
+            </div>
         </CardContent>
     </Card>
 );
@@ -636,6 +646,20 @@ const ConstitutionCard = () => (
                     <li>शोषण के विरुद्ध अधिकार</li>
                 </ul>
             </div>
+            <div>
+                <h3 className="font-semibold">📋 मौलिक कर्तव्य (अनुच्छेद ५१ए):</h3>
+                <ul className="list-disc list-inside text-muted-foreground">
+                    <li>संविधान का पालन करें</li>
+                    <li>राष्ट्रीय ध्वज का सम्मान करें</li>
+                </ul>
+            </div>
+             <div>
+                <h3 className="font-semibold">🗳️ राज्य के नीति निर्देशक तत्व:</h3>
+                <ul className="list-disc list-inside text-muted-foreground">
+                    <li>सामाजिक और आर्थिक न्याय</li>
+                    <li>समान कार्य के लिए समान वेतन</li>
+                </ul>
+            </div>
         </CardContent>
     </Card>
 );
@@ -650,6 +674,11 @@ const NationalSchemesCard = () => (
                 <li>प्रधानमंत्री किसान सम्मान निधि</li>
                 <li>उज्ज्वला योजना</li>
             </ul>
+            <div className="flex flex-wrap gap-2 mt-4">
+                <Button variant="outline" size="sm">ऑनलाइन आवेदन करें</Button>
+                <Button variant="outline" size="sm">योग्यता जाँचें</Button>
+                <Button variant="outline" size="sm">आवेदन स्थिति जाँचें</Button>
+            </div>
         </CardContent>
     </Card>
 );
@@ -678,6 +707,13 @@ const NationalEmergencyCard = () => (
                 <h3 className="font-semibold">आपदा प्रबंधन:</h3>
                 <p className="text-muted-foreground">• राष्ट्रीय आपदा प्रबंधन प्राधिकरण (NDMA)</p>
             </div>
+            <div>
+                <h3 className="font-semibold">आपातकालीन तैयारी:</h3>
+                <div className="flex flex-wrap gap-2 mt-1">
+                    <Button variant="outline" size="sm">आपातकालीन किट</Button>
+                    <Button variant="outline" size="sm">निकासी मार्ग</Button>
+                </div>
+            </div>
         </CardContent>
     </Card>
 );
@@ -693,6 +729,14 @@ const IndiaFactsCard = () => (
             <div>
                 <h3 className="font-semibold">उपलब्धियाँ:</h3>
                 <p className="text-muted-foreground">• 🚀 चंद्रयान-३, 🌐 UPI, 🏭 3rd largest startup ecosystem</p>
+            </div>
+             <div>
+                <h3 className="font-semibold">अंतर्राष्ट्रीय सदस्यता:</h3>
+                <p className="text-muted-foreground">• संयुक्त राष्ट्र (UN), G20, BRICS, SCO</p>
+            </div>
+             <div>
+                <h3 className="font-semibold">नोबेल पुरस्कार विजेता:</h3>
+                <p className="text-muted-foreground">• रवींद्रनाथ टैगोर, सी.वी. रमन, मदर टेरेसा</p>
             </div>
         </CardContent>
     </Card>
