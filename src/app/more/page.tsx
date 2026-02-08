@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -214,16 +215,6 @@ const LocalStatsCard = () => (
     </Card>
 );
 
-const Tab1_MyPlace = () => (
-    <div className="space-y-6 p-1">
-        <WeatherCard />
-        <EmergencyCard />
-        <LocalNewsCard />
-        <MapCard />
-        <LocalStatsCard />
-    </div>
-);
-
 const DistrictAdminCard = () => (
     <Card>
         <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Landmark /> जिला प्रशासन और अधिकारी</CardTitle></CardHeader>
@@ -418,18 +409,6 @@ const DistrictEventsCard = () => (
     </Card>
 );
 
-const Tab2_District = () => (
-    <div className="space-y-6 p-1">
-        <DistrictAdminCard />
-        <DistrictStatsCard />
-        <DistrictHealthCard />
-        <DistrictEducationCard />
-        <DistrictTransportCard />
-        <DistrictSchemesCard />
-        <DistrictEventsCard />
-    </div>
-);
-
 const StateGovtCard = () => (
     <Card>
         <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Landmark /> राज्य सरकार और नेतृत्व</CardTitle></CardHeader>
@@ -589,18 +568,6 @@ const StateHealthCard = () => (
             </div>
         </CardContent>
     </Card>
-);
-
-const Tab3_State = () => (
-    <div className="space-y-6 p-1">
-        <StateGovtCard />
-        <StateBudgetCard/>
-        <StatePoliciesCard />
-        <StateExamsCard />
-        <StateTransportCard />
-        <StateAgricultureCard />
-        <StateHealthCard />
-    </div>
 );
 
 const NationalSymbolCard = () => (
@@ -787,18 +754,6 @@ const IndiaFactsCard = () => (
     </Card>
 );
 
-const Tab4_Country = () => (
-    <div className="space-y-6 p-1">
-        <NationalSymbolCard />
-        <CentralGovtCard />
-        <ConstitutionCard />
-        <NationalSchemesCard />
-        <DocumentServicesCard />
-        <NationalEmergencyCard />
-        <IndiaFactsCard />
-    </div>
-);
-
 export default function MorePage() {
   const router = useRouter();
   const pathname = usePathname();
@@ -816,6 +771,130 @@ export default function MorePage() {
       router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
     }
   };
+
+  const BannerSection = () => {
+    const bannerPlugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: true }));
+    const bannerImages = PlaceHolderImages.filter((img) => img.id.startsWith('ad-hero')).slice(0, 5);
+
+    return (
+        <Carousel
+            className="w-full"
+            opts={{ loop: true }}
+            plugins={[bannerPlugin.current]}
+            onMouseEnter={bannerPlugin.current.stop}
+            onMouseLeave={bannerPlugin.current.reset}
+        >
+            <CarouselContent>
+                {bannerImages.map((image) => (
+                    <CarouselItem key={image.id}>
+                        <Image
+                            src={image.imageUrl}
+                            alt={image.description}
+                            width={600}
+                            height={300}
+                            className="rounded-lg object-cover w-full aspect-[2/1]"
+                            data-ai-hint={image.imageHint}
+                        />
+                    </CarouselItem>
+                ))}
+            </CarouselContent>
+        </Carousel>
+    );
+  };
+
+  const NewsSection = () => (
+      <section className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-bold flex items-center gap-2">
+            <PlaySquare className="text-red-500" />
+            ज़रूरी ख़बरें
+          </h2>
+          <Button variant="link" onClick={() => router.push('/explore')}>और देखें</Button>
+        </div>
+        <Carousel opts={{ align: 'start', loop: false }} className="w-full">
+          <CarouselContent className="-ml-2">
+            {shortsData.slice(0, 6).map((short, index) => {
+              const image = shortsImages.find(img => img.id === short.imageId);
+              return (
+                <CarouselItem key={index} className="pl-4 basis-1/2 md:basis-1/3">
+                  <Link href="/explore">
+                    <Card className="overflow-hidden rounded-xl border-none">
+                      <CardContent className="p-0 relative">
+                        <Image
+                          src={image?.imageUrl || `https://picsum.photos/seed/${short.id}/300/500`}
+                          alt={short.title}
+                          width={300}
+                          height={200}
+                          className="object-cover w-full aspect-video rounded-xl"
+                          data-ai-hint={image?.imageHint || 'video content'}
+                        />
+                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2">
+                          <h4 className="font-semibold text-white text-sm truncate">{short.title}</h4>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                </CarouselItem>
+              );
+            })}
+          </CarouselContent>
+        </Carousel>
+      </section>
+  );
+
+  const Tab1_MyPlace = () => (
+    <div className="space-y-6 p-1">
+        <BannerSection />
+        <NewsSection />
+        <WeatherCard />
+        <EmergencyCard />
+        <LocalNewsCard />
+        <MapCard />
+        <LocalStatsCard />
+    </div>
+  );
+
+  const Tab2_District = () => (
+    <div className="space-y-6 p-1">
+        <BannerSection />
+        <NewsSection />
+        <DistrictAdminCard />
+        <DistrictStatsCard />
+        <DistrictHealthCard />
+        <DistrictEducationCard />
+        <DistrictTransportCard />
+        <DistrictSchemesCard />
+        <DistrictEventsCard />
+    </div>
+  );
+
+  const Tab3_State = () => (
+    <div className="space-y-6 p-1">
+        <BannerSection />
+        <NewsSection />
+        <StateGovtCard />
+        <StateBudgetCard/>
+        <StatePoliciesCard />
+        <StateExamsCard />
+        <StateTransportCard />
+        <StateAgricultureCard />
+        <StateHealthCard />
+    </div>
+  );
+
+  const Tab4_Country = () => (
+    <div className="space-y-6 p-1">
+        <BannerSection />
+        <NewsSection />
+        <NationalSymbolCard />
+        <CentralGovtCard />
+        <ConstitutionCard />
+        <NationalSchemesCard />
+        <DocumentServicesCard />
+        <NationalEmergencyCard />
+        <IndiaFactsCard />
+    </div>
+  );
 
   return (
     <div className="bg-background text-foreground min-h-screen">
