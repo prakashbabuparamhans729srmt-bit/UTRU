@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useRouter } from 'next/navigation';
@@ -55,43 +54,46 @@ import {
   Wheat,
   Cloud,
   Wallet,
-  Ruler
+  Ruler,
+  Globe,
+  Trophy,
+  Medal,
 } from 'lucide-react';
 import Image from 'next/image';
 
 const WeatherCard = () => (
-  <Card>
-    <CardHeader>
-      <CardTitle className="flex items-center gap-2 text-lg">
-        <Sun className="text-yellow-500" />
-        मौसम और पर्यावरण
-      </CardTitle>
-    </CardHeader>
-    <CardContent className="space-y-4 text-sm">
-      <div className="grid grid-cols-2 gap-4">
-        <div className="flex items-center gap-2"><Thermometer className="w-5 h-5 text-red-500" /><span>तापमान: ३२°C</span></div>
-        <div className="flex items-center gap-2"><Droplets className="w-5 h-5 text-blue-500" /><span>आर्द्रता: ६५%</span></div>
-        <div className="flex items-center gap-2"><Wind className="w-5 h-5 text-gray-500" /><span>हवा: १२ km/h</span></div>
-        <div className="flex items-center gap-2"><Sunrise className="w-5 h-5 text-orange-500" /><span>सूर्योदय: ५:४५ AM</span></div>
-        <div className="flex items-center gap-2"><Sunset className="w-5 h-5 text-orange-700" /><span>सूर्यास्त: ६:३० PM</span></div>
-      </div>
-      <div className="p-2 bg-green-100 dark:bg-green-900/50 rounded-lg flex items-start gap-2">
-        <CircleCheck className="w-5 h-5 text-green-600 mt-0.5 shrink-0" />
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2 text-lg">
+          <Sun className="text-yellow-500" />
+          मौसम और पर्यावरण
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4 text-sm">
+        <div className="grid grid-cols-2 gap-4">
+          <div className="flex items-center gap-2"><Thermometer className="w-5 h-5 text-red-500" /><span>तापमान: ३२°C</span></div>
+          <div className="flex items-center gap-2"><Droplets className="w-5 h-5 text-blue-500" /><span>आर्द्रता: ६५%</span></div>
+          <div className="flex items-center gap-2"><Wind className="w-5 h-5 text-gray-500" /><span>हवा: १२ km/h</span></div>
+          <div className="flex items-center gap-2"><Sunrise className="w-5 h-5 text-orange-500" /><span>सूर्योदय: ५:४५ AM</span></div>
+          <div className="flex items-center gap-2"><Sunset className="w-5 h-5 text-orange-700" /><span>सूर्यास्त: ६:३० PM</span></div>
+        </div>
+        <div className="p-2 bg-green-100 dark:bg-green-900/50 rounded-lg flex items-start gap-2">
+          <CircleCheck className="w-5 h-5 text-green-600 mt-0.5 shrink-0" />
+          <div>
+            <p className="font-semibold">वायु गुणवत्ता सूचकांक (AQI): ४५ (अच्छा)</p>
+            <p className="text-xs text-muted-foreground">सलाह: बाहरी गतिविधियों के लिए उत्तम दिन</p>
+          </div>
+        </div>
         <div>
-          <p className="font-semibold">वायु गुणवत्ता सूचकांक (AQI): ४५ (अच्छा)</p>
-          <p className="text-xs text-muted-foreground">सलाह: बाहरी गतिविधियों के लिए उत्तम दिन</p>
+          <p className="font-semibold mb-2">अगले ३ दिन का पूर्वानुमान:</p>
+          <div className="flex justify-around text-center">
+            <div><Sun className="mx-auto text-yellow-500" /><span>३२°</span></div>
+            <div><Cloud className="mx-auto text-gray-400" /><span>३१°</span></div>
+            <div><CloudRain className="mx-auto text-blue-400" /><span>२९°</span></div>
+          </div>
         </div>
-      </div>
-      <div>
-        <p className="font-semibold mb-2">अगले ३ दिन का पूर्वानुमान:</p>
-        <div className="flex justify-around text-center">
-          <div><Sun className="mx-auto text-yellow-500" /><span>३२°</span></div>
-          <div><Cloud className="mx-auto text-gray-400" /><span>३१°</span></div>
-          <div><CloudRain className="mx-auto text-blue-400" /><span>२९°</span></div>
-        </div>
-      </div>
-    </CardContent>
-  </Card>
+      </CardContent>
+    </Card>
 );
 
 const EmergencyCard = () => (
@@ -179,13 +181,13 @@ const MapCard = () => (
 const LocalStatsCard = () => (
     <Card>
         <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><BarChart2 /> स्थानीय जानकारी और आँकड़े</CardTitle></CardHeader>
-        <CardContent className="space-y-2 text-sm">
-            <p><b>👥 जनसंख्या:</b> ३६ लाख (२०२३ अनुमान)</p>
-            <p><b>📍 क्षेत्रफल:</b> ३५० वर्ग किमी</p>
-            <p><b>🎓 साक्षरता दर:</b> ८४%</p>
-            <p><b>👫 लिंगानुपात:</b> ९२० महिलाएँ प्रति १००० पुरुष</p>
-            <p><b>💼 प्रमुख उद्योग:</b> सूचना प्रौद्योगिकी, हस्तशिल्प, पर्यटन</p>
-            <p><b>🏛️ स्थानीय प्रशासन:</b> लखनऊ नगर निगम, जिला प्रशासन</p>
+        <CardContent className="space-y-3 text-sm">
+            <p className="flex items-center gap-2"><b><Users className="w-4 h-4 inline-block"/> जनसंख्या:</b> ३६ लाख (२०२३ अनुमान)</p>
+            <p className="flex items-center gap-2"><b><Ruler className="w-4 h-4 inline-block"/> क्षेत्रफल:</b> ३५० वर्ग किमी</p>
+            <p className="flex items-center gap-2"><b><GraduationCap className="w-4 h-4 inline-block"/> साक्षरता दर:</b> ८४%</p>
+            <p className="flex items-center gap-2"><b><Users className="w-4 h-4 inline-block"/> लिंगानुपात:</b> ९२० महिलाएँ प्रति १००० पुरुष</p>
+            <p className="flex items-center gap-2"><b><Briefcase className="w-4 h-4 inline-block"/> प्रमुख उद्योग:</b> सूचना प्रौद्योगिकी, हस्तशिल्प, पर्यटन</p>
+            <p className="flex items-center gap-2"><b><Building className="w-4 h-4 inline-block"/> स्थानीय प्रशासन:</b> लखनऊ नगर निगम, जिला प्रशासन</p>
             <div className="flex gap-2 mt-2">
                 <Button variant="outline" size="sm">विस्तृत आँकड़े देखें</Button>
                 <Button variant="outline" size="sm">रिपोर्ट डाउनलोड</Button>
@@ -273,7 +275,7 @@ const DistrictHealthCard = () => (
              <div>
                 <h3 className="font-semibold">टीकाकरण और परीक्षण:</h3>
                 <p className="text-muted-foreground">💉 टीकाकरण केंद्र: १५०+ (📍 निकटतम खोजें)</p>
-                <p className="text-muted-foreground">🧪 COVID-19 टेस्टिंग सेंटर: २५+</p>
+                <p className="text-muted-foreground">🧪 COVID-19 टेस्टिंग सेंटर: ২৫+</p>
             </div>
              <div className="flex gap-2 mt-2">
                 <Button variant="outline" size="sm">सभी अस्पताल देखें</Button>
@@ -723,20 +725,48 @@ const IndiaFactsCard = () => (
         <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Award /> भारत के बारे में तथ्य और उपलब्धियाँ</CardTitle></CardHeader>
         <CardContent className="space-y-3 text-sm">
             <div>
-                <h3 className="font-semibold">भौगोलिक तथ्य:</h3>
-                <p className="text-muted-foreground">• क्षेत्रफल: ३२.८ लाख वर्ग किमी (विश्व में ७वाँ)</p>
+                <h3 className="font-semibold flex items-center gap-2"><Globe className="w-4 h-4"/>भौगोलिक तथ्य:</h3>
+                <ul className="list-disc list-inside text-muted-foreground pl-6">
+                    <li>क्षेत्रफल: ३२.८ लाख वर्ग किमी (विश्व में ७वाँ)</li>
+                    <li>जनसंख्या: १४२ करोड़ (विश्व में प्रथम)</li>
+                    <li>राज्य/केंद्रशासित प्रदेश: २८ राज्य, ८ केंद्रशासित प्रदेश</li>
+                    <li>राजधानी: नई दिल्ली</li>
+                    <li>सबसे बड़ा राज्य: राजस्थान (क्षेत्रफल)</li>
+                    <li>सबसे अधिक जनसंख्या वाला राज्य: उत्तर प्रदेश</li>
+                </ul>
             </div>
             <div>
-                <h3 className="font-semibold">उपलब्धियाँ:</h3>
-                <p className="text-muted-foreground">• 🚀 चंद्रयान-३, 🌐 UPI, 🏭 3rd largest startup ecosystem</p>
+                <h3 className="font-semibold flex items-center gap-2"><Trophy className="w-4 h-4"/>उपलब्धियाँ:</h3>
+                <ul className="list-disc list-inside text-muted-foreground pl-6">
+                    <li>🚀 चंद्रयान-३ (चंद्रमा के दक्षिणी ध्रुव पर उतरा)</li>
+                    <li>🌐 दुनिया की सबसे बड़ी डिजिटल भुगतान प्रणाली (UPI)</li>
+                    <li>🏭 दुनिया की तीसरी सबसे बड़ी स्टार्टअप इकोसिस्टम</li>
+                    <li>💊 दुनिया की सबसे बड़ी वैक्सीन ड्राइव (कोविड-१९)</li>
+                    <li>🌾 दुनिया का सबसे बड़ा खाद्य सुरक्षा कार्यक्रम</li>
+                </ul>
             </div>
              <div>
-                <h3 className="font-semibold">अंतर्राष्ट्रीय सदस्यता:</h3>
-                <p className="text-muted-foreground">• संयुक्त राष्ट्र (UN), G20, BRICS, SCO</p>
+                <h3 className="font-semibold flex items-center gap-2"><Landmark className="w-4 h-4"/>अंतर्राष्ट्रीय सदस्यता:</h3>
+                <ul className="list-disc list-inside text-muted-foreground pl-6">
+                    <li>संयुक्त राष्ट्र (UN)</li>
+                    <li>G20</li>
+                    <li>BRICS</li>
+                    <li>SCO</li>
+                    <li>विश्व व्यापार संगठन (WTO)</li>
+                </ul>
             </div>
              <div>
-                <h3 className="font-semibold">नोबेल पुरस्कार विजेता:</h3>
-                <p className="text-muted-foreground">• रवींद्रनाथ टैगोर, सी.वी. रमन, मदर टेरेसा</p>
+                <h3 className="font-semibold flex items-center gap-2"><Medal className="w-4 h-4"/>नोबेल पुरस्कार विजेता:</h3>
+                 <ul className="list-disc list-inside text-muted-foreground pl-6">
+                    <li>रवींद्रनाथ टैगोर (१९१३)</li>
+                    <li>सी.वी. रमन (१९३०)</li>
+                    <li>मदर टेरेसा (१९७९)</li>
+                    <li>अमर्त्य सेन (१९९८)</li>
+                    <li>कैलाश सत्यार्थी (२०१४)</li>
+                </ul>
+            </div>
+             <div className="flex gap-2 mt-2">
+                <Button variant="outline" size="sm">📚 भारत के बारे में और जानें</Button>
             </div>
         </CardContent>
     </Card>
@@ -792,4 +822,4 @@ export default function MorePage() {
   );
 }
 
-    
+```
