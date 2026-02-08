@@ -1,19 +1,67 @@
 
 'use client';
 
-import { useRouter, usePathname } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
-  ChevronLeft, Sun, Wind, Droplets, Sunrise, Sunset, CloudRain, Phone,
-  Newspaper, CalendarDays, Map as MapIcon, Users, GraduationCap, Briefcase,
-  Landmark, Shield, Train, Bus, Plane, TramFront, Banknote, Sprout,
-  Thermometer, FileText, Gavel, BookOpen, Award, Scroll, Megaphone,
-  Ticket, BookUser, Siren, CircleAlert, CircleCheck, Building, BarChart2,
-  BookCopy, HeartPulse, Building2, BookMarked, Waypoints, LocateFixed,
-  Search, Download, Footprints, Car, Wheat, Cloud, Wallet, Ruler,
-  Globe, Trophy, Medal, X, Mic, SlidersHorizontal, PlaySquare, Quote,
+  Search,
+  X,
+  MapPin,
+  Phone,
+  Mic,
+  SlidersHorizontal,
+  Menu,
+  ChevronLeft,
+  Sun,
+  Wind,
+  Droplets,
+  Sunrise,
+  Sunset,
+  CloudRain,
+  Newspaper,
+  CalendarDays,
+  Map as MapIcon,
+  Users,
+  GraduationCap,
+  Briefcase,
+  Landmark,
+  Shield,
+  Train,
+  Bus,
+  Plane,
+  TramFront,
+  Banknote,
+  Sprout,
+  Thermometer,
+  FileText,
+  Gavel,
+  BookOpen,
+  Award,
+  Scroll,
+  Megaphone,
+  Ticket,
+  BookUser,
+  Siren,
+  CircleAlert,
+  CircleCheck,
+  Building,
+  BarChart2,
+  BookCopy,
+  HeartPulse,
+  Building2,
+  BookMarked,
+  Waypoints,
+  LocateFixed,
+  Download,
+  Footprints,
+  Car,
+  Wheat,
+  Cloud,
+  Wallet,
+  Ruler,
+  Globe,
+  Trophy,
+  Medal,
+  PlaySquare,
+  Quote,
   LayoutGrid
 } from 'lucide-react';
 import Image from 'next/image';
@@ -27,6 +75,10 @@ import FloatingActionButton from '@/components/FloatingActionButton';
 import { useVoiceSearch } from '@/context/VoiceSearchContext';
 import { useLanguage } from '@/context/LanguageContext';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useRouter, usePathname } from 'next/navigation';
 
 const WeatherCard = () => (
     <Card>
@@ -85,7 +137,7 @@ const EmergencyCard = () => (
         <div className="border-t pt-4">
           <h3 className="font-semibold">निकटतम स्वास्थ्य सुविधाएँ:</h3>
           <p className="text-muted-foreground">• सिविल हॉस्पिटल (२ किमी) - ०५२२-२२५५०००</p>
-          <p className="text-muted-foreground">• मेडिकल कॉलेज (३.५ किमी) - २४x७ आपातकालीन</p>
+          <p className="text-muted-foreground">• मेडिकल कॉलेज (३.५ किमी) - २४x৭ आपातकालीन</p>
           <div className="flex gap-2 mt-2">
             <Button variant="outline" size="sm"><MapIcon className="mr-2 h-4 w-4" /> रूट देखें</Button>
             <Button variant="outline" size="sm"><Phone className="mr-2 h-4 w-4" /> कॉल करें</Button>
@@ -242,7 +294,7 @@ const DistrictHealthCard = () => (
              <div>
                 <h3 className="font-semibold">टीकाकरण और परीक्षण:</h3>
                 <p className="text-muted-foreground">💉 टीकाकरण केंद्र: १५०+ (📍 निकटतम खोजें)</p>
-                <p className="text-muted-foreground">🧪 COVID-19 टेस्टिंग सेंटर: ২৫+</p>
+                <p className="text-muted-foreground">🧪 COVID-19 टेस्टिंग सेंटर: २५+</p>
             </div>
              <div className="flex gap-2 mt-2">
                 <Button variant="outline" size="sm">सभी अस्पताल देखें</Button>
@@ -379,7 +431,6 @@ const Tab2_District = () => (
     </div>
 );
 
-
 const StateGovtCard = () => (
     <Card>
         <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Landmark /> राज्य सरकार और नेतृत्व</CardTitle></CardHeader>
@@ -511,7 +562,7 @@ const StateAgricultureCard = () => (
             </div>
             <div>
                 <h3 className="font-semibold">सिंचाई:</h3>
-                <p className="text-muted-foreground">• नहरें: गंगा नहर, शारदा नहर | नलकूप: २५ लाख+</p>
+                <p className="text-muted-foreground">• नहरें: गंगा नहर, शारदा नहर | नलकूप: ২৫ लाख+</p>
             </div>
             <div>
                 <h3 className="font-semibold">किसान कल्याण:</h3>
@@ -541,7 +592,6 @@ const StateHealthCard = () => (
     </Card>
 );
 
-
 const Tab3_State = () => (
     <div className="space-y-6 p-1">
         <StateGovtCard />
@@ -553,7 +603,6 @@ const Tab3_State = () => (
         <StateHealthCard />
     </div>
 );
-
 
 const NationalSymbolCard = () => (
     <Card>
@@ -714,7 +763,7 @@ const IndiaFactsCard = () => (
             </div>
              <div>
                 <h3 className="font-semibold flex items-center gap-2"><Landmark className="w-4 h-4"/>अंतर्राष्ट्रीय सदस्यता:</h3>
-                <ul className="list-disc list-inside text-muted-foreground pl-6">
+                 <ul className="list-disc list-inside text-muted-foreground pl-6">
                     <li>संयुक्त राष्ट्र (UN)</li>
                     <li>G20</li>
                     <li>BRICS</li>
@@ -739,7 +788,6 @@ const IndiaFactsCard = () => (
     </Card>
 );
 
-
 const Tab4_Country = () => (
     <div className="space-y-6 p-1">
         <NationalSymbolCard />
@@ -751,7 +799,6 @@ const Tab4_Country = () => (
         <IndiaFactsCard />
     </div>
 );
-
 
 export default function MorePage() {
   const router = useRouter();
@@ -883,7 +930,6 @@ export default function MorePage() {
               </Carousel>
             </section>
 
-
             <Tabs defaultValue="my-place" className="w-full">
                 <TabsList className="grid w-full grid-cols-4 h-auto">
                     <TabsTrigger value="my-place" className="text-xs sm:text-sm">मेरा वर्तमान स्थान</TabsTrigger>
@@ -940,5 +986,5 @@ export default function MorePage() {
     </div>
   );
 }
-```
 
+```
