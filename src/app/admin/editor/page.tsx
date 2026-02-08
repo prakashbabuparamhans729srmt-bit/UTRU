@@ -6,27 +6,18 @@ import {
   Eye,
   Ban,
   Settings,
-  Calendar,
-  Clock,
-  Rocket,
   MapPin,
   Plus,
-  Droplets,
-  Wind,
-  Sunrise,
-  Sunset,
-  Sun,
-  CloudSun,
-  CloudRain,
   Target,
   Bell,
   Paperclip,
   Camera,
   Video,
-  File,
+  File as FileIcon,
   Link as LinkIcon,
   ChevronLeft,
   Trash2,
+  Edit,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -47,7 +38,7 @@ export default function ContentEditorPage() {
             <Button variant="outline" size="icon" onClick={() => router.back()}>
                 <ChevronLeft/>
             </Button>
-            <h1 className="text-xl font-bold flex items-center gap-2"><Edit/>कंटेंट संपादक: मौसम डेटा - लखनऊ</h1>
+            <h1 className="text-xl font-bold flex items-center gap-2"><Edit/>कंटेंट संपादक</h1>
         </div>
         <div className="flex gap-2">
           <Button variant="secondary"><Eye className="mr-2 h-4 w-4" />प्रीव्यू</Button>
@@ -63,17 +54,17 @@ export default function ContentEditorPage() {
             <CardContent className="space-y-4">
               <div>
                 <Label htmlFor="title">शीर्षक</Label>
-                <Input id="title" defaultValue="लखनऊ मौसम अपडेट - अगस्त २०२४" />
+                <Input id="title" placeholder="कंटेंट का शीर्षक" />
               </div>
               <div className="grid grid-cols-2 gap-4">
                  <div>
                     <Label htmlFor="type">प्रकार</Label>
-                    <Input id="type" defaultValue="मेरा स्थान - मौसम डेटा"/>
+                    <Input id="type" placeholder="जैसे - मौसम, समाचार, योजना"/>
                 </div>
                  <div>
                     <Label htmlFor="location">स्थान</Label>
                     <div className='flex items-center gap-2'>
-                        <Input id="location" defaultValue="लखनऊ, उत्तर प्रदेश"/>
+                        <Input id="location" placeholder="जैसे - लखनऊ, उत्तर प्रदेश"/>
                         <Button variant="outline" size="icon"><MapPin/></Button>
                     </div>
                 </div>
@@ -81,56 +72,30 @@ export default function ContentEditorPage() {
               <div className="grid grid-cols-2 gap-4">
                  <div>
                     <Label htmlFor="priority">प्राथमिकता</Label>
-                    <Input id="priority" defaultValue="🟢 सामान्य"/>
+                    <Input id="priority" placeholder="जैसे - सामान्य, उच्च"/>
                 </div>
                  <div>
                     <Label>प्रकाशन तिथि</Label>
                     <div className="flex gap-2 items-center">
-                        <Input type="text" defaultValue="१५/०८/२०२४" />
-                        <Input type="text" defaultValue="१०:०० AM" />
-                        <Button variant="outline" size="icon"><Rocket/></Button>
+                        <Input type="date" />
+                        <Input type="time" />
                     </div>
                 </div>
               </div>
               <div>
                   <Label>समाप्ति तिथि</Label>
                   <div className="flex gap-2 items-center">
-                        <Input type="text" defaultValue="१६/०८/२०२४" />
-                        <Input type="text" defaultValue="१०:०० PM" />
+                        <Input type="date" />
+                        <Input type="time" />
                     </div>
               </div>
             </CardContent>
           </Card>
 
           <Card>
-            <CardHeader><CardTitle className="flex items-center gap-2"><CloudSun/>मौसम डेटा इनपुट</CardTitle></CardHeader>
-            <CardContent className="space-y-4">
-                <div className="grid grid-cols-3 gap-4">
-                    <div><Label className="flex items-center gap-1"><Sun className="w-4 h-4"/>तापमान (°C)</Label><Input defaultValue="32"/></div>
-                    <div><Label className="flex items-center gap-1"><Droplets className="w-4 h-4"/>आर्द्रता (%)</Label><Input defaultValue="65"/></div>
-                    <div><Label className="flex items-center gap-1"><Wind className="w-4 h-4"/>हवा (km/h)</Label><Input defaultValue="12"/></div>
-                </div>
-                 <div className="grid grid-cols-2 gap-4">
-                    <div><Label>AQI सूचकांक</Label><Input defaultValue="45"/></div>
-                    <div><Label>AQI स्तर</Label><Input defaultValue="🟢 अच्छा"/></div>
-                </div>
-                 <div className="grid grid-cols-2 gap-4">
-                    <div><Label className="flex items-center gap-1"><Sunrise className="w-4 h-4"/>सूर्योदय</Label><Input defaultValue="०५:४५ AM"/></div>
-                    <div><Label className="flex items-center gap-1"><Sunset className="w-4 h-4"/>सूर्यास्त</Label><Input defaultValue="०६:३० PM"/></div>
-                </div>
-                 <div>
-                    <Label className="flex items-center gap-1"><Sun className="w-4 h-4"/>अगले ३ दिन का पूर्वानुमान:</Label>
-                    <div className="flex items-center gap-2 mt-2">
-                        <Input placeholder="आज: ☀️ ३२°C" />
-                        <Input placeholder="कल: 🌤️ ३१°C" />
-                        <Input placeholder="परसों: 🌧️ २९°C" />
-                        <Button variant="outline" size="icon"><Plus /></Button>
-                    </div>
-                </div>
-                <div>
-                    <Label>सलाह/चेतावनी</Label>
-                    <Textarea defaultValue="बाहरी गतिविधियों के लिए उत्तम दिन"/>
-                </div>
+            <CardHeader><CardTitle className="flex items-center gap-2"><FileIcon/>कंटेंट डेटा</CardTitle></CardHeader>
+            <CardContent>
+                <Textarea placeholder="कंटेंट यहाँ लिखें (JSON, टेक्स्ट, आदि)..." rows={10} />
             </CardContent>
           </Card>
           
@@ -140,8 +105,8 @@ export default function ContentEditorPage() {
                 <div>
                     <Label>दिखाएँ जिले</Label>
                     <div className="flex gap-4 mt-2">
-                        <div className="flex items-center space-x-2"><Checkbox defaultChecked id="lko"/><Label htmlFor="lko">लखनऊ</Label></div>
-                        <div className="flex items-center space-x-2"><Checkbox defaultChecked id="brb"/><Label htmlFor="brb">बाराबंकी</Label></div>
+                        <div className="flex items-center space-x-2"><Checkbox id="lko"/><Label htmlFor="lko">लखनऊ</Label></div>
+                        <div className="flex items-center space-x-2"><Checkbox id="brb"/><Label htmlFor="brb">बाराबंकी</Label></div>
                         <div className="flex items-center space-x-2"><Checkbox id="un"/><Label htmlFor="un">उन्नाव</Label></div>
                         <Button variant="link" size="sm"><Plus className="w-4 h-4 mr-1"/>सभी</Button>
                     </div>
@@ -149,7 +114,7 @@ export default function ContentEditorPage() {
                  <div>
                     <Label>यूजर समूह</Label>
                     <div className="flex gap-4 mt-2">
-                        <div className="flex items-center space-x-2"><Checkbox defaultChecked id="all-users"/><Label htmlFor="all-users">सभी यूजर</Label></div>
+                        <div className="flex items-center space-x-2"><Checkbox id="all-users"/><Label htmlFor="all-users">सभी यूजर</Label></div>
                         <div className="flex items-center space-x-2"><Checkbox id="premium"/><Label htmlFor="premium">प्रीमियम</Label></div>
                         <div className="flex items-center space-x-2"><Checkbox id="registered"/><Label htmlFor="registered">केवल रजिस्टर्ड</Label></div>
                     </div>
@@ -166,18 +131,17 @@ export default function ContentEditorPage() {
                     <Label>भाषाएँ</Label>
                     <div className="flex gap-4 mt-2">
                         <div className="flex items-center space-x-2"><Checkbox defaultChecked id="hindi"/><Label htmlFor="hindi">हिंदी</Label></div>
-                        <div className="flex items-center space-x-2"><Checkbox defaultChecked id="english"/><Label htmlFor="english">अंग्रेजी</Label></div>
-                        <div className="flex items-center space-x-2"><Checkbox id="urdu"/><Label htmlFor="urdu">उर्दू</Label></div>
+                        <div className="flex items-center space-x-2"><Checkbox id="english"/><Label htmlFor="english">अंग्रेजी</Label></div>
                          <Button variant="link" size="sm"><Plus className="w-4 h-4 mr-1"/>अन्य</Button>
                     </div>
                 </div>
                 <div>
                     <Label className="flex items-center gap-2"><Bell/>नोटिफिकेशन</Label>
                     <div className='flex items-center gap-2 mt-2'>
-                        <Switch id="notification-switch" defaultChecked/>
+                        <Switch id="notification-switch"/>
                         <Label htmlFor="notification-switch">पुश नोटिफिकेशन भेजें</Label>
                     </div>
-                    <Textarea className="mt-2" placeholder="नोटिफिकेशन संदेश..." defaultValue="मौसम अपडेट: लखनऊ में आज का तापमान ३२°C"/>
+                    <Textarea className="mt-2" placeholder="नोटिफिकेशन संदेश..."/>
                 </div>
             </CardContent>
           </Card>
@@ -188,20 +152,12 @@ export default function ContentEditorPage() {
                 <div className="flex flex-wrap gap-2 mb-4">
                     <Button variant="outline"><Camera className="mr-2 h-4 w-4"/>छवि जोड़ें</Button>
                     <Button variant="outline"><Video className="mr-2 h-4 w-4"/>वीडियो जोड़ें</Button>
-                    <Button variant="outline"><File className="mr-2 h-4 w-4"/>डेटा फ़ाइल</Button>
+                    <Button variant="outline"><FileIcon className="mr-2 h-4 w-4"/>डेटा फ़ाइल</Button>
                     <Button variant="outline"><MapPin className="mr-2 h-4 w-4"/>मैप लिंक जोड़ें</Button>
                     <Button variant="outline"><LinkIcon className="mr-2 h-4 w-4"/>एक्सटर्नल लिंक</Button>
                 </div>
-                <div className="space-y-2">
-                    <div className="flex items-center justify-between p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-                        <p>weather_lko_150824.jpg (२.५ MB)</p>
-                        <div className="flex gap-2"><Button size="icon" variant="ghost"><Eye/></Button><Button size="icon" variant="ghost" className="text-destructive"><Trash2/></Button></div>
-                    </div>
-                     <div className="flex items-center justify-between p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-                        <p>aqi_report_lko.pdf (१.२ MB)</p>
-                        <div className="flex gap-2"><Button size="icon" variant="ghost"><Eye/></Button><Button size="icon" variant="ghost" className="text-destructive"><Trash2/></Button></div>
-                    </div>
-                </div>
+                 <div className="space-y-2">
+                 </div>
             </CardContent>
           </Card>
         </div>
@@ -212,13 +168,9 @@ export default function ContentEditorPage() {
                 <CardContent>
                     <div className="w-full max-w-[300px] mx-auto border-4 border-gray-800 rounded-2xl p-2 bg-white dark:bg-black">
                         <Card>
-                            <CardHeader><CardTitle className="flex items-center gap-2 text-sm"><CloudSun/>मौसम और पर्यावरण</CardTitle></CardHeader>
+                            <CardHeader><CardTitle className="flex items-center gap-2 text-sm"><FileIcon/> कंटेंट प्रीव्यू</CardTitle></CardHeader>
                             <CardContent className="text-xs space-y-2">
-                                <p className="flex items-center gap-2">☀️ तापमान: ३२°C | 💧 आर्द्रता: ६५%</p>
-                                <p className="flex items-center gap-2">💨 हवा: १२ km/h</p>
-                                <p className="flex items-center gap-2">🌅 सूर्योदय: ५:४५ AM | 🌇 सूर्यास्त: ६:३०</p>
-                                <p className="text-green-600 font-bold flex items-center gap-2">🟢 वायु गुणवत्ता सूचकांक (AQI): ४५ (अच्छा)</p>
-                                <p className="flex items-center gap-2">🔊 सलाह: बाहरी गतिविधियों के लिए उत्तम दिन</p>
+                                <p className="text-muted-foreground">कंटेंट का प्रीव्यू यहाँ दिखाई देगा जब आप उसे लिखेंगे।</p>
                             </CardContent>
                         </Card>
                     </div>

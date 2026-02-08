@@ -347,7 +347,7 @@ const DistrictHealthCard = () => {
              <div>
                 <h3 className="font-semibold">टीकाकरण और परीक्षण:</h3>
                 <p className="text-muted-foreground">💉 टीकाकरण केंद्र: १५०+ (<span className='text-primary underline cursor-pointer' onClick={() => window.open('https://www.google.com/maps/search/vaccination+center', '_blank')}>📍 निकटतम खोजें</span>)</p>
-                <p className="text-muted-foreground">🧪 COVID-19 टेस्टिंग सेंटर: २५+</p>
+                <p className="text-muted-foreground">🧪 COVID-19 टेस्टिंग सेंटर: ২৫+</p>
             </div>
              <div className="flex gap-2 mt-2">
                 <Button variant="outline" size="sm" onClick={() => toast({ title: 'Feature coming soon!' })}>सभी अस्पताल देखें</Button>
