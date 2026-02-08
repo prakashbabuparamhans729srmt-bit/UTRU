@@ -25,7 +25,7 @@ import {
   Camera,
   Video,
   File,
-  Link,
+  Link as LinkIcon,
   ChevronLeft,
   Trash2,
 } from 'lucide-react';
@@ -36,6 +36,7 @@ import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Textarea } from '@/components/ui/textarea';
 import { useRouter } from 'next/navigation';
+import { Switch } from '@/components/ui/switch';
 
 export default function ContentEditorPage() {
     const router = useRouter();

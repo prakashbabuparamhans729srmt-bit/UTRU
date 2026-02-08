@@ -50,7 +50,7 @@ import {
   Sun,
   Sunrise,
   Sunset,
-  Table,
+  Table as TableIcon,
   Target,
   Ticket,
   Trash,
@@ -70,7 +70,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   Table as ShadcnTable,
@@ -247,7 +246,6 @@ export default function AdminDashboardPage() {
           </Card>
         </TabsContent>
         
-        {/* Placeholder for other tabs */}
         <TabsContent value="users">
             <Card>
                 <CardHeader>
@@ -285,4 +283,3 @@ export default function AdminDashboardPage() {
     </div>
   );
 }
-
