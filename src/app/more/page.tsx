@@ -67,6 +67,7 @@ import {
   BookUser,
   Medal,
   ThumbsUp,
+  Edit,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -85,13 +86,18 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useRouter, usePathname } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
 
-const WeatherCard = () => (
+const WeatherCard = () => {
+    const router = useRouter();
+    return (
     <Card>
-      <CardHeader>
+      <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle className="flex items-center gap-2 text-lg">
           <Cloud className="text-blue-500" />
           मौसम और पर्यावरण
         </CardTitle>
+        <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}>
+            <Edit className="w-4 h-4 text-muted-foreground"/>
+        </Button>
       </CardHeader>
       <CardContent className="space-y-4 text-sm">
         <div className="grid grid-cols-2 gap-4">
@@ -118,17 +124,21 @@ const WeatherCard = () => (
         </div>
       </CardContent>
     </Card>
-);
+)};
 
 const EmergencyCard = () => {
+    const router = useRouter();
     const { toast } = useToast();
     return (
     <Card>
-      <CardHeader>
+      <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle className="flex items-center gap-2 text-lg">
           <Siren className="text-red-500" />
           आपातकालीन सेवाएँ और सुरक्षा
         </CardTitle>
+         <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}>
+            <Edit className="w-4 h-4 text-muted-foreground"/>
+        </Button>
       </CardHeader>
       <CardContent className="space-y-4 text-sm">
         <div>
@@ -165,7 +175,12 @@ const LocalNewsCard = () => {
     const router = useRouter();
     return (
     <Card>
-      <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Newspaper /> स्थानीय समाचार और अपडेट्स</CardTitle></CardHeader>
+      <CardHeader className="flex flex-row items-center justify-between">
+        <CardTitle className="flex items-center gap-2 text-lg"><Newspaper /> स्थानीय समाचार और अपडेट्स</CardTitle>
+         <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}>
+            <Edit className="w-4 h-4 text-muted-foreground"/>
+        </Button>
+      </CardHeader>
       <CardContent className="space-y-3 text-sm">
         <div className="flex items-start gap-2"><CircleAlert className="text-red-500 mt-1 shrink-0" /><p><b>जरूरी सूचना:</b> कल से नगर निगम का विशेष स्वच्छता अभियान शुरू</p></div>
         <div className="flex items-start gap-2"><CircleAlert className="text-yellow-500 mt-1 shrink-0" /><p><b>चेतावनी:</b> आज रात १० बजे से सुबह ६ बजे तक पानी की आपूर्ति बाधित</p></div>
@@ -179,9 +194,16 @@ const LocalNewsCard = () => {
     </Card>
 )};
 
-const MapCard = ({ onSearchClick }: { onSearchClick: () => void }) => (
+const MapCard = ({ onSearchClick }: { onSearchClick: () => void }) => {
+    const router = useRouter();
+    return (
     <Card>
-        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><MapIcon /> इंटरएक्टिव नक्शा और स्थानीय सुविधाएँ</CardTitle></CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle className="flex items-center gap-2 text-lg"><MapIcon /> इंटरएक्टिव नक्शा और स्थानीय सुविधाएँ</CardTitle>
+             <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}>
+                <Edit className="w-4 h-4 text-muted-foreground"/>
+            </Button>
+        </CardHeader>
         <CardContent>
             <div className="flex flex-wrap gap-2 mb-4">
                 <Button variant="secondary" size="sm">यातायात</Button>
@@ -204,13 +226,19 @@ const MapCard = ({ onSearchClick }: { onSearchClick: () => void }) => (
             </div>
         </CardContent>
     </Card>
-);
+)};
 
 const LocalStatsCard = () => {
+    const router = useRouter();
     const { toast } = useToast();
     return (
     <Card>
-        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><BarChart2 /> स्थानीय जानकारी और आँकड़े</CardTitle></CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle className="flex items-center gap-2 text-lg"><BarChart2 /> स्थानीय जानकारी और आँकड़े</CardTitle>
+            <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}>
+                <Edit className="w-4 h-4 text-muted-foreground"/>
+            </Button>
+        </CardHeader>
         <CardContent className="space-y-3 text-sm">
             <p className="flex items-center gap-2"><b><UsersIcon className="w-4 h-4 inline-block"/> जनसंख्या:</b> ३६ लाख (२०२३ अनुमान)</p>
             <p className="flex items-center gap-2"><b><Ruler className="w-4 h-4 inline-block"/> क्षेत्रफल:</b> ३५० वर्ग किमी</p>
@@ -227,10 +255,16 @@ const LocalStatsCard = () => {
 )};
 
 const DistrictAdminCard = () => {
+    const router = useRouter();
     const { toast } = useToast();
     return (
     <Card>
-        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Landmark /> जिला प्रशासन और अधिकारी</CardTitle></CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle className="flex items-center gap-2 text-lg"><Landmark /> जिला प्रशासन और अधिकारी</CardTitle>
+            <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}>
+                <Edit className="w-4 h-4 text-muted-foreground"/>
+            </Button>
+        </CardHeader>
         <CardContent className="space-y-3 text-sm">
             <div>
                 <p><b>🎖️ जिला मजिस्ट्रेट (DM):</b> श्री राजेश कुमार, IAS</p>
@@ -254,10 +288,16 @@ const DistrictAdminCard = () => {
 )};
 
 const DistrictStatsCard = () => {
+    const router = useRouter();
     const { toast } = useToast();
     return (
     <Card>
-        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><BarChart2 /> जिला सांख्यिकी और आँकड़े</CardTitle></CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle className="flex items-center gap-2 text-lg"><BarChart2 /> जिला सांख्यिकी और आँकड़े</CardTitle>
+             <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}>
+                <Edit className="w-4 h-4 text-muted-foreground"/>
+            </Button>
+        </CardHeader>
         <CardContent className="space-y-4 text-sm">
             <div>
                 <p><b>📊 जनसंख्या (२०२३):</b> ४८ लाख</p>
@@ -281,10 +321,16 @@ const DistrictStatsCard = () => {
 )};
 
 const DistrictHealthCard = () => {
+    const router = useRouter();
     const { toast } = useToast();
     return(
     <Card>
-        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><HeartPulse /> स्वास्थ्य सेवाएँ और अस्पताल</CardTitle></CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle className="flex items-center gap-2 text-lg"><HeartPulse /> स्वास्थ्य सेवाएँ और अस्पताल</CardTitle>
+            <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}>
+                <Edit className="w-4 h-4 text-muted-foreground"/>
+            </Button>
+        </CardHeader>
         <CardContent className="space-y-4 text-sm">
             <div>
                 <h3 className="font-semibold">सरकारी अस्पताल:</h3>
@@ -312,10 +358,16 @@ const DistrictHealthCard = () => {
 )};
 
 const DistrictEducationCard = () => {
+    const router = useRouter();
     const { toast } = useToast();
     return(
     <Card>
-        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><GraduationCap /> शिक्षा और शैक्षणिक संस्थान</CardTitle></CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle className="flex items-center gap-2 text-lg"><GraduationCap /> शिक्षा और शैक्षणिक संस्थान</CardTitle>
+             <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}>
+                <Edit className="w-4 h-4 text-muted-foreground"/>
+            </Button>
+        </CardHeader>
         <CardContent className="space-y-4 text-sm">
              <div>
                 <h3 className="font-semibold">प्रमुख शैक्षणिक संस्थान:</h3>
@@ -341,9 +393,16 @@ const DistrictEducationCard = () => {
     </Card>
 )};
 
-const DistrictTransportCard = () => (
+const DistrictTransportCard = () => {
+    const router = useRouter();
+    return (
      <Card>
-        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Waypoints /> परिवहन और संपर्क</CardTitle></CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle className="flex items-center gap-2 text-lg"><Waypoints /> परिवहन और संपर्क</CardTitle>
+            <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}>
+                <Edit className="w-4 h-4 text-muted-foreground"/>
+            </Button>
+        </CardHeader>
         <CardContent className="space-y-4 text-sm">
             <div>
                 <h3 className="font-semibold flex items-center gap-2"><Train/> रेलवे स्टेशन: लखनऊ जंक्शन</h3>
@@ -370,11 +429,18 @@ const DistrictTransportCard = () => (
             </div>
         </CardContent>
     </Card>
-);
+)};
 
-const DistrictSchemesCard = () => (
+const DistrictSchemesCard = () => {
+    const router = useRouter();
+    return(
     <Card>
-        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Banknote /> जिला योजनाएँ और लाभ</CardTitle></CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle className="flex items-center gap-2 text-lg"><Banknote /> जिला योजनाएँ और लाभ</CardTitle>
+            <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}>
+                <Edit className="w-4 h-4 text-muted-foreground"/>
+            </Button>
+        </CardHeader>
         <CardContent className="space-y-4 text-sm">
             <div>
                 <h3 className="font-semibold">चल रही योजनाएँ:</h3>
@@ -399,13 +465,19 @@ const DistrictSchemesCard = () => (
             </div>
         </CardContent>
     </Card>
-);
+)};
 
 const DistrictEventsCard = () => {
+    const router = useRouter();
     const { toast } = useToast();
     return (
     <Card>
-        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><CalendarDays /> आगामी जिला कार्यक्रम और त्योहार</CardTitle></CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle className="flex items-center gap-2 text-lg"><CalendarDays /> आगामी जिला कार्यक्रम और त्योहार</CardTitle>
+            <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}>
+                <Edit className="w-4 h-4 text-muted-foreground"/>
+            </Button>
+        </CardHeader>
         <CardContent className="space-y-4 text-sm">
             <div>
                 <h3 className="font-semibold">अगले ७ दिन:</h3>
@@ -430,9 +502,16 @@ const DistrictEventsCard = () => {
     </Card>
 )};
 
-const StateGovtCard = () => (
+const StateGovtCard = () => {
+    const router = useRouter();
+    return (
     <Card>
-        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Landmark /> राज्य सरकार और नेतृत्व</CardTitle></CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle className="flex items-center gap-2 text-lg"><Landmark /> राज्य सरकार और नेतृत्व</CardTitle>
+            <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}>
+                <Edit className="w-4 h-4 text-muted-foreground"/>
+            </Button>
+        </CardHeader>
         <CardContent className="space-y-3 text-sm">
             <div>
                 <p><b>👑 मुख्यमंत्री:</b> श्री योगी आदित्यनाथ</p>
@@ -452,11 +531,18 @@ const StateGovtCard = () => (
             </div>
         </CardContent>
     </Card>
-);
+)};
 
-const StateBudgetCard = () => (
+const StateBudgetCard = () => {
+    const router = useRouter();
+    return (
     <Card>
-        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Wallet /> राज्य का बजट और अर्थव्यवस्था</CardTitle></CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle className="flex items-center gap-2 text-lg"><Wallet /> राज्य का बजट और अर्थव्यवस्था</CardTitle>
+            <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}>
+                <Edit className="w-4 h-4 text-muted-foreground"/>
+            </Button>
+        </CardHeader>
         <CardContent className="space-y-3 text-sm">
              <div>
                 <p><b>💰 बजट २०२३-२४:</b> ₹६.९० लाख करोड़</p>
@@ -472,11 +558,18 @@ const StateBudgetCard = () => (
             </div>
         </CardContent>
     </Card>
-);
+)};
 
-const StatePoliciesCard = () => (
+const StatePoliciesCard = () => {
+    const router = useRouter();
+    return (
      <Card>
-        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Gavel /> राज्य नीतियाँ और कानून</CardTitle></CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle className="flex items-center gap-2 text-lg"><Gavel /> राज्य नीतियाँ और कानून</CardTitle>
+             <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}>
+                <Edit className="w-4 h-4 text-muted-foreground"/>
+            </Button>
+        </CardHeader>
         <CardContent className="space-y-3 text-sm">
             <div>
                 <h3 className="font-semibold">प्रमुख नीतियाँ:</h3>
@@ -494,11 +587,18 @@ const StatePoliciesCard = () => (
             </div>
         </CardContent>
     </Card>
-);
+)};
 
-const StateExamsCard = () => (
+const StateExamsCard = () => {
+    const router = useRouter();
+    return (
     <Card>
-        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Briefcase /> राज्यस्तरीय परीक्षाएँ और रिजल्ट</CardTitle></CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle className="flex items-center gap-2 text-lg"><Briefcase /> राज्यस्तरीय परीक्षाएँ और रिजल्ट</CardTitle>
+             <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}>
+                <Edit className="w-4 h-4 text-muted-foreground"/>
+            </Button>
+        </CardHeader>
         <CardContent className="space-y-4 text-sm">
             <div>
                 <h3 className="font-semibold">शिक्षा बोर्ड:</h3>
@@ -519,11 +619,18 @@ const StateExamsCard = () => (
             </div>
         </CardContent>
     </Card>
-);
+)};
 
-const StateAgricultureCard = () => (
+const StateAgricultureCard = () => {
+    const router = useRouter();
+    return (
     <Card>
-        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Sprout /> कृषि और मौसम पूर्वानुमान</CardTitle></CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle className="flex items-center gap-2 text-lg"><Sprout /> कृषि और मौसम पूर्वानुमान</CardTitle>
+            <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}>
+                <Edit className="w-4 h-4 text-muted-foreground"/>
+            </Button>
+        </CardHeader>
         <CardContent className="space-y-4 text-sm">
             <div>
                 <h3 className="font-semibold">प्रमुख फसलें:</h3>
@@ -543,11 +650,18 @@ const StateAgricultureCard = () => (
             </div>
         </CardContent>
     </Card>
-);
+)};
 
-const NationalSymbolCard = () => (
+const NationalSymbolCard = () => {
+    const router = useRouter();
+    return (
     <Card>
-        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Award /> राष्ट्रीय प्रतीक और गान</CardTitle></CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle className="flex items-center gap-2 text-lg"><Award /> राष्ट्रीय प्रतीक और गान</CardTitle>
+            <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}>
+                <Edit className="w-4 h-4 text-muted-foreground"/>
+            </Button>
+        </CardHeader>
         <CardContent className="space-y-2 text-sm">
             <p><b> राष्ट्रीय ध्वज:</b> तिरंगा (केसरिया, सफेद, हरा)</p>
             <p><b> राष्ट्रीय चिन्ह:</b> अशोक स्तंभ</p>
@@ -568,11 +682,18 @@ const NationalSymbolCard = () => (
             </div>
         </CardContent>
     </Card>
-);
+)};
 
-const CentralGovtCard = () => (
+const CentralGovtCard = () => {
+    const router = useRouter();
+    return (
     <Card>
-        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Building2 /> केंद्र सरकार और मंत्रालय</CardTitle></CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle className="flex items-center gap-2 text-lg"><Building2 /> केंद्र सरकार और मंत्रालय</CardTitle>
+            <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}>
+                <Edit className="w-4 h-4 text-muted-foreground"/>
+            </Button>
+        </CardHeader>
         <CardContent className="space-y-3 text-sm">
              <div>
                 <p><b>👑 राष्ट्रपति:</b> श्रीमती द्रौपदी मुर्मू</p>
@@ -588,11 +709,18 @@ const CentralGovtCard = () => (
             </div>
         </CardContent>
     </Card>
-);
+)};
 
-const ConstitutionCard = () => (
+const ConstitutionCard = () => {
+    const router = useRouter();
+    return(
     <Card>
-        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Scroll /> संविधान और नागरिक अधिकार</CardTitle></CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle className="flex items-center gap-2 text-lg"><Scroll /> संविधान और नागरिक अधिकार</CardTitle>
+            <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}>
+                <Edit className="w-4 h-4 text-muted-foreground"/>
+            </Button>
+        </CardHeader>
         <CardContent className="space-y-3 text-sm">
              <div>
                 <p><b>📖 भारत का संविधान:</b> लागू: २६ जनवरी १९५०</p>
@@ -621,11 +749,18 @@ const ConstitutionCard = () => (
             </div>
         </CardContent>
     </Card>
-);
+)};
 
-const NationalSchemesCard = () => (
+const NationalSchemesCard = () => {
+    const router = useRouter();
+    return (
     <Card>
-        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Megaphone /> राष्ट्रीय योजनाएँ और कल्याण कार्यक्रम</CardTitle></CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle className="flex items-center gap-2 text-lg"><Megaphone /> राष्ट्रीय योजनाएँ और कल्याण कार्यक्रम</CardTitle>
+            <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}>
+                <Edit className="w-4 h-4 text-muted-foreground"/>
+            </Button>
+        </CardHeader>
         <CardContent>
              <ul className="list-disc list-inside text-muted-foreground text-sm">
                 <li>आयुष्मान भारत योजना</li>
@@ -640,11 +775,18 @@ const NationalSchemesCard = () => (
             </div>
         </CardContent>
     </Card>
-);
+)};
 
-const DocumentServicesCard = () => (
+const DocumentServicesCard = () => {
+    const router = useRouter();
+    return(
     <Card>
-        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><BookUser /> पासपोर्ट, आधार, पैन और दस्तावेज़ सेवाएँ</CardTitle></CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle className="flex items-center gap-2 text-lg"><BookUser /> पासपोर्ट, आधार, पैन और दस्तावेज़ सेवाएँ</CardTitle>
+            <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}>
+                <Edit className="w-4 h-4 text-muted-foreground"/>
+            </Button>
+        </CardHeader>
         <CardContent className="flex flex-wrap gap-2">
             <Button variant="secondary" size="sm" onClick={() => window.open('https://www.passportindia.gov.in/', '_blank')}>पासपोर्ट सेवाएँ</Button>
             <Button variant="secondary" size="sm" onClick={() => window.open('https://uidai.gov.in/', '_blank')}>आधार कार्ड सेवाएँ</Button>
@@ -652,13 +794,19 @@ const DocumentServicesCard = () => (
             <Button variant="secondary" size="sm" onClick={() => window.open('https://voters.eci.gov.in/', '_blank')}>मतदाता पहचान पत्र</Button>
         </CardContent>
     </Card>
-);
+)};
 
 const NationalEmergencyCard = () => {
+    const router = useRouter();
     const { toast } = useToast();
     return(
     <Card>
-        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Siren /> राष्ट्रीय आपातकाल और आपदा प्रबंधन</CardTitle></CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle className="flex items-center gap-2 text-lg"><Siren /> राष्ट्रीय आपातकाल और आपदा प्रबंधन</CardTitle>
+             <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}>
+                <Edit className="w-4 h-4 text-muted-foreground"/>
+            </Button>
+        </CardHeader>
         <CardContent className="space-y-3 text-sm">
             <div>
                 <h3 className="font-semibold">राष्ट्रीय आपातकालीन नंबर:</h3>
@@ -680,10 +828,16 @@ const NationalEmergencyCard = () => {
 )};
 
 const IndiaFactsCard = () => {
+    const router = useRouter();
     const { toast } = useToast();
     return(
     <Card>
-        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Medal /> भारत के बारे में तथ्य और उपलब्धियाँ</CardTitle></CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle className="flex items-center gap-2 text-lg"><Medal /> भारत के बारे में तथ्य और उपलब्धियाँ</CardTitle>
+            <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}>
+                <Edit className="w-4 h-4 text-muted-foreground"/>
+            </Button>
+        </CardHeader>
         <CardContent className="space-y-3 text-sm">
             <div>
                 <h3 className="font-semibold flex items-center gap-2"><Globe className="w-4 h-4"/>भौगोलिक तथ्य:</h3>
@@ -733,9 +887,16 @@ const IndiaFactsCard = () => {
     </Card>
 )};
 
-const StateTransportCard = () => (
+const StateTransportCard = () => {
+    const router = useRouter();
+    return(
     <Card>
-       <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Bus /> राज्य परिवहन और यात्रा</CardTitle></CardHeader>
+       <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle className="flex items-center gap-2 text-lg"><Bus /> राज्य परिवहन और यात्रा</CardTitle>
+             <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}>
+                <Edit className="w-4 h-4 text-muted-foreground"/>
+            </Button>
+        </CardHeader>
        <CardContent className="space-y-4 text-sm">
            <div>
                <h3 className="font-semibold">UPSRTC (उत्तर प्रदेश सड़क परिवहन निगम):</h3>
@@ -757,11 +918,18 @@ const StateTransportCard = () => (
            </div>
        </CardContent>
    </Card>
-);
+)};
 
-const StateHealthCard = () => (
+const StateHealthCard = () => {
+    const router = useRouter();
+    return(
    <Card>
-       <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><HeartPulse /> स्वास्थ्य और चिकित्सा सुविधाएँ</CardTitle></CardHeader>
+       <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle className="flex items-center gap-2 text-lg"><HeartPulse /> स्वास्थ्य और चिकित्सा सुविधाएँ</CardTitle>
+            <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}>
+                <Edit className="w-4 h-4 text-muted-foreground"/>
+            </Button>
+        </CardHeader>
        <CardContent className="space-y-4 text-sm">
            <div>
                <h3 className="font-semibold">चिकित्सा बुनियादी ढाँचा:</h3>
@@ -777,7 +945,7 @@ const StateHealthCard = () => (
            </div>
        </CardContent>
    </Card>
-);
+)};
 
 
 export default function MorePage() {
