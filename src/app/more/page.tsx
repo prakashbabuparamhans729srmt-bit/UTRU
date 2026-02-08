@@ -1,149 +1,625 @@
-
 'use client';
 
-import { ChevronLeft, ChevronRight, Mic, Search, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { serviceHierarchy, type ServiceCategory } from '@/lib/service-hierarchy';
-import Link from 'next/link';
-import { useLanguage } from '@/context/LanguageContext';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { useMemo, useState } from 'react';
-import { Input } from '@/components/ui/input';
-import { useVoiceSearch } from '@/context/VoiceSearchContext';
-import { cn } from '@/lib/utils';
-import FloatingActionButton from '@/components/FloatingActionButton';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import {
+  ChevronLeft,
+  Sun,
+  Wind,
+  Droplets,
+  Sunrise,
+  Sunset,
+  CloudRain,
+  Phone,
+  Hospital,
+  Flame,
+  User,
+  Baby,
+  Newspaper,
+  CalendarDays,
+  Map as MapIcon,
+  Users,
+  GraduationCap,
+  Briefcase,
+  Landmark,
+  Shield,
+  Train,
+  Bus,
+  Plane,
+  TramFront,
+  Banknote,
+  HeartHandshake,
+  Sprout,
+  Thermometer,
+  FileText,
+  UserCheck,
+  Gavel,
+  BookOpen,
+  Tractor,
+  Award,
+  Scroll,
+  Megaphone,
+  Ticket,
+  BookUser,
+  Siren,
+  CircleAlert,
+  CircleCheck,
+  Building,
+  Factory,
+  BarChart2,
+  BookCopy,
+  Receipt,
+  Scale,
+  UserCog,
+  HeartPulse,
+  BrainCircuit,
+  TestTube2,
+  School,
+  Building2,
+  BookMarked,
+  Waypoints,
+  LocateFixed,
+  Search,
+  ZoomIn,
+  Download,
+  Footprints,
+  Car,
+  Atom,
+  Satellite,
+  Rocket,
+  Syringe,
+  Wheat,
+  Cloud,
+} from 'lucide-react';
+import Image from 'next/image';
+
+const WeatherCard = () => (
+  <Card>
+    <CardHeader>
+      <CardTitle className="flex items-center gap-2 text-lg">
+        <Sun className="text-yellow-500" />
+        मौसम और पर्यावरण
+      </CardTitle>
+    </CardHeader>
+    <CardContent className="space-y-4 text-sm">
+      <div className="grid grid-cols-2 gap-4">
+        <div className="flex items-center gap-2"><Thermometer className="w-5 h-5 text-red-500" /><span>तापमान: ३२°C</span></div>
+        <div className="flex items-center gap-2"><Droplets className="w-5 h-5 text-blue-500" /><span>आर्द्रता: ६५%</span></div>
+        <div className="flex items-center gap-2"><Wind className="w-5 h-5 text-gray-500" /><span>हवा: १२ km/h</span></div>
+        <div className="flex items-center gap-2"><Sunrise className="w-5 h-5 text-orange-500" /><span>सूर्योदय: ५:४५ AM</span></div>
+        <div className="flex items-center gap-2"><Sunset className="w-5 h-5 text-orange-700" /><span>सूर्यास्त: ६:३० PM</span></div>
+      </div>
+      <div className="p-2 bg-green-100 dark:bg-green-900/50 rounded-lg flex items-start gap-2">
+        <CircleCheck className="w-5 h-5 text-green-600 mt-0.5 shrink-0" />
+        <div>
+          <p className="font-semibold">वायु गुणवत्ता सूचकांक (AQI): ४५ (अच्छा)</p>
+          <p className="text-xs text-muted-foreground">सलाह: बाहरी गतिविधियों के लिए उत्तम दिन</p>
+        </div>
+      </div>
+      <div>
+        <p className="font-semibold mb-2">अगले ३ दिन का पूर्वानुमान:</p>
+        <div className="flex justify-around text-center">
+          <div><Sun className="mx-auto text-yellow-500" /><span>३२°</span></div>
+          <div><Cloud className="mx-auto text-gray-400" /><span>३१°</span></div>
+          <div><CloudRain className="mx-auto text-blue-400" /><span>२९°</span></div>
+        </div>
+      </div>
+    </CardContent>
+  </Card>
+);
+
+const EmergencyCard = () => (
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2 text-lg">
+          <Siren className="text-red-500" />
+          आपातकालीन सेवाएँ और सुरक्षा
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4 text-sm">
+        <div>
+          <h3 className="font-semibold mb-2">एक क्लिक में कॉल:</h3>
+          <div className="flex flex-wrap gap-2">
+            <Button variant="destructive" size="sm"><Phone className="mr-2 h-4 w-4" /> पुलिस - १००</Button>
+            <Button variant="destructive" size="sm"><Phone className="mr-2 h-4 w-4" /> एम्बुलेंस - १०२</Button>
+            <Button variant="destructive" size="sm"><Phone className="mr-2 h-4 w-4" /> अग्निशमन - १०१</Button>
+            <Button variant="destructive" size="sm"><Phone className="mr-2 h-4 w-4" /> महिला हेल्पलाइन - १०९०</Button>
+            <Button variant="destructive" size="sm"><Phone className="mr-2 h-4 w-4" /> चाइल्ड हेल्पलाइन - १०९८</Button>
+          </div>
+        </div>
+        <div className="border-t pt-4">
+          <h3 className="font-semibold">निकटतम स्वास्थ्य सुविधाएँ:</h3>
+          <p className="text-muted-foreground">• सिविल हॉस्पिटल (२ किमी) - ०५२२-२२५५०००</p>
+          <p className="text-muted-foreground">• मेडिकल कॉलेज (३.५ किमी) - २४x७ आपातकालीन</p>
+          <div className="flex gap-2 mt-2">
+            <Button variant="outline" size="sm"><MapIcon className="mr-2 h-4 w-4" /> रूट देखें</Button>
+            <Button variant="outline" size="sm"><Phone className="mr-2 h-4 w-4" /> कॉल करें</Button>
+          </div>
+        </div>
+        <div className="border-t pt-4">
+          <h3 className="font-semibold">निकटतम पुलिस स्टेशन: हज़रतगंज थाना (१.५ किमी)</h3>
+          <p className="text-muted-foreground">📞: ०५२२-२२१०३००</p>
+          <div className="mt-2">
+            <Button variant="destructive" className="w-full"><Siren className="mr-2 h-4 w-4" /> SOS अलर्ट भेजें</Button>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+);
+
+const NewsCard = () => (
+    <Card>
+      <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Newspaper /> स्थानीय समाचार और अपडेट्स</CardTitle></CardHeader>
+      <CardContent className="space-y-3 text-sm">
+        <div className="flex items-start gap-2"><CircleAlert className="text-red-500 mt-1 shrink-0" /><p><b>जरूरी सूचना:</b> कल से नगर निगम का विशेष स्वच्छता अभियान शुरू</p></div>
+        <div className="flex items-start gap-2"><CircleAlert className="text-yellow-500 mt-1 shrink-0" /><p><b>चेतावनी:</b> आज रात १० बजे से सुबह ६ बजे तक पानी की आपूर्ति बाधित</p></div>
+        <div className="flex items-start gap-2"><CircleCheck className="text-green-500 mt-1 shrink-0" /><p><b>सकारात्मक:</b> मेट्रो का नया रूट अगले माह से शुरू, ५०,००० लोगों को लाभ</p></div>
+        <div className="flex items-start gap-2"><CalendarDays className="text-blue-500 mt-1 shrink-0" /><p><b>आगामी कार्यक्रम:</b> १५ अगस्त - स्वतंत्रता दिवस समारोह, पार्क में</p></div>
+        <div className="flex gap-2 mt-2">
+            <Button variant="outline" size="sm">सभी समाचार देखें</Button>
+            <Button variant="outline" size="sm">अलर्ट प्राप्त करें</Button>
+        </div>
+      </CardContent>
+    </Card>
+);
+
+const MapCard = () => (
+    <Card>
+        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><MapIcon /> इंटरएक्टिव नक्शा और स्थानीय सुविधाएँ</CardTitle></CardHeader>
+        <CardContent>
+            <div className="flex flex-wrap gap-2 mb-4">
+                <Button variant="secondary" size="sm">यातायात</Button>
+                <Button variant="secondary" size="sm">दुकानें</Button>
+                <Button variant="secondary" size="sm">रेस्तराँ</Button>
+                <Button variant="secondary" size="sm">पेट्रोल पंप</Button>
+                <Button variant="secondary" size="sm">सरकारी कार्यालय</Button>
+                <Button variant="secondary" size="sm">अस्पताल</Button>
+            </div>
+            <div className="aspect-video bg-muted rounded-lg flex items-center justify-center mb-4">
+                <p className="text-muted-foreground">Map Placeholder</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+                <Button variant="outline" size="sm"><LocateFixed className="w-4 h-4 mr-2" /> मेरी लोकेशन सेट करें</Button>
+                <Button variant="outline" size="sm"><Search className="w-4 h-4 mr-2" /> स्थान खोजें</Button>
+                <Button variant="outline" size="sm"><Footprints className="w-4 h-4 mr-2" /> पैदल मार्ग</Button>
+                <Button variant="outline" size="sm"><Car className="w-4 h-4 mr-2" /> गाड़ी मार्ग</Button>
+                <Button variant="outline" size="sm"><Download className="w-4 h-4 mr-2" /> ऑफ़लाइन मैप डाउनलोड</Button>
+            </div>
+        </CardContent>
+    </Card>
+);
+
+const StatsCard = () => (
+    <Card>
+        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><BarChart2 /> स्थानीय जानकारी और आँकड़े</CardTitle></CardHeader>
+        <CardContent className="space-y-2 text-sm">
+            <p><b>👥 जनसंख्या:</b> ३६ लाख (२०२३ अनुमान)</p>
+            <p><b>📍 क्षेत्रफल:</b> ३५० वर्ग किमी</p>
+            <p><b>🎓 साक्षरता दर:</b> ८४%</p>
+            <p><b>👫 लिंगानुपात:</b> ९२० महिलाएँ प्रति १००० पुरुष</p>
+            <p><b>💼 प्रमुख उद्योग:</b> सूचना प्रौद्योगिकी, हस्तशिल्प, पर्यटन</p>
+            <p><b>🏛️ स्थानीय प्रशासन:</b> लखनऊ नगर निगम, जिला प्रशासन</p>
+            <div className="flex gap-2 mt-2">
+                <Button variant="outline" size="sm">विस्तृत आँकड़े देखें</Button>
+                <Button variant="outline" size="sm">रिपोर्ट डाउनलोड</Button>
+            </div>
+        </CardContent>
+    </Card>
+);
+
+const Tab1_MyPlace = () => (
+    <div className="space-y-6 p-1">
+        <WeatherCard />
+        <EmergencyCard />
+        <NewsCard />
+        <MapCard />
+        <StatsCard />
+    </div>
+);
+
+const DistrictAdminCard = () => (
+    <Card>
+        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Landmark /> जिला प्रशासन और अधिकारी</CardTitle></CardHeader>
+        <CardContent className="space-y-3 text-sm">
+            <div>
+                <p><b>🎖️ जिला मजिस्ट्रेट (DM):</b> श्री राजेश कुमार, IAS</p>
+                <p className="text-muted-foreground">📞: ०५२२-२२१०२०१ | ✉️: dm-lucknow@up.gov.in</p>
+            </div>
+            <div>
+                <p><b>🚓 पुलिस अधीक्षक (SP):</b> श्रीमती प्रिया शर्मा, IPS</p>
+                <p className="text-muted-foreground">📞: ०५२२-२२१०३०२ | <Button variant="link" className="p-0 h-auto">अपराध रिपोर्ट ऑनलाइन दर्ज करें</Button></p>
+            </div>
+            <div className="border-t pt-3">
+                <p className="font-semibold">अन्य प्रमुख अधिकारी:</p>
+                <ul className="list-disc list-inside text-muted-foreground">
+                    <li>जिला विकास अधिकारी (DDO)</li>
+                    <li>मुख्य चिकित्सा अधिकारी (CMO)</li>
+                    <li>जिला शिक्षा अधिकारी (DEO)</li>
+                </ul>
+                <Button variant="outline" size="sm" className="mt-2">सभी अधिकारियों की सूची</Button>
+            </div>
+        </CardContent>
+    </Card>
+);
+
+const DistrictStatsCard = () => (
+    <Card>
+        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><BarChart2 /> जिला सांख्यिकी और आँकड़े</CardTitle></CardHeader>
+        <CardContent className="space-y-4 text-sm">
+            <div>
+                <p><b>📊 जनसंख्या (२०२३):</b> ४८ लाख</p>
+                <p className="text-muted-foreground">🟢 शहरी: ३६ लाख (७५%) | 🟡 ग्रामीण: १२ लाख (२५%)</p>
+            </div>
+            <div>
+                <p><b>📚 शिक्षा:</b></p>
+                <p className="text-muted-foreground">साक्षरता दर: ८४.२% | विद्यालय: २,५००+ | कॉलेज: १२०+ | विश्वविद्यालय: ८+</p>
+            </div>
+            <div>
+                <p><b>👨‍👩‍👧‍👦 जनसांख्यिकी:</b></p>
+                <p className="text-muted-foreground">लिंगानुपात: ९२० | बाल लिंगानुपात: ९१० | जनसंख्या घनत्व: १,८००/वर्ग किमी</p>
+            </div>
+             <div>
+                <p><b>💼 आर्थिक सूचक:</b></p>
+                <p className="text-muted-foreground">प्रति व्यक्ति आय: ₹१,४५,०००/वर्ष | बेरोजगारी दर: ६.२%</p>
+                <Button variant="outline" size="sm" className="mt-2">विस्तृत आर्थिक रिपोर्ट</Button>
+            </div>
+        </CardContent>
+    </Card>
+);
+
+const DistrictHealthCard = () => (
+    <Card>
+        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><HeartPulse /> स्वास्थ्य सेवाएँ और अस्पताल</CardTitle></CardHeader>
+        <CardContent className="space-y-4 text-sm">
+            <div>
+                <h3 className="font-semibold">सरकारी अस्पताल:</h3>
+                <ul className="list-decimal list-inside text-muted-foreground">
+                    <li>राजकीय चिकित्सा महाविद्यालय (२०००+ बेड)</li>
+                    <li>सिविल हॉस्पिटल (५०० बेड)</li>
+                    <li>बाल चिकित्सा अस्पताल (३०० बेड)</li>
+                </ul>
+            </div>
+            <div>
+                <h3 className="font-semibold">विशेष चिकित्सा सुविधाएँ:</h3>
+                <p className="text-muted-foreground">• हृदय रोग केंद्र • कैंसर अस्पताल • आयुष्मान भारत योजना हॉस्पिटल</p>
+            </div>
+             <div>
+                <h3 className="font-semibold">टीकाकरण और परीक्षण:</h3>
+                <p className="text-muted-foreground">💉 टीकाकरण केंद्र: १५०+ (📍 निकटतम खोजें)</p>
+                <p className="text-muted-foreground">🧪 COVID-19 टेस्टिंग सेंटर: २५+</p>
+            </div>
+             <div className="flex gap-2 mt-2">
+                <Button variant="outline" size="sm">सभी अस्पताल देखें</Button>
+                <Button variant="outline" size="sm">अपॉइंटमेंट बुक करें</Button>
+            </div>
+        </CardContent>
+    </Card>
+);
+
+const DistrictEducationCard = () => (
+    <Card>
+        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><GraduationCap /> शिक्षा और शैक्षणिक संस्थान</CardTitle></CardHeader>
+        <CardContent className="space-y-4 text-sm">
+             <div>
+                <h3 className="font-semibold">प्रमुख शैक्षणिक संस्थान:</h3>
+                <ul className="list-disc list-inside text-muted-foreground">
+                    <li>लखनऊ विश्वविद्यालय (१९२१)</li>
+                    <li>IIM लखनऊ</li>
+                    <li>केजीएमयू (चिकित्सा विश्वविद्यालय)</li>
+                </ul>
+            </div>
+            <div>
+                <h3 className="font-semibold">शिक्षा योजनाएँ:</h3>
+                <p className="text-muted-foreground">• छात्रवृत्ति योजना • मुफ़्त पाठ्यपुस्तक • साइकिल वितरण</p>
+                 <div className="flex gap-2 mt-2">
+                    <Button variant="outline" size="sm">आवेदन करें</Button>
+                    <Button variant="outline" size="sm">योग्यता जाँचें</Button>
+                </div>
+            </div>
+            <div>
+                <h3 className="font-semibold">प्रतियोगी परीक्षा केंद्र:</h3>
+                <p className="text-muted-foreground">• UPSC/IAS कोचिंग • बैंकिंग परीक्षा • SSC कोचिंग</p>
+            </div>
+        </CardContent>
+    </Card>
+);
+
+const DistrictTransportCard = () => (
+     <Card>
+        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Waypoints /> परिवहन और संपर्क</CardTitle></CardHeader>
+        <CardContent className="space-y-4 text-sm">
+            <div>
+                <h3 className="font-semibold flex items-center gap-2"><Train/> रेलवे स्टेशन: लखनऊ जंक्शन</h3>
+                <p className="text-muted-foreground">🚅 वंदे भारत, शताब्दी, राजधानी एक्सप्रेस</p>
+                <div className="flex gap-2 mt-1">
+                    <Button variant="link" className="p-0 h-auto">ट्रेन शेड्यूल</Button>
+                    <Button variant="link" className="p-0 h-auto">टिकट बुकिंग</Button>
+                </div>
+            </div>
+             <div>
+                <h3 className="font-semibold flex items-center gap-2"><Bus/> बस स्टेशन: अलीगंज आईएसबीटी, चारबाग बस स्टेशन</h3>
+                <p className="text-muted-foreground">🚍 UPSRTC बसें: सभी जिलों से कनेक्टिविटी</p>
+            </div>
+            <div>
+                <h3 className="font-semibold flex items-center gap-2"><Plane/> हवाई अड्डा: चौधरी चरण सिंह अंतर्राष्ट्रीय हवाई अड्डा</h3>
+                <p className="text-muted-foreground">🛫 घरेलू: दिल्ली, मुंबई, बैंगलोर | 🛬 अंतर्राष्ट्रीय: दुबई, शारजाह</p>
+            </div>
+             <div>
+                <h3 className="font-semibold flex items-center gap-2"><TramFront/> मेट्रो रेल: २ लाइन (२३ स्टेशन)</h3>
+                <div className="flex gap-2 mt-1">
+                    <Button variant="link" className="p-0 h-auto">मेट्रो मैप</Button>
+                    <Button variant="link" className="p-0 h-auto">स्मार्ट कार्ड रिचार्ज</Button>
+                </div>
+            </div>
+        </CardContent>
+    </Card>
+);
+
+const DistrictSchemesCard = () => (
+    <Card>
+        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Banknote /> जिला योजनाएँ और लाभ</CardTitle></CardHeader>
+        <CardContent className="space-y-4 text-sm">
+            <div>
+                <h3 className="font-semibold">चल रही योजनाएँ:</h3>
+                <ul className="list-disc list-inside text-muted-foreground">
+                    <li>प्रधानमंत्री आवास योजना (२५,०००+ लाभार्थी)</li>
+                    <li>उज्ज्वला योजना (मुफ़्त गैस कनेक्शन)</li>
+                    <li>किसान सम्मान निधि (प्रति किसान ₹६,०००/वर्ष)</li>
+                </ul>
+            </div>
+            <div>
+                <h3 className="font-semibold">आवेदन प्रक्रिया:</h3>
+                 <div className="flex flex-wrap gap-2 mt-1">
+                    <Button variant="outline" size="sm">फॉर्म डाउनलोड</Button>
+                    <Button variant="outline" size="sm">योग्यता जाँचें</Button>
+                    <Button variant="outline" size="sm">ऑनलाइन आवेदन करें</Button>
+                    <Button variant="outline" size="sm">आवेदन स्थिति जाँचें</Button>
+                </div>
+            </div>
+        </CardContent>
+    </Card>
+);
+
+const DistrictEventsCard = () => (
+    <Card>
+        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><CalendarDays /> आगामी जिला कार्यक्रम और त्योहार</CardTitle></CardHeader>
+        <CardContent className="space-y-4 text-sm">
+            <div>
+                <h3 className="font-semibold">अगले ७ दिन:</h3>
+                 <ul className="list-disc list-inside text-muted-foreground">
+                    <li>१५ अगस्त: स्वतंत्रता दिवस समारोह, जिला स्टेडियम</li>
+                    <li>१७ अगस्त: रोज़गार मेला, श्रम विभाग</li>
+                    <li>२० अगस्त: स्वास्थ्य शिविर, सिविल हॉस्पिटल</li>
+                </ul>
+            </div>
+            <div>
+                <h3 className="font-semibold">स्थानीय त्योहार:</h3>
+                 <ul className="list-disc list-inside text-muted-foreground">
+                    <li>लखनऊ महोत्सव (नवंबर-दिसंबर)</li>
+                    <li>बैसाखी मेला (अप्रैल)</li>
+                </ul>
+            </div>
+            <div className="flex gap-2 mt-2">
+                <Button variant="outline" size="sm">पूरा कैलेंडर देखें</Button>
+                <Button variant="outline" size="sm">रिमाइंडर सेट करें</Button>
+            </div>
+        </CardContent>
+    </Card>
+);
+
+const Tab2_District = () => (
+    <div className="space-y-6 p-1">
+        <DistrictAdminCard />
+        <DistrictStatsCard />
+        <DistrictHealthCard />
+        <DistrictEducationCard />
+        <DistrictTransportCard />
+        <DistrictSchemesCard />
+        <DistrictEventsCard />
+    </div>
+);
+
+
+const StateGovtCard = () => (
+    <Card>
+        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Landmark /> राज्य सरकार और नेतृत्व</CardTitle></CardHeader>
+        <CardContent className="space-y-3 text-sm">
+            <div>
+                <p><b>👑 मुख्यमंत्री:</b> श्री योगी आदित्यनाथ</p>
+                <p className="text-muted-foreground">🏛️ पार्टी: भारतीय जनता पार्टी (BJP)</p>
+                <p className="text-muted-foreground">📅 कार्यकाल: १९ मार्च २०१७ से</p>
+            </div>
+            <div>
+                <p><b>👥 मंत्रिमंडल:</b> ५३ मंत्री (२५ कैबिनेट, २८ राज्य मंत्री)</p>
+                 <ul className="list-disc list-inside text-muted-foreground">
+                    <li>उप मुख्यमंत्री: श्री केशव प्रसाद मौर्य</li>
+                    <li>गृह मंत्री: श्री योगी आदित्यनाथ (अतिरिक्त प्रभार)</li>
+                </ul>
+            </div>
+            <div>
+                 <p><b>🏛️ राज्यपाल:</b> श्रीमती आनंदीबेन पटेल</p>
+                 <p className="text-muted-foreground">📍 राजभवन, लखनऊ</p>
+            </div>
+        </CardContent>
+    </Card>
+);
+
+const StateBudgetCard = () => (
+    <Card>
+        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Wallet /> राज्य का बजट और अर्थव्यवस्था</CardTitle></CardHeader>
+        <CardContent className="space-y-3 text-sm">
+             <div>
+                <p><b>💰 बजट २०२३-२४:</b> ₹६.९० लाख करोड़</p>
+            </div>
+             <div>
+                <p><b>📈 आर्थिक संकेतक:</b></p>
+                <p className="text-muted-foreground">• सकल राज्य घरेलू उत्पाद (GSDP): ₹२१.५ लाख करोड़</p>
+                <p className="text-muted-foreground">• GSDP विकास दर: १६.८%</p>
+            </div>
+             <div>
+                <p><b>🏭 प्रमुख उद्योग:</b></p>
+                <p className="text-muted-foreground">• कृषि, विनिर्माण, सूचना प्रौद्योगिकी, पर्यटन</p>
+            </div>
+        </CardContent>
+    </Card>
+);
+
+const StatePoliciesCard = () => (
+     <Card>
+        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Gavel /> राज्य नीतियाँ और कानून</CardTitle></CardHeader>
+        <CardContent className="space-y-3 text-sm">
+            <div>
+                <h3 className="font-semibold">प्रमुख नीतियाँ:</h3>
+                <ul className="list-disc list-inside text-muted-foreground">
+                    <li>उत्तर प्रदेश निवेश और रोज़गार प्रोत्साहन नीति २०२३</li>
+                    <li>उत्तर प्रदेश स्टार्टअप नीति २०२०</li>
+                </ul>
+            </div>
+            <div>
+                <h3 className="font-semibold">नई योजनाएँ:</h3>
+                <ul className="list-disc list-inside text-muted-foreground">
+                    <li>मुख्यमंत्री युवा स्वरोजगार योजना</li>
+                    <li>किसान समृद्धि योजना</li>
+                </ul>
+            </div>
+        </CardContent>
+    </Card>
+);
+
+const Tab3_State = () => (
+    <div className="space-y-6 p-1">
+        <StateGovtCard />
+        <StateBudgetCard/>
+        <StatePoliciesCard />
+    </div>
+);
+
+
+const NationalSymbolCard = () => (
+    <Card>
+        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Award /> राष्ट्रीय प्रतीक और गान</CardTitle></CardHeader>
+        <CardContent className="space-y-2 text-sm">
+            <p><b> राष्ट्रीय ध्वज:</b> तिरंगा (केसरिया, सफेद, हरा)</p>
+            <p><b> राष्ट्रीय चिन्ह:</b> अशोक स्तंभ</p>
+            <p><b> राष्ट्रीय गान:</b> जन गण मन</p>
+            <p><b> राष्ट्रीय पशु:</b> बाघ</p>
+            <p><b> राष्ट्रीय पक्षी:</b> मोर</p>
+        </CardContent>
+    </Card>
+);
+
+const CentralGovtCard = () => (
+    <Card>
+        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Building2 /> केंद्र सरकार और मंत्रालय</CardTitle></CardHeader>
+        <CardContent className="space-y-3 text-sm">
+             <div>
+                <p><b>👑 राष्ट्रपति:</b> श्रीमती द्रौपदी मुर्मू</p>
+                <p><b>👑 प्रधानमंत्री:</b> श्री नरेंद्र मोदी</p>
+            </div>
+            <div>
+                <h3 className="font-semibold">केंद्रीय मंत्रिमंडल:</h3>
+                <ul className="list-disc list-inside text-muted-foreground">
+                    <li>गृह मंत्री: श्री अमित शाह</li>
+                    <li>विदेश मंत्री: श्री एस. जयशंकर</li>
+                    <li>रक्षा मंत्री: श्री राजनाथ सिंह</li>
+                </ul>
+            </div>
+        </CardContent>
+    </Card>
+);
+
+const ConstitutionCard = () => (
+    <Card>
+        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Scroll /> संविधान और नागरिक अधिकार</CardTitle></CardHeader>
+        <CardContent className="space-y-3 text-sm">
+             <div>
+                <p><b>📖 भारत का संविधान:</b></p>
+                <p className="text-muted-foreground">• लागू: २६ जनवरी १९५०</p>
+            </div>
+            <div>
+                <h3 className="font-semibold">⚖️ मौलिक अधिकार:</h3>
+                <ul className="list-disc list-inside text-muted-foreground">
+                    <li>समानता का अधिकार</li>
+                    <li>स्वतंत्रता का अधिकार</li>
+                    <li>शोषण के विरुद्ध अधिकार</li>
+                </ul>
+            </div>
+        </CardContent>
+    </Card>
+);
+
+const NationalSchemesCard = () => (
+    <Card>
+        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><Megaphone /> राष्ट्रीय योजनाएँ और कल्याण कार्यक्रम</CardTitle></CardHeader>
+        <CardContent>
+             <ul className="list-disc list-inside text-muted-foreground text-sm">
+                <li>आयुष्मान भारत योजना</li>
+                <li>प्रधानमंत्री आवास योजना</li>
+                <li>प्रधानमंत्री किसान सम्मान निधि</li>
+                <li>उज्ज्वला योजना</li>
+            </ul>
+        </CardContent>
+    </Card>
+);
+
+const DocumentServicesCard = () => (
+    <Card>
+        <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><BookUser /> पासपोर्ट, आधार, पैन और दस्तावेज़ सेवाएँ</CardTitle></CardHeader>
+        <CardContent className="flex flex-wrap gap-2">
+            <Button variant="secondary" size="sm">पासपोर्ट सेवाएँ</Button>
+            <Button variant="secondary" size="sm">आधार कार्ड सेवाएँ</Button>
+            <Button variant="secondary" size="sm">पैन कार्ड सेवाएँ</Button>
+            <Button variant="secondary" size="sm">मतदाता पहचान पत्र</Button>
+        </CardContent>
+    </Card>
+);
+
+
+const Tab4_Country = () => (
+    <div className="space-y-6 p-1">
+        <NationalSymbolCard />
+        <CentralGovtCard />
+        <ConstitutionCard />
+        <NationalSchemesCard />
+        <DocumentServicesCard />
+    </div>
+);
+
 
 export default function MorePage() {
   const router = useRouter();
-  const { translations } = useLanguage();
-  const [searchQuery, setSearchQuery] = useState('');
-  const { openModal: openVoiceModal } = useVoiceSearch();
-
-  // Recursive function to filter categories based on search query
-  const filterCategories = (categories: ServiceCategory[], query: string): ServiceCategory[] => {
-    if (!query.trim()) {
-      return categories;
-    }
-    const lowercasedQuery = query.toLowerCase();
-
-    return categories.reduce((acc: ServiceCategory[], category) => {
-      // If the category name itself matches, include it and all its children
-      if (category.name.toLowerCase().includes(lowercasedQuery)) {
-        acc.push(category);
-        return acc;
-      }
-      // If the category has children, check them recursively
-      if (category.children) {
-        const filteredChildren = filterCategories(category.children, query);
-        if (filteredChildren.length > 0) {
-          // If any child matches, include the parent but only with the filtered children
-          acc.push({ ...category, children: filteredChildren });
-        }
-      }
-      return acc;
-    }, []);
-  };
-
-  const filteredCategories = useMemo(() => filterCategories(serviceHierarchy, searchQuery), [searchQuery]);
-
-  // Recursive function to get all category IDs for expanding the accordion on search
-  const getAllCategoryIds = (categories: ServiceCategory[]): string[] => {
-    let ids: string[] = [];
-    for (const category of categories) {
-      ids.push(category.id);
-      if (category.children) {
-        ids = [...ids, ...getAllCategoryIds(category.children)];
-      }
-    }
-    return ids;
-  };
-  
-  const defaultOpenValues = searchQuery ? getAllCategoryIds(filteredCategories) : [];
-
-  // Recursive component to render categories and sub-categories
-  const CategoryAccordion = ({ categories, level, parentPath }: { categories: ServiceCategory[], level: number, parentPath: string }) => {
-    return (
-      <Accordion type="multiple" className="w-full" defaultValue={defaultOpenValues}>
-        {categories.map((category) => {
-          const hasChildren = category.children && category.children.length > 0;
-          const currentPath = parentPath ? `${parentPath}/${category.id}` : category.id;
-          const href = category.serviceId ? `/service/${category.serviceId}` : `/services/${currentPath}`;
-
-          if (hasChildren) {
-            return (
-              <AccordionItem key={category.id} value={category.id} className={level > 0 ? "border-b-0" : "border-b"}>
-                 <AccordionTrigger className={`hover:no-underline text-left ${level > 0 ? 'py-3 text-sm font-medium' : 'text-base font-semibold'}`}>
-                  {category.name}
-                </AccordionTrigger>
-                <AccordionContent className="pl-4 border-l">
-                  <CategoryAccordion categories={category.children!} level={level + 1} parentPath={currentPath} />
-                </AccordionContent>
-              </AccordionItem>
-            );
-          } else {
-            return (
-              <div key={category.id} className="border-b last:border-b-0">
-                <Link
-                  href={href}
-                  className="flex items-center justify-between p-3 cursor-pointer group hover:bg-accent"
-                >
-                  <span className={`font-normal transition-colors group-hover:text-primary ${level > 0 ? 'text-sm' : 'text-base'}`}>
-                    {category.name}
-                  </span>
-                  <ChevronRight className="w-4 h-4 text-gray-400 dark:text-gray-500" />
-                </Link>
-              </div>
-            );
-          }
-        })}
-      </Accordion>
-    );
-  };
 
   return (
     <div className="bg-background text-foreground min-h-screen">
-      <header className="p-4 flex items-center gap-4 border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
-        <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
-          <ChevronLeft />
-        </Button>
-        <h1 className="text-lg font-semibold">{translations.home.more}</h1>
-      </header>
-      
-      <div className="p-4 border-b sticky top-[69px] bg-background/80 backdrop-blur-sm z-10">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-          <Input
-            type="text"
-            placeholder={"Search for categories..."}
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-input rounded-full pl-10 pr-16 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-          />
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
-            {searchQuery && (
-              <X
-                className="w-5 h-5 text-muted-foreground cursor-pointer"
-                onClick={() => setSearchQuery('')}
-              />
-            )}
-            <div className="w-px h-5 bg-border"></div>
-            <Mic
-              className="w-5 h-5 text-muted-foreground cursor-pointer"
-              onClick={openVoiceModal}
-            />
-          </div>
-        </div>
-      </div>
+        <header className="p-4 flex items-center gap-4 border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
+            <Button onClick={() => router.back()} size="icon" variant="ghost" className="rounded-full bg-black text-white hover:bg-gray-700">
+            <ChevronLeft />
+            </Button>
+            <h1 className="text-lg font-semibold">🇮🇳 भारत सूचना</h1>
+        </header>
 
-      <main className="p-4">
-        {filteredCategories.length > 0 ? (
-          <CategoryAccordion categories={filteredCategories} level={0} parentPath="" />
-        ) : (
-          <p className="text-center text-muted-foreground py-10">No categories found matching your search.</p>
-        )}
-      </main>
-      <FloatingActionButton />
+        <Tabs defaultValue="my-place" className="w-full p-4">
+            <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto">
+                <TabsTrigger value="my-place" className="text-xs sm:text-sm">मेरा वर्तमान स्थान</TabsTrigger>
+                <TabsTrigger value="district" className="text-xs sm:text-sm">जिला</TabsTrigger>
+                <TabsTrigger value="state" className="text-xs sm:text-sm">राज्य</TabsTrigger>
+                <TabsTrigger value="country" className="text-xs sm:text-sm">देश</TabsTrigger>
+            </TabsList>
+            <TabsContent value="my-place" className="mt-6">
+                <Tab1_MyPlace />
+            </TabsContent>
+            <TabsContent value="district" className="mt-6">
+                <Tab2_District />
+            </TabsContent>
+            <TabsContent value="state" className="mt-6">
+                <Tab3_State />
+            </TabsContent>
+            <TabsContent value="country" className="mt-6">
+                <Tab4_Country />
+            </TabsContent>
+        </Tabs>
     </div>
   );
 }
