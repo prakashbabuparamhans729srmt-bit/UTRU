@@ -275,7 +275,7 @@ const DistrictHealthCard = () => (
              <div>
                 <h3 className="font-semibold">टीकाकरण और परीक्षण:</h3>
                 <p className="text-muted-foreground">💉 टीकाकरण केंद्र: १५०+ (📍 निकटतम खोजें)</p>
-                <p className="text-muted-foreground">🧪 COVID-19 टेस्टिंग सेंटर: ২৫+</p>
+                <p className="text-muted-foreground">🧪 COVID-19 टेस्टिंग सेंटर: २५+</p>
             </div>
              <div className="flex gap-2 mt-2">
                 <Button variant="outline" size="sm">सभी अस्पताल देखें</Button>
@@ -821,5 +821,3 @@ export default function MorePage() {
     </div>
   );
 }
-
-```
