@@ -1,9 +1,10 @@
+
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { MessageCircle, ShoppingCart, ClipboardList, Search, LayoutGrid, Video } from 'lucide-react';
+import { MessageCircle, ShoppingCart, ClipboardList, Search, LayoutGrid, Video, Shield } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function FloatingActionButton() {
@@ -159,6 +160,15 @@ export default function FloatingActionButton() {
       <div className="relative flex flex-col items-center">
          {isOpen && (
           <div className="absolute bottom-full mb-3 flex flex-col items-center gap-3">
+             <Button
+              onPointerDown={(e) => e.stopPropagation()}
+              size="icon"
+              className={cn(subButtonClasses, "bg-red-500 text-white")}
+              onClick={() => handleSubMenuClick('/admin')}
+              aria-label="Admin Panel"
+            >
+              <Shield className="w-5 h-5" />
+            </Button>
             <Button
               onPointerDown={(e) => e.stopPropagation()}
               size="icon"
@@ -218,3 +228,4 @@ export default function FloatingActionButton() {
     </div>
   );
 }
+

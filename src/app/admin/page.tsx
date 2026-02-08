@@ -1,218 +1,288 @@
+
 'use client';
 
-import { ChevronRight, Menu, Search, X } from 'lucide-react';
+import {
+  BarChart2,
+  Bell,
+  Box,
+  Building,
+  Calendar,
+  CheckCircle,
+  ChevronRight,
+  ClipboardList,
+  Clock,
+  CloudSun,
+  Contact,
+  CreditCard,
+  Crown,
+  Database,
+  Download,
+  Droplets,
+  Edit,
+  Eye,
+  File,
+  FileText,
+  Filter,
+  Globe,
+  Headset,
+  Landmark,
+  LayoutDashboard,
+  Link,
+  List,
+  Lock,
+  LogIn,
+  LogOut,
+  Mail,
+  MapPin,
+  MessageSquare,
+  Monitor,
+  Paperclip,
+  Plus,
+  RefreshCw,
+  Rocket,
+  Save,
+  Search,
+  Settings,
+  Share2,
+  Shield,
+  Signal,
+  Sparkles,
+  Sun,
+  Sunrise,
+  Sunset,
+  Table,
+  Target,
+  Ticket,
+  Trash,
+  Trash2,
+  TrendingUp,
+  Upload,
+  User,
+  Users,
+  Video,
+  Wallet,
+  Wind,
+  Wrench,
+  Zap,
+  AlertTriangle,
+} from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
-import { cn } from '@/lib/utils';
-import { Bar, BarChart, CartesianGrid, Line, LineChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
-import { adminSidebarNav, dashboardCards, dashboardStats } from '@/lib/navigation';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Progress } from '@/components/ui/progress';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupLabel,
-  SidebarHeader,
-  SidebarInset,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarProvider,
-  SidebarTrigger,
-} from '@/components/ui/sidebar';
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-  ChartLegend,
-  ChartLegendContent,
-  type ChartConfig,
-} from '@/components/ui/chart';
+  Table as ShadcnTable,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { useRouter } from 'next/navigation';
 
-
-const salesData = [
-    { month: 'Jan', sales: 4000 },
-    { month: 'Feb', sales: 3000 },
-    { month: 'Mar', sales: 5000 },
-    { month: 'Apr', sales: 4500 },
-    { month: 'May', sales: 6000 },
-    { month: 'Jun', sales: 7500 },
-    { month: 'Jul', sales: 6500 },
-];
-const salesChartConfig = {
-  sales: {
-    label: 'Sales',
-    color: 'hsl(var(--primary))',
-  },
-} satisfies ChartConfig;
-
-
-const SalesOverviewChart = () => {
-    return (
-        <div className="bg-card p-4 rounded-lg">
-            <h3 className="text-lg font-bold mb-1">Sales Overview</h3>
-            <p className="text-muted-foreground text-sm mb-4">Total sales over the last 7 months.</p>
-            <div className="h-[300px]">
-                <ChartContainer config={salesChartConfig} className="w-full h-full">
-                  <LineChart data={salesData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
-                      <CartesianGrid vertical={false} strokeDasharray="3 3" />
-                      <XAxis dataKey="month" tickLine={false} axisLine={false} tickMargin={8} />
-                      <YAxis tickFormatter={(value) => `$${Number(value) / 1000}k`} tickLine={false} axisLine={false} tickMargin={8} />
-                      <ChartTooltip
-                        cursor={false}
-                        content={<ChartTooltipContent indicator="dot" />}
-                      />
-                      <Line dataKey="sales" type="monotone" stroke="var(--color-sales)" strokeWidth={2} dot={false} />
-                  </LineChart>
-                </ChartContainer>
-            </div>
-        </div>
-    );
-};
-
-const ordersData = [
-    { status: 'Pending', orders: 150 },
-    { status: 'Processing', orders: 80 },
-    { status: 'Completed', orders: 450 },
-    { status: 'Cancelled', orders: 50 },
-];
-const ordersChartConfig = {
-    orders: {
-        label: 'Orders',
-        color: 'hsl(var(--primary))',
-    },
-} satisfies ChartConfig;
-
-const OrderStatisticsChart = () => {
-    return (
-        <div className="bg-card p-4 rounded-lg">
-            <h3 className="text-lg font-bold mb-4">Order Statistics</h3>
-             <div className="h-[300px]">
-                 <ChartContainer config={ordersChartConfig} className="w-full h-full">
-                    <BarChart data={ordersData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
-                         <CartesianGrid vertical={false} strokeDasharray="3 3" />
-                        <XAxis dataKey="status" tickLine={false} axisLine={false} tickMargin={8} />
-                        <YAxis tickLine={false} axisLine={false} tickMargin={8} />
-                        <ChartTooltip
-                            cursor={false}
-                            content={<ChartTooltipContent indicator="dot" />}
-                        />
-                        <Bar dataKey="orders" fill="var(--color-orders)" radius={4} />
-                    </BarChart>
-                </ChartContainer>
-            </div>
-        </div>
-    );
-};
-
-
-export default function AdminDashboard() {
-  const [searchQuery, setSearchQuery] = useState('');
+// Main Dashboard Component
+export default function AdminDashboardPage() {
+  const router = useRouter();
 
   return (
-    <SidebarProvider defaultOpen={false}>
-      <div className="flex h-screen bg-background text-foreground">
-        <Sidebar collapsible="offcanvas" className="hidden md:flex">
-          <SidebarHeader>
-            <div className="text-2xl font-bold text-center text-sidebar-foreground group-data-[state=expanded]:block group-data-[state=collapsed]:hidden">
-              UCLAP
-            </div>
-            <div className="text-2xl font-bold text-center text-sidebar-foreground group-data-[state=collapsed]:block group-data-[state=expanded]:hidden">
-              U
-            </div>
-          </SidebarHeader>
-          <SidebarContent>
-            <SidebarMenu>
-              {adminSidebarNav.map((section, sectionIndex) => (
-                <SidebarGroup key={sectionIndex}>
-                  {section.title && <SidebarGroupLabel>{section.title}</SidebarGroupLabel>}
-                  {section.items.map((item, itemIndex) => (
-                    <SidebarMenuItem key={itemIndex}>
-                      <SidebarMenuButton isActive={item.isSelected} tooltip={item.name}>
-                        <item.icon />
-                        <span>{item.name}</span>
-                        {item.hasSubmenu && <ChevronRight className="ml-auto" />}
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  ))}
-                </SidebarGroup>
-              ))}
-            </SidebarMenu>
-          </SidebarContent>
-        </Sidebar>
-
-        <SidebarInset>
-          <header className="flex items-center justify-between p-4 border-b bg-card">
-            <div className="flex items-center gap-4">
-              <SidebarTrigger className="p-2 border rounded-md">
-                <Menu className="w-6 h-6" />
-              </SidebarTrigger>
-              <h1 className="text-xl md:text-2xl font-bold">Dashboard</h1>
-            </div>
-            <div className="flex items-center gap-2 sm:gap-4">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                <Input
-                  type="search"
-                  placeholder="Search..."
-                  className="bg-background border-border rounded-lg pl-10 pr-10 w-full sm:w-48 md:w-64"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                {searchQuery && (
-                  <X
-                    className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground cursor-pointer"
-                    onClick={() => setSearchQuery('')}
-                  />
-                )}
-              </div>
-              <Avatar>
-                <AvatarImage src="https://picsum.photos/seed/admin-avatar/40/40" />
-                <AvatarFallback>A</AvatarFallback>
-              </Avatar>
-            </div>
-          </header>
-
-          <div className="flex-1 p-4 md:p-6 overflow-y-auto bg-background">
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6 mb-6">
-              {dashboardStats.map((stat) => (
-                <div key={stat.title} className="bg-card p-4 rounded-lg border">
-                  <p className="text-muted-foreground text-sm">{stat.title}</p>
-                  <p className={cn('text-2xl md:text-3xl font-bold', stat.valueClass || 'text-foreground')}>
-                    {stat.value}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              <SalesOverviewChart />
-              <OrderStatisticsChart />
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-              {dashboardCards.map((card, index) => (
-                <div
-                  key={index}
-                  className={cn(
-                    'p-4 rounded-lg flex flex-col justify-between border',
-                    card.isHighlighted ? 'bg-primary text-primary-foreground' : 'bg-card'
-                  )}
-                >
-                  <div className="flex justify-between items-start">
-                    <div className="flex-col">
-                      <p className={cn('text-sm', card.isHighlighted ? 'text-primary-foreground/80' : 'text-muted-foreground')}>{card.title}</p>
-                      <p className={cn('text-2xl font-bold', card.isHighlighted ? 'text-primary-foreground' : 'text-foreground')}>{card.value}</p>
-                    </div>
-                    {card.icon && <card.icon className="w-6 h-6" />}
-                  </div>
-                </div>
-              ))}
-            </div>
+    <div className="bg-gray-100 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-gray-100 p-4">
+      <header className="flex items-center justify-between mb-4">
+        <h1 className="text-2xl font-bold flex items-center gap-2">
+          <Crown className="text-primary" />
+          एडमिन डैशबोर्ड
+        </h1>
+        <div className="flex items-center gap-4">
+          <div className="text-right">
+            <p className="font-semibold">राजेश कुमार</p>
+            <p className="text-xs text-muted-foreground">सुपर एडमिन</p>
           </div>
-        </SidebarInset>
-      </div>
-    </SidebarProvider>
+          <Avatar>
+            <AvatarImage src="https://picsum.photos/seed/admin-avatar/40/40" />
+            <AvatarFallback>RK</AvatarFallback>
+          </Avatar>
+          <Button variant="ghost" size="icon" onClick={() => router.push('/admin/login')}>
+            <LogOut className="text-destructive" />
+          </Button>
+        </div>
+      </header>
+
+      {/* System Snapshot */}
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <BarChart2 />
+            सिस्टम स्नैपशॉट
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
+          <div className="p-4 bg-blue-100 dark:bg-blue-900/20 rounded-lg">
+            <Users className="mx-auto mb-2 h-6 w-6 text-blue-500" />
+            <p className="text-2xl font-bold">5.2K</p>
+            <p className="text-sm text-muted-foreground">यूजर</p>
+          </div>
+          <div className="p-4 bg-green-100 dark:bg-green-900/20 rounded-lg">
+            <TrendingUp className="mx-auto mb-2 h-6 w-6 text-green-500" />
+            <p className="text-2xl font-bold">12.5 लाख</p>
+            <p className="text-sm text-muted-foreground">हिट्स (आज)</p>
+          </div>
+          <div className="p-4 bg-teal-100 dark:bg-teal-900/20 rounded-lg">
+            <CheckCircle className="mx-auto mb-2 h-6 w-6 text-teal-500" />
+            <p className="text-2xl font-bold">98%</p>
+            <p className="text-sm text-muted-foreground">अपटाइम</p>
+          </div>
+          <div className="p-4 bg-purple-100 dark:bg-purple-900/20 rounded-lg">
+            <RefreshCw className="mx-auto mb-2 h-6 w-6 text-purple-500" />
+            <p className="text-2xl font-bold">45</p>
+            <p className="text-sm text-muted-foreground">आज के अपडेट</p>
+          </div>
+          <div className="p-4 bg-red-100 dark:bg-red-900/20 rounded-lg">
+            <AlertTriangle className="mx-auto mb-2 h-6 w-6 text-red-500" />
+            <p className="text-2xl font-bold">12</p>
+            <p className="text-sm text-muted-foreground">अटेंशन चाहिए</p>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Tabs defaultValue="content" className="w-full">
+        <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
+          <TabsTrigger value="content"><FileText className="mr-2" />कंटेंट प्रबंधन</TabsTrigger>
+          <TabsTrigger value="users"><Users className="mr-2" />यूजर प्रबंधन</TabsTrigger>
+          <TabsTrigger value="data"><Database className="mr-2" />डेटा प्रबंधन</TabsTrigger>
+          <TabsTrigger value="settings"><Settings className="mr-2" />सेटिंग्स और टूल्स</TabsTrigger>
+        </TabsList>
+
+        {/* Content Management Tab */}
+        <TabsContent value="content" className="mt-4">
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between">
+              <CardTitle>कंटेंट प्रबंधन</CardTitle>
+              <div className="flex gap-2">
+                <Button onClick={() => router.push('/admin/editor')}><Plus className="mr-2 h-4 w-4" />नया</Button>
+                <Button variant="outline"><Upload className="mr-2 h-4 w-4" />आयात</Button>
+                <Button variant="outline"><Download className="mr-2 h-4 w-4" />निर्यात</Button>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="mb-4 p-4 border rounded-lg flex gap-4 items-center">
+                <div className="relative flex-grow">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Input placeholder="क्विक सर्च..." className="pl-10" />
+                </div>
+                <Button variant="outline"><Filter className="mr-2 h-4 w-4" />फिल्टर</Button>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                <Card>
+                  <CardHeader><CardTitle className="flex items-center gap-2 text-base"><MapPin/>मेरा स्थान टैब</CardTitle></CardHeader>
+                  <CardContent className="text-sm text-muted-foreground">
+                    <p>• मौसम डेटा</p>
+                    <p>• आपातकालीन नंबर</p>
+                    <p>• स्थानीय समाचार</p>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader><CardTitle className="flex items-center gap-2 text-base"><Landmark/>जिला टैब</CardTitle></CardHeader>
+                  <CardContent className="text-sm text-muted-foreground">
+                    <p>• जिला प्रशासन</p>
+                    <p>• जिला आँकड़े</p>
+                    <p>• स्वास्थ्य सुविधाएँ</p>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader><CardTitle className="flex items-center gap-2 text-base"><Building/>राज्य टैब</CardTitle></CardHeader>
+                  <CardContent className="text-sm text-muted-foreground">
+                    <p>• राज्य सरकार</p>
+                    <p>• राज्य बजट</p>
+                    <p>• राज्य नीतियाँ</p>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader><CardTitle className="flex items-center gap-2 text-base">🇮🇳 देश टैब</CardTitle></CardHeader>
+                  <CardContent className="text-sm text-muted-foreground">
+                    <p>• राष्ट्रीय प्रतीक</p>
+                    <p>• केंद्र सरकार</p>
+                    <p>• संविधान</p>
+                  </CardContent>
+                </Card>
+              </div>
+              <CardTitle className="text-lg mb-4">हाल ही में संपादित कंटेंट</CardTitle>
+              <ShadcnTable>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>#</TableHead>
+                    <TableHead>शीर्षक</TableHead>
+                    <TableHead>प्रकार</TableHead>
+                    <TableHead>अंतिम संपादन</TableHead>
+                    <TableHead>स्थिति</TableHead>
+                    <TableHead>क्रियाएँ</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  <TableRow>
+                    <TableCell>01</TableCell>
+                    <TableCell>लखनऊ मौसम अपडेट</TableCell>
+                    <TableCell>मेरा स्थान</TableCell>
+                    <TableCell>2 घंटे पहले</TableCell>
+                    <TableCell><span className="flex items-center text-green-500"><CheckCircle className="mr-1 h-4 w-4" />सक्रिय</span></TableCell>
+                    <TableCell>
+                      <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}><Edit className="h-4 w-4" /></Button>
+                      <Button variant="ghost" size="icon"><Trash2 className="h-4 w-4" /></Button>
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>02</TableCell>
+                    <TableCell>UP बजट २०२४-२५</TableCell>
+                    <TableCell>राज्य</TableCell>
+                    <TableCell>१ दिन पहले</TableCell>
+                    <TableCell><span className="flex items-center text-yellow-500"><Edit className="mr-1 h-4 w-4" />ड्राफ्ट</span></TableCell>
+                    <TableCell>
+                      <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}><Edit className="h-4 w-4" /></Button>
+                      <Button variant="ghost" size="icon"><Trash2 className="h-4 w-4" /></Button>
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              </ShadcnTable>
+            </CardContent>
+          </Card>
+        </TabsContent>
+        
+        {/* Placeholder for other tabs */}
+        <TabsContent value="users">
+            <Card>
+                <CardHeader>
+                    <CardTitle>यूजर प्रबंधन</CardTitle>
+                    <CardDescription>यह सुविधा निर्माणाधीन है।</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <p>यहाँ उपयोगकर्ता प्रबंधन के लिए UI आएगा।</p>
+                </CardContent>
+            </Card>
+        </TabsContent>
+        <TabsContent value="data">
+            <Card>
+                <CardHeader>
+                    <CardTitle>डेटा प्रबंधन</CardTitle>
+                    <CardDescription>यह सुविधा निर्माणाधीन है।</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <p>यहाँ डेटा प्रबंधन के लिए UI आएगा।</p>
+                </CardContent>
+            </Card>
+        </TabsContent>
+        <TabsContent value="settings">
+            <Card>
+                <CardHeader>
+                    <CardTitle>सेटिंग्स और टूल्स</CardTitle>
+                    <CardDescription>यह सुविधा निर्माणाधीन है।</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <p>यहाँ सेटिंग्स और टूल्स के लिए UI आएगा।</p>
+                </CardContent>
+            </Card>
+        </TabsContent>
+      </Tabs>
+    </div>
   );
 }
+
