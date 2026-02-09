@@ -11,6 +11,7 @@ import {
   SlidersHorizontal,
   X,
   PlaySquare,
+  FileText,
 } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -62,8 +63,15 @@ interface Short extends DocumentData {
     title: string;
     views: string;
     imageId: string;
-    userId?: string;
-    createdAt?: { seconds: number, nanoseconds: number };
+}
+
+// Interface for Content
+interface Content extends DocumentData {
+    id: string;
+    title: string;
+    type: string;
+    contentData: string;
+    location?: string;
 }
 
 // Card for displaying a short
@@ -94,6 +102,20 @@ function ShortCard({ short }: { short: Short }) {
   )
 }
 
+// Card for displaying dynamic content
+function ContentCard({ item }: { item: Content }) {
+  return (
+    <Link href="/more" className="block">
+      <Card className="p-4 hover:bg-muted/50 transition-colors">
+        <h4 className="font-semibold text-card-foreground">{item.title}</h4>
+        <p className="text-sm text-muted-foreground">{item.type} {item.location && `- ${item.location}`}</p>
+        <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{item.contentData}</p>
+      </Card>
+    </Link>
+  );
+}
+
+
 function SearchResults() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -101,6 +123,7 @@ function SearchResults() {
   const [searchQuery, setSearchQuery] = useState(query);
   const [filteredServices, setFilteredServices] = useState<Service[]>([]);
   const [filteredShorts, setFilteredShorts] = useState<Short[]>([]);
+  const [filteredContent, setFilteredContent] = useState<Content[]>([]);
 
   const { translations } = useLanguage();
   const { items: cartItems } = useCart();
@@ -111,12 +134,19 @@ function SearchResults() {
 
   // Firestore setup
   const firestore = useFirestore();
+  
   const shortsQuery = useMemo(() => {
     if (!firestore) return null;
     return firestoreQuery(collection(firestore, 'shorts'));
   }, [firestore]);
 
+  const contentQuery = useMemo(() => {
+    if (!firestore) return null;
+    return firestoreQuery(collection(firestore, 'content'));
+  }, [firestore]);
+
   const { data: shortsFromDb, loading: shortsLoading } = useCollection<Short>(shortsQuery);
+  const { data: contentFromDb, loading: contentLoading } = useCollection<Content>(contentQuery);
 
   useEffect(() => {
     // Client-side search logic
@@ -132,19 +162,32 @@ function SearchResults() {
       );
       setFilteredServices(serviceResults);
 
-      // Filter shorts/articles
+      // Filter shorts
       if (shortsFromDb) {
         const shortResults = shortsFromDb.filter(
             (short) => short.title.toLowerCase().includes(lowercasedQuery)
         );
         setFilteredShorts(shortResults);
       }
+      
+      // Filter content
+      if (contentFromDb) {
+        const contentResults = contentFromDb.filter(
+            (item) =>
+                item.title.toLowerCase().includes(lowercasedQuery) ||
+                item.type.toLowerCase().includes(lowercasedQuery) ||
+                item.contentData.toLowerCase().includes(lowercasedQuery) ||
+                (item.location && item.location.toLowerCase().includes(lowercasedQuery))
+        );
+        setFilteredContent(contentResults);
+      }
 
     } else {
       setFilteredServices([]);
       setFilteredShorts([]);
+      setFilteredContent([]);
     }
-  }, [query, shortsFromDb]);
+  }, [query, shortsFromDb, contentFromDb]);
 
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -156,7 +199,8 @@ function SearchResults() {
     }
   };
   
-  const hasResults = filteredServices.length > 0 || filteredShorts.length > 0;
+  const isLoading = shortsLoading || contentLoading;
+  const hasResults = filteredServices.length > 0 || filteredShorts.length > 0 || filteredContent.length > 0;
 
   return (
     <div className="bg-background min-h-screen flex flex-col">
@@ -212,7 +256,7 @@ function SearchResults() {
         </div>
       </header>
       <main className="flex-grow p-4 space-y-8">
-        {shortsLoading ? (
+        {isLoading ? (
           <LoadingGrid />
         ) : query && hasResults ? (
           <>
@@ -229,10 +273,21 @@ function SearchResults() {
               <section>
                 <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
                     <PlaySquare />
-                    Shorts & Articles
+                    Shorts
                 </h2>
                 <div className="grid grid-cols-2 gap-4">
                     {filteredShorts.map(short => <ShortCard key={short.id} short={short} />)}
+                </div>
+              </section>
+            )}
+             {filteredContent.length > 0 && (
+              <section>
+                <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <FileText />
+                    Information & Articles
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {filteredContent.map(item => <ContentCard key={item.id} item={item} />)}
                 </div>
               </section>
             )}
