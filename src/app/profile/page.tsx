@@ -125,7 +125,7 @@ export default function ProfilePage() {
                 <div className="w-full flex flex-col items-center mt-4 space-y-2">
                     <Skeleton className="h-8 w-3/4 mx-auto rounded-md bg-gray-600" />
                     <Skeleton className="h-4 w-1/2 mx-auto rounded-md bg-gray-700" />
-                    <HeaderActionLinks isLoading={isLoading} />
+                    <HeaderActionLinks isLoading={isLoading} balance={userProfile?.walletBalance} />
                 </div>
             ) : user ? (
                  <div className="mt-4 text-white">
