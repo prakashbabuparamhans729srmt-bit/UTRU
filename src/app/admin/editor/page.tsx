@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -33,6 +34,19 @@ import { useToast } from '@/hooks/use-toast';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+
+const CONTENT_TYPES = [
+    { value: 'मौसम', label: 'मौसम (Weather)' },
+    { value: 'आपातकालीन', label: 'आपातकालीन (Emergency)' },
+    { value: 'स्थानीय समाचार', label: 'स्थानीय समाचार (Local News)' },
+    { value: 'स्थानीय आँकड़े', label: 'स्थानीय आँकड़े (Statistics)' },
+    { value: 'जिला प्रशासन', label: 'जिला प्रशासन (Administration)' },
+    { value: 'जिला वेब सूची', label: 'जिला वेब सूची (District Web List)' },
+    { value: 'राज्य वेब सूची', label: 'राज्य वेब सूची (State Web List)' },
+    { value: 'देश वेब सूची', label: 'देश वेब सूची (Country Web List)' },
+    { value: 'banner', label: 'बैनर (Banner Carousel)' },
+];
 
 export default function ContentEditorPage() {
     const router = useRouter();
@@ -89,7 +103,6 @@ export default function ContentEditorPage() {
             notificationMessage,
             createdBy: user.uid,
             createdAt: serverTimestamp(),
-            // Storing target settings would require more state, simplifying for now
         };
 
         try {
@@ -147,8 +160,17 @@ export default function ContentEditorPage() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                  <div>
-                    <Label htmlFor="type">प्रकार</Label>
-                    <Input id="type" placeholder="जैसे - मौसम, समाचार, योजना" value={type} onChange={(e) => setType(e.target.value)} />
+                    <Label htmlFor="type">कंटेंट का प्रकार (Type)</Label>
+                    <Select onValueChange={setType} value={type}>
+                        <SelectTrigger id="type">
+                            <SelectValue placeholder="प्रकार चुनें" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {CONTENT_TYPES.map(t => (
+                                <SelectItem key={t.value} value={t.value}>{t.label}</SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
                 </div>
                  <div>
                     <Label htmlFor="location">स्थान</Label>
@@ -182,8 +204,18 @@ export default function ContentEditorPage() {
           </Card>
 
           <Card>
-            <CardHeader><CardTitle className="flex items-center gap-2"><FileIcon/>कंटेंट डेटा</CardTitle></CardHeader>
+            <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                    <FileIcon/>कंटेंट डेटा 
+                    {type.includes('सूची') && <span className="text-xs font-normal text-primary">(JSON फॉर्मेट अनिवार्य)</span>}
+                </CardTitle>
+            </CardHeader>
             <CardContent>
+                {type.includes('सूची') && (
+                    <div className="bg-muted p-2 rounded-md mb-2 text-[10px] font-mono">
+                        उदाहरण: [{"label": "Google", "url": "https://google.com"}]
+                    </div>
+                )}
                 <Textarea placeholder="कंटेंट यहाँ लिखें (JSON, टेक्स्ट, आदि)..." rows={10} value={contentData} onChange={(e) => setContentData(e.target.value)} />
             </CardContent>
           </Card>
@@ -245,8 +277,6 @@ export default function ContentEditorPage() {
                     <Button variant="outline"><MapPin className="mr-2 h-4 w-4"/>मैप लिंक जोड़ें</Button>
                     <Button variant="outline"><LinkIcon className="mr-2 h-4 w-4"/>एक्सटर्नल लिंक</Button>
                 </div>
-                 <div className="space-y-2">
-                 </div>
             </CardContent>
           </Card>
         </div>

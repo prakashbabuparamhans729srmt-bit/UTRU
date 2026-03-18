@@ -1,3 +1,4 @@
+
 {
     "entities": {
         "user": {
@@ -194,14 +195,28 @@
             "type": "object",
             "properties": {
                 "title": { "type": "string" },
-                "type": { "type": "string" },
+                "type": { 
+                    "type": "string",
+                    "enum": [
+                        "मौसम", 
+                        "आपातकालीन", 
+                        "स्थानीय समाचार", 
+                        "स्थानीय आँकड़े", 
+                        "जिला प्रशासन", 
+                        "जिला वेब सूची", 
+                        "राज्य वेब सूची", 
+                        "देश वेब सूची", 
+                        "banner"
+                    ],
+                    "description": "Categorization of content for specific frontend tabs."
+                },
                 "location": { "type": "string" },
                 "priority": { "type": "string" },
                 "publishDate": { "type": "string" },
                 "publishTime": { "type": "string" },
                 "expiryDate": { "type": "string" },
                 "expiryTime": { "type": "string" },
-                "contentData": { "type": "string" },
+                "contentData": { "type": "string", "description": "JSON formatted string or plain text depending on type." },
                 "sendNotification": { "type": "boolean" },
                 "notificationMessage": { "type": "string" },
                 "createdBy": { "type": "string" },
