@@ -21,7 +21,7 @@ import { cn } from '@/lib/utils';
 import { mainFooterNavLinks } from '@/lib/navigation';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState, useMemo } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { useVoiceSearch } from '@/context/VoiceSearchContext';
 import FloatingActionButton from '@/components/FloatingActionButton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -37,7 +37,7 @@ export default function LibraryPage() {
   const { openModal: openVoiceModal } = useVoiceSearch();
   const firestore = useFirestore();
 
-  // Fetch all web lists from Firestore
+  // Fetch all content from Firestore
   const contentQuery = useMemo(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'content'));
@@ -45,16 +45,26 @@ export default function LibraryPage() {
 
   const { data: allContent, loading } = useCollection<DocumentData>(contentQuery);
 
+  // Helper to extract and parse web lists by type
   const getWebList = (type: string) => {
-    const item = allContent?.find((c) => c.type === type);
-    if (!item?.contentData) return [];
-    try {
-      const parsed = JSON.parse(item.contentData);
-      return Array.isArray(parsed) ? parsed : [];
-    } catch (e) {
-      console.error(`Failed to parse ${type}`, e);
-      return [];
-    }
+    if (!allContent) return [];
+    // Filter all items of this type and merge their data
+    const items = allContent.filter((c) => c.type === type);
+    let combinedLinks: any[] = [];
+    
+    items.forEach(item => {
+        if (item.contentData) {
+            try {
+                const parsed = JSON.parse(item.contentData);
+                if (Array.isArray(parsed)) {
+                    combinedLinks = [...combinedLinks, ...parsed];
+                }
+            } catch (e) {
+                console.error(`Failed to parse ${type} JSON`, e);
+            }
+        }
+    });
+    return combinedLinks;
   };
 
   const districtLinks = getWebList('जिला वेब सूची');
@@ -64,24 +74,24 @@ export default function LibraryPage() {
   const filteredLinks = (links: any[]) => {
     if (!searchQuery.trim()) return links;
     return links.filter((link) =>
-      link.label.toLowerCase().includes(searchQuery.toLowerCase())
+      link.label?.toLowerCase().includes(searchQuery.toLowerCase())
     );
   };
 
   const WebLinkCard = ({ label, url }: { label: string; url: string }) => (
-    <Card className="hover:border-primary transition-all group">
+    <Card className="hover:border-primary transition-all group shadow-sm">
       <CardContent className="p-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+        <div className="flex items-center gap-3 overflow-hidden">
+          <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors shrink-0">
             <Globe className="w-5 h-5" />
           </div>
-          <span className="font-medium text-sm sm:text-base">{label}</span>
+          <span className="font-medium text-sm sm:text-base truncate">{label}</span>
         </div>
         <Button
           variant="ghost"
           size="icon"
           onClick={() => window.open(url, '_blank')}
-          className="rounded-full"
+          className="rounded-full shrink-0"
         >
           <ExternalLink className="w-4 h-4 text-muted-foreground" />
         </Button>
@@ -113,23 +123,23 @@ export default function LibraryPage() {
             className="w-full bg-input rounded-full pl-10 pr-24 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
           />
           <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
-            {searchQuery && <X className="w-4 h-4 cursor-pointer" onClick={() => setSearchQuery('')} />}
-            <Mic className="w-5 h-5 text-muted-foreground cursor-pointer" onClick={openVoiceModal} />
-            <SlidersHorizontal className="w-5 h-5 text-muted-foreground cursor-pointer" />
+            {searchQuery && <X className="w-4 h-4 cursor-pointer text-muted-foreground" onClick={() => setSearchQuery('')} />}
+            <Mic className="w-5 h-5 text-muted-foreground cursor-pointer hover:text-primary" onClick={openVoiceModal} />
+            <SlidersHorizontal className="w-5 h-5 text-muted-foreground cursor-pointer hover:text-primary" />
           </div>
         </div>
       </header>
 
       <main className="flex-grow p-4 pb-32">
         <Tabs defaultValue="district" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-6">
-            <TabsTrigger value="district" className="flex items-center gap-2">
+          <TabsList className="grid w-full grid-cols-3 mb-6 bg-muted/50 p-1 rounded-xl">
+            <TabsTrigger value="district" className="flex items-center gap-2 rounded-lg data-[state=active]:bg-background data-[state=active]:shadow-sm">
               <MapPin className="w-4 h-4" /> जिला
             </TabsTrigger>
-            <TabsTrigger value="state" className="flex items-center gap-2">
+            <TabsTrigger value="state" className="flex items-center gap-2 rounded-lg data-[state=active]:bg-background data-[state=active]:shadow-sm">
               <Building2 className="w-4 h-4" /> राज्य
             </TabsTrigger>
-            <TabsTrigger value="country" className="flex items-center gap-2">
+            <TabsTrigger value="country" className="flex items-center gap-2 rounded-lg data-[state=active]:bg-background data-[state=active]:shadow-sm">
               <Globe className="w-4 h-4" /> देश
             </TabsTrigger>
           </TabsList>
@@ -139,16 +149,16 @@ export default function LibraryPage() {
             { id: 'state', links: stateLinks, title: 'राज्य स्तरीय पोर्टल' },
             { id: 'country', links: countryLinks, title: 'राष्ट्रीय डिजिटल सेवाएं' },
           ].map((tab) => (
-            <TabsContent key={tab.id} value={tab.id} className="space-y-4">
+            <TabsContent key={tab.id} value={tab.id} className="space-y-4 focus-visible:outline-none">
               <div className="flex items-center justify-between px-1">
-                <h2 className="text-sm font-bold text-muted-foreground uppercase tracking-wider">{tab.title}</h2>
-                <span className="text-xs bg-muted px-2 py-1 rounded-full">{filteredLinks(tab.links).length} लिंक्स</span>
+                <h2 className="text-xs font-bold text-muted-foreground uppercase tracking-widest">{tab.title}</h2>
+                <span className="text-[10px] bg-muted px-2 py-0.5 rounded-full font-bold">{filteredLinks(tab.links).length} लिंक्स</span>
               </div>
 
               {loading ? (
                 <div className="space-y-3">
                   {[1, 2, 3].map((i) => (
-                    <Skeleton key={i} className="h-16 w-full rounded-lg" />
+                    <Skeleton key={i} className="h-16 w-full rounded-xl" />
                   ))}
                 </div>
               ) : filteredLinks(tab.links).length > 0 ? (
@@ -158,9 +168,10 @@ export default function LibraryPage() {
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-20 opacity-50">
-                  <Globe className="w-12 h-12 mx-auto mb-4" />
-                  <p>कोई लिंक नहीं मिला। एडमिन पैनल से जोड़ें।</p>
+                <div className="text-center py-20 bg-muted/20 rounded-2xl border-2 border-dashed border-muted">
+                  <Globe className="w-12 h-12 mx-auto mb-4 text-muted-foreground/50" />
+                  <p className="text-muted-foreground font-medium">कोई लिंक नहीं मिला।</p>
+                  <p className="text-xs text-muted-foreground/70 mt-1">एडमिन पैनल से '{tab.id === 'district' ? 'जिला वेब सूची' : tab.id === 'state' ? 'राज्य वेब सूची' : 'देश वेब सूची'}' जोड़ें।</p>
                 </div>
               )}
             </TabsContent>
@@ -179,7 +190,7 @@ export default function LibraryPage() {
                 <div key={index} className="-mt-8">
                   <Link href={link.href}>
                     <div className={cn(
-                      "flex items-center justify-center w-16 h-16 rounded-full bg-primary text-primary-foreground shadow-lg border-4 border-gray-900",
+                      "flex items-center justify-center w-16 h-16 rounded-full bg-primary text-primary-foreground shadow-lg border-4 border-gray-900 transition-transform active:scale-90",
                     )}>
                       <link.icon className="w-8 h-8" />
                     </div>
@@ -193,7 +204,7 @@ export default function LibraryPage() {
                 isActive ? 'text-primary' : 'text-muted-foreground hover:text-primary'
               )}>
                 <link.icon className="w-6 h-6" />
-                <span className={cn("text-xs", isActive ? 'font-bold' : 'font-semibold')}>
+                <span className={cn("text-[10px]", isActive ? 'font-bold' : 'font-semibold')}>
                   {(translations.home as any)[link.labelKey] || (translations.location as any)[link.labelKey] || ''}
                 </span>
               </Link>
