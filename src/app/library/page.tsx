@@ -11,7 +11,6 @@ import {
   Landmark,
   Building2,
   FileText,
-  ChevronLeft,
   X,
 } from 'lucide-react';
 import Link from 'next/link';
@@ -28,6 +27,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useCollection, useFirestore } from '@/firebase';
 import { collection, query, type DocumentData } from 'firebase/firestore';
 import { Skeleton } from '@/components/ui/skeleton';
+import staticLinks from '@/lib/web-links.json';
 
 export default function LibraryPage() {
   const { translations } = useLanguage();
@@ -37,7 +37,7 @@ export default function LibraryPage() {
   const { openModal: openVoiceModal } = useVoiceSearch();
   const firestore = useFirestore();
 
-  // Fetch all content from Firestore
+  // Fetch dynamic content from Firestore
   const contentQuery = useMemo(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'content'));
@@ -45,31 +45,36 @@ export default function LibraryPage() {
 
   const { data: allContent, loading } = useCollection<DocumentData>(contentQuery);
 
-  // Helper to extract and parse web lists by type
-  const getWebList = (type: string) => {
-    if (!allContent) return [];
-    // Filter all items of this type and merge their data
-    const items = allContent.filter((c) => c.type === type);
-    let combinedLinks: any[] = [];
+  // Helper to extract and merge links
+  const getMergedLinks = (type: string, staticKey: keyof typeof staticLinks) => {
+    // Get links from static JSON file
+    const local = staticLinks[staticKey] || [];
     
-    items.forEach(item => {
-        if (item.contentData) {
-            try {
-                const parsed = JSON.parse(item.contentData);
-                if (Array.isArray(parsed)) {
-                    combinedLinks = [...combinedLinks, ...parsed];
+    // Get links from Firestore
+    let dynamicLinks: any[] = [];
+    if (allContent) {
+        const items = allContent.filter((c) => c.type === type);
+        items.forEach(item => {
+            if (item.contentData) {
+                try {
+                    const parsed = JSON.parse(item.contentData);
+                    if (Array.isArray(parsed)) {
+                        dynamicLinks = [...dynamicLinks, ...parsed];
+                    }
+                } catch (e) {
+                    console.error(`Failed to parse ${type} JSON`, e);
                 }
-            } catch (e) {
-                console.error(`Failed to parse ${type} JSON`, e);
             }
-        }
-    });
-    return combinedLinks;
+        });
+    }
+    
+    // Return combined list
+    return [...local, ...dynamicLinks];
   };
 
-  const districtLinks = getWebList('जिला वेब सूची');
-  const stateLinks = getWebList('राज्य वेब सूची');
-  const countryLinks = getWebList('देश वेब सूची');
+  const districtLinks = useMemo(() => getMergedLinks('जिला वेब सूची', 'district'), [allContent]);
+  const stateLinks = useMemo(() => getMergedLinks('राज्य वेब सूची', 'state'), [allContent]);
+  const countryLinks = useMemo(() => getMergedLinks('देश वेब सूची', 'country'), [allContent]);
 
   const filteredLinks = (links: any[]) => {
     if (!searchQuery.trim()) return links;
@@ -152,7 +157,9 @@ export default function LibraryPage() {
             <TabsContent key={tab.id} value={tab.id} className="space-y-4 focus-visible:outline-none">
               <div className="flex items-center justify-between px-1">
                 <h2 className="text-xs font-bold text-muted-foreground uppercase tracking-widest">{tab.title}</h2>
-                <span className="text-[10px] bg-muted px-2 py-0.5 rounded-full font-bold">{filteredLinks(tab.links).length} लिंक्स</span>
+                <span className="text-[10px] bg-muted px-2 py-0.5 rounded-full font-bold">
+                    {filteredLinks(tab.links).length} कुल लिंक्स
+                </span>
               </div>
 
               {loading ? (
@@ -171,7 +178,6 @@ export default function LibraryPage() {
                 <div className="text-center py-20 bg-muted/20 rounded-2xl border-2 border-dashed border-muted">
                   <Globe className="w-12 h-12 mx-auto mb-4 text-muted-foreground/50" />
                   <p className="text-muted-foreground font-medium">कोई लिंक नहीं मिला।</p>
-                  <p className="text-xs text-muted-foreground/70 mt-1">एडमिन पैनल से '{tab.id === 'district' ? 'जिला वेब सूची' : tab.id === 'state' ? 'राज्य वेब सूची' : 'देश वेब सूची'}' जोड़ें।</p>
                 </div>
               )}
             </TabsContent>
