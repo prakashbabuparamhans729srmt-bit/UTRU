@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -64,6 +65,7 @@ import {
   Medal,
   ThumbsUp,
   Edit,
+  ExternalLink,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -372,6 +374,53 @@ const GenericDataCard = ({ defaultTitle, content, icon: Icon }: { defaultTitle: 
     );
 };
 
+const WebLinksCard = ({ defaultTitle, content, icon: Icon }: { defaultTitle: string; content?: DocumentData; icon: React.ElementType }) => {
+    const router = useRouter();
+    const links = useMemo(() => {
+        if (content?.contentData) {
+            try {
+                const parsed = JSON.parse(content.contentData);
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (e) {
+                console.error("Failed to parse WebLinks content", e);
+            }
+        }
+        return [];
+    }, [content]);
+
+    return (
+        <Card>
+            <CardHeader className="flex flex-row items-center justify-between">
+                <CardTitle className="flex items-center gap-2 text-lg">
+                    <Icon className="text-primary" /> {content?.title || defaultTitle}
+                </CardTitle>
+                <Button variant="ghost" size="icon" onClick={() => router.push('/admin/editor')}>
+                    <Edit className="w-4 h-4 text-muted-foreground"/>
+                </Button>
+            </CardHeader>
+            <CardContent className="space-y-2">
+                {links.length > 0 ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {links.map((link: { label: string, url: string }, index: number) => (
+                            <Button
+                                key={index}
+                                variant="outline"
+                                className="justify-between h-auto py-3 px-4 text-left"
+                                onClick={() => window.open(link.url, '_blank')}
+                            >
+                                <span className="truncate mr-2">{link.label}</span>
+                                <ExternalLink className="w-4 h-4 shrink-0 opacity-50" />
+                            </Button>
+                        ))}
+                    </div>
+                ) : (
+                    <p className="text-sm text-muted-foreground italic">कोई वेबसाइट लिंक उपलब्ध नहीं हैं। एडमिन पैनल से जोड़ें।</p>
+                )}
+            </CardContent>
+        </Card>
+    );
+};
+
 // --- TAB PANELS ---
 const Tab1_MyPlace = () => {
     const { getContentByType, setIsSearchOpen } = useMorePageContext();
@@ -401,6 +450,7 @@ const Tab2_District = () => {
         <div className="space-y-6 p-1">
             <div className="relative"> <BannerSection content={getContentByType('banner')} /> <Button variant="ghost" size="icon" className="absolute top-2 right-2 bg-black/30 hover:bg-black/50 text-white rounded-full z-10" onClick={() => router.push('/admin/editor')}> <Edit className="w-4 h-4"/> </Button> </div>
             <NewsSection />
+            <WebLinksCard defaultTitle="जिला निर्देशिका (वेबसाइट्स)" content={getContentByType('जिला वेब सूची')} icon={Globe} />
             <GenericDataCard defaultTitle="जिला प्रशासन और अधिकारी" content={getContentByType('जिला प्रशासन')} icon={Landmark} />
             <GenericDataCard defaultTitle="जिला सांख्यिकी और आँकड़े" content={getContentByType('जिला आँकड़े')} icon={BarChart2} />
             <GenericDataCard defaultTitle="स्वास्थ्य सेवाएँ और अस्पताल" content={getContentByType('जिला स्वास्थ्य')} icon={HeartPulse} />
@@ -419,6 +469,7 @@ const Tab3_State = () => {
         <div className="space-y-6 p-1">
             <div className="relative"> <BannerSection content={getContentByType('banner')} /> <Button variant="ghost" size="icon" className="absolute top-2 right-2 bg-black/30 hover:bg-black/50 text-white rounded-full z-10" onClick={() => router.push('/admin/editor')}> <Edit className="w-4 h-4"/> </Button> </div>
             <NewsSection />
+            <WebLinksCard defaultTitle="राज्य सरकारी वेबसाइट्स" content={getContentByType('राज्य वेब सूची')} icon={Globe} />
             <GenericDataCard defaultTitle="राज्य सरकार और नेतृत्व" content={getContentByType('राज्य सरकार')} icon={Landmark} />
             <GenericDataCard defaultTitle="राज्य का बजट और अर्थव्यवस्था" content={getContentByType('राज्य बजट')} icon={Wallet} />
             <GenericDataCard defaultTitle="राज्य नीतियाँ और कानून" content={getContentByType('राज्य नीतियाँ')} icon={Gavel} />
@@ -437,6 +488,7 @@ const Tab4_Country = () => {
         <div className="space-y-6 p-1">
             <div className="relative"> <BannerSection content={getContentByType('banner')} /> <Button variant="ghost" size="icon" className="absolute top-2 right-2 bg-black/30 hover:bg-black/50 text-white rounded-full z-10" onClick={() => router.push('/admin/editor')}> <Edit className="w-4 h-4"/> </Button> </div>
             <NewsSection />
+            <WebLinksCard defaultTitle="महत्वपूर्ण राष्ट्रीय पोर्टल्स" content={getContentByType('देश वेब सूची')} icon={Globe} />
             <GenericDataCard defaultTitle="राष्ट्रीय प्रतीक और गान" content={getContentByType('राष्ट्रीय प्रतीक')} icon={Award} />
             <GenericDataCard defaultTitle="केंद्र सरकार और मंत्रालय" content={getContentByType('केंद्र सरकार')} icon={Building2} />
             <GenericDataCard defaultTitle="संविधान और नागरिक अधिकार" content={getContentByType('संविधान')} icon={Scroll} />
