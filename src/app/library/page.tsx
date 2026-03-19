@@ -86,19 +86,24 @@ export default function LibraryPage() {
   const stateLinks = useMemo(() => getMergedLinks('राज्य वेब सूची', 'state'), [allContent]);
   const countryLinks = useMemo(() => getMergedLinks('देश वेब सूची', 'country'), [allContent]);
 
-  // Logic to detect district from address or profile
+  // Logic to detect district from address or profile and perform automatic search
   useEffect(() => {
-    if (districtLinks.length > 0 && !searchQuery) {
+    // Only run if districtLinks are loaded and we haven't already performed auto-filtering
+    if (districtLinks.length > 0 && !searchQuery && !isAutoFiltered) {
         const addressText = (
             (deliveryAddress?.fullAddress || "") + " " + 
             (userProfile?.location || "") + " " + 
-            (userProfile?.state || "")
+            (userProfile?.state || "") + " " +
+            (userProfile?.city || "") + " " +
+            (userProfile?.district || "")
         ).toLowerCase();
         
         if (addressText.trim()) {
-            // Find a matching district from the list
+            // Find a matching district from the list using advanced string matching
             const match = districtLinks.find(link => {
+                // Extract just the district name part from "District (State)"
                 const districtName = link.label.split('(')[0].trim().toLowerCase();
+                // Check if the address string contains the district name
                 return addressText.includes(districtName);
             });
             
@@ -106,11 +111,11 @@ export default function LibraryPage() {
                 const districtName = match.label.split('(')[0].trim();
                 setDetectedDistrict(districtName);
                 setIsAutoFiltered(true);
-                setSearchQuery(districtName); // Automatic Search
+                setSearchQuery(districtName); // This triggers the automatic search/filter
             }
         }
     }
-  }, [deliveryAddress, userProfile, districtLinks]);
+  }, [deliveryAddress, userProfile, districtLinks, isAutoFiltered, searchQuery]);
 
   const filteredLinks = (links: any[]) => {
     let results = links;
