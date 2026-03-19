@@ -40,6 +40,16 @@ import {
   RefreshCcw,
   ExternalLink,
   Edit,
+  Building2,
+  Thermometer,
+  Wind,
+  Sunrise,
+  Sunset,
+  Cloud,
+  CloudRain,
+  Siren,
+  Phone,
+  Newspaper,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -200,7 +210,7 @@ const WeatherCard = ({ content }: { content?: DocumentData }) => {
         if (content?.contentData) { try { return { ...defaultData, ...JSON.parse(content.contentData) }; } catch (e) { console.error(e); } }
         return defaultData;
     }, [content]);
-    const iconMap: any = { Sunrise, Cloud, CloudRain };
+    
     return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
@@ -272,7 +282,7 @@ const WebLinksCard = ({ defaultTitle, content, icon: Icon, staticKey }: { defaul
         let all = [...localLinks, ...dynamicLinks];
 
         if (staticKey === 'district' && detectedDistrict) {
-            // Priority filtering for the current district
+            // Browser-like search feel: filter the list by the detected district
             const filtered = all.filter((l: any) => l.label.toLowerCase().includes(detectedDistrict.toLowerCase()));
             return filtered.length > 0 ? filtered : all;
         }
@@ -359,7 +369,7 @@ export default function MorePage() {
         const dName = link.label.split('(')[0].trim().toLowerCase();
         return text.includes(dName);
     });
-    return match ? match.label.split('(')[0].trim() : "Buxar"; // Default to Buxar as requested
+    return match ? match.label.split('(')[0].trim() : "Buxar"; // Default to Buxar
   }, [deliveryAddress, userProfile]);
 
   const getContentByType = (type: string) => allContent?.find(c => c.type === type);

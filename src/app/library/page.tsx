@@ -74,7 +74,7 @@ export default function LibraryPage() {
 
   useEffect(() => {
     if (districtLinks.length > 0 && !searchQuery && !isAutoFiltered) {
-        // Advanced detection logic
+        // Browser-like detection: Check address and profile for a match
         const text = ((deliveryAddress?.fullAddress || "") + " " + (userProfile?.district || "") + " " + (userProfile?.city || "")).toLowerCase();
         let found = districtLinks.find(link => {
             const districtName = link.label.split('(')[0].trim().toLowerCase();
@@ -87,7 +87,7 @@ export default function LibraryPage() {
             setIsAutoFiltered(true);
             setSearchQuery(name);
         } else if (!isAutoFiltered) {
-            // Default to Buxar as requested
+            // Default to Buxar if no location found
             setDetectedDistrict("Buxar");
             setIsAutoFiltered(true);
             setSearchQuery("Buxar");
@@ -101,7 +101,7 @@ export default function LibraryPage() {
   };
 
   const WebLinkCard = ({ label, url }: { label: string; url: string }) => (
-    <Card className="hover:border-primary transition-all group border-l-4 border-l-primary/50 shadow-sm">
+    <Card className="hover:border-primary transition-all group border-l-4 border-l-primary/50 shadow-sm overflow-hidden">
       <CardContent className="p-4 flex items-center justify-between">
         <div className="flex items-center gap-3 overflow-hidden">
           <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white shrink-0">
