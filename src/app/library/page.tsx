@@ -88,23 +88,25 @@ export default function LibraryPage() {
 
   // Logic to detect district from address or profile
   useEffect(() => {
-    if (districtLinks.length > 0) {
-        const addressText = (deliveryAddress?.fullAddress || userProfile?.location || userProfile?.state || "").toLowerCase();
+    if (districtLinks.length > 0 && !searchQuery) {
+        const addressText = (
+            (deliveryAddress?.fullAddress || "") + " " + 
+            (userProfile?.location || "") + " " + 
+            (userProfile?.state || "")
+        ).toLowerCase();
         
-        if (addressText) {
+        if (addressText.trim()) {
             // Find a matching district from the list
-            const match = districtLinks.find(link => 
-                addressText.includes(link.label.split('(')[0].trim().toLowerCase())
-            );
+            const match = districtLinks.find(link => {
+                const districtName = link.label.split('(')[0].trim().toLowerCase();
+                return addressText.includes(districtName);
+            });
             
             if (match) {
                 const districtName = match.label.split('(')[0].trim();
                 setDetectedDistrict(districtName);
                 setIsAutoFiltered(true);
-                // Pre-fill search if it's empty to "auto-search"
-                if (!searchQuery) {
-                    setSearchQuery(districtName);
-                }
+                setSearchQuery(districtName); // Automatic Search
             }
         }
     }
@@ -144,6 +146,7 @@ export default function LibraryPage() {
   const clearAutoFilter = () => {
     setSearchQuery('');
     setIsAutoFiltered(false);
+    setDetectedDistrict(null);
   };
 
   return (
@@ -182,7 +185,7 @@ export default function LibraryPage() {
         {isAutoFiltered && detectedDistrict && (
             <div className="mt-3 flex items-center justify-between bg-primary/5 p-2 rounded-lg border border-primary/20 animate-in fade-in slide-in-from-top-1">
                 <div className="flex items-center gap-2 text-xs font-medium text-primary">
-                    <Navigation className="w-3 h-3" />
+                    <Navigation className="w-3 h-3 animate-pulse" />
                     <span>आपके स्थान के आधार पर: <b>{detectedDistrict}</b></span>
                 </div>
                 <Button variant="ghost" size="sm" className="h-6 text-[10px] hover:bg-primary/10" onClick={clearAutoFilter}>
@@ -235,11 +238,9 @@ export default function LibraryPage() {
                 <div className="text-center py-20 bg-muted/20 rounded-2xl border-2 border-dashed border-muted">
                   <Globe className="w-12 h-12 mx-auto mb-4 text-muted-foreground/50" />
                   <p className="text-muted-foreground font-medium">कोई लिंक नहीं मिला।</p>
-                  {isAutoFiltered && (
-                      <Button variant="link" onClick={clearAutoFilter} className="mt-2 text-primary">
-                          पूरी सूची देखने के लिए यहाँ क्लिक करें
-                      </Button>
-                  )}
+                  <Button variant="link" onClick={clearAutoFilter} className="mt-2 text-primary">
+                      पूरी सूची देखने के लिए यहाँ क्लिक करें
+                  </Button>
                 </div>
               )}
             </TabsContent>
