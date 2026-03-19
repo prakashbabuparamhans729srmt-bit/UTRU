@@ -36,35 +36,10 @@ import {
   Droplets,
   GraduationCap,
   ChevronLeft,
-  LocateFixed,
-  Ruler,
-  Footprints,
-  Car,
-  Waypoints,
-  Bus,
-  Banknote,
-  Siren,
-  Phone,
-  Thermometer,
-  Wind,
-  Sunrise,
-  Sunset,
-  Cloud,
-  CloudRain,
-  CircleAlert,
-  Newspaper,
-  CalendarDays,
-  Gavel,
-  Sprout,
-  Wallet,
-  Building2,
-  Scroll,
-  Megaphone,
-  BookUser,
-  Medal,
-  ThumbsUp,
-  Edit,
+  Navigation,
+  RefreshCcw,
   ExternalLink,
+  Edit,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -297,6 +272,7 @@ const WebLinksCard = ({ defaultTitle, content, icon: Icon, staticKey }: { defaul
         let all = [...localLinks, ...dynamicLinks];
 
         if (staticKey === 'district' && detectedDistrict) {
+            // Priority filtering for the current district
             const filtered = all.filter((l: any) => l.label.toLowerCase().includes(detectedDistrict.toLowerCase()));
             return filtered.length > 0 ? filtered : all;
         }
@@ -304,8 +280,8 @@ const WebLinksCard = ({ defaultTitle, content, icon: Icon, staticKey }: { defaul
     }, [content, staticKey, detectedDistrict]);
 
     return (
-        <Card>
-            <CardHeader className="flex flex-row items-center justify-between">
+        <Card className="overflow-hidden border-primary/20">
+            <CardHeader className="flex flex-row items-center justify-between bg-primary/5 pb-2">
                 <CardTitle className="flex items-center gap-2 text-lg">
                     <Icon className="text-primary" /> {content?.title || defaultTitle}
                 </CardTitle>
@@ -313,20 +289,28 @@ const WebLinksCard = ({ defaultTitle, content, icon: Icon, staticKey }: { defaul
                     <Edit className="w-4 h-4 text-muted-foreground"/>
                 </Button>
             </CardHeader>
-            <CardContent>
-                <ScrollArea className="h-72 w-full pr-4">
-                    <div className="grid grid-cols-1 gap-3 pb-4">
+            <CardContent className="p-0">
+                <ScrollArea className="h-[300px] w-full px-4 pt-4">
+                    <div className="grid grid-cols-1 gap-3 pb-6">
                         {links.length > 0 ? links.map((link: any, index: number) => (
-                            <Button key={index} variant="outline" className="justify-between h-auto py-3 px-4 text-left group hover:border-primary" onClick={() => window.open(link.url, '_blank')}>
-                                <span className="truncate font-medium">{link.label}</span>
-                                <ExternalLink className="w-4 h-4 shrink-0 opacity-50 group-hover:opacity-100" />
+                            <Button 
+                                key={index} 
+                                variant="outline" 
+                                className="justify-between h-auto py-4 px-4 text-left group hover:border-primary hover:bg-primary/5 transition-all border-l-4 border-l-primary/30" 
+                                onClick={() => window.open(link.url, '_blank')}
+                            >
+                                <div className="flex flex-col min-w-0">
+                                    <span className="truncate font-bold text-primary group-hover:underline">{link.label}</span>
+                                    <span className="text-[10px] text-muted-foreground truncate mt-1">{link.url}</span>
+                                </div>
+                                <ExternalLink className="w-4 h-4 shrink-0 opacity-50 group-hover:opacity-100 text-primary" />
                             </Button>
-                        )) : <p className="text-sm text-muted-foreground italic">कोई लिंक उपलब्ध नहीं है।</p>}
+                        )) : <p className="text-sm text-muted-foreground italic text-center py-10">कोई लिंक उपलब्ध नहीं है।</p>}
                     </div>
                 </ScrollArea>
-                <div className="mt-4 pt-4 border-t flex justify-center">
+                <div className="p-4 border-t bg-muted/30 flex justify-center">
                     <Link href="/library" className="w-full">
-                        <Button variant="link" className="w-full text-primary">डिजिटल लाइब्रेरी में सभी {links.length} लिंक्स देखें</Button>
+                        <Button variant="link" className="w-full text-primary font-semibold">डिजिटल लाइब्रेरी में सभी {links.length} लिंक्स खोजें</Button>
                     </Link>
                 </div>
             </CardContent>
@@ -367,11 +351,15 @@ export default function MorePage() {
   const userProfileRef = useMemo(() => user && firestore ? doc(firestore, 'users', user.uid) : null, [user, firestore]);
   const { data: userProfile } = useDoc<DocumentData>(userProfileRef);
 
+  // Automatic District Detection Logic
   const detectedDistrict = useMemo(() => {
     const text = ((deliveryAddress?.fullAddress || "") + " " + (userProfile?.district || "") + " " + (userProfile?.city || "")).toLowerCase();
     const dLinks = staticLinks.district || [];
-    const match = dLinks.find(link => text.includes(link.label.split('(')[0].trim().toLowerCase()));
-    return match ? match.label.split('(')[0].trim() : "Buxar";
+    const match = dLinks.find(link => {
+        const dName = link.label.split('(')[0].trim().toLowerCase();
+        return text.includes(dName);
+    });
+    return match ? match.label.split('(')[0].trim() : "Buxar"; // Default to Buxar as requested
   }, [deliveryAddress, userProfile]);
 
   const getContentByType = (type: string) => allContent?.find(c => c.type === type);
@@ -382,7 +370,7 @@ export default function MorePage() {
         <div className="bg-background text-foreground min-h-screen">
             <header className="p-4 flex items-center justify-between border-b sticky top-0 bg-background/80 backdrop-blur-sm z-20">
                 {isSearchOpen ? (
-                    <div className="flex items-center gap-2 w-full">
+                    <div className="flex items-center gap-2 w-full animate-in fade-in zoom-in-95">
                         <Button onClick={() => setIsSearchOpen(false)} size="icon" variant="ghost" className="rounded-full"><ChevronLeft/></Button>
                         <form className="relative flex-grow" onSubmit={(e) => { e.preventDefault(); router.push(`/search?q=${searchQuery}`); }}>
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground"/>
@@ -392,7 +380,12 @@ export default function MorePage() {
                     </div>
                 ) : (
                     <>
-                        <h1 className="text-lg font-semibold">🇮🇳 भारत सूचना</h1>
+                        <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-primary-foreground">
+                                <Landmark className="w-5 h-5" />
+                            </div>
+                            <h1 className="text-lg font-bold">भारत सूचना</h1>
+                        </div>
                         <div className="flex gap-2">
                             <Button onClick={() => setIsSearchOpen(true)} size="icon" variant="ghost" className="rounded-full"><Search/></Button>
                             <Button onClick={() => router.push('/profile')} size="icon" variant="ghost" className="rounded-full"><User/></Button>
@@ -403,40 +396,55 @@ export default function MorePage() {
 
             <main className="p-4 space-y-6 pb-32">
                 <Tabs defaultValue="my-place" className="w-full">
-                    <TabsList className="grid w-full grid-cols-4 h-auto">
-                        <TabsTrigger value="my-place" className="text-xs">मेरा स्थान</TabsTrigger>
-                        <TabsTrigger value="district" className="text-xs">जिला</TabsTrigger>
-                        <TabsTrigger value="state" className="text-xs">राज्य</TabsTrigger>
-                        <TabsTrigger value="country" className="text-xs">देश</TabsTrigger>
+                    <TabsList className="grid w-full grid-cols-4 h-auto bg-muted/50 p-1 rounded-xl">
+                        <TabsTrigger value="my-place" className="text-[10px] sm:text-xs rounded-lg">मेरा स्थान</TabsTrigger>
+                        <TabsTrigger value="district" className="text-[10px] sm:text-xs rounded-lg">जिला</TabsTrigger>
+                        <TabsTrigger value="state" className="text-[10px] sm:text-xs rounded-lg">राज्य</TabsTrigger>
+                        <TabsTrigger value="country" className="text-[10px] sm:text-xs rounded-lg">देश</TabsTrigger>
                     </TabsList>
                     
-                    <TabsContent value="my-place" className="mt-6 space-y-6">
+                    <TabsContent value="my-place" className="mt-6 space-y-6 focus-visible:outline-none">
                         <BannerSection content={getContentByType('banner')} />
                         <NewsSection />
                         <WeatherCard content={getContentByType('मौसम')} />
                         <EmergencyCard content={getContentByType('आपातकालीन')} />
                         <LocalNewsCard content={getContentByType('स्थानीय समाचार')} />
-                        <Card><CardContent className="p-4 bg-muted/20 rounded-lg flex items-center justify-center aspect-video text-muted-foreground">मानचित्र लोड हो रहा है...</CardContent></Card>
+                        <Card className="overflow-hidden"><CardContent className="p-0 bg-muted/20 flex items-center justify-center aspect-video text-muted-foreground">
+                            <div className="flex flex-col items-center gap-2">
+                                <MapIcon className="w-8 h-8 opacity-20" />
+                                <span className="text-xs font-medium">मानचित्र लोड हो रहा है...</span>
+                            </div>
+                        </CardContent></Card>
                         <GenericDataCard defaultTitle="स्थानीय आँकड़े" content={getContentByType('स्थानीय आँकड़े')} icon={BarChart2}/>
                     </TabsContent>
 
-                    <TabsContent value="district" className="mt-6 space-y-6">
+                    <TabsContent value="district" className="mt-6 space-y-6 focus-visible:outline-none">
                         {detectedDistrict && (
-                            <div className="bg-primary/10 p-3 rounded-lg border border-primary/20 flex items-center justify-between">
-                                <div className="flex items-center gap-2"><MapPin className="text-primary w-5 h-5 animate-pulse"/> <div><p className="text-xs font-bold text-primary">स्वचालित खोज</p><p className="text-sm font-semibold">{detectedDistrict} के परिणाम</p></div></div>
-                                <Button variant="ghost" size="sm" onClick={()=>router.push('/library')}>बदलें</Button>
+                            <div className="bg-primary/10 p-3 rounded-xl border border-primary/20 flex items-center justify-between animate-in slide-in-from-top-2">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center text-primary">
+                                        <Navigation className="w-5 h-5 animate-pulse"/>
+                                    </div>
+                                    <div>
+                                        <p className="text-[10px] font-bold text-primary uppercase tracking-wider">स्वचालित स्थान चयन</p>
+                                        <p className="text-sm font-bold">{detectedDistrict} के आधिकारिक पोर्टल</p>
+                                    </div>
+                                </div>
+                                <Link href="/library">
+                                    <Button variant="ghost" size="sm" className="h-8 text-xs text-primary hover:bg-primary/10">बदलें</Button>
+                                </Link>
                             </div>
                         )}
                         <WebLinksCard defaultTitle="जिला वेबसाइट्स" content={getContentByType('जिला वेब सूची')} icon={Globe} staticKey="district"/>
                         <GenericDataCard defaultTitle="जिला प्रशासन" content={getContentByType('जिला प्रशासन')} icon={Landmark}/>
                     </TabsContent>
 
-                    <TabsContent value="state" className="mt-6 space-y-6">
+                    <TabsContent value="state" className="mt-6 space-y-6 focus-visible:outline-none">
                         <WebLinksCard defaultTitle="राज्य पोर्टल्स" content={getContentByType('राज्य वेब सूची')} icon={Building2} staticKey="state"/>
                         <GenericDataCard defaultTitle="राज्य सरकार" content={getContentByType('राज्य सरकार')} icon={Landmark}/>
                     </TabsContent>
 
-                    <TabsContent value="country" className="mt-6 space-y-6">
+                    <TabsContent value="country" className="mt-6 space-y-6 focus-visible:outline-none">
                         <WebLinksCard defaultTitle="राष्ट्रीय सेवाएं" content={getContentByType('देश वेब सूची')} icon={Globe} staticKey="country"/>
                         <GenericDataCard defaultTitle="भारत तथ्य" content={getContentByType('भारत तथ्य')} icon={Award}/>
                     </TabsContent>
@@ -450,7 +458,11 @@ export default function MorePage() {
                         const isActive = pathname === link.href;
                         if (link.isCentral) return (
                             <div key={index} className="-mt-8">
-                                <Link href={link.href}><div className="flex items-center justify-center w-16 h-16 rounded-full bg-primary text-primary-foreground shadow-lg border-4 border-gray-900"><link.icon className="w-8 h-8"/></div></Link>
+                                <Link href={link.href}>
+                                    <div className="flex items-center justify-center w-16 h-16 rounded-full bg-primary text-primary-foreground shadow-lg border-4 border-gray-900">
+                                        <link.icon className="w-8 h-8"/>
+                                    </div>
+                                </Link>
                             </div>
                         );
                         return (

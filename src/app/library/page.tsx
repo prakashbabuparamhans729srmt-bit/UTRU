@@ -74,8 +74,12 @@ export default function LibraryPage() {
 
   useEffect(() => {
     if (districtLinks.length > 0 && !searchQuery && !isAutoFiltered) {
+        // Advanced detection logic
         const text = ((deliveryAddress?.fullAddress || "") + " " + (userProfile?.district || "") + " " + (userProfile?.city || "")).toLowerCase();
-        let found = districtLinks.find(link => text.includes(link.label.split('(')[0].trim().toLowerCase()));
+        let found = districtLinks.find(link => {
+            const districtName = link.label.split('(')[0].trim().toLowerCase();
+            return text.includes(districtName);
+        });
         
         if (found) {
             const name = found.label.split('(')[0].trim();
@@ -83,6 +87,7 @@ export default function LibraryPage() {
             setIsAutoFiltered(true);
             setSearchQuery(name);
         } else if (!isAutoFiltered) {
+            // Default to Buxar as requested
             setDetectedDistrict("Buxar");
             setIsAutoFiltered(true);
             setSearchQuery("Buxar");
@@ -96,13 +101,20 @@ export default function LibraryPage() {
   };
 
   const WebLinkCard = ({ label, url }: { label: string; url: string }) => (
-    <Card className="hover:border-primary transition-all group">
+    <Card className="hover:border-primary transition-all group border-l-4 border-l-primary/50 shadow-sm">
       <CardContent className="p-4 flex items-center justify-between">
         <div className="flex items-center gap-3 overflow-hidden">
-          <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white shrink-0"><Globe className="w-5 h-5" /></div>
-          <span className="font-medium text-sm sm:text-base truncate">{label}</span>
+          <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white shrink-0">
+            <Globe className="w-5 h-5" />
+          </div>
+          <div className="flex flex-col min-w-0">
+            <span className="font-bold text-sm sm:text-base truncate text-primary group-hover:underline cursor-pointer" onClick={() => window.open(url, '_blank')}>{label}</span>
+            <span className="text-[10px] text-muted-foreground truncate">{url}</span>
+          </div>
         </div>
-        <Button variant="ghost" size="icon" onClick={() => window.open(url, '_blank')} className="rounded-full shrink-0"><ExternalLink className="w-4 h-4 text-muted-foreground" /></Button>
+        <Button variant="ghost" size="icon" onClick={() => window.open(url, '_blank')} className="rounded-full shrink-0">
+          <ExternalLink className="w-4 h-4 text-muted-foreground" />
+        </Button>
       </CardContent>
     </Card>
   );
@@ -112,14 +124,27 @@ export default function LibraryPage() {
       <header className="p-4 bg-background sticky top-0 z-50 border-b">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-primary-foreground"><FileText className="w-5 h-5" /></div>
+            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-primary-foreground">
+              <FileText className="w-5 h-5" />
+            </div>
             <span className="font-bold text-lg">डिजिटल पोर्टल लाइब्रेरी</span>
           </div>
-          <Button variant="ghost" size="icon" onClick={() => router.push('/profile')}><Landmark className="w-5 h-5" /></Button>
+          <Button variant="ghost" size="icon" onClick={() => router.push('/profile')}>
+            <Landmark className="w-5 h-5" />
+          </Button>
         </div>
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-          <input type="text" placeholder="पोर्टल या वेबसाइट खोजें..." value={searchQuery} onChange={(e) => { setSearchQuery(e.target.value); setIsAutoFiltered(false); }} className="w-full bg-input rounded-full pl-10 pr-24 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary" />
+          <input 
+            type="text" 
+            placeholder="पोर्टल या वेबसाइट खोजें..." 
+            value={searchQuery} 
+            onChange={(e) => { 
+              setSearchQuery(e.target.value); 
+              setIsAutoFiltered(false); 
+            }} 
+            className="w-full bg-input rounded-full pl-10 pr-24 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary" 
+          />
           <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
             {searchQuery && <X className="w-4 h-4 cursor-pointer text-muted-foreground" onClick={() => { setSearchQuery(''); setIsAutoFiltered(false); }} />}
             <Mic className="w-5 h-5 text-muted-foreground cursor-pointer" onClick={openVoiceModal} />
@@ -127,28 +152,46 @@ export default function LibraryPage() {
           </div>
         </div>
         {isAutoFiltered && detectedDistrict && (
-            <div className="mt-3 flex items-center justify-between bg-primary/5 p-2 rounded-lg border border-primary/20 animate-in fade-in">
-                <div className="flex items-center gap-2 text-xs font-medium text-primary"><Navigation className="w-3 h-3 animate-pulse" /><span>स्थान के आधार पर: <b>{detectedDistrict}</b></span></div>
-                <Button variant="ghost" size="sm" className="h-6 text-[10px]" onClick={() => { setSearchQuery(''); setIsAutoFiltered(false); }}><RefreshCcw className="w-3 h-3 mr-1" /> सभी देखें</Button>
+            <div className="mt-3 flex items-center justify-between bg-primary/5 p-2 rounded-lg border border-primary/20 animate-in fade-in slide-in-from-top-1">
+                <div className="flex items-center gap-2 text-xs font-medium text-primary">
+                    <Navigation className="w-3 h-3 animate-pulse" />
+                    <span>स्थान के आधार पर खोजा गया: <b>{detectedDistrict}</b></span>
+                </div>
+                <Button variant="ghost" size="sm" className="h-6 text-[10px] text-primary hover:bg-primary/10" onClick={() => { setSearchQuery(''); setIsAutoFiltered(false); }}>
+                    <RefreshCcw className="w-3 h-3 mr-1" /> सभी दिखाएं
+                </Button>
             </div>
         )}
       </header>
 
       <main className="flex-grow p-4 pb-32">
         <Tabs defaultValue="district" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-6">
-            <TabsTrigger value="district" className="flex items-center gap-2"><MapPin className="w-4 h-4" /> जिला</TabsTrigger>
-            <TabsTrigger value="state" className="flex items-center gap-2"><Building2 className="w-4 h-4" /> राज्य</TabsTrigger>
-            <TabsTrigger value="country" className="flex items-center gap-2"><Globe className="w-4 h-4" /> देश</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-3 mb-6 bg-muted/50 p-1 rounded-xl">
+            <TabsTrigger value="district" className="flex items-center gap-2 rounded-lg"><MapPin className="w-4 h-4" /> जिला</TabsTrigger>
+            <TabsTrigger value="state" className="flex items-center gap-2 rounded-lg"><Building2 className="w-4 h-4" /> राज्य</TabsTrigger>
+            <TabsTrigger value="country" className="flex items-center gap-2 rounded-lg"><Globe className="w-4 h-4" /> देश</TabsTrigger>
           </TabsList>
 
           {['district', 'state', 'country'].map((id) => (
             <TabsContent key={id} value={id} className="space-y-4 focus-visible:outline-none">
               <ScrollArea className="h-[calc(100vh-320px)] w-full pr-4">
-                {loading ? <div className="space-y-3">{[1, 2, 3].map((i) => <Skeleton key={i} className="h-16 w-full rounded-xl" />)}</div> : 
-                 filteredLinks(id === 'district' ? districtLinks : id === 'state' ? stateLinks : countryLinks).length > 0 ? 
-                 <div className="grid gap-3 pb-8">{filteredLinks(id === 'district' ? districtLinks : id === 'state' ? stateLinks : countryLinks).map((link: any, index: number) => <WebLinkCard key={index} label={link.label} url={link.url} />)}</div> : 
-                 <div className="text-center py-20 bg-muted/20 rounded-2xl border-2 border-dashed border-muted"><Globe className="w-12 h-12 mx-auto mb-4 text-muted-foreground/50" /><p className="text-muted-foreground font-medium">कोई लिंक नहीं मिला।</p></div>}
+                {loading ? (
+                  <div className="space-y-3">
+                    {[1, 2, 3].map((i) => <Skeleton key={i} className="h-20 w-full rounded-xl" />)}
+                  </div>
+                ) : filteredLinks(id === 'district' ? districtLinks : id === 'state' ? stateLinks : countryLinks).length > 0 ? (
+                  <div className="grid gap-4 pb-10">
+                    {filteredLinks(id === 'district' ? districtLinks : id === 'state' ? stateLinks : countryLinks).map((link: any, index: number) => (
+                      <WebLinkCard key={index} label={link.label} url={link.url} />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-20 bg-muted/20 rounded-2xl border-2 border-dashed border-muted flex flex-col items-center">
+                    <Globe className="w-12 h-12 mb-4 text-muted-foreground/50" />
+                    <p className="text-muted-foreground font-medium">कोई वेबसाइट लिंक नहीं मिला।</p>
+                    <p className="text-xs text-muted-foreground/70 mt-1">कृपया अलग खोज शब्द का प्रयास करें।</p>
+                  </div>
+                )}
               </ScrollArea>
             </TabsContent>
           ))}
@@ -162,12 +205,17 @@ export default function LibraryPage() {
             const isActive = pathname === link.href;
             if (link.isCentral) return (
                 <div key={index} className="-mt-8">
-                  <Link href={link.href}><div className="flex items-center justify-center w-16 h-16 rounded-full bg-primary text-primary-foreground shadow-lg border-4 border-gray-900"><link.icon className="w-8 h-8" /></div></Link>
+                  <Link href={link.href}>
+                    <div className="flex items-center justify-center w-16 h-16 rounded-full bg-primary text-primary-foreground shadow-lg border-4 border-gray-900">
+                      <link.icon className="w-8 h-8" />
+                    </div>
+                  </Link>
                 </div>
             );
             return (
               <Link key={index} href={link.href} className={cn("flex flex-col items-center justify-center gap-1 h-auto p-2 rounded-md w-16", isActive ? 'text-primary' : 'text-muted-foreground')}>
-                <link.icon className="w-6 h-6" /><span className="text-[10px]">{(translations.home as any)[link.labelKey] || (translations.location as any)[link.labelKey] || ''}</span>
+                <link.icon className="w-6 h-6" />
+                <span className="text-[10px]">{(translations.home as any)[link.labelKey] || (translations.location as any)[link.labelKey] || ''}</span>
               </Link>
             )
           })}
