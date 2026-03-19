@@ -31,6 +31,7 @@ import { collection, query, type DocumentData, doc } from 'firebase/firestore';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useCart } from '@/context/CartContext';
 import staticLinks from '@/lib/web-links.json';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 export default function LibraryPage() {
   const { translations } = useLanguage();
@@ -234,27 +235,29 @@ export default function LibraryPage() {
                 </span>
               </div>
 
-              {loading ? (
-                <div className="space-y-3">
-                  {[1, 2, 3].map((i) => (
-                    <Skeleton key={i} className="h-16 w-full rounded-xl" />
-                  ))}
-                </div>
-              ) : filteredLinks(tab.links).length > 0 ? (
-                <div className="grid gap-3">
-                  {filteredLinks(tab.links).map((link: any, index: number) => (
-                    <WebLinkCard key={index} label={link.label} url={link.url} />
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-20 bg-muted/20 rounded-2xl border-2 border-dashed border-muted">
-                  <Globe className="w-12 h-12 mx-auto mb-4 text-muted-foreground/50" />
-                  <p className="text-muted-foreground font-medium">कोई लिंक नहीं मिला।</p>
-                  <Button variant="link" onClick={clearAutoFilter} className="mt-2 text-primary">
-                      पूरी सूची देखने के लिए यहाँ क्लिक करें
-                  </Button>
-                </div>
-              )}
+              <ScrollArea className="h-[calc(100vh-320px)] w-full pr-4">
+                {loading ? (
+                    <div className="space-y-3">
+                    {[1, 2, 3].map((i) => (
+                        <Skeleton key={i} className="h-16 w-full rounded-xl" />
+                    ))}
+                    </div>
+                ) : filteredLinks(tab.links).length > 0 ? (
+                    <div className="grid gap-3 pb-8">
+                    {filteredLinks(tab.links).map((link: any, index: number) => (
+                        <WebLinkCard key={index} label={link.label} url={link.url} />
+                    ))}
+                    </div>
+                ) : (
+                    <div className="text-center py-20 bg-muted/20 rounded-2xl border-2 border-dashed border-muted">
+                    <Globe className="w-12 h-12 mx-auto mb-4 text-muted-foreground/50" />
+                    <p className="text-muted-foreground font-medium">कोई लिंक नहीं मिला।</p>
+                    <Button variant="link" onClick={clearAutoFilter} className="mt-2 text-primary">
+                        पूरी सूची देखने के लिए यहाँ क्लिक करें
+                    </Button>
+                    </div>
+                )}
+              </ScrollArea>
             </TabsContent>
           ))}
         </Tabs>

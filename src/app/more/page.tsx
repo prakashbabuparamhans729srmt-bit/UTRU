@@ -87,6 +87,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useCollection, useFirestore, useUser, useDoc } from '@/firebase';
 import { collection, query, type DocumentData, orderBy, limit, doc } from 'firebase/firestore';
 import staticLinks from '@/lib/web-links.json';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 // --- CONTEXT SETUP ---
 interface MorePageContextType {
@@ -411,28 +412,34 @@ const WebLinksCard = ({ defaultTitle, content, icon: Icon, staticKey }: { defaul
                     <Edit className="w-4 h-4 text-muted-foreground"/>
                 </Button>
             </CardHeader>
-            <CardContent className="space-y-2">
+            <CardContent>
                 {links.length > 0 ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {links.slice(0, 10).map((link: { label: string, url: string }, index: number) => (
-                            <Button
-                                key={index}
-                                variant="outline"
-                                className="justify-between h-auto py-3 px-4 text-left"
-                                onClick={() => window.open(link.url, '_blank')}
-                            >
-                                <span className="truncate mr-2">{link.label}</span>
-                                <ExternalLink className="w-4 h-4 shrink-0 opacity-50" />
-                            </Button>
-                        ))}
-                        {links.length > 10 && (
-                            <Link href="/library" className="col-span-full">
-                                <Button variant="link" className="w-full text-primary">बाकी {links.length - 10} और लिंक्स डिजिटल लाइब्रेरी में देखें...</Button>
-                            </Link>
-                        )}
-                    </div>
+                    <ScrollArea className="h-72 w-full pr-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pb-4">
+                            {links.map((link: { label: string, url: string }, index: number) => (
+                                <Button
+                                    key={index}
+                                    variant="outline"
+                                    className="justify-between h-auto py-3 px-4 text-left group hover:border-primary transition-all shadow-sm"
+                                    onClick={() => window.open(link.url, '_blank')}
+                                >
+                                    <span className="truncate mr-2 font-medium">{link.label}</span>
+                                    <ExternalLink className="w-4 h-4 shrink-0 opacity-50 group-hover:opacity-100 group-hover:text-primary" />
+                                </Button>
+                            ))}
+                        </div>
+                    </ScrollArea>
                 ) : (
                     <p className="text-sm text-muted-foreground italic">कोई वेबसाइट लिंक उपलब्ध नहीं हैं। एडमिन पैनल से जोड़ें।</p>
+                )}
+                {links.length > 0 && (
+                    <div className="mt-4 pt-4 border-t flex justify-center">
+                        <Link href="/library" className="w-full">
+                            <Button variant="link" className="w-full text-primary flex items-center justify-center gap-2">
+                                <BookUser className="w-4 h-4"/> डिजिटल लाइब्रेरी में सभी {links.length} लिंक्स देखें
+                            </Button>
+                        </Link>
+                    </div>
                 )}
             </CardContent>
         </Card>
@@ -462,12 +469,24 @@ const Tab1_MyPlace = () => {
 };
 
 const Tab2_District = () => {
-    const { getContentByType } = useMorePageContext();
+    const { getContentByType, detectedDistrict } = useMorePageContext();
     const router = useRouter();
     return (
         <div className="space-y-6 p-1">
             <div className="relative"> <BannerSection content={getContentByType('banner')} /> <Button variant="ghost" size="icon" className="absolute top-2 right-2 bg-black/30 hover:bg-black/50 text-white rounded-full z-10" onClick={() => router.push('/admin/editor')}> <Edit className="w-4 h-4"/> </Button> </div>
             <NewsSection />
+            {detectedDistrict && (
+                <div className="bg-primary/10 p-3 rounded-lg border border-primary/20 flex items-center justify-between animate-in fade-in slide-in-from-top-2">
+                    <div className="flex items-center gap-2">
+                        <MapPin className="w-5 h-5 text-primary animate-pulse" />
+                        <div>
+                            <p className="text-xs font-bold text-primary uppercase tracking-wider">स्वचालित खोज परिणाम</p>
+                            <p className="text-sm font-semibold">आपके स्थान ({detectedDistrict}) के लिए वेबसाइट्स</p>
+                        </div>
+                    </div>
+                    <Button variant="ghost" size="sm" onClick={() => router.push('/library')} className="h-8 text-xs font-bold">बदलें</Button>
+                </div>
+            )}
             <WebLinksCard defaultTitle="जिला निर्देशिका (वेबसाइट्स)" content={getContentByType('जिला वेब सूची')} icon={Globe} staticKey="district" />
             <GenericDataCard defaultTitle="जिला प्रशासन और अधिकारी" content={getContentByType('जिला प्रशासन')} icon={Landmark} />
             <GenericDataCard defaultTitle="जिला सांख्यिकी और आँकड़े" content={getContentByType('जिला आँकड़े')} icon={BarChart2} />
