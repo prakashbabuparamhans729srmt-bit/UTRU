@@ -88,7 +88,6 @@ import { useCollection, useFirestore, useUser, useDoc } from '@/firebase';
 import { collection, query, type DocumentData, orderBy, limit, doc } from 'firebase/firestore';
 import staticLinks from '@/lib/web-links.json';
 
-
 // --- CONTEXT SETUP ---
 interface MorePageContextType {
     getContentByType: (type: string) => DocumentData | undefined;

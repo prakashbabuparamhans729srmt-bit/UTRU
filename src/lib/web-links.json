@@ -694,7 +694,7 @@
     { "label": "भारत का राष्ट्रीय पोर्टल (National Portal)", "url": "https://www.india.gov.in/" },
     { "label": "डिजिटल इंडिया (Digital India)", "url": "https://www.digitalindia.gov.in/" },
     { "label": "आधार (UIDAI)", "url": "https://uidai.gov.in/" },
-    { "label": "ماயகૉవ్ (MyGov India)", "url": "https://www.mygov.in/" },
+    { "label": "MyGov India", "url": "https://www.mygov.in/" },
     { "label": "आयकर विभाग (Income Tax)", "url": "https://www.incometax.gov.in/" },
     { "label": "पासपोर्ट सेवा (Passport Seva)", "url": "https://www.passportindia.gov.in/" },
     { "label": "भारत निर्वाचन आयोग (Election Commission)", "url": "https://eci.gov.in/" },
