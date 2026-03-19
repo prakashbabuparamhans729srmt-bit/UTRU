@@ -98,12 +98,11 @@ export default function LibraryPage() {
             (userProfile?.district || "")
         ).toLowerCase();
         
+        let foundMatch = false;
         if (addressText.trim()) {
-            // Find a matching district from the list using advanced string matching
+            // Find a matching district from the list
             const match = districtLinks.find(link => {
-                // Extract just the district name part from "District (State)"
                 const districtName = link.label.split('(')[0].trim().toLowerCase();
-                // Check if the address string contains the district name
                 return addressText.includes(districtName);
             });
             
@@ -111,8 +110,16 @@ export default function LibraryPage() {
                 const districtName = match.label.split('(')[0].trim();
                 setDetectedDistrict(districtName);
                 setIsAutoFiltered(true);
-                setSearchQuery(districtName); // This triggers the automatic search/filter
+                setSearchQuery(districtName);
+                foundMatch = true;
             }
+        }
+
+        // If no location detected via map/profile, default to Buxar as requested by user
+        if (!foundMatch && !isAutoFiltered) {
+            setDetectedDistrict("Buxar");
+            setIsAutoFiltered(true);
+            setSearchQuery("Buxar");
         }
     }
   }, [deliveryAddress, userProfile, districtLinks, isAutoFiltered, searchQuery]);

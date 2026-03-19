@@ -69,7 +69,7 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState, useRef, useMemo, createContext, useContext } from 'react';
+import { useState, useRef, useMemo, createContext, useContext, useEffect } from 'react';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -83,14 +83,16 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useRouter, usePathname } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
-import { useCollection, useFirestore } from '@/firebase';
-import { collection, query, type DocumentData, orderBy, limit } from 'firebase/firestore';
+import { useCollection, useFirestore, useUser, useDoc } from '@/firebase';
+import { collection, query, type DocumentData, orderBy, limit, doc } from 'firebase/firestore';
+import staticLinks from '@/lib/web-links.json';
 
 
 // --- CONTEXT SETUP ---
 interface MorePageContextType {
     getContentByType: (type: string) => DocumentData | undefined;
     setIsSearchOpen: (isOpen: boolean) => void;
+    detectedDistrict: string | null;
 }
 const MorePageContext = createContext<MorePageContextType | null>(null);
 const useMorePageContext = () => {
@@ -179,7 +181,7 @@ const NewsSection = () => {
     }, [shortsFromDb]);
 
     if (displayedShorts.length === 0) {
-        return null; // Don't render the section if there are no shorts
+        return null;
     }
 
       return (
@@ -285,7 +287,7 @@ const EmergencyCard = ({ content }: { content?: DocumentData }) => {
         </div>
         <div className="border-t pt-4">
           <h3 className="font-semibold">निकटतम स्वास्थ्य सुविधाएँ:</h3>
-          {emergencyData.facilities.map((f, i) => ( <div key={i}> <p className="text-muted-foreground">• {f.name} {f.phone && `- ${f.phone}`}</p> <div className="flex gap-2 mt-2"> {f.mapsUrl && <Button variant="outline" size="sm" onClick={() => window.open(f.mapsUrl, '_blank')}><MapIcon className="mr-2 h-4 w-4" /> रूट देखें</Button>} {f.phone && <Button variant="outline" size="sm" onClick={() => window.location.href = `tel:${f.phone}`}><Phone className="mr-2 h-4 w-4" /> कॉल करें</Button>} </div> </div> ))}
+          {emergencyData.facilities.map((f, i) => ( <div key={i} className="mb-4 last:mb-0"> <p className="text-muted-foreground">• {f.name} {f.phone && `- ${f.phone}`}</p> <div className="flex gap-2 mt-2"> {f.mapsUrl && <Button variant="outline" size="sm" onClick={() => window.open(f.mapsUrl, '_blank')}><MapIcon className="mr-2 h-4 w-4" /> रूट देखें</Button>} {f.phone && <Button variant="outline" size="sm" onClick={() => window.location.href = `tel:${f.phone}`}><Phone className="mr-2 h-4 w-4" /> कॉल करें</Button>} </div> </div> ))}
         </div>
         <div className="border-t pt-4">
           <h3 className="font-semibold">निकटतम पुलिस स्टेशन: {emergencyData.police.name}</h3>
@@ -374,19 +376,29 @@ const GenericDataCard = ({ defaultTitle, content, icon: Icon }: { defaultTitle: 
     );
 };
 
-const WebLinksCard = ({ defaultTitle, content, icon: Icon }: { defaultTitle: string; content?: DocumentData; icon: React.ElementType }) => {
+const WebLinksCard = ({ defaultTitle, content, icon: Icon, staticKey }: { defaultTitle: string; content?: DocumentData; icon: React.ElementType; staticKey?: keyof typeof staticLinks }) => {
     const router = useRouter();
+    const { detectedDistrict } = useMorePageContext();
+
     const links = useMemo(() => {
+        let dynamicLinks: any[] = [];
         if (content?.contentData) {
             try {
                 const parsed = JSON.parse(content.contentData);
-                return Array.isArray(parsed) ? parsed : [];
+                dynamicLinks = Array.isArray(parsed) ? parsed : [];
             } catch (e) {
                 console.error("Failed to parse WebLinks content", e);
             }
         }
-        return [];
-    }, [content]);
+        const localLinks = staticKey ? (staticLinks as any)[staticKey] || [] : [];
+        let all = [...localLinks, ...dynamicLinks];
+
+        // Apply district filtering if it's the district tab
+        if (staticKey === 'district' && detectedDistrict) {
+            return all.filter(l => l.label.toLowerCase().includes(detectedDistrict.toLowerCase()));
+        }
+        return all;
+    }, [content, staticKey, detectedDistrict]);
 
     return (
         <Card>
@@ -401,7 +413,7 @@ const WebLinksCard = ({ defaultTitle, content, icon: Icon }: { defaultTitle: str
             <CardContent className="space-y-2">
                 {links.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {links.map((link: { label: string, url: string }, index: number) => (
+                        {links.slice(0, 10).map((link: { label: string, url: string }, index: number) => (
                             <Button
                                 key={index}
                                 variant="outline"
@@ -412,6 +424,11 @@ const WebLinksCard = ({ defaultTitle, content, icon: Icon }: { defaultTitle: str
                                 <ExternalLink className="w-4 h-4 shrink-0 opacity-50" />
                             </Button>
                         ))}
+                        {links.length > 10 && (
+                            <Link href="/library" className="col-span-full">
+                                <Button variant="link" className="w-full text-primary">बाकी {links.length - 10} और लिंक्स डिजिटल लाइब्रेरी में देखें...</Button>
+                            </Link>
+                        )}
                     </div>
                 ) : (
                     <p className="text-sm text-muted-foreground italic">कोई वेबसाइट लिंक उपलब्ध नहीं हैं। एडमिन पैनल से जोड़ें।</p>
@@ -450,7 +467,7 @@ const Tab2_District = () => {
         <div className="space-y-6 p-1">
             <div className="relative"> <BannerSection content={getContentByType('banner')} /> <Button variant="ghost" size="icon" className="absolute top-2 right-2 bg-black/30 hover:bg-black/50 text-white rounded-full z-10" onClick={() => router.push('/admin/editor')}> <Edit className="w-4 h-4"/> </Button> </div>
             <NewsSection />
-            <WebLinksCard defaultTitle="जिला निर्देशिका (वेबसाइट्स)" content={getContentByType('जिला वेब सूची')} icon={Globe} />
+            <WebLinksCard defaultTitle="जिला निर्देशिका (वेबसाइट्स)" content={getContentByType('जिला वेब सूची')} icon={Globe} staticKey="district" />
             <GenericDataCard defaultTitle="जिला प्रशासन और अधिकारी" content={getContentByType('जिला प्रशासन')} icon={Landmark} />
             <GenericDataCard defaultTitle="जिला सांख्यिकी और आँकड़े" content={getContentByType('जिला आँकड़े')} icon={BarChart2} />
             <GenericDataCard defaultTitle="स्वास्थ्य सेवाएँ और अस्पताल" content={getContentByType('जिला स्वास्थ्य')} icon={HeartPulse} />
@@ -469,7 +486,7 @@ const Tab3_State = () => {
         <div className="space-y-6 p-1">
             <div className="relative"> <BannerSection content={getContentByType('banner')} /> <Button variant="ghost" size="icon" className="absolute top-2 right-2 bg-black/30 hover:bg-black/50 text-white rounded-full z-10" onClick={() => router.push('/admin/editor')}> <Edit className="w-4 h-4"/> </Button> </div>
             <NewsSection />
-            <WebLinksCard defaultTitle="राज्य सरकारी वेबसाइट्स" content={getContentByType('राज्य वेब सूची')} icon={Globe} />
+            <WebLinksCard defaultTitle="राज्य सरकारी वेबसाइट्स" content={getContentByType('राज्य वेब सूची')} icon={Globe} staticKey="state" />
             <GenericDataCard defaultTitle="राज्य सरकार और नेतृत्व" content={getContentByType('राज्य सरकार')} icon={Landmark} />
             <GenericDataCard defaultTitle="राज्य का बजट और अर्थव्यवस्था" content={getContentByType('राज्य बजट')} icon={Wallet} />
             <GenericDataCard defaultTitle="राज्य नीतियाँ और कानून" content={getContentByType('राज्य नीतियाँ')} icon={Gavel} />
@@ -488,7 +505,7 @@ const Tab4_Country = () => {
         <div className="space-y-6 p-1">
             <div className="relative"> <BannerSection content={getContentByType('banner')} /> <Button variant="ghost" size="icon" className="absolute top-2 right-2 bg-black/30 hover:bg-black/50 text-white rounded-full z-10" onClick={() => router.push('/admin/editor')}> <Edit className="w-4 h-4"/> </Button> </div>
             <NewsSection />
-            <WebLinksCard defaultTitle="महत्वपूर्ण राष्ट्रीय पोर्टल्स" content={getContentByType('देश वेब सूची')} icon={Globe} />
+            <WebLinksCard defaultTitle="महत्वपूर्ण राष्ट्रीय पोर्टल्स" content={getContentByType('देश वेब सूची')} icon={Globe} staticKey="country" />
             <GenericDataCard defaultTitle="राष्ट्रीय प्रतीक और गान" content={getContentByType('राष्ट्रीय प्रतीक')} icon={Award} />
             <GenericDataCard defaultTitle="केंद्र सरकार और मंत्रालय" content={getContentByType('केंद्र सरकार')} icon={Building2} />
             <GenericDataCard defaultTitle="संविधान और नागरिक अधिकार" content={getContentByType('संविधान')} icon={Scroll} />
@@ -508,6 +525,8 @@ export default function MorePage() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { translations } = useLanguage();
   const { openModal: openVoiceModal } = useVoiceSearch();
+  const { user } = useUser();
+  const { deliveryAddress } = useCart();
   
   const firestore = useFirestore();
   const contentQuery = useMemo(() => {
@@ -515,6 +534,42 @@ export default function MorePage() {
     return query(collection(firestore, 'content'));
   }, [firestore]);
   const { data: allContent } = useCollection<DocumentData>(contentQuery);
+
+  const userProfileRef = useMemo(() => {
+    if (!user || !firestore) return null;
+    return doc(firestore, 'users', user.uid);
+  }, [user, firestore]);
+  const { data: userProfile } = useDoc<DocumentData>(userProfileRef);
+
+  const [detectedDistrict, setDetectedDistrict] = useState<string | null>(null);
+
+  useEffect(() => {
+    const addressText = (
+        (deliveryAddress?.fullAddress || "") + " " + 
+        (userProfile?.location || "") + " " + 
+        (userProfile?.state || "") + " " +
+        (userProfile?.city || "") + " " +
+        (userProfile?.district || "")
+    ).toLowerCase();
+    
+    let foundMatch = false;
+    if (addressText.trim()) {
+        const dLinks = staticLinks.district || [];
+        const match = dLinks.find(link => {
+            const districtName = link.label.split('(')[0].trim().toLowerCase();
+            return addressText.includes(districtName);
+        });
+        
+        if (match) {
+            setDetectedDistrict(match.label.split('(')[0].trim());
+            foundMatch = true;
+        }
+    }
+
+    if (!foundMatch) {
+        setDetectedDistrict("Buxar");
+    }
+  }, [deliveryAddress, userProfile]);
 
   const getContentByType = (type: string) => allContent?.find(c => c.type === type);
   
@@ -525,7 +580,7 @@ export default function MorePage() {
     }
   };
 
-  const contextValue = { getContentByType, setIsSearchOpen };
+  const contextValue = { getContentByType, setIsSearchOpen, detectedDistrict };
 
   return (
     <MorePageContext.Provider value={contextValue}>
@@ -557,7 +612,7 @@ export default function MorePage() {
             <main className="p-4 space-y-6 pb-32">
                 <Tabs defaultValue="my-place" className="w-full">
                     <TabsList className="grid w-full grid-cols-4 h-auto">
-                        <TabsTrigger value="my-place" className="text-xs sm:text-sm">मेरा वर्तमान स्थान</TabsTrigger>
+                        <TabsTrigger value="my-place" className="text-xs sm:text-sm">मेरा स्थान</TabsTrigger>
                         <TabsTrigger value="district" className="text-xs sm:text-sm">जिला</TabsTrigger>
                         <TabsTrigger value="state" className="text-xs sm:text-sm">राज्य</TabsTrigger>
                         <TabsTrigger value="country" className="text-xs sm:text-sm">देश</TabsTrigger>
