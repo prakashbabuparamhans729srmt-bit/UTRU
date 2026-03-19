@@ -77,6 +77,7 @@ import { mainFooterNavLinks } from '@/lib/navigation';
 import FloatingActionButton from '@/components/FloatingActionButton';
 import { useVoiceSearch } from '@/context/VoiceSearchContext';
 import { useLanguage } from '@/context/LanguageContext';
+import { useCart } from '@/context/CartContext';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -395,7 +396,7 @@ const WebLinksCard = ({ defaultTitle, content, icon: Icon, staticKey }: { defaul
 
         // Apply district filtering if it's the district tab
         if (staticKey === 'district' && detectedDistrict) {
-            return all.filter(l => l.label.toLowerCase().includes(detectedDistrict.toLowerCase()));
+            return all.filter((l: any) => l.label.toLowerCase().includes(detectedDistrict.toLowerCase()));
         }
         return all;
     }, [content, staticKey, detectedDistrict]);
@@ -642,7 +643,7 @@ export default function MorePage() {
                     return (
                         <Link key={index} href={link.href} className={cn( "flex flex-col items-center justify-center gap-1 h-auto p-2 rounded-md transition-colors w-16", isActive ? 'text-primary' : 'text-muted-foreground hover:text-primary' )}>
                         <link.icon className="w-6 h-6" />
-                        <span className={cn("text-xs", isActive ? 'font-bold' : 'font-semibold')}>
+                        <span className="text-xs">
                             {(translations.home as any)[link.labelKey] || (translations.location as any)[link.labelKey] || ''}
                             </span>
                         </Link>
