@@ -396,7 +396,8 @@ const WebLinksCard = ({ defaultTitle, content, icon: Icon, staticKey }: { defaul
 
         // Apply district filtering if it's the district tab
         if (staticKey === 'district' && detectedDistrict) {
-            return all.filter((l: any) => l.label.toLowerCase().includes(detectedDistrict.toLowerCase()));
+            const filtered = all.filter((l: any) => l.label.toLowerCase().includes(detectedDistrict.toLowerCase()));
+            return filtered.length > 0 ? filtered : all;
         }
         return all;
     }, [content, staticKey, detectedDistrict]);
