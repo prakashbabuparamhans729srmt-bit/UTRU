@@ -202,7 +202,6 @@ const NewsSection = () => {
     );
 };
 
-// --- STATIC SUB-COMPONENTS ---
 const WeatherCard = ({ content }: { content?: DocumentData }) => {
     const router = useRouter();
     const defaultData = { temp: '३२°C', humidity: '६५%', wind: '१२ km/h', sunrise: '५:४५ AM', sunset: '६:३० PM', aqi: '४५ (अच्छा)', aqiAdvice: 'बाहरी गतिविधियों के लिए उत्तम दिन', forecast: [ { icon: 'Sunrise', temp: '३२°' }, { icon: 'Cloud', temp: '३१°' }, { icon: 'CloudRain', temp: '२९°' } ] };
