@@ -28,7 +28,6 @@ import {
   Download,
   Users as UsersIcon,
   X,
-  ChevronRight,
   Mic,
   SlidersHorizontal,
   PlaySquare,
@@ -485,4 +484,32 @@ export default function MorePage() {
         </div>
     </MorePageContext.Provider>
   );
+}
+
+function DiscussionDetailDialog() {
+    return (
+        <div className="space-y-4 pt-4">
+            <div className='p-2 rounded-lg bg-muted text-muted-foreground text-xs flex flex-wrap gap-x-4 gap-y-1'>
+                <span className='flex items-center gap-1'><Leaf className="w-3 h-3 text-green-500"/> पर्यावरण</span>
+                <span>#ClimateAction</span>
+                <span className='flex items-center gap-1'><Flame className="w-3 h-3 text-red-500"/> ट्रेंडिंग</span>
+            </div>
+            <div className='text-sm text-muted-foreground flex flex-wrap gap-x-4 gap-y-1'>
+                <span>⏰ २ घंटे पहले</span>
+                <span>👁️ १२,३४५</span>
+                <span>💬 ५६७</span>
+                <span>👍 २.३K</span>
+            </div>
+
+            <h2 className="text-xl font-bold">क्या इलेक्ट्रिक वाहन २०३० तक पेट्रोल वाहनों की जगह ले सकते हैं?</h2>
+            <div className="flex items-center gap-2">
+                <User className="w-4 h-4"/>
+                <span className="font-semibold">सारा जॉनसन • 🇺🇸 USA • 🏆 इलेक्ट्रिक वाहन विशेषज्ञ</span>
+            </div>
+            
+            <p className="text-muted-foreground text-sm">
+                वैश्विक परिवहन क्षेत्र में क्रांति... [विस्तृत विवरण यहाँ]
+            </p>
+        </div>
+    )
 }
