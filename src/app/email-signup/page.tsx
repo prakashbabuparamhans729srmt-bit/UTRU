@@ -10,7 +10,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Loader2, LayoutGrid } from 'lucide-react';
+import { Loader2, LayoutGrid, ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -30,7 +30,7 @@ const formSchema = z.object({
 });
 
 const GoogleIcon = () => (
-    <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
+    <svg className="mr-2 h-5 w-5" viewBox="0 0 24 24">
       <path
         d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
         fill="#4285F4"
@@ -118,38 +118,47 @@ export default function EmailSignUpPage() {
         <h1 className="text-5xl font-bold mb-4">Get Started with Us</h1>
         <p className="text-lg text-gray-300 mb-12">Complete these easy steps to register your account.</p>
         <div className="space-y-4 w-full max-w-sm">
-            <div className="bg-white text-black p-4 rounded-lg">
+            <div className="bg-white text-black p-4 rounded-lg shadow-xl">
                 <p className="font-bold">1. Sign up your account</p>
             </div>
-            <div className="bg-white/10 p-4 rounded-lg">
+            <div className="bg-white/10 p-4 rounded-lg border border-white/5">
                 <p className="font-bold text-gray-400">2. Set up your workspace</p>
             </div>
-            <div className="bg-white/10 p-4 rounded-lg">
+            <div className="bg-white/10 p-4 rounded-lg border border-white/5">
                 <p className="font-bold text-gray-400">3. Set up your profile</p>
             </div>
         </div>
       </div>
-      <div className="flex flex-col justify-center items-center p-8">
+      <div className="flex flex-col justify-center items-center p-8 relative">
+        <Button 
+            variant="ghost" 
+            size="icon" 
+            className="absolute top-4 left-4 rounded-full text-white hover:bg-white/10 lg:hidden"
+            onClick={() => router.back()}
+        >
+            <ChevronLeft />
+        </Button>
+
         <div className="w-full max-w-md">
             <h2 className="text-3xl font-bold mb-2">Create an Account</h2>
             <p className="text-gray-400 mb-8">Enter your details below to get started.</p>
             
             <Button
                 variant="outline"
-                className="w-full h-12 text-base bg-gray-800 border-gray-700 hover:bg-gray-700"
+                className="w-full h-14 text-lg bg-white text-black hover:bg-gray-100 border-none rounded-full shadow-lg"
                 onClick={handleGoogleSignIn}
                 disabled={isPending}
             >
               {isPending ? <Loader2 className="animate-spin" /> : <><GoogleIcon /> Sign up with Google</>}
             </Button>
             
-            <div className="relative my-6">
+            <div className="relative my-8">
                 <div className="absolute inset-0 flex items-center">
                     <span className="w-full border-t border-gray-700" />
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-gray-900 px-2 text-gray-500">
-                    Or
+                    <span className="bg-gray-900 px-4 text-gray-500 font-medium">
+                    Or with Email
                     </span>
                 </div>
             </div>
@@ -167,7 +176,7 @@ export default function EmailSignUpPage() {
                                     <Input
                                     placeholder="Rahul"
                                     {...field}
-                                    className="bg-gray-800 border-gray-700 h-12"
+                                    className="bg-gray-800 border-gray-700 h-14 rounded-xl focus:ring-teal-400"
                                     disabled={isPending}
                                     />
                                 </FormControl>
@@ -185,7 +194,7 @@ export default function EmailSignUpPage() {
                                     <Input
                                     placeholder="Kumar"
                                     {...field}
-                                    className="bg-gray-800 border-gray-700 h-12"
+                                    className="bg-gray-800 border-gray-700 h-14 rounded-xl focus:ring-teal-400"
                                     disabled={isPending}
                                     />
                                 </FormControl>
@@ -205,7 +214,7 @@ export default function EmailSignUpPage() {
                             placeholder="m@example.com"
                             {...field}
                             type="email"
-                            className="bg-gray-800 border-gray-700 h-12"
+                            className="bg-gray-800 border-gray-700 h-14 rounded-xl focus:ring-teal-400"
                             disabled={isPending}
                             />
                         </FormControl>
@@ -224,7 +233,7 @@ export default function EmailSignUpPage() {
                             placeholder="••••••••"
                             {...field}
                             type="password"
-                            className="bg-gray-800 border-gray-700 h-12"
+                            className="bg-gray-800 border-gray-700 h-14 rounded-xl focus:ring-teal-400"
                             disabled={isPending}
                             />
                         </FormControl>
@@ -235,16 +244,16 @@ export default function EmailSignUpPage() {
 
                     <Button
                     type="submit"
-                    className="w-full h-12 text-lg mt-6 bg-teal-400 text-black hover:bg-teal-500"
+                    className="w-full h-14 text-xl mt-6 bg-teal-400 text-black hover:bg-teal-500 rounded-full font-bold shadow-teal-400/20 shadow-lg transition-transform active:scale-[0.98]"
                     disabled={isPending}
                     >
                     {isPending ? <Loader2 className="animate-spin" /> : 'Create Account'}
                     </Button>
                 </form>
             </Form>
-            <p className="mt-6 text-center text-sm text-gray-400">
+            <p className="mt-8 text-center text-sm text-gray-400">
                 Already have an account?{' '}
-                <Link href="/email-login" className="font-semibold text-teal-400 hover:underline">
+                <Link href="/email-login" className="font-bold text-teal-400 hover:underline">
                     Log In
                 </Link>
             </p>
