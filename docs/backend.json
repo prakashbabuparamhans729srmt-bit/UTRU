@@ -1,5 +1,9 @@
 
 {
+    "metadata": {
+        "ui_documentation_status": "Page 1-7 descriptions provided in chat for Bubble.io conversion.",
+        "last_documented_page": "Payment Settings"
+    },
     "entities": {
         "user": {
             "title": "User",
