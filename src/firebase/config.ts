@@ -7,6 +7,8 @@
  */
 
 export const firebaseConfig = {
+  // IMPORTANT: Replace the placeholder below with your actual API Key from the Firebase Console
+  // Settings -> Project Settings -> General -> Your apps -> SDK setup and configuration
   apiKey: "AIzaSy-placeholder-key-for-your-project",
   authDomain: "bharat-suchana-app.firebaseapp.com",
   projectId: "bharat-suchana-app",
