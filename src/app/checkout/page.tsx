@@ -68,7 +68,7 @@ export default function CheckoutPage() {
     
     const { data: userProfile, loading: profileLoading } = useDoc<any>(userProfileRef);
 
-    const canUseWallet = userProfile && userProfile.walletBalance >= finalTotal;
+    const canUseWallet = userProfile && (userProfile.walletBalance || 0) >= finalTotal;
 
     const handlePlaceOrder = () => {
         if (!user || !firestore || !userProfileRef) {
@@ -122,7 +122,7 @@ export default function CheckoutPage() {
             };
             batch.set(transactionRef, transactionData);
 
-            const newBalance = userProfile.walletBalance - finalTotal;
+            const newBalance = (userProfile.walletBalance || 0) - finalTotal;
             batch.update(userProfileRef, { walletBalance: newBalance });
         }
 
@@ -134,7 +134,7 @@ export default function CheckoutPage() {
             })
             .catch((serverError) => {
                  const permissionError = new FirestorePermissionError({
-                  path: `users/${user.uid} workflow`,
+                  path: `users/${user.uid}/bookings/${bookingRef.id}`,
                   operation: 'create',
                   requestResourceData: bookingData,
                 });
@@ -239,7 +239,7 @@ export default function CheckoutPage() {
                                             </div>
                                             <div className="flex flex-col gap-0.5">
                                                 <span className="font-bold text-sm">{translations.checkout.payWithWallet}</span>
-                                                <span className="text-[10px] text-muted-foreground">{translations.checkout.balance}: <span className="font-bold text-foreground">₹{userProfile.walletBalance?.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span></span>
+                                                <span className="text-[10px] text-muted-foreground">{translations.checkout.balance}: <span className="font-bold text-foreground">₹{(userProfile.walletBalance || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}</span></span>
                                                 {!canUseWallet && (
                                                     <div className="mt-2 flex flex-col gap-2">
                                                         <p className="text-[10px] text-red-500 font-bold flex items-center gap-1">⚠️ {translations.checkout.insufficientBalance}</p>

@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/context/LanguageContext';
 import { useUser, useFirestore, useDoc, useCollection } from '@/firebase';
 import { useMemo, useState } from 'react';
-import { doc, collection, query, orderBy, setDoc, serverTimestamp, updateDoc, increment } from 'firebase/firestore';
+import { doc, collection, query, orderBy, setDoc, serverTimestamp, updateDoc, increment, writeBatch } from 'firebase/firestore';
 import { format } from 'date-fns';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
@@ -95,16 +95,18 @@ export default function WalletPage() {
         timestamp: serverTimestamp(),
     };
 
+    const batch = writeBatch(firestore);
+    
     // 1. Create transaction record
     const newTxRef = doc(collection(firestore, 'users', user.uid, 'walletTransactions'));
-    
-    setDoc(newTxRef, transactionData)
-        .then(() => {
-            // 2. Update user balance
-            return updateDoc(userProfileRef, {
-                walletBalance: increment(amount)
-            });
-        })
+    batch.set(newTxRef, transactionData);
+
+    // 2. Update user balance atomically
+    batch.update(userProfileRef, {
+        walletBalance: increment(amount)
+    });
+
+    batch.commit()
         .then(() => {
             toast({
                 title: 'Money Added Successfully!',

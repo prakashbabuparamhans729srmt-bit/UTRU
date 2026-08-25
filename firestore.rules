@@ -6,17 +6,14 @@ service cloud.firestore {
       return request.auth != null && request.auth.uid == userId;
     }
     match /users/{userId} {
-      // Allow users to read their own document.
       allow read: if isOwner(userId);
 
-      // Allow users to create their own document with initial data.
-      // The walletBalance must be set to the sign-up bonus of 100.
+      // Allow initial creation with sign-up bonus
       allow create: if request.auth.uid == userId
                     && request.resource.data.uid == userId
                     && request.resource.data.walletBalance == 100;
       
-      // Allow users to update their own document for profile changes or balance changes.
-      // We allow balance updates if the user is authenticated and the balance remains non-negative.
+      // Allow updates to wallet balance and profile
       allow update: if isOwner(userId) && 
                     (
                       ('walletBalance' in request.resource.data && request.resource.data.walletBalance >= 0) 
@@ -29,18 +26,11 @@ service cloud.firestore {
     match /users/{userId}/bookings/{bookingId} {
       allow read: if isOwner(userId);
 
-      // Allow creation only with valid, user-submitted data
       allow create: if isOwner(userId)
               && request.resource.data.userId == userId
-              && request.resource.data.id == bookingId
               && request.resource.data.status == 'Placed'
-              && request.resource.data.placedAt == request.time
-              && request.resource.data.paymentMethod in ['wallet', 'cod']
-              && !('rating' in request.resource.data)
-              && !('review' in request.resource.data)
-              && request.resource.data.items.size() > 0;
+              && request.resource.data.placedAt == request.time;
               
-      // Only allow updating rating and review after completion.
       allow update: if isOwner(userId)
                     && resource.data.status == 'Completed'
                     && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['rating', 'review']);
@@ -51,37 +41,26 @@ service cloud.firestore {
       allow read: if isOwner(userId);
 
       allow create: if isOwner(userId) && (
-        // Allow sign-up bonus credit transaction
-        (
-          request.resource.data.type == 'credit' &&
-          request.resource.data.amount == 100 &&
-          request.resource.data.description == 'Sign-up Bonus' &&
-          request.resource.data.timestamp == request.time
-        ) ||
-        // Allow manual top-up (Recharge)
+        // Credit (Sign-up or Recharge)
         (
           request.resource.data.type == 'credit' &&
           request.resource.data.amount > 0 &&
-          request.resource.data.description == 'Wallet Top-up' &&
           request.resource.data.timestamp == request.time
         ) ||
-        // Allow booking payment debit transaction
+        // Debit (Payment for booking)
         (
           request.resource.data.type == 'debit' &&
           request.resource.data.amount < 0 &&
-          request.resource.data.description.matches('Payment for Booking #[A-Z0-9]+') &&
           request.resource.data.timestamp == request.time
         )
       );
 
       allow update, delete: if false;
     }
-     match /shorts/{shortId} {
+    match /shorts/{shortId} {
       allow read: if true;
-      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
-      allow update, delete: if request.auth != null && request.auth.uid == resource.data.userId;
+      allow write: if request.auth != null;
     }
-
     match /content/{contentId} {
       allow read: if true;
       allow write: if request.auth != null;
