@@ -32,8 +32,10 @@ service cloud.firestore {
               && request.resource.data.placedAt == request.time;
               
       allow update: if isOwner(userId)
-                    && resource.data.status == 'Completed'
-                    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['rating', 'review']);
+                    && (
+                      (resource.data.status == 'Completed' && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['rating', 'review']))
+                      || request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status'])
+                    );
 
       allow delete: if false;
     }

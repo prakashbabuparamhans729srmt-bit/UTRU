@@ -1,4 +1,3 @@
-
 'use client';
 
 import { ChevronLeft, Home, MapPin, Loader2, ShoppingCart, Wallet, CreditCard, Banknote, PlusCircle } from 'lucide-react';
@@ -111,10 +110,12 @@ export default function CheckoutPage() {
         };
 
         const batch = writeBatch(firestore);
+        
+        // 1. Create the booking document
         batch.set(bookingRef, bookingData);
 
+        // 2. If Wallet is selected, handle debit and transaction log
         if (paymentMethod === 'wallet' && canUseWallet) {
-            // Debit from wallet
             const transactionRef = doc(collection(firestore, 'users', user.uid, 'walletTransactions'));
             const transactionData = {
                 amount: -finalTotal,
@@ -124,16 +125,17 @@ export default function CheckoutPage() {
             };
             batch.set(transactionRef, transactionData);
 
-            // Atomic balance update
+            // Update user balance atomically in the same batch
             batch.update(userProfileRef, { 
                 walletBalance: walletBalance - finalTotal 
             });
         }
 
+        // Commit the batch - A to Z action
         batch.commit()
             .then(() => {
                 const url = `/payment-success?amount=${finalTotal}&bookingId=${bookingRef.id.substring(0, 8).toUpperCase()}&method=${paymentMethod}`;
-                clearCart();
+                clearCart(); // Clear cart state on success
                 router.push(url);
             })
             .catch((serverError) => {
@@ -164,6 +166,7 @@ export default function CheckoutPage() {
     
     const isLoading = userLoading || profileLoading;
 
+    // Prevent staying on checkout with empty cart
     if (items.length === 0 && typeof window !== 'undefined' && !isPlacingOrder) {
         router.replace('/');
         return null;
