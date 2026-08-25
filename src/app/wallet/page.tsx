@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/context/LanguageContext';
 import { useUser, useFirestore, useDoc, useCollection } from '@/firebase';
 import { useMemo, useState } from 'react';
-import { doc, collection, query, orderBy, setDoc, serverTimestamp, updateDoc, increment, writeBatch } from 'firebase/firestore';
+import { doc, collection, query, orderBy, serverTimestamp, increment, writeBatch } from 'firebase/firestore';
 import { format } from 'date-fns';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
@@ -165,6 +165,7 @@ export default function WalletPage() {
         </header>
 
       <main className="p-4 space-y-6">
+        {/* Wallet Balance Card */}
         <div className="rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-orange-400 p-6 text-white shadow-xl flex flex-col justify-between h-52 relative overflow-hidden">
           <div className="absolute top-0 right-0 p-8 opacity-10">
              <Landmark size={120} />
@@ -237,6 +238,7 @@ export default function WalletPage() {
           </div>
         </div>
         
+        {/* Transaction History */}
         <div className="space-y-4">
             <h2 className="text-xl font-bold flex items-center gap-2">
                 <Banknote className="text-primary"/>

@@ -68,7 +68,8 @@ export default function CheckoutPage() {
     
     const { data: userProfile, loading: profileLoading } = useDoc<any>(userProfileRef);
 
-    const canUseWallet = userProfile && (userProfile.walletBalance || 0) >= finalTotal;
+    const walletBalance = userProfile?.walletBalance ?? 0;
+    const canUseWallet = walletBalance >= finalTotal;
 
     const handlePlaceOrder = () => {
         if (!user || !firestore || !userProfileRef) {
@@ -112,7 +113,8 @@ export default function CheckoutPage() {
         const batch = writeBatch(firestore);
         batch.set(bookingRef, bookingData);
 
-        if (paymentMethod === 'wallet' && canUseWallet && userProfile) {
+        if (paymentMethod === 'wallet' && canUseWallet) {
+            // Debit from wallet
             const transactionRef = doc(collection(firestore, 'users', user.uid, 'walletTransactions'));
             const transactionData = {
                 amount: -finalTotal,
@@ -122,15 +124,17 @@ export default function CheckoutPage() {
             };
             batch.set(transactionRef, transactionData);
 
-            const newBalance = (userProfile.walletBalance || 0) - finalTotal;
-            batch.update(userProfileRef, { walletBalance: newBalance });
+            // Atomic balance update
+            batch.update(userProfileRef, { 
+                walletBalance: walletBalance - finalTotal 
+            });
         }
 
         batch.commit()
             .then(() => {
                 const url = `/payment-success?amount=${finalTotal}&bookingId=${bookingRef.id.substring(0, 8).toUpperCase()}&method=${paymentMethod}`;
-                router.push(url);
                 clearCart();
+                router.push(url);
             })
             .catch((serverError) => {
                  const permissionError = new FirestorePermissionError({
@@ -185,6 +189,7 @@ export default function CheckoutPage() {
             </header>
 
             <main className="flex-grow p-4 space-y-6 pb-40">
+                {/* Delivery Address Card */}
                 <Card className="p-4 rounded-2xl shadow-sm border-primary/10">
                     <div className="flex justify-between items-start">
                         {deliveryAddress ? (
@@ -213,6 +218,7 @@ export default function CheckoutPage() {
                     </div>
                 </Card>
 
+                {/* Order Summary */}
                 <Card className="p-4 rounded-2xl shadow-sm border-primary/10">
                      <h2 className="font-bold text-sm mb-4 flex items-center gap-2"><ShoppingCart size={16} className="text-primary"/> {translations.checkout.orderSummary}</h2>
                      <div className="divide-y divide-border/50">
@@ -220,39 +226,40 @@ export default function CheckoutPage() {
                      </div>
                 </Card>
                 
+                {/* Payment Method Selection */}
                 {user && (
                     <Card className="p-4 rounded-2xl shadow-sm border-primary/10">
                         <h2 className="font-bold text-sm mb-4 flex items-center gap-2"><CreditCard size={16} className="text-primary"/> {translations.checkout.paymentMethod}</h2>
                         {isLoading ? <Skeleton className="h-32 w-full rounded-xl" /> : (
                             <RadioGroup value={paymentMethod} onValueChange={(value) => setPaymentMethod(value as 'wallet' | 'cod')} className="space-y-3">
-                                {userProfile && (
-                                    <Label
-                                        htmlFor="wallet"
-                                        className={cn(
-                                            "flex items-start justify-between rounded-xl border p-4 cursor-pointer transition-all hover:bg-muted/30",
-                                            paymentMethod === 'wallet' ? "border-primary ring-2 ring-primary/20 bg-primary/5" : "border-border"
-                                        )}
-                                    >
-                                        <div className="flex items-start gap-3">
-                                            <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
-                                                <Wallet className="w-5 h-5 text-primary" />
-                                            </div>
-                                            <div className="flex flex-col gap-0.5">
-                                                <span className="font-bold text-sm">{translations.checkout.payWithWallet}</span>
-                                                <span className="text-[10px] text-muted-foreground">{translations.checkout.balance}: <span className="font-bold text-foreground">₹{(userProfile.walletBalance || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}</span></span>
-                                                {!canUseWallet && (
-                                                    <div className="mt-2 flex flex-col gap-2">
-                                                        <p className="text-[10px] text-red-500 font-bold flex items-center gap-1">⚠️ {translations.checkout.insufficientBalance}</p>
-                                                        <Button variant="link" className="p-0 h-auto text-[10px] text-primary font-bold justify-start" onClick={(e) => { e.preventDefault(); router.push('/wallet'); }}>
-                                                            <PlusCircle size={12} className="mr-1"/> Recharge Now
-                                                        </Button>
-                                                    </div>
-                                                )}
-                                            </div>
+                                <Label
+                                    htmlFor="wallet"
+                                    className={cn(
+                                        "flex items-start justify-between rounded-xl border p-4 cursor-pointer transition-all hover:bg-muted/30",
+                                        paymentMethod === 'wallet' ? "border-primary ring-2 ring-primary/20 bg-primary/5" : "border-border",
+                                        !canUseWallet && "opacity-60 grayscale-[0.5]"
+                                    )}
+                                >
+                                    <div className="flex items-start gap-3">
+                                        <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
+                                            <Wallet className="w-5 h-5 text-primary" />
                                         </div>
-                                        <RadioGroupItem value="wallet" id="wallet" disabled={!canUseWallet} className="mt-1" />
-                                    </Label>
-                                )}
+                                        <div className="flex flex-col gap-0.5">
+                                            <span className="font-bold text-sm">{translations.checkout.payWithWallet}</span>
+                                            <span className="text-[10px] text-muted-foreground">{translations.checkout.balance}: <span className="font-bold text-foreground">₹{walletBalance.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span></span>
+                                            {!canUseWallet && (
+                                                <div className="mt-2 flex flex-col gap-2">
+                                                    <p className="text-[10px] text-red-500 font-bold flex items-center gap-1">⚠️ {translations.checkout.insufficientBalance}</p>
+                                                    <Button variant="link" className="p-0 h-auto text-[10px] text-primary font-bold justify-start" onClick={(e) => { e.preventDefault(); router.push('/wallet'); }}>
+                                                        <PlusCircle size={12} className="mr-1"/> Recharge Now
+                                                    </Button>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                    <RadioGroupItem value="wallet" id="wallet" disabled={!canUseWallet} className="mt-1" />
+                                </Label>
+
                                 <Label
                                     htmlFor="cod"
                                     className={cn(
@@ -273,6 +280,7 @@ export default function CheckoutPage() {
                     </Card>
                 )}
 
+                {/* Final Bill Details */}
                 <Card className="p-4 rounded-2xl shadow-sm border-primary/10">
                     <h2 className="font-bold text-sm mb-4">{translations.checkout.paymentDetails}</h2>
                     <div className="space-y-3 text-sm">
@@ -304,7 +312,6 @@ export default function CheckoutPage() {
                         </div>
                     </div>
                 </Card>
-
             </main>
 
             <footer className="fixed bottom-0 left-0 right-0 bg-card border-t border-primary/10 p-4 z-40 shadow-[0_-8px_30px_rgb(0,0,0,0.05)] rounded-t-3xl">
@@ -354,7 +361,6 @@ export default function CheckoutPage() {
                     </Button>
                 )}
             </footer>
-
         </div>
     )
 }

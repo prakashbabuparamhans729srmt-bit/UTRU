@@ -41,7 +41,7 @@ service cloud.firestore {
       allow read: if isOwner(userId);
 
       allow create: if isOwner(userId) && (
-        // Credit (Sign-up or Recharge)
+        // Credit (Sign-up, Recharge, or Refund)
         (
           request.resource.data.type == 'credit' &&
           request.resource.data.amount > 0 &&
