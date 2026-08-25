@@ -13,7 +13,7 @@ import { Separator } from '@/components/ui/separator';
 import { format } from 'date-fns';
 import { useUser, useFirestore, useDoc } from '@/firebase';
 import { useState, useMemo } from 'react';
-import { collection, doc, serverTimestamp, writeBatch } from 'firebase/firestore';
+import { collection, doc, serverTimestamp, writeBatch, increment } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
@@ -126,9 +126,9 @@ export default function CheckoutPage() {
             };
             batch.set(transactionRef, transactionData);
 
-            // Update user balance atomically in the same batch
+            // Update user balance atomically in the same batch using increment
             batch.update(userProfileRef, { 
-                walletBalance: walletBalance - finalTotal 
+                walletBalance: increment(-finalTotal) 
             });
         }
 
@@ -326,10 +326,17 @@ export default function CheckoutPage() {
                                 <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
                                     <MapPin className="w-4 h-4 text-primary" />
                                 </div>
-                                <div>
-                                    <p className="text-[10px] font-bold text-muted-foreground leading-none mb-1 uppercase tracking-tight">{translations.checkout.deliverTo} {deliveryAddress.type}</p>
-                                    <p className="text-[10px] font-medium leading-none text-primary">{translations.checkout.inMins}</p>
-                                </div>
+                                {paymentMethod === 'wallet' ? (
+                                    <div>
+                                        <p className="text-[10px] font-bold text-muted-foreground leading-none mb-1 uppercase tracking-tight">PAY FROM WALLET</p>
+                                        <p className="text-[10px] font-medium leading-none text-primary">INSTANT BOOKING</p>
+                                    </div>
+                                ) : (
+                                    <div>
+                                        <p className="text-[10px] font-bold text-muted-foreground leading-none mb-1 uppercase tracking-tight">{translations.checkout.deliverTo} {deliveryAddress.type}</p>
+                                        <p className="text-[10px] font-medium leading-none text-primary">{translations.checkout.inMins}</p>
+                                    </div>
+                                )}
                             </div>
                         ) : (
                             <p className="text-xs text-red-500 font-bold">{translations.checkout.noAddressSelected}</p>

@@ -18,6 +18,7 @@ service cloud.firestore {
                     (
                       ('walletBalance' in request.resource.data && request.resource.data.walletBalance >= 0) 
                       || !('walletBalance' in request.resource.data)
+                      || request.resource.data.diff(resource.data).affectedKeys().hasOnly(['displayName', 'photoURL', 'email', 'phoneNumber', 'country', 'state'])
                     );
     }
     match /users/{userId}/addresses/{addressId} {
@@ -29,7 +30,7 @@ service cloud.firestore {
       allow create: if isOwner(userId)
               && request.resource.data.userId == userId
               && request.resource.data.status == 'Placed'
-              && request.resource.data.placedAt == request.time;
+              && (request.resource.data.placedAt == request.time || request.resource.data.placedAt == null);
               
       allow update: if isOwner(userId)
                     && (
@@ -47,13 +48,13 @@ service cloud.firestore {
         (
           request.resource.data.type == 'credit' &&
           request.resource.data.amount > 0 &&
-          request.resource.data.timestamp == request.time
+          (request.resource.data.timestamp == request.time || request.resource.data.timestamp == null)
         ) ||
         // Debit (Payment for booking)
         (
           request.resource.data.type == 'debit' &&
           request.resource.data.amount < 0 &&
-          request.resource.data.timestamp == request.time
+          (request.resource.data.timestamp == request.time || request.resource.data.timestamp == null)
         )
       );
 
