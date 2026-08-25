@@ -77,7 +77,7 @@ export default function WalletPage() {
   const { data: userProfile, loading: profileLoading } = useDoc<UserProfile>(userProfileRef);
   const { data: transactions, loading: transactionsLoading } = useCollection<WalletTransaction>(transactionsQuery);
 
-  const handleAddMoney = async () => {
+  const handleAddMoney = () => {
     const amount = parseFloat(addAmount);
     if (isNaN(amount) || amount <= 0) {
         toast({ variant: 'destructive', title: 'Invalid Amount', description: 'Please enter a valid amount to add.' });
@@ -95,37 +95,40 @@ export default function WalletPage() {
         timestamp: serverTimestamp(),
     };
 
-    try {
-        // 1. Create transaction record
-        const newTxRef = doc(collection(firestore, 'users', user.uid, 'walletTransactions'));
-        await setDoc(newTxRef, transactionData);
-
-        // 2. Update user balance
-        await updateDoc(userProfileRef, {
-            walletBalance: increment(amount)
+    // 1. Create transaction record
+    const newTxRef = doc(collection(firestore, 'users', user.uid, 'walletTransactions'));
+    
+    setDoc(newTxRef, transactionData)
+        .then(() => {
+            // 2. Update user balance
+            return updateDoc(userProfileRef, {
+                walletBalance: increment(amount)
+            });
+        })
+        .then(() => {
+            toast({
+                title: 'Money Added Successfully!',
+                description: `₹${amount} has been added to your wallet.`,
+            });
+            setIsDialogOpen(false);
+            setAddAmount('500');
+        })
+        .catch((serverError: any) => {
+            const permissionError = new FirestorePermissionError({
+                path: userProfileRef.path,
+                operation: 'update',
+                requestResourceData: { walletBalance: increment(amount) },
+            });
+            errorEmitter.emit('permission-error', permissionError);
+            toast({
+                variant: 'destructive',
+                title: 'Recharge Failed',
+                description: 'Could not update wallet balance. Please try again.',
+            });
+        })
+        .finally(() => {
+            setIsAdding(false);
         });
-
-        toast({
-            title: 'Money Added Successfully!',
-            description: `₹${amount} has been added to your wallet.`,
-        });
-        setIsDialogOpen(false);
-        setAddAmount('500');
-    } catch (serverError: any) {
-        const permissionError = new FirestorePermissionError({
-            path: userProfileRef.path,
-            operation: 'update',
-            requestResourceData: { walletBalance: increment(amount) },
-        });
-        errorEmitter.emit('permission-error', permissionError);
-        toast({
-            variant: 'destructive',
-            title: 'Recharge Failed',
-            description: 'Could not update wallet balance. Please try again.',
-        });
-    } finally {
-        setIsAdding(false);
-    }
   };
 
   const isLoading = userLoading || profileLoading || transactionsLoading;

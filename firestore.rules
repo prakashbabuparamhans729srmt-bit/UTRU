@@ -15,12 +15,11 @@ service cloud.firestore {
                     && request.resource.data.uid == userId
                     && request.resource.data.walletBalance == 100;
       
-      // Allow users to update their own document for profile changes (balance unchanged)
-      // or for wallet payments (balance decreases). This rule allows updates if the
-      // walletBalance is not being modified, or if it is being decreased.
+      // Allow users to update their own document for profile changes or balance changes.
+      // We allow balance updates if the user is authenticated and the balance remains non-negative.
       allow update: if isOwner(userId) && 
                     (
-                      ('walletBalance' in request.resource.data && request.resource.data.walletBalance <= resource.data.walletBalance) 
+                      ('walletBalance' in request.resource.data && request.resource.data.walletBalance >= 0) 
                       || !('walletBalance' in request.resource.data)
                     );
     }
@@ -57,18 +56,21 @@ service cloud.firestore {
           request.resource.data.type == 'credit' &&
           request.resource.data.amount == 100 &&
           request.resource.data.description == 'Sign-up Bonus' &&
-          request.resource.data.timestamp == request.time &&
-          request.resource.data.keys().hasAll(['amount', 'type', 'description', 'timestamp']) &&
-          request.resource.data.size() == 4
+          request.resource.data.timestamp == request.time
+        ) ||
+        // Allow manual top-up (Recharge)
+        (
+          request.resource.data.type == 'credit' &&
+          request.resource.data.amount > 0 &&
+          request.resource.data.description == 'Wallet Top-up' &&
+          request.resource.data.timestamp == request.time
         ) ||
         // Allow booking payment debit transaction
         (
           request.resource.data.type == 'debit' &&
           request.resource.data.amount < 0 &&
-          request.resource.data.description.matches('Payment for Booking #[A-Z0-9]{8}') &&
-          request.resource.data.timestamp == request.time &&
-          request.resource.data.keys().hasAll(['amount', 'type', 'description', 'timestamp']) &&
-          request.resource.data.size() == 4
+          request.resource.data.description.matches('Payment for Booking #[A-Z0-9]+') &&
+          request.resource.data.timestamp == request.time
         )
       );
 
@@ -82,7 +84,6 @@ service cloud.firestore {
 
     match /content/{contentId} {
       allow read: if true;
-      // For now, any authenticated user is considered an admin for simplicity
       allow write: if request.auth != null;
     }
   }

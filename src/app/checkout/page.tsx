@@ -1,10 +1,10 @@
 
 'use client';
 
-import { ChevronLeft, Home, MapPin, MoreVertical, Loader2, ShoppingCart, Wallet, CreditCard, Banknote, PlusCircle } from 'lucide-react';
+import { ChevronLeft, Home, MapPin, Loader2, ShoppingCart, Wallet, CreditCard, Banknote, PlusCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { useCart, type CartItem, type Address } from '@/context/CartContext';
+import { useCart, type CartItem } from '@/context/CartContext';
 import { useLanguage } from '@/context/LanguageContext';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -13,7 +13,7 @@ import { Separator } from '@/components/ui/separator';
 import { format } from 'date-fns';
 import { useUser, useFirestore, useDoc } from '@/firebase';
 import { useState, useMemo } from 'react';
-import { addDoc, collection, doc, serverTimestamp, writeBatch, setDoc } from 'firebase/firestore';
+import { collection, doc, serverTimestamp, writeBatch } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
@@ -70,12 +70,7 @@ export default function CheckoutPage() {
 
     const canUseWallet = userProfile && userProfile.walletBalance >= finalTotal;
 
-    if (items.length === 0 && typeof window !== 'undefined') {
-        router.replace('/');
-        return null;
-    }
-
-    const handlePlaceOrder = async () => {
+    const handlePlaceOrder = () => {
         if (!user || !firestore || !userProfileRef) {
             toast({ variant: 'destructive', title: translations.toasts.error, description: translations.toasts.notLoggedIn});
             router.push('/phone-login');
@@ -114,11 +109,10 @@ export default function CheckoutPage() {
             paymentMethod: paymentMethod,
         };
 
-        if (paymentMethod === 'wallet' && canUseWallet && userProfile) {
-            const batch = writeBatch(firestore);
-            
-            batch.set(bookingRef, bookingData);
+        const batch = writeBatch(firestore);
+        batch.set(bookingRef, bookingData);
 
+        if (paymentMethod === 'wallet' && canUseWallet && userProfile) {
             const transactionRef = doc(collection(firestore, 'users', user.uid, 'walletTransactions'));
             const transactionData = {
                 amount: -finalTotal,
@@ -130,37 +124,17 @@ export default function CheckoutPage() {
 
             const newBalance = userProfile.walletBalance - finalTotal;
             batch.update(userProfileRef, { walletBalance: newBalance });
+        }
 
-            try {
-                await batch.commit();
-                const url = `/payment-success?amount=${finalTotal}&bookingId=${bookingRef.id.substring(0, 8).toUpperCase()}&method=wallet`;
+        batch.commit()
+            .then(() => {
+                const url = `/payment-success?amount=${finalTotal}&bookingId=${bookingRef.id.substring(0, 8).toUpperCase()}&method=${paymentMethod}`;
                 router.push(url);
                 clearCart();
-            } catch (serverError) {
+            })
+            .catch((serverError) => {
                  const permissionError = new FirestorePermissionError({
-                  path: `users/${user.uid} or subcollections`,
-                  operation: 'update',
-                  requestResourceData: { bookingData, transactionData },
-                });
-                errorEmitter.emit('permission-error', permissionError);
-                toast({
-                    variant: 'destructive',
-                    title: translations.toasts.orderFailed,
-                    description: translations.toasts.orderFailedDescWallet,
-                });
-            } finally {
-                setIsPlacingOrder(false);
-            }
-        } else {
-            setDoc(bookingRef, bookingData)
-              .then(() => {
-                  const url = `/payment-success?amount=${finalTotal}&bookingId=${bookingRef.id.substring(0, 8).toUpperCase()}&method=cod`;
-                  router.push(url);
-                  clearCart();
-              })
-              .catch((serverError) => {
-                const permissionError = new FirestorePermissionError({
-                  path: `users/${user.uid}/bookings`,
+                  path: `users/${user.uid} workflow`,
                   operation: 'create',
                   requestResourceData: bookingData,
                 });
@@ -168,24 +142,28 @@ export default function CheckoutPage() {
                 toast({
                     variant: 'destructive',
                     title: translations.toasts.orderFailed,
-                    description: translations.toasts.orderFailedDescCod,
+                    description: paymentMethod === 'wallet' ? translations.toasts.orderFailedDescWallet : translations.toasts.orderFailedDescCod,
                 });
-              })
-              .finally(() => {
-                  setIsPlacingOrder(false);
-              });
-        }
+            })
+            .finally(() => {
+                setIsPlacingOrder(false);
+            });
     }
 
     const handleRemoveCoupon = () => {
         removeCoupon();
         toast({
-        title: translations.toasts.couponRemoved,
-        description: translations.toasts.couponRemovedDesc,
+            title: translations.toasts.couponRemoved,
+            description: translations.toasts.couponRemovedDesc,
         });
     };
     
     const isLoading = userLoading || profileLoading;
+
+    if (items.length === 0 && typeof window !== 'undefined' && !isPlacingOrder) {
+        router.replace('/');
+        return null;
+    }
 
     return (
         <div className="bg-background text-foreground min-h-screen flex flex-col">
