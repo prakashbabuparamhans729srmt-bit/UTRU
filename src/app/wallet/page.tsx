@@ -1,4 +1,3 @@
-
 'use client';
 
 import { ChevronLeft, Plus, Loader2, CreditCard, Banknote, Landmark } from 'lucide-react';
@@ -97,11 +96,9 @@ export default function WalletPage() {
 
     const batch = writeBatch(firestore);
     
-    // 1. Create transaction record
     const newTxRef = doc(collection(firestore, 'users', user.uid, 'walletTransactions'));
     batch.set(newTxRef, transactionData);
 
-    // 2. Update user balance atomically
     batch.update(userProfileRef, {
         walletBalance: increment(amount)
     });
@@ -165,7 +162,6 @@ export default function WalletPage() {
         </header>
 
       <main className="p-4 space-y-6">
-        {/* Wallet Balance Card */}
         <div className="rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-orange-400 p-6 text-white shadow-xl flex flex-col justify-between h-52 relative overflow-hidden">
           <div className="absolute top-0 right-0 p-8 opacity-10">
              <Landmark size={120} />
@@ -216,13 +212,6 @@ export default function WalletPage() {
                                 </Button>
                             ))}
                         </div>
-                        <div className="space-y-3 pt-2">
-                            <h4 className="text-xs font-bold text-muted-foreground uppercase">Simulate Payment Method</h4>
-                            <div className="grid grid-cols-2 gap-2">
-                                <Button variant="secondary" className="justify-start gap-2 h-12"><CreditCard size={18}/> Card</Button>
-                                <Button variant="secondary" className="justify-start gap-2 h-12"><Banknote size={18}/> UPI</Button>
-                            </div>
-                        </div>
                     </div>
                     <DialogFooter>
                         <Button 
@@ -238,7 +227,6 @@ export default function WalletPage() {
           </div>
         </div>
         
-        {/* Transaction History */}
         <div className="space-y-4">
             <h2 className="text-xl font-bold flex items-center gap-2">
                 <Banknote className="text-primary"/>

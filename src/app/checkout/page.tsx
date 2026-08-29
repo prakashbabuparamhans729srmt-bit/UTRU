@@ -1,4 +1,3 @@
-
 'use client';
 
 import { ChevronLeft, Home, MapPin, Loader2, ShoppingCart, Wallet, CreditCard, Banknote, PlusCircle } from 'lucide-react';
@@ -111,11 +110,8 @@ export default function CheckoutPage() {
         };
 
         const batch = writeBatch(firestore);
-        
-        // 1. Create the booking document
         batch.set(bookingRef, bookingData);
 
-        // 2. If Wallet is selected, handle debit and transaction log
         if (paymentMethod === 'wallet' && canUseWallet) {
             const transactionRef = doc(collection(firestore, 'users', user.uid, 'walletTransactions'));
             const transactionData = {
@@ -125,18 +121,15 @@ export default function CheckoutPage() {
                 timestamp: serverTimestamp(),
             };
             batch.set(transactionRef, transactionData);
-
-            // Update user balance atomically in the same batch using increment
             batch.update(userProfileRef, { 
                 walletBalance: increment(-finalTotal) 
             });
         }
 
-        // Commit the batch - A to Z action
         batch.commit()
             .then(() => {
                 const url = `/payment-success?amount=${finalTotal}&bookingId=${bookingRef.id.substring(0, 8).toUpperCase()}&method=${paymentMethod}`;
-                clearCart(); // Clear cart state on success
+                clearCart();
                 router.push(url);
             })
             .catch((serverError) => {
@@ -167,7 +160,6 @@ export default function CheckoutPage() {
     
     const isLoading = userLoading || profileLoading;
 
-    // Prevent staying on checkout with empty cart
     if (items.length === 0 && typeof window !== 'undefined' && !isPlacingOrder) {
         router.replace('/');
         return null;
@@ -193,7 +185,6 @@ export default function CheckoutPage() {
             </header>
 
             <main className="flex-grow p-4 space-y-6 pb-40">
-                {/* Delivery Address Card */}
                 <Card className="p-4 rounded-2xl shadow-sm border-primary/10">
                     <div className="flex justify-between items-start">
                         {deliveryAddress ? (
@@ -222,7 +213,6 @@ export default function CheckoutPage() {
                     </div>
                 </Card>
 
-                {/* Order Summary */}
                 <Card className="p-4 rounded-2xl shadow-sm border-primary/10">
                      <h2 className="font-bold text-sm mb-4 flex items-center gap-2"><ShoppingCart size={16} className="text-primary"/> {translations.checkout.orderSummary}</h2>
                      <div className="divide-y divide-border/50">
@@ -230,7 +220,6 @@ export default function CheckoutPage() {
                      </div>
                 </Card>
                 
-                {/* Payment Method Selection */}
                 {user && (
                     <Card className="p-4 rounded-2xl shadow-sm border-primary/10">
                         <h2 className="font-bold text-sm mb-4 flex items-center gap-2"><CreditCard size={16} className="text-primary"/> {translations.checkout.paymentMethod}</h2>
@@ -284,7 +273,6 @@ export default function CheckoutPage() {
                     </Card>
                 )}
 
-                {/* Final Bill Details */}
                 <Card className="p-4 rounded-2xl shadow-sm border-primary/10">
                     <h2 className="font-bold text-sm mb-4">{translations.checkout.paymentDetails}</h2>
                     <div className="space-y-3 text-sm">

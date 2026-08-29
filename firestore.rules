@@ -1,4 +1,3 @@
-
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -7,13 +6,9 @@ service cloud.firestore {
     }
     match /users/{userId} {
       allow read: if isOwner(userId);
-
-      // Allow initial creation with sign-up bonus
       allow create: if request.auth.uid == userId
                     && request.resource.data.uid == userId
                     && request.resource.data.walletBalance == 100;
-      
-      // Allow updates to wallet balance and profile
       allow update: if isOwner(userId) && 
                     (
                       ('walletBalance' in request.resource.data && request.resource.data.walletBalance >= 0) 
@@ -26,38 +21,31 @@ service cloud.firestore {
     }
     match /users/{userId}/bookings/{bookingId} {
       allow read: if isOwner(userId);
-
       allow create: if isOwner(userId)
               && request.resource.data.userId == userId
               && request.resource.data.status == 'Placed'
               && (request.resource.data.placedAt == request.time || request.resource.data.placedAt == null);
-              
       allow update: if isOwner(userId)
                     && (
                       (resource.data.status == 'Completed' && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['rating', 'review']))
                       || request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status'])
                     );
-
       allow delete: if false;
     }
     match /users/{userId}/walletTransactions/{transactionId} {
       allow read: if isOwner(userId);
-
       allow create: if isOwner(userId) && (
-        // Credit (Sign-up, Recharge, or Refund)
         (
           request.resource.data.type == 'credit' &&
           request.resource.data.amount > 0 &&
           (request.resource.data.timestamp == request.time || request.resource.data.timestamp == null)
         ) ||
-        // Debit (Payment for booking)
         (
           request.resource.data.type == 'debit' &&
           request.resource.data.amount < 0 &&
           (request.resource.data.timestamp == request.time || request.resource.data.timestamp == null)
         )
       );
-
       allow update, delete: if false;
     }
     match /shorts/{shortId} {
