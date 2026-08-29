@@ -13,7 +13,7 @@ service cloud.firestore {
                     (
                       ('walletBalance' in request.resource.data && request.resource.data.walletBalance >= 0) 
                       || !('walletBalance' in request.resource.data)
-                      || request.resource.data.diff(resource.data).affectedKeys().hasOnly(['displayName', 'photoURL', 'email', 'phoneNumber', 'country', 'state'])
+                      || request.resource.data.diff(resource.data).affectedKeys().hasOnly(['displayName', 'photoURL', 'email', 'phoneNumber', 'country', 'state', 'walletBalance'])
                     );
     }
     match /users/{userId}/addresses/{addressId} {
