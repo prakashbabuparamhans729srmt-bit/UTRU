@@ -1,4 +1,3 @@
-
 'use client';
 
 import {
@@ -67,7 +66,7 @@ export default function ContentEditorPage() {
     const [sendNotification, setSendNotification] = useState(false);
     const [notificationMessage, setNotificationMessage] = useState('');
 
-    const handleSave = async () => {
+    const handleSave = () => {
         if (!title || !type || !contentData) {
             toast({
                 variant: 'destructive',
@@ -105,29 +104,31 @@ export default function ContentEditorPage() {
             createdAt: serverTimestamp(),
         };
 
-        try {
-            const contentCollection = collection(firestore, 'content');
-            await addDoc(contentCollection, contentObject);
-            toast({
-                title: 'सहेज लिया गया!',
-                description: 'कंटेंट सफलतापूर्वक सहेज लिया गया है।',
+        const contentCollection = collection(firestore, 'content');
+        addDoc(contentCollection, contentObject)
+            .then(() => {
+                toast({
+                    title: 'सहेज लिया गया!',
+                    description: 'कंटेंट सफलतापूर्वक सहेज लिया गया है।',
+                });
+                router.push('/admin');
+            })
+            .catch((serverError) => {
+                const permissionError = new FirestorePermissionError({
+                    path: 'content',
+                    operation: 'create',
+                    requestResourceData: contentObject,
+                });
+                errorEmitter.emit('permission-error', permissionError);
+                toast({
+                    variant: 'destructive',
+                    title: 'त्रुटि',
+                    description: 'कंटेंट सहेजने में विफल।',
+                });
+            })
+            .finally(() => {
+                setIsLoading(false);
             });
-            router.push('/admin');
-        } catch (serverError) {
-            const permissionError = new FirestorePermissionError({
-                path: 'content',
-                operation: 'create',
-                requestResourceData: contentObject,
-            });
-            errorEmitter.emit('permission-error', permissionError);
-            toast({
-                variant: 'destructive',
-                title: 'त्रुटि',
-                description: 'कंटेंट सहेजने में विफल।',
-            });
-        } finally {
-            setIsLoading(false);
-        }
     };
 
   return (
